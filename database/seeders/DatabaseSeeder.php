@@ -24,7 +24,12 @@ class DatabaseSeeder extends Seeder
             AcomodacoesTableSeeder::class,
             TabelaOrigensTableSeeder::class,
             FaixaEtariasTableSeeder::class,
-            EstagioFinanceirosTableSeeder::class,  // Adicione este seeder aqui
+            EstagioFinanceirosTableSeeder::class,
+            CargosTableSeeder::class,
+            PlanosTableSeeder::class,
+            CorretorasTableSeeder::class,
+            PermissionsTableSeeder::class,
+
         ]);
     }
 }
