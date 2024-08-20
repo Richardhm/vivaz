@@ -13,16 +13,28 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            .container_login {
+                background:url({{asset('space.jpg')}}) no-repeat;
+                background-position: center center;
+                background-size: cover;
+
+            }
+            .container_formulario {
+                background:rgba(254,254,254,0.18);
+                backdrop-filter: blur(15px);
+            }
+        </style>
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+        <div class="container_login min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-red-600 dark:bg-gray-900">
 {{--            <div>--}}
 {{--                <a href="/">--}}
 {{--                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />--}}
 {{--                </a>--}}
 {{--            </div>--}}
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            <div class="container_formulario w-full sm:max-w-md mt-6 px-6 py-16 bg-transparent border border-white border-2 dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg !important">
                 {{ $slot }}
             </div>
         </div>
