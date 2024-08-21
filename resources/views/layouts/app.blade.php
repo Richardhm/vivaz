@@ -10,14 +10,18 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <script src="{{asset('build/assets/jquery.js')}}"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
         <link rel="stylesheet" href="{{asset('build/datatables/dataTables.dataTables.min.css')}}">
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="{{asset('build/assets/jquery.js')}}"></script>
+
         <script src="{{asset('build/datatables/dataTables.min.js')}}"></script>
 
         <style>
+
+
             .container_principal {
                 background:url({{asset('fred01.jpeg')}}) no-repeat;
                 background-position: center center;
@@ -395,10 +399,10 @@
                                 "_token": "{{ csrf_token() }}",
                             },
                             success: function(res) {
-                                console.log(res);
-                                //$("#resultado").removeClass('hidden').slideDown('slow').html(res);
+
+                                $("#resultado").removeClass('hidden').slideDown('slow').html(res);
                                 // //interacaoContador++;
-                                //return false;
+                                return false;
                             }
                         });
 
