@@ -145,7 +145,7 @@
                 text-transform:capitalize;
                 opacity: 0;
                 visibility: hidden;
-                z-index: 1;
+                z-index: 9999;
             }
             .navbar ul li::after {
                 position:absolute;
@@ -181,10 +181,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="container_principal min-h-screen bg-gray-100 dark:bg-gray-900">
-
-
             <!-- Page Content -->
-
             <div class="navbar">
                 <div class="profile">
                     <div class="imgbox">
@@ -216,14 +213,14 @@
                         </a>
                     </li>
                     <li text-data="orçamento">
-                        <a href="#orcamento">
+                        <a href="{{route('orcamento')}}">
                             <i class="fa-solid fa-file-pdf fa-xs"></i>
                             <span>orçamento</span>
                         </a>
                     </li>
 
                     <li text-data="estrela">
-                        <a href="">
+                        <a href="{{route('estrela.index')}}">
                             <i class="fas fa-star fa-xs"></i>
                             <span>estrela</span>
                         </a>
