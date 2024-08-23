@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FinanceiroController;
+use App\Http\Controllers\ImagemController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,11 @@ Route::middleware('auth')->group(function () {
     Route::get("/financeiro/individual/em_geral/{mes?}",[FinanceiroController::class,'geralIndividualPendentes'])->name('financeiro.individual.geralIndividualPendentes');
     Route::post('/contratos/montarPlanosIndividual',[FinanceiroController::class,'montarPlanosIndividual'])->name('contratos.montarPlanosIndividual');
     Route::post('/contratos/individual',[FinanceiroController::class,'storeIndividual'])->name('individual.store');
+
+    Route::post("/pdf",[ImagemController::class,'criarPDF'])->name('gerar.imagem');
+
+
+
 });
 
 require __DIR__.'/auth.php';

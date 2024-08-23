@@ -48,7 +48,7 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 
     @foreach($dados as $dado)
         @php
-            $faixaEtaria = "00-18";
+            $faixaEtaria = $dado->faixaEtaria->nome;
             $acomodacao = $dado->acomodacao_id;
             $valor = $dado->valor;
             $odonto = $dado->odonto;
@@ -164,7 +164,7 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 
 
 
-
+@if($status)
 
 <div class="h-2 my-1 w-full bg-white rounded-lg"></div>
 {{--Sem Odotno--}}
@@ -205,31 +205,32 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 
     @foreach($dados as $dd)
         @php
-            $faixaEtariaSemOdonto = "00-18";
-            $acomodacaoSemOdonto = $dd->acomodacao_id;
-            $valorSemOdonto = $dd->valor;
-            $odontoSemOdonto = $dd->odonto;
-            $coparticipacaoSemOdonto = $dd->coparticipacao;
-            $quantidadeSemOdonto = $dd->quantidade;
 
-            if($odontoSemOdonto == 0) {
-                // Verifica se tem coparticipação
-                $index_sem_odonto = ($coparticipacaoSemOdonto == 1) ? 'com_copar' : 'sem_copar';
+                $faixaEtariaSemOdonto = $dd->faixaEtaria->nome;
+                $acomodacaoSemOdonto = $dd->acomodacao_id;
+                $valorSemOdonto = $dd->valor;
+                $odontoSemOdonto = $dd->odonto;
+                $coparticipacaoSemOdonto = $dd->coparticipacao;
+                $quantidadeSemOdonto = $dd->quantidade;
 
-                if (!isset($dadosSemOdonto[$faixaEtariaSemOdonto])) {
-                    $dadosSemOdonto[$faixaEtariaSemOdonto] = [
-                        'faixa_etaria_id' => $faixaEtariaSemOdonto,
-                        'apartamento_com_copar' => 0,
-                        'enfermaria_com_copar' => 0,
-                        'apartamento_sem_copar' => 0,
-                        'enfermaria_sem_copar' => 0,
-                        'quantidade' => $quantidadeSemOdonto
-                    ];
+                if($odontoSemOdonto == 0) {
+                    // Verifica se tem coparticipação
+                    $index_sem_odonto = ($coparticipacaoSemOdonto == 1) ? 'com_copar' : 'sem_copar';
+
+                    if (!isset($dadosSemOdonto[$faixaEtariaSemOdonto])) {
+                        $dadosSemOdonto[$faixaEtariaSemOdonto] = [
+                            'faixa_etaria_id' => $faixaEtariaSemOdonto,
+                            'apartamento_com_copar' => 0,
+                            'enfermaria_com_copar' => 0,
+                            'apartamento_sem_copar' => 0,
+                            'enfermaria_sem_copar' => 0,
+                            'quantidade' => $quantidadeSemOdonto
+                        ];
+                    }
+
+                    $dadosSemOdonto[$faixaEtariaSemOdonto]["{$acomodacaoSemOdonto}_{$index_sem_odonto}"] = $valorSemOdonto ?? 0;
+
                 }
-
-                $dadosSemOdonto[$faixaEtariaSemOdonto]["{$acomodacaoSemOdonto}_{$index_sem_odonto}"] = $valorSemOdonto ?? 0;
-
-            }
         @endphp
     @endforeach
 
@@ -307,5 +308,7 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 <button data-odonto="0" class="downloadLink w-full text-xs font-medium bg-green-400 text-white rounded-lg border">
     Gerar Imagem
 </button>
+
+@endif
 
 </div>

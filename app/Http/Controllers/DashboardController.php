@@ -51,6 +51,7 @@ class DashboardController extends Controller
         $operadora = request()->operadora;
 
         $imagem_operadora = Administradora::find($operadora)->logo;
+
         $plano_nome = Plano::find($plano)->nome;
         $imagem_plano = Administradora::find($operadora)->logo;
         $cidade_nome = TabelaOrigens::find($cidade)->nome;
@@ -64,10 +65,7 @@ class DashboardController extends Controller
             //->where('acomodacao_id',"!=",3)
             ->whereIn('tabelas.faixa_etaria_id', explode(',', $keys))
             ->get();
-
-
-
-
+        $status = $dados->contains('odonto', 0);
 
 
         return view("cotacao.cotacao2",[
@@ -75,15 +73,9 @@ class DashboardController extends Controller
             "operadora" => $imagem_operadora,
             "plano_nome" => $plano_nome,
             "cidade_nome" => $cidade_nome,
-            "imagem_plano" => $imagem_plano
+            "imagem_plano" => $imagem_plano,
+            "status" => $status
         ]);
-
-
-
-
-
-
-
 
     }
 
