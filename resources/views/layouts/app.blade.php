@@ -45,6 +45,7 @@
                 width:45px;
                 padding:10px;
                 transition: 0.3s 0s ease-out;
+                z-index: 9999999;
             }
             .profile {
                 position:relative;
@@ -177,9 +178,31 @@
 
             }
 
+            .ajax_load {display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;}
+            .ajax_load_box{margin:auto;text-align:center;color:#fff;font-weight:var(700);text-shadow:1px 1px 1px rgba(0,0,0,.5)}
+            .ajax_load_box_circle{border:16px solid #e3e3e3;border-top:16px solid #61DDBC;border-radius:50%;margin:auto;width:80px;height:80px;-webkit-animation:spin 1.2s linear infinite;-o-animation:spin 1.2s linear infinite;animation:spin 1.2s linear infinite}
+            @-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}
+            @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+
+
+
+
+
         </style>
     </head>
     <body class="font-sans antialiased">
+        <div class="ajax_load">
+            <div class="ajax_load_box">
+                <div class="ajax_load_box_circle"></div>
+                <p class="ajax_load_box_title">Aguarde, carregando...</p>
+            </div>
+        </div>
+
+
+
+
+
         <div class="container_principal min-h-screen bg-gray-100 dark:bg-gray-900">
             <!-- Page Content -->
             <div class="navbar">
@@ -195,13 +218,13 @@
 
                 <ul>
                     <li text-data="dashboard">
-                        <a href="#dashboard">
+                        <a href="#">
                             <i class="fas fa-home fa-xs"></i>
                             <span>dashboard</span>
                         </a>
                     </li>
                     <li text-data="ranking">
-                        <a href="#ranking">
+                        <a href="{{route('ranking.index')}}">
                             <i class="fa-solid fa-ranking-star fa-xs"></i>
                             <span>ranking</span>
                         </a>
@@ -333,7 +356,7 @@
 
                 $('input[type="text"]').on('input', checkFields);
 
-                // Monitora mudança no select
+
                 $('#cidade').on('change', checkFields);
 
                 /*****************verificar se cidade e minus estão preenchidos para aparecer administradoras*******/
@@ -437,6 +460,7 @@
 
 
                 $("body").on('click',".downloadLink",function(e){
+                    var load = $(".ajax_load");
                     e.preventDefault();
                     let linkUrl = $(this).attr("href");
 
@@ -484,6 +508,9 @@
                         // }
                         xhrFields: {
                             responseType: 'blob'
+                        },
+                        beforeSend: function () {
+                            load.fadeIn(100).css("display", "flex");
                         },
                         success:function(blob,status,xhr,ppp) {
                             if(blob.size && blob.size != undefined) {

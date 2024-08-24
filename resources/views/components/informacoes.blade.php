@@ -1,27 +1,25 @@
-<div class="mt-2 rounded p-1 mr-3 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border" style="width:22%;z-index:1;pointer-events: none;" id="container_informacoes">
+<div class="mt-2 rounded p-1 mr-3 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border" style="width:22%;" id="container_informacoes">
     <button class="py-1.5 w-full px-1 me-2 mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
         Tabela de Origem
     </button>
+
     <form>
         <div class="w-full flex">
-{{--            <div class="w-2/5">--}}
-{{--                <select name="estados" id="estados" class="py-1 bg-gray-50 bg-opacity-10 text-xs w-full px-1 me-2 mb-2 text-sm font-medium text-white rounded-lg border border-gray-200 bg-opacity-20">--}}
-{{--                    <option value="1" class="">Goias</option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
-
             <div class="ml-1 w-full">
-                <select id="cidade" class="py-1 hover:bg-purple-900 bg-gray-50 bg-opacity-10 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-white rounded-lg border border-gray-200">
-                    <option value="" class="text-center text-lg">Escolher Cidade</option>
+                <select id="cidade" class="py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none hover:bg-transparent py-2 text-white focus:bg-transparent w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+                    <option value="" class="text-center text-lg text-black">Escolher Cidade</option>
                     @foreach($cidades as $cc)
-                        <option value="{{$cc->id}}" class="">{{$cc->nome}}</option>
+                        <option value="{{$cc->id}}" class="text-black hover:bg-transparent focus:bg-transparent focus:text-white" style="background-color:#5c636a !important;opacity:0.2;color:white;">{{$cc->nome}}</option>
                     @endforeach
                 </select>
             </div>
-
         </div>
-
     </form>
+
+
+
+
+
     <div class="flex flex-wrap justify-around" id="faixa_etarias">
         <div class="flex flex-col w-[33%]">
             <div class="mb-2 w-full">

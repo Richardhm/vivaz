@@ -124,27 +124,27 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 
 
     </tbody>
-    <table class="bg-gray-700 w-full bg-opacity-20 rounded-lg bordered mt-1">
+    <table class="bg-gray-700 w-full bg-opacity-20 rounded-lg bordered mt-2 py-0.5">
 
         <tfoot>
         <tr>
-            <td class="text-white" style="font-size: 0.7em;text-align: center;">Total</td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align: center;">Total</td>
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalApartamento_com_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermaria_com_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">0</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalApartamento_sem_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermaria_sem_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">0</span>
             </td>
         </tr>
@@ -158,7 +158,11 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 
 
 
-<button data-odonto="1" class="downloadLink w-full text-xs font-medium bg-green-400 text-white rounded-lg border focus:ring-0">
+<button data-odonto="1" class="downloadLink flex justify-center items-center w-full
+py-0.5 mb-1 text-sm font-medium mt-2
+text-white focus:outline-none bg-gray-700 rounded-lg border
+border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10
+focus:ring-4 focus:ring-gray-200 bg-red-400">
     Gerar Imagem
 </button>
 
@@ -275,27 +279,27 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 
 
     </tbody>
-    <table class="min-w-full bg-gray-700 bg-opacity-20 rounded-lg bordered mt-1">
+    <table class="min-w-full bg-gray-700 bg-opacity-20 rounded-lg bordered mt-2 py-0.5">
 
         <tfoot>
         <tr>
-            <td class="text-white" style="font-size: 0.7em;text-align: center;">Total</td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align: center;">Total</td>
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalApartamentoSemOdonto_com_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermariaSemOdonto_com_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">0</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalApartamentoSemOdonto_sem_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermariaSemOdonto_sem_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
+            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">0</span>
             </td>
         </tr>
@@ -305,7 +309,11 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 </table>
 
 
-<button data-odonto="0" class="downloadLink w-full text-xs font-medium bg-green-400 text-white rounded-lg border">
+<button data-odonto="0" class="downloadLink flex justify-center items-center w-full
+py-0.5 mb-1 text-sm font-medium mt-2
+text-white focus:outline-none bg-gray-700 rounded-lg border
+border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10
+focus:ring-4 focus:ring-gray-200 bg-red-400">
     Gerar Imagem
 </button>
 

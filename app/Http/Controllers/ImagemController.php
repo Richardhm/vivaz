@@ -13,13 +13,31 @@ class ImagemController extends Controller
 {
     public function criarPDF()
     {
-        $cidade = request()->tabela_origem;
-        $plano = request()->plano;
-        $operadora = request()->operadora;
-        $odonto = request()->odonto;
+        $faixas = [
+
+                '1' => 1,
+                            '2' => 1,
+                            '3' => 1,
+                            '4' => 1,
+                            '5' => 1,
+                            '6' => 1,
+                            '7' => 1,
+                            '8' => 0,
+                            '9' => 0,
+                            '10' =>0
+
+                   ];
+//        $cidade = request()->tabela_origem;
+//        $plano = request()->plano;
+//        $operadora = request()->operadora;
+//        $odonto = request()->odonto;
+        $cidade = 2;
+        $plano = 1;
+        $operadora = 4;
+        $odonto = 1;
         $sql = "";
         $chaves = [];
-        foreach(request()->faixas[0] as $k => $v) {
+        foreach($faixas as $k => $v) {
             if($v != null AND $v != 0) {
                 $sql .= " WHEN tabelas.faixa_etaria_id = {$k} THEN ${v} ";
                 $chaves[] = $k;
@@ -30,7 +48,7 @@ class ImagemController extends Controller
 
         $admin_nome = Administradora::find($operadora)->nome;
 
-        $odonto_frase = $odonto == 1 ? " c/odonto" : " s/odonto";
+        $odonto_frase = $odonto == 1 ? " c/ Odonto" : " s/ Odonto";
         $frase = $plano_nome.$odonto_frase;
 
         $keys = implode(",",$chaves);

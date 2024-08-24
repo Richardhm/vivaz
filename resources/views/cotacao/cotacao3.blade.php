@@ -15,7 +15,7 @@
         }
 
         body {
-            background-image: url('vivaz03_01_refatorado.png');
+            background-image: url('folder_vivaz04.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: top left;
@@ -24,10 +24,10 @@
         }
         .container {
             position: absolute;
-            top: 500px;
+            top: 380px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
+            width: 80%;
         }
 
         .tabela-container {
@@ -45,8 +45,10 @@
         td, th {
             padding: 5px;
             text-align: center;
-            text-transform: uppercase;
+            text-transform: capitalize;
+
         }
+
 
         th {
             background-color: rgb(5,53,95);
@@ -75,7 +77,7 @@
             color: white;
         }
         thead .title {
-            text-transform: uppercase;
+            text-transform: capitalize;
         }
 
         .lembretes {
@@ -86,8 +88,9 @@
         }
 
         .lembretes p {
-            margin: 3px 0;
+            margin: 2px 0;
             color:rgb(19,82,135);
+            font-size: 0.8em;
         }
 
         /* Novos estilos */
@@ -118,11 +121,12 @@
             margin: 15px 0 10px 0;
             width: 100%;
             color:rgb(19,82,135);
+
         }
 
         #valores_coparticipacao > div {
-            width: 25%;
-            float: left;
+            float:left;
+
         }
 
         #valores_coparticipacao .section-title {
@@ -160,8 +164,8 @@
             position: absolute;
             bottom: 3px;
             left: 20px;
-            width: 342px;
-            height: 310px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
         }
 
@@ -195,20 +199,23 @@
 
         .cidade_container {
             position:absolute;
-            top:300px;
-            left:40%;
+            top:210px;
+            left:42%;
             font-weight: bold;
-            font-size: 2.2em;
-            color: rgb(19,82,135);
+            font-size: 1.7em;
+            color:#366EBF;
         }
 
         .frase_container {
-            position:absolute;
-            top:380px;
-            left:25%;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -1263%);
+            text-align: center;
             font-weight: bold;
-            font-size: 1.8em;
-            color: #FFF;
+            font-size: 1.5em;
+            color: white;
         }
 
     </style>
@@ -231,10 +238,10 @@
             </tr>
             <tr>
                 <td class="faixa-etaria">Faixa Etária</td>
-                <td class="apart-enfer apart">APART</td>
-                <td class="apart-enfer apart">ENFER</td>
-                <td class="apart-enfer copart-parcial">APART</td>
-                <td class="apart-enfer copart-parcial">ENFER</td>
+                <td class="apart-enfer apart">Apart</td>
+                <td class="apart-enfer apart">Enfer</td>
+                <td class="apart-enfer copart-parcial">Apart</td>
+                <td class="apart-enfer copart-parcial">Enfer</td>
             </tr>
             </thead>
             <tbody>
@@ -328,10 +335,10 @@
     </div>
 
     <div id="valores_coparticipacao">
-        <h3>Valores de Coparticipação:</h3>
+        <h3>Coparticipação:</h3>
         <div>
-            <p class="section-title">PROCEDIMENTOS</p>
-            <div class="section-content">
+            <p class="section-title" style="width:210px;">Procedimentos</p>
+            <div class="section-content" style="width:225px;padding-left:5px;">
                 @if($pdf->consultas_eletivas_total || $pdf->consultas_eletivas_parcial)
                     <p>Consultas Eletivas</p>
                 @endif
@@ -366,9 +373,9 @@
             </div>
         </div>
 
-        <div style="margin:0 1%;">
-            <p class="section-title">COPART TOTAL</p>
-            <div class="section-content">
+        <div style="margin:0 0.2%;">
+            <p class="section-title" style="width:115px;">Copart Total</p>
+            <div class="section-content" style="width:130px;padding-left:5px;">
                 <p>{{$pdf->consultas_eletivas_total ?? ''}}</p>
                 <p>{{$pdf->consultas_de_urgencia_total ?? ''}}</p>
                 <p>{{$pdf->exames_simples_total ?? ''}}</p>
@@ -381,8 +388,8 @@
         </div>
 
         <div>
-            <p class="section-title">COPART PARCIAL</p>
-            <div class="section-content">
+            <p class="section-title" style="width:115px;">Copart Parcial</p>
+            <div class="section-content" style="width:131px;padding-left:5px;">
                 <p>{{$pdf->consultas_eletivas_parcial ?? ''}}</p>
                 <p>{{$pdf->consultas_de_urgencia_parcial ?? ''}}</p>
                 <p>{{$pdf->exames_simples_parcial ?? ''}}</p>
@@ -411,13 +418,11 @@
 
     <div class="right">
         <p>
-            <span>3291-2131</span>
+        </p>
+
         </p>
         <p>
-            <span>innoveplanossaude</span>
-        </p>
-        <p>
-            <span>R.CP-3,Qd.CP07,Lt.12,Casa 2-Celina Park</span>
+
         </p>
     </div>
 </div>
