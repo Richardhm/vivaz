@@ -319,4 +319,14 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
 
 @endif
 
+
+<div style="text-align: center;margin-top: 8px;">
+    <label for="status_carencia">
+        <input type="checkbox" name="status_carencia" id="status_carencia" class="w-6 h-6 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+        <span style="color:white;" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-2xl">Com Carências</span>
+    </label>
+
+
+</div>
+
 </div>

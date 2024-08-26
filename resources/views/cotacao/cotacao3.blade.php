@@ -27,7 +27,7 @@
             top: 380px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80%;
+            width: 87%;
         }
 
         .tabela-container {
@@ -117,16 +117,41 @@
             color:white;
         }
 
-        #valores_coparticipacao h3 {
-            margin: 15px 0 10px 0;
+        #valores_coparticipacao {
+
             width: 100%;
+
+        }
+
+        #container_coparticipacao {
+            width: 50%;
+            background-color: green;
+            box-sizing: border-box;
+            float:left;
+            /*display: inline-block;*/
+
+        }
+        #container_carencias {
+            width: 30%;
+            background-color: purple;
+            float:left;
+            box-sizing: border-box;
+            /*display: inline-block;*/
+        }
+
+
+        #valores_coparticipacao h3 {
+            margin:15px 0 10px 0;
+            width:100%;
             color:rgb(19,82,135);
 
         }
 
-        #valores_coparticipacao > div {
-            float:left;
 
+
+        #valores_coparticipacao > div {
+            width:100%;
+            box-sizing: border-box;
         }
 
         #valores_coparticipacao .section-title {
@@ -134,7 +159,8 @@
             font-size: 0.8em;
             color: #FFF;
             margin: 0;
-            padding: 10px;
+            padding:7px 3px;
+
         }
 
         #valores_coparticipacao .section-content {
@@ -224,10 +250,6 @@
 <p class="cidade_container">{{$cidade}}</p>
 <p class="frase_container">{{$frase}}</p>
 <div class="container">
-
-
-
-
     <div class="tabela-container">
         <table>
             <thead>
@@ -334,74 +356,185 @@
         <p>{{$pdf->linha03 ?? ''}}</p>
     </div>
 
-    <div id="valores_coparticipacao">
-        <h3>Coparticipação:</h3>
-        <div>
-            <p class="section-title" style="width:210px;">Procedimentos</p>
-            <div class="section-content" style="width:225px;padding-left:5px;">
-                @if($pdf->consultas_eletivas_total || $pdf->consultas_eletivas_parcial)
-                    <p>Consultas Eletivas</p>
-                @endif
+    <table id="valores_coparticipacao" style="width:{{ $status_carencia ? '100%' : '45%'}};border-collapse: collapse;margin:0;padding:0;">
+        <tr>
+            <td style="width:{{ $status_carencia ? '45%' : '100%'}};vertical-align:top;padding:0;margin:0;">
+                <h3 style="margin: 0;text-align:left;">Coparticipação:</h3>
 
-                @if($pdf->consultas_de_urgencia_total || $pdf->consultas_de_urgencia_parcial)
-                    <p>Consultas de Urgência</p>
-                @endif
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="width: 40%; vertical-align: top;text-align:left;">
+                            <p class="section-title">Procedimentos</p>
+                            <div class="section-content" style="text-align:left;">
+                                @if($pdf->consultas_eletivas_total || $pdf->consultas_eletivas_parcial)
+                                    <p>Consultas Eletivas</p>
+                                @endif
+                                @if($pdf->consultas_de_urgencia_total || $pdf->consultas_de_urgencia_parcial)
+                                    <p>Consultas de Urgência</p>
+                                @endif
+                                @if($pdf->exames_simples_total || $pdf->exames_simples_parcial)
+                                    <p>Exames Simples</p>
+                                @endif
+                                @if($pdf->exames_complexos_total || $pdf->exames_complexos_parcial)
+                                    <p>Exames Complexos</p>
+                                @endif
+                                @if($pdf->terapias_especiais_total || $pdf->terapias_especiais_parcial)
+                                    <p>Terapias Especiais</p>
+                                @endif
+                                @if($pdf->demais_terapias_total || $pdf->demais_terapias_parcial)
+                                    <p>Demais Terapias</p>
+                                @endif
+                                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
+                                    <p>Internações</p>
+                                @endif
+                                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
+                                    <p>Cirurgia</p>
+                                @endif
+                            </div>
+                        </td>
+                        <td style="width: 25%; vertical-align: top;text-align:left;">
+                            <p class="section-title">Copart Total</p>
+                            <div class="section-content" style="text-align:left;">
+                                <p>{{$pdf->consultas_eletivas_total ?? ''}}</p>
+                                <p>{{$pdf->consultas_de_urgencia_total ?? ''}}</p>
+                                <p>{{$pdf->exames_simples_total ?? ''}}</p>
+                                <p>{{$pdf->exames_complexos_total ?? ''}}</p>
+                                <p>{{$pdf->terapias_especiais_total ?? ''}}</p>
+                                <p>{{$pdf->demais_terapias_total ?? ''}}</p>
+                                <p>{{$pdf->internacoes_total ?? ''}}</p>
+                                <p>{{$pdf->cirurgia_total ?? ''}}</p>
+                            </div>
+                        </td>
+                        <td style="width: 25%; vertical-align: top;text-align:left;">
+                            <p class="section-title">Copart Parcial</p>
+                            <div class="section-content" style="text-align:left;">
+                                <p>{{$pdf->consultas_eletivas_parcial ?? ''}}</p>
+                                <p>{{$pdf->consultas_de_urgencia_parcial ?? ''}}</p>
+                                <p>{{$pdf->exames_simples_parcial ?? ''}}</p>
+                                <p>{{$pdf->exames_complexos_parcial ?? ''}}</p>
+                                <p>{{$pdf->terapias_especiais_parcial ?? ''}}</p>
+                                <p>{{$pdf->demais_terapias_parcial ?? ''}}</p>
+                                <p>{{$pdf->internacoes_parcial ?? ''}}</p>
+                                <p>{{$pdf->cirurgia_parcial ?? ''}}</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            @if($status_carencia == 1)
+            <td style="width: 55%; vertical-align: top; padding: 0; margin: 0;color:#366EBF;">
+                <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
+                <table style="width: 100%;border-spacing: 0; padding: 0;">
+                    <tr style="padding: 0;">
+                        <!-- Coluna da Esquerda (70%) -->
+                        <td style="width: 60%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                            <p style="margin: 0;padding:0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px;">
+                                    24<br />horas
+                                </span>
+                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
+                                    Urgência, Emergência e<br />Acidentes Pessoais
+                                </span>
+                            </p>
+                            <p style="margin: 10px 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    30<br />dias
+                                </span>
+                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
+                                    Consultas Médicas,<br />Exames Médicos Simples
+                                </span>
+                            </p>
+                            <p style="margin: 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    90<br />dias
+                                </span>
+                                <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.8em;">
+                                    Exames Cardiológicos, Exames<br /> de Imagem, Oftalmológicos,<br />Otorrino Simples, Raio X,<br />Ultrassonografia
+                                </span>
+                            </p>
+                            <p style="margin:10px 0px 0px 0px;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    180<br />dias
+                                </span>
+                                <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.8em;">
+                                    Cirurgias, Internações, Exames<br />de Alto Custo, Tratamento<br />Psicológico, Terapia Ocupacional,<br />Fisioterapia
+                                </span>
+                            </p>
+                        </td>
+                        <!-- Coluna da Direita (30%) -->
+                        <td style="width: 40%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                            <p style="margin: 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    300<br />dias
+                                </span>
+                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
+                                    Parto
+                                </span>
+                            </p>
+                            <p style="margin: 10px 0 0 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    720<br />dias
+                                </span>
+                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;;">
+                                    Doenças e Lesões<br />Pré-existentes
+                                </span>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            @endif
 
-                @if($pdf->exames_simples_total || $pdf->exames_simples_parcial)
-                    <p>Exames Simples</p>
-                @endif
+        </tr>
+    </table>
 
-                @if($pdf->exames_complexos_total || $pdf->exames_complexos_parcial)
-                    <p>Exames Complexos</p>
-                @endif
-
-                @if($pdf->terapias_especiais_total || $pdf->terapias_especiais_parcial)
-                    <p>Terapias Especiais</p>
-                @endif
-
-                @if($pdf->demais_terapias_total || $pdf->demais_terapias_parcial)
-                    <p>Demais Terapias</p>
-                @endif
-
-                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
-                    <p>Internações</p>
-                @endif
-
-                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
-                    <p>Cirurgia</p>
-                @endif
-            </div>
-        </div>
-
-        <div style="margin:0 0.2%;">
-            <p class="section-title" style="width:115px;">Copart Total</p>
-            <div class="section-content" style="width:130px;padding-left:5px;">
-                <p>{{$pdf->consultas_eletivas_total ?? ''}}</p>
-                <p>{{$pdf->consultas_de_urgencia_total ?? ''}}</p>
-                <p>{{$pdf->exames_simples_total ?? ''}}</p>
-                <p>{{$pdf->exames_complexos_total ?? ''}}</p>
-                <p>{{$pdf->terapias_especiais_total ?? ''}}</p>
-                <p>{{$pdf->demais_terapias_total ?? ''}}</p>
-                <p>{{$pdf->internacoes_total ?? ''}}</p>
-                <p>{{$pdf->cirurgia_total ?? ''}}</p>
-            </div>
-        </div>
-
-        <div>
-            <p class="section-title" style="width:115px;">Copart Parcial</p>
-            <div class="section-content" style="width:131px;padding-left:5px;">
-                <p>{{$pdf->consultas_eletivas_parcial ?? ''}}</p>
-                <p>{{$pdf->consultas_de_urgencia_parcial ?? ''}}</p>
-                <p>{{$pdf->exames_simples_parcial ?? ''}}</p>
-                <p>{{$pdf->exames_complexos_parcial ?? ''}}</p>
-                <p>{{$pdf->terapias_especiais_parcial ?? ''}}</p>
-                <p>{{$pdf->demais_terapias_parcial ?? ''}}</p>
-                <p>{{$pdf->internacoes_parcial ?? ''}}</p>
-                <p>{{$pdf->cirurgia_parcial ?? ''}}</p>
-            </div>
-        </div>
-    </div>
-
+    @if($odonto == 1)
+    <!-- Nova Tabela -->
+    <table id="valores_odonto" style="width: 100%; border-collapse: collapse; margin-top: 10px;color:#366EBF;">
+        <!-- Título -->
+        <tr>
+            <td colspan="3" style="text-align: left; padding: 10px 0;">
+                <h3 style="margin: 0; text-align: left; width: 100%;">Carências Odonto</h3>
+            </td>
+        </tr>
+        <!-- Conteúdo das Colunas -->
+        <tr>
+            <!-- Coluna 1 -->
+            <td style="width: 33%; vertical-align: top; padding: 0 10px;">
+                <p style="margin: 0; text-align: left;">
+                <span style="border: 4px solid #366EBF; font-size: 0.8em; border-radius: 5px; display: inline-block; vertical-align: top; text-align: center; padding: 5px 12px;">
+                    24<br />horas
+                </span>
+                    <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
+                    Atendimento Urgência e<br />Emergência
+                </span>
+                </p>
+            </td>
+            <!-- Coluna 2 -->
+            <td style="width: 33%; vertical-align: top; padding: 0 10px;">
+                <p style="margin: 0; text-align: left;">
+                <span style="border: 4px solid #366EBF; font-size: 0.8em; border-radius: 5px; display: inline-block; vertical-align: top; text-align: center; padding: 5px 12px;">
+                    60<br />dias
+                </span>
+                    <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
+                    Diagnóstico, Prevenção<br />em Saúde Bucal e Dentista
+                </span>
+                </p>
+            </td>
+            <!-- Coluna 3 -->
+            <td style="width: 33%; vertical-align: top; padding: 0 10px;">
+                <p style="margin: 0; text-align: left;">
+                <span style="border: 4px solid #366EBF; font-size: 0.8em; border-radius: 5px; display: inline-block; vertical-align: top; text-align: center; padding: 5px 12px;">
+                    180<br />dias
+                </span>
+                    <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
+                    Demais Procedimentos<br />Odontológicos
+                </span>
+                </p>
+            </td>
+        </tr>
+    </table>
+    @endif
 
 
 </div>
@@ -410,21 +543,13 @@
 <div class="footer">
     <img src="{{ $image }}" alt="User Image">
 
-    <div class="middle">
+    <div class="right">
         <p>{{$nome}}</p>
         <p>Consultor de Vendas</p>
-        <p>5645425</p>
+        <p>{{$celular}}</p>
     </div>
 
-    <div class="right">
-        <p>
-        </p>
 
-        </p>
-        <p>
-
-        </p>
-    </div>
 </div>
 
 

@@ -406,11 +406,13 @@
                         let plano = "";
                         let operadora = "";
                         let faixas = [];
+                        let status_carencia = "";
 
                         cidade = $("#cidade").val();
                         plano = $("input[name='planos-radio']:checked").val();
                         operadora = $("input[name='operadoras']:checked").val();
-
+                        status_carencia = $("input[name='status_carencia']:checked").val();
+                        status_carencia = status_carencia === 'true'
                         faixas = [{
 
                             '1' : $("body").find("#input_0_18").val(),
@@ -435,6 +437,7 @@
                                 "plano": plano,
                                 "operadora": operadora,
                                 "faixas": faixas,
+                                "status_carencia":status_carencia,
                                 "_token": "{{ csrf_token() }}",
                             },
                             success: function(res) {
@@ -460,6 +463,7 @@
 
 
                 $("body").on('click',".downloadLink",function(e){
+                    console.log("Olaaaaaaadownloadddddddddddddddddddddddddd");
                     var load = $(".ajax_load");
                     e.preventDefault();
                     let linkUrl = $(this).attr("href");
@@ -469,12 +473,17 @@
                     let operadora = "";
                     let faixas = [];
                     let odonto = "";
+                    //let status_carencia = "";
 
 
 
                     cidade = $("#cidade").val();
                     plano = $("input[name='planos-radio']:checked").val();
                     operadora = $("input[name='operadoras']:checked").val();
+                    let status_carencia = $("input[name='status_carencia']").is(':checked');
+
+                    // Exibe o valor booleano no console
+
                     odonto = $(this).attr('data-odonto');
 
 
@@ -500,6 +509,7 @@
                             "operadora": operadora,
                             "faixas": faixas,
                             "odonto" : odonto,
+                            "status_carencia" : status_carencia
                             //"cliente" : cliente,
                             //"_token": "{{ csrf_token() }}"
                         },

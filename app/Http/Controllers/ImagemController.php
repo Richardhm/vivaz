@@ -13,31 +13,15 @@ class ImagemController extends Controller
 {
     public function criarPDF()
     {
-        $faixas = [
 
-                '1' => 1,
-                            '2' => 1,
-                            '3' => 1,
-                            '4' => 1,
-                            '5' => 1,
-                            '6' => 1,
-                            '7' => 1,
-                            '8' => 0,
-                            '9' => 0,
-                            '10' =>0
+        $cidade = request()->tabela_origem;
+        $plano = request()->plano;
+        $operadora = request()->operadora;
+        $odonto = request()->odonto;
 
-                   ];
-//        $cidade = request()->tabela_origem;
-//        $plano = request()->plano;
-//        $operadora = request()->operadora;
-//        $odonto = request()->odonto;
-        $cidade = 2;
-        $plano = 1;
-        $operadora = 4;
-        $odonto = 1;
         $sql = "";
         $chaves = [];
-        foreach($faixas as $k => $v) {
+        foreach(request()->faixas[0] as $k => $v) {
             if($v != null AND $v != 0) {
                 $sql .= " WHEN tabelas.faixa_etaria_id = {$k} THEN ${v} ";
                 $chaves[] = $k;
@@ -76,7 +60,9 @@ class ImagemController extends Controller
 
         $image_user = 'data:image/png;base64,'.base64_encode(file_get_contents(public_path(auth()->user()->image)));
         $nome = auth()->user()->name;
-
+        $celular = auth()->user()->celular;
+        $status_carencia = request()->status_carencia == "true" ? 1 : 0;
+        
 
         $view = \Illuminate\Support\Facades\View::make("cotacao.cotacao3",[
            'image' => $image_user,
@@ -86,7 +72,10 @@ class ImagemController extends Controller
            'cidade' => $cidade_nome,
            'plano' => $plano_nome,
            'administradora' => $admin_nome,
-           'frase' => $frase
+           'frase' => $frase,
+           'status_carencia' => $status_carencia,
+           'odonto' => $odonto,
+           'celular' => $celular
         ]);
         $pdf = PDFFile::loadHTML($view);
         return $pdf->stream("teste.pdf");
