@@ -1,8 +1,8 @@
 @foreach($ranking as $i => $r)
     @if ($i % 6 === 0)
-        <div class="slide" style="height:100%;">
+        <div class="slide" style="height:80%;">
             @endif
-            <section style="display:flex;width:99%;justify-content:center;margin:10px auto;background-color:#2e4a7a;border-radius:10px;">
+            <section style="display:flex;width:99%;justify-content:center;margin:5px auto;background-color:#2e4a7a;border-radius:10px;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->
                 <div style="background-color:#5d859e;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1.2em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
                     {{$loop->iteration}}°

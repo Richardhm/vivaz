@@ -1,8 +1,8 @@
 @foreach($ranking as $i => $r)
     @if ($i % 6 === 0)
-        <div class="slide" style="height:100%;">
+        <div class="slide" style="height:80%;">
             @endif
-            <section style="display:flex;width:99%;justify-content:center;margin:10px auto;background-color:#2e4a7a;border-radius:10px;">
+            <section style="display:flex;width:99%;justify-content:center;margin:5px auto;background-color:#2e4a7a;border-radius:10px;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->
                 <div style="background-color:#5d859e;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1.2em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
                     {{$loop->iteration}}°
@@ -25,8 +25,8 @@
                             @php
                                 $porcentagem = ($r->quantidade_vidas / 200) * 100;
                             @endphp
-                            <div class="progress-bar bg-yellow progress-bar-striped" role="progressbar" aria-valuenow="{{$porcentagem}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%">
-                                <span class="sr-only" style="color:red;font-weight:bold;">{{$porcentagem}}%</span>
+                            <div class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="{{$porcentagem}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%; background-color: #FFA500;">
+                                <span class="sr-only progress-bar-custom">{{$porcentagem}}%</span>
                             </div>
                         </div>
                     </div>

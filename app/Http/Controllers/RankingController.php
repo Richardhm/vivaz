@@ -19,8 +19,6 @@ class RankingController extends Controller
         $corretora = $request->input('corretora');
         $corretora_id = null;
 
-
-
         if ($corretora == 'accert') {
             $corretora_id = 1;
         } elseif ($corretora == 'innove') {
@@ -30,9 +28,7 @@ class RankingController extends Controller
             $corretora_id = null;
         }
 
-
         if($corretora != "estrela" && $corretora != "concessi") {
-
             $ranking = DB::select("
                 SELECT users.name as corretor, users.image as imagem,SUM(CASE WHEN comissoes.plano_id = 1 AND comissoes.empresarial = 0 THEN  (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0) FROM clientes INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = 1) ELSE 0 END) as quantidade_individual, SUM( CASE WHEN comissoes.plano_id = 3 AND comissoes.empresarial = 0 THEN (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0) FROM clientes INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = 3) ELSE 0 END) as quantidade_coletivo,
                 SUM(CASE WHEN comissoes.plano_id = 5 AND comissoes.empresarial = 1 THEN (SELECT IFNULL(SUM(contrato_empresarial.quantidade_vidas), 0) FROM contrato_empresarial WHERE contrato_empresarial.id = comissoes.contrato_empresarial_id AND contrato_empresarial.plano_id = 5) ELSE 0 END) as quantidade_empresarial,
@@ -97,17 +93,12 @@ class RankingController extends Controller
                 WHERE comissoes.plano_id IN (1, 3, 5) " . ($corretora_id ? " AND comissoes.corretora_id = {$corretora_id}" : "") . "
             ");
 
-
             return [
                 'podium' => $podium,
                 'ranking' => $ranking,
                 'totals' => $totals,
                 'concessionarias' => $concessionarias
             ];
-
-
-
-
 
         } else if($corretora == "concessi") {
 
@@ -274,37 +265,14 @@ class RankingController extends Controller
 
     public function cadastrarConcessionaria(Request $request)
     {
-
-//        $request->validate([
-//            'nome' => 'required|unique:concessionarias,nome',
-//            'meta_individual' => 'required|numeric',
-//            'vidas_individual' => 'required|numeric',
-//            'meta_super_simples' => 'required|numeric',
-//            'vidas_super_simples' => 'required|numeric',
-//            'meta_pme' => 'required|numeric',
-//            'vidas_pme' => 'required|numeric',
-//            'meta_adesao' => 'required|numeric',
-//            'vidas_adesao' => 'required|numeric',
-//        ], [
-//            'nome.unique' => 'Já existe uma concessionária com este nome.',
-//        ]);
-
-        // Criar nova concessionária se o nome for único
-        $concessionaria = new Concessionaria();
-        $concessionaria->nome = $request->nome;
-        $concessionaria->meta_individual = $request->meta_individual;
-        $concessionaria->individual = $request->individual;
-        $concessionaria->meta_super_simples = $request->meta_super_simples;
-        $concessionaria->super_simples = $request->super_simples;
-        $concessionaria->meta_pme = $request->meta_pme;
-        $concessionaria->pme = $request->pme;
-        $concessionaria->meta_adesao = $request->meta_adesao;
-        $concessionaria->adesao = $request->adesao;
-        $concessionaria->save();
-
-        return response()->json([
-            'success' => true,
-            'concessionaria' => $concessionaria
-        ]);
+        $data = $request->input('concessionarias');
+        foreach ($data as $id => $fields) {
+            // Atualiza ou cria a concessão com o ID correspondente
+            Concessionaria::updateOrCreate(
+                ['id' => $id],
+                $fields
+            );
+        }
+        return response()->json(['success' => true]);
     }
 }

@@ -2,11 +2,11 @@
     <div class="ml-3 border-b-2 mt-2">
         <ul class="list_abas flex">
             <li data-id="aba_individual" class="cursor-pointer p-4 text-gray-600 hover:text-blue-600 bg-white backdrop-blur-[15px] active-tab rounded-t" onclick="mostrarAba('aba_individual')">Individual</li>
-            <li data-id="aba_coletivo" class="cursor-pointer p-4 text-gray-600 hover:text-blue-600" onclick="mostrarAba('aba_coletivo')">Coletivo</li>
-            <li data-id="aba_empresarial" class="cursor-pointer p-4 text-gray-600 hover:text-blue-600" onclick="mostrarAba('aba_empresarial')">Empresarial</li>
+            <li data-id="aba_coletivo" class="cursor-pointer p-4 text-gray-600 hover:text-blue-600 bg-white backdrop-blur-[15px] rounded-t mr-2 ml-2" onclick="mostrarAba('aba_coletivo')">Coletivo</li>
+            <li data-id="aba_empresarial" class="cursor-pointer p-4 text-gray-600 hover:text-blue-600 bg-white backdrop-blur-[15px] rounded-t" onclick="mostrarAba('aba_empresarial')">Empresarial</li>
         </ul>
     </div>
-
+    <x-upload-modal></x-upload-modal>
     <section class="conteudo_abas mt-4">
         <!--------------------------------------INDIVIDUAL------------------------------------------>
         <main id="aba_individual" class="block active-tab">
@@ -17,7 +17,7 @@
                     <button class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-lg py-2 px-4 rounded w-full">Arquivos</button>
 
                     <div class="flex justify-between my-3">
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-sm py-2 text-center rounded w-[30%]">Upload</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-sm py-2 text-center rounded w-[30%] modal_upload">Upload</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-sm py-2 text-center rounded w-[30%]">Atualizar</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-sm py-2 text-center rounded w-[30%]">Cancelados</span>
                     </div>
@@ -186,7 +186,7 @@
 
             // Remover estilo de aba ativa
             document.querySelectorAll('.list_abas li').forEach((tab) => {
-                tab.classList.remove('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+                tab.classList.remove('text-blue-600', 'font-bold', 'border-t-6', 'bg-orange-400');
                 tab.classList.add('text-gray-600', 'hover:text-blue-600');
             });
 
@@ -195,10 +195,93 @@
             document.getElementById(id).classList.add('active-tab');
 
             // Adicionar estilo à aba ativa
-            document.querySelector(`[data-id=${id}]`).classList.add('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+            document.querySelector(`[data-id=${id}]`).classList.add('text-blue-600', 'font-bold', 'border-t-6', 'bg-orange-400');
         }
+        mostrarAba('aba_individual');
 
         $(document).ready(function(){
+            $('.modal_upload').on('click', function() {
+                $('#uploadModal').addClass('show');
+            });
+
+            $('#uploadModal .close, #uploadModal').on('click', function() {
+                $('#uploadModal').removeClass('show');
+            });
+
+
+
+
+
+
+
+            $("#arquivo_upload").on('change',function(e){
+                var files = $('#arquivo_upload')[0].files;
+                var load = $(".ajax_load");
+                // let file = $(this).val();
+                var fd = new FormData();
+                fd.append('file',files[0]);
+                // fd.append('file',e.target.files[0]);
+                $.ajax({
+                    url:"{{route('financeiro.sincronizar')}}",
+                    method:"POST",
+                    data:fd,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        load.fadeIn(200).css("display", "flex");
+                        //$('#uploadModal').modal('hide');
+                    },
+                    success:function(res) {
+
+                        if(res == "sucesso") {
+                            window.location.reload();
+                            // load.fadeOut(200);
+                            // $('#uploadModal').modal('show');
+                            // $(".div_icone_arquivo_upload").removeClass('btn-danger').addClass('btn-success').html('<i class="far fa-smile-beam fa-lg"></i>');
+                            // $("#arquivo_upload").val('').prop('disabled',true);
+
+                        } else {
+
+                        }
+
+                    }
+                });
+            });
+
+
+
+
+
+            $("#arquivo_atualizar").on('change',function(){
+                let files = $('#arquivo_atualizar')[0].files;
+                let load = $(".ajax_load");
+                // let file = $(this).val();
+                let fd = new FormData();
+                fd.append('file',files[0]);
+                // fd.append('file',e.target.files[0]);
+                $.ajax({
+                    url:"{{route('financeiro.sincronizar.baixas.jaexiste')}}",
+                    method:"POST",
+                    data:fd,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $('#atualizarModal').modal('hide');
+                        load.fadeIn(200).css("display", "flex");
+
+                    },
+                    success:function(res) {
+                        if(res == "successo") {
+                            load.fadeOut(200);
+                            window.location.reload();
+                        }
+
+                    }
+                });
+            });
+
+
+
 
 
 

@@ -31,7 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::get("/estrela",[EstrelaController::class,'index'])->name('estrela.index');
     Route::get('/ranking',[RankingController::class,'index'])->name('ranking.index');
     Route::get('/dashboard/filtragem',[RankingController::class,'filtragem'])->name('ranking.filtragem');
+    //Route::post('/ranking/cadastrar-concessionaria', [RankingController::class, 'cadastrarConcessionaria'])->name('cadastrar.concessionaria');
     Route::post('/ranking/cadastrar-concessionaria', [RankingController::class, 'cadastrarConcessionaria'])->name('cadastrar.concessionaria');
+    Route::post('/financeiro/sincronizar_baixas/ja_existente',"App\Http\Controllers\Admin\FinanceiroController@sincronizarBaixasJaExiste")->name('financeiro.sincronizar.baixas.jaexiste');
+
+    Route::post('/financeiro/sincronizar',[FinanceiroController::class,'sincronizarDados'])->name('financeiro.sincronizar');
+
 
     /************* Home *************/
     Route::get("/",[HomeController::class,'index'])->name("home.index");
