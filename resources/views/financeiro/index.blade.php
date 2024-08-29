@@ -142,20 +142,184 @@
 
         <!-------------------------------------OUTRAS ABAS------------------------------------------>
         <main id="aba_coletivo" class="hidden">
-            <section class="flex flex-wrap justify-between">
 
+            <section class="flex justify-between flex-wrap content-start">
                 <!--COLUNA DA ESQUERDA-->
-                <div class="flex flex-col text-white space-y-2 bg-transparent backdrop-filter backdrop-blur-md p-4 rounded" style="flex-basis:16%;border-radius:5px;">
-                    <!-- Conteúdo da Coluna Esquerda (Coletivo) -->
-                </div>
-                <!--Fim Coluna da Esquerda-->
+                <div class="flex flex-col text-white basis-[16%] rounded-lg">
+                    <div class="flex mb-1 justify-between">
+            <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-sm py-2 text-center rounded basis-[49%]">
+                <a class="text-center text-white" href="{{route('contratos.create.coletivo')}}">Cadastrar</a>
+            </span>
+                        <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-sm py-2 text-center rounded btn_upload_coletivo basis-[49%]">
+                Upload
+            </span>
+                    </div>
 
-                <!--COLUNA CENTRAL-->
-                <div class="flex-grow">
-                    <!-- Conteúdo da Coluna Central (Coletivo) -->
+                    <div id="content_list_coletivo_begin" class="destaque_content_radius bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
+                        <div class="flex w-full justify-center  mb-1 py-1">
+                            <p class="m-0 p-0">Listagem(Completa)</p>
+                        </div>
+
+                        <div class="flex justify-around flex-wrap">
+                            <div class="flex">
+                                <select id="mudar_ano_table_coletivo" class="form-control">
+                                    <option value="todos" class="text-center">-Anos-</option>
+                                    <option value="2023">2023</option>
+                                </select>
+                            </div>
+                            <div class="flex">
+                                <select id="mudar_mes_table_coletivo" class="form-control">
+                                    <option value="00" class="text-center">-Meses-</option>
+                                    <option value="01">Janeiro</option>
+                                    <option value="02">Fevereiro</option>
+                                    <option value="03">Março</option>
+                                    <option value="04">Abril</option>
+                                    <option value="05">Maio</option>
+                                    <option value="06">Junho</option>
+                                    <option value="07">Julho</option>
+                                    <option value="08">Agosto</option>
+                                    <option value="09">Setembro</option>
+                                    <option value="10">Outubro</option>
+                                    <option value="11">Novembro</option>
+                                    <option value="12">Dezembro</option>
+                                </select>
+                            </div>
+                            <select class="form-control flex w-full" id="select_usuario">
+                                <option value="todos" class="text-center">---Escolher Corretor---</option>
+                            </select>
+
+
+                            <select class="form-control w-full" id="select_coletivo_administradoras">
+                                <option value="todos" class="text-center">---Administradora---</option>
+                            </select>
+                        </div>
+
+                        <ul class="list-none m-0 py-1" id="list_coletivo_begin">
+                            <li class="px-2 flex justify-between mb-1 coletivo">
+                                <span class="flex basis-[50%] font-bold">Contratos:</span>
+                                <span class="badge badge-light total_por_orcamento_coletivo flex basis-[50%] justify-end">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo">
+                                <span class="flex basis-[50%] font-bold">Vidas:</span>
+                                <span class="badge badge-light total_por_vida_coletivo flex basis-[50%] justify-end">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between coletivo">
+                                <span class="flex basis-[50%] font-bold">Valor:</span>
+                                <span class="badge badge-light total_por_page_coletivo flex basis-[50%] justify-end">0</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-red-500 rounded-lg my-1">
+                        <ul class="list-none m-0 py-1" id="atrasado_corretor_coletivo">
+                            <li class="px-1 flex justify-between">
+                                <span>Atrasados</span>
+                                <span class="badge badge-light coletivo_quantidade_atrasado w-[45px] text-right">0</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg my-1">
+                        <ul class="list-none m-0 py-1" id="finalizado_corretor_coletivo">
+                            <li class="px-1 flex justify-between">
+                                <span>Finalizado</span>
+                                <span class="badge badge-light quantidade_coletivo_finalizado w-[45px] text-right">0</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg my-1">
+                        <ul class="list-none m-0 py-1" id="listar">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="em_analise_coletivo">
+                                <span>Em Analise</span>
+                                <span class="badge badge-light coletivo_quantidade_em_analise w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="emissao_boleto_coletivo">
+                                <span>Emissão Boleto</span>
+                                <span class="badge badge-light coletivo_quantidade_emissao_boleto w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_adesao_coletivo">
+                                <span>Pag. Adesão</span>
+                                <span class="badge badge-light coletivo_quantidade_pagamento_adesao w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_vigencia_coletivo">
+                                <span>Pag. Vigência</span>
+                                <span class="badge badge-light coletivo_quantidade_pagamento_vigencia w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_segunda_parcela">
+                                <span>Pag. 2º Parcela</span>
+                                <span class="badge badge-light coletivo_quantidade_segunda_parcela w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_terceira_parcela">
+                                <span>Pag. 3º Parcela</span>
+                                <span class="badge badge-light coletivo_quantidade_terceira_parcela w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quarta_parcela">
+                                <span>Pag. 4º Parcela</span>
+                                <span class="badge badge-light coletivo_quantidade_quarta_parcela w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quinta_parcela">
+                                <span>Pag. 5º Parcela</span>
+                                <span class="badge badge-light coletivo_quantidade_quinta_parcela w-[45px] text-right">0</span>
+                            </li>
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_sexta_parcela">
+                                <span>Pag. 6º Parcela</span>
+                                <span class="badge badge-light coletivo_quantidade_sexta_parcela w-[45px] text-right">0</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg">
+                        <ul class="list-none m-0 py-1" id="grupo_finalizados">
+                            <li class="px-1 flex justify-between mb-1 coletivo" id="cancelado_coletivo">
+                                <span>Cancelados</span>
+                                <span class="badge badge-light quantidade_coletivo_cancelados w-[45px] text-right">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--FIM COLUNA DA ESQUERDA-->
+
+                <!--COLUNA DA CENTRAL-->
+                <div class="basis-[83%]">
+                    <div class="bg-[#123449] text-white rounded-lg">
+                        <table id="tabela_coletivo" class="table-auto table-sm listardados w-full">
+                            <thead>
+                            <tr>
+                                <th>Datas</th>
+                                <th>Cod.</th>
+                                <th>Corretor</th>
+                                <th>Cliente</th>
+                                <th>Admin</th>
+                                <th>CPF</th>
+                                <th>Vidas</th>
+                                <th>Valor</th>
+                                <th>Venc.</th>
+                                <th>Status</th>
+                                <th>Ver</th>
+                                <th>Teste</th>
+                                <th>Data Nasc.</th>
+                                <th>Celular</th>
+                                <th>Email</th>
+                                <th>Cidade</th>
+                                <th>UF</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
                 <!--FIM COLUNA CENTRAL-->
             </section>
+
+
+
+
+
+
+
+
+
+
         </main>
 
         <main id="aba_empresarial" class="hidden">
@@ -370,7 +534,7 @@
                             } else {
                                 var id = rowData.id;
                                 $(td).html(`<div class='text-center text-white'>
-                                            <a href="" class="text-white">
+                                            <a href="/financeiro/detalhes/${id}" class="text-white">
                                                 <i class='fas fa-eye div_info'></i>
                                             </a>
                                         </div>

@@ -35,8 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/ranking/cadastrar-concessionaria', [RankingController::class, 'cadastrarConcessionaria'])->name('cadastrar.concessionaria');
     Route::post('/financeiro/sincronizar_baixas/ja_existente',"App\Http\Controllers\Admin\FinanceiroController@sincronizarBaixasJaExiste")->name('financeiro.sincronizar.baixas.jaexiste');
 
-    Route::post('/financeiro/sincronizar',[FinanceiroController::class,'sincronizarDados'])->name('financeiro.sincronizar');
+    Route::get('/contratos/cadastrar/coletivo',[FinanceiroController::class,'formCreateColetivo'])->name('contratos.create.coletivo');
+    Route::post('/contratos/montarPlanos',[FinanceiroController::class,'montarPlanos'])->name('contratos.montarPlanos');
 
+
+    Route::post('/financeiro/sincronizar',[FinanceiroController::class,'sincronizarDados'])->name('financeiro.sincronizar');
+    Route::get('/financeiro/detalhes/{id}',[FinanceiroController::class,'detalhesContrato'])->name('financeiro.detalhes.contrato');
 
     /************* Home *************/
     Route::get("/",[HomeController::class,'index'])->name("home.index");

@@ -117,16 +117,35 @@ class RankingController extends Controller
             $ranking = view('ranking.ranking-concessionarias',[
                 'ranking' => $ranking
             ])->render();
+
+            $totals = DB::select("
+                SELECT
+                    SUM(individual) AS total_individual,
+                    SUM(super_simples) AS total_super_simples,
+                    SUM(pme) AS total_pme,
+                    SUM(adesao) AS total_adesao,
+                    SUM(meta_individual) + SUM(meta_super_simples) + SUM(meta_pme) + SUM(meta_adesao) AS total_meta,
+                    SUM(individual) + SUM(super_simples) + SUM(pme) + SUM(adesao) AS total_vidas,
+                    (SUM(individual) + SUM(super_simples) + SUM(pme) + SUM(adesao)) /
+                    NULLIF(SUM(meta_individual) + SUM(meta_super_simples) + SUM(meta_pme) + SUM(meta_adesao), 0) * 100 AS porcentagem_geral
+                FROM
+                    concessionarias;
+            ");
+
             return [
                 'podium' => $podium,
                 'ranking' => $ranking,
-
+                'totals_con' => $totals,
                 'concessionarias' => $concessionarias
             ];
         } else {
 
         }
     }
+
+
+
+
 
 
 

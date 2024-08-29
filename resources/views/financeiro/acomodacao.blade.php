@@ -1,113 +1,151 @@
 @if(count($dados) >= 1)
-    @php
-        $ii=0;
-        $total = 0;
-        $contagem = 1;
-    @endphp
-    <div class="flex justify-between flex-wrap">
-        <h4 class="w-full my-2 text-white">Nossos Planos: </h4>
+@php
+    $ii=0;
+    $total = 0;
+    $contagem = 1;
+@endphp
+
+
+
+
+    <div class="flex justify-between" style="flex-wrap: wrap;">
+        <h4 class="my-2 w-100 text-white w-full">Nossos Planos: </h4>
         @for($i=0;$i < count($dados); $i++)
-            @php
-                $contagem = $i + 1;
-            @endphp
+            @php $contagem = $i + 1; @endphp
             @if($dados[$i]->card == $card_inicial)
                 @if($ii==0)
                     <input type="hidden" name="administradora" id="administradora" value="{{$dados[$i]->administradora}}">
-                    <div class="flex flex-col rounded-lg valores-acomodacao shadow-lg mb-4 p-6 bg-opacity-50 backdrop-filter backdrop-blur-sm" style="width:30%;background-color:rgba(0, 0, 0, 0.6);">
+                    <div class="flex flex-col rounded valores-acomodacao mb-3 py-2 border border-dark" data-acomodacao="{{$dados[$i]->acomodacao}}"  style="width:32%;color:white;background-color:#C5D4EB;color:black;">
 
-                        <div class="flex items-center mb-4">
-                            <div class="w-1/2 bg-white border-2 border-black rounded-md p-2">
-                                <img src="{{asset($dados[$i]->logo)}}" alt="" class="w-full h-full object-contain">
-                            </div>
-                            <div class="w-1/2 flex flex-col justify-center items-end text-white">
-                                <p class="text-lg font-semibold">{{$dados[$i]->planos}}</p>
-                                <p class="text-md tipo">{{$dados[$i]->acomodacao}}</p>
-                            </div>
-                        </div>
 
-                        <div class="flex border-t border-b border-gray-400 text-white">
-                            <div class="w-1/2 border-r border-gray-400 py-2 text-center">
-                                <p>{{$dados[$i]->coparticipacao}}</p>
-                            </div>
-                            <div class="w-1/2 py-2 text-center">
-                                <p>{{$dados[$i]->odonto}}</p>
-                            </div>
-                        </div>
+                            <div class="flex">
 
-                        <div class="flex mt-4 space-x-2">
-                            <div class="w-1/3">
-                                <p class="text-sm text-white">Data Vigência:</p>
-                                <input type="date" name="vigente" id="vigente_{{strtolower($dados[$i]->acomodacao)}}" class="form-control form-control-sm w-full text-black" placeholder="Data Vigência">
-                            </div>
-                            <div class="w-1/3">
-                                <p class="text-sm text-white">Data Boleto:</p>
-                                <input type="date" name="boleto" id="boleto_{{strtolower($dados[$i]->acomodacao)}}" class="form-control form-control-sm w-full text-black">
-                            </div>
-                            <div class="w-1/3">
-                                <p class="text-sm text-white">Valor Adesão:</p>
-                                <input type="text" name="adesao" id="adesao_{{strtolower($dados[$i]->acomodacao)}}" class="form-control form-control-sm w-full text-black" placeholder="R$">
-                            </div>
-                        </div>
+                                <h4 class="text-center w-6/12 flex ml-2" style="background-color:#fff;border:2px solid black;border-radius:5px;">
+                                    <img src="{{asset($dados[$i]->logo)}}" class="flex align-center p-1" alt="" width="100%" height="100%">
+                                </h4>
+                                <div class="flex w-6/12 flex-col align-center items-end align-center flex-wrap">
+                                    <div class="flex flex-col">
+                                        <p class="text-center" style="margin:0;padding:0;font-size:1em;">{{$dados[$i]->planos}}</p>
+                                        <p class="text-center tipo" style="margin:0;padding:0;font-size:1em;">{{$dados[$i]->acomodacao}}</p>
+                                    </div>
+                                </div>
 
-                        <div class="mt-4">
-                            <table class="w-full text-white text-sm">
-                                <thead>
-                                <tr>
-                                    <th class="text-left">Faixas</th>
-                                    <th class="text-left">Vidas</th>
-                                    <th class="text-left">Valor</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @endif
-                                @php
-                                    $ii++;
-                                    $total += $dados[$i]->valor * $dados[$i]->quantidade;
-                                @endphp
-                                <tr>
-                                    <td>{{$dados[$i]->faixa}}</td>
-                                    <td>{{$dados[$i]->quantidade}}</td>
-                                    <td>{{number_format($dados[$i]->valor,2,",",".")}}</td>
-                                    <td class="text-right">{{number_format($dados[$i]->valor * $dados[$i]->quantidade,2,",",".")}}</td>
-                                </tr>
-                                @else
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="4" class="text-right font-semibold border-t border-gray-400 valor_plano">R$ {{number_format($total,2,",",".")}}</td>
-                                </tr>
-                                </tfoot>
+
+                            </div>
+
+
+                            <div class="flex border-bottom border-top border-dark">
+                                <div class="w-6/12 border-right border-dark">
+                                    <p class="text-center h-100 my-auto py-2" style="font-size:1em;">{{$dados[$i]->coparticipacao}}</p>
+                                </div>
+                                <div class="w-6/12">
+                                    <p class="text-center h-100 my-auto py-2" style="font-size:1em;">{{$dados[$i]->odonto}}</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex my-2" style="padding:0px;">
+                                <div class="ml-2">
+                                    <div class="form-group">
+                                        <p style="margin:0;padding:0;font-size:0.875em;">Data Vigencia:</p>
+                                        <input type="date" name="vigente" id="vigente_{{strtolower($dados[$i]->acomodacao)}}"  value="" class="form-control form-control-sm vigente">
+
+                                    </div>
+                                </div>
+                                <div class="mx-1">
+                                    <div class="form-group">
+                                        <p style="margin:0;padding:0;font-size:0.875em;">Data Boleto:</p>
+                                        <input type="date" name="boleto" id="boleto_{{strtolower($dados[$i]->acomodacao)}}" value="" placeholder="Data Boleto" class="form-control form-control-sm boleto">
+                                    </div>
+
+                                </div>
+                                <div class="mr-2">
+                                    <div class="form-group">
+                                        <p style="margin:0;padding:0;font-size:0.875em;">Valor Adesão:</p>
+                                        <input type="text" name="adesao" id="adesao_{{strtolower($dados[$i]->acomodacao)}}" placeholder="R$" class="form-control form-control-sm valor_adesao">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mx-auto mb-2" style="width:80%;border-radius:10px;">
+                                <table class="table table-sm table-borderless table-dark" style="border-radius:10px;">
+                                    <thead>
+                                        <tr>
+                                            <th>Faixas</th>
+                                            <th>Vidas</th>
+                                            <th>Valor</th>
+                                            <th class="text-center">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                @endif
+                @php
+                    $ii++;
+                    $total += $dados[$i]->valor * $dados[$i]->quantidade;
+                    $acomodacao = $dados[$i]->acomodacao;
+                @endphp
+                    <tr>
+                        <td>{{$dados[$i]->faixa}}</td>
+                        <td>{{$dados[$i]->quantidade}}</td>
+                        <td>{{number_format($dados[$i]->valor,2,",",".")}}</td>
+                        <td class="text-right">{{number_format($dados[$i]->valor * $dados[$i]->quantidade,2,",",".")}}</td>
+                    </tr>
+
+            @else
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4" class="text-center border-top border-white valor_plano">
+                                                R$ <span class="aqui_total_change">{{number_format($total,2,",",".")}}</span>
+                                                <i class="fas fa-pen fa-sm editar_valor_coletivo" data-btn-acomodacao="{{$acomodacao}}"></i>
+                                            </td>
+
+                                        </tr>
+                                    </tfoot>
                             </table>
                         </div>
                     </div>
-                    @php
-                        $card_inicial = $dados[$i]->card;
-                        $i--;
-                        $ii=0;
-                        $total=0;
-                    @endphp
-                @endif
-                @endfor
+
+                @php $card_inicial = $dados[$i]->card; $i--; $ii=0;$total=0;@endphp
+            @endif
+
+
+        @endfor
+
+
+
     </div>
 
     @if($contagem == $quantidade)
-        <tfoot>
-        <tr>
-            <td colspan="4" class="text-right font-semibold border-t border-gray-400">R$ {{number_format($total,2,",",".")}}</td>
-        </tr>
-        </tfoot>
-    @endif
+    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                        <td colspan="4" class="text-center border-top border-white valor_plano">
+                                            R$ <span class="aqui_total_change">{{number_format($total,2,",",".")}}</span>
+                                            <i class="fas fa-pen fa-sm editar_valor_coletivo" data-btn-acomodacao="{{$acomodacao}}"></i>
+                                        </td>
+                                        </tr>
+                                    </tfoot>
+                            </table>
+                        </div>
+                    </div>
+        @endif
 
-    <input type="text" name="valor" id="valor" value="">
-    <input type="text" name="data_vigencia" id="data_vigencia" value="">
-    <input type="text" name="data_boleto" id="data_boleto" value="">
-    <input type="text" name="valor_adesao" id="valor_adesao" value="">
-    <input type="text" name="acomodacao" id="acomodacao" value="">
+<input type="hidden" name="valor" id="valor" value="">
+<input type="hidden" name="data_vigencia" id="data_vigencia" value="">
+<input type="hidden" name="data_boleto" id="data_boleto" value="">
+<input type="hidden" name="valor_adesao" id="valor_adesao" value="">
+<input type="hidden" name="acomodacao" id="acomodacao" value="">
 
-
-
-
+<div id="btn_submit" style="clear:both;width:100%;"></div>
 @else
     <p class="alert alert-danger">Sem Resultado para essa pesquisa =/</p>
 @endif
+<script>
+    $(function(){
+        // $(".valores-acomodacao").css("background-color","red");
+        $('.valor_adesao').mask("#.##0,00", {reverse: true});
+    });
+</script>

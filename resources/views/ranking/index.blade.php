@@ -199,6 +199,9 @@
                     </span>
                 </div>
 
+                @if(isset($totals[0]) && !empty($totals[0]))
+
+
                 <div style="display:flex;flex-direction:column;">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
@@ -233,7 +236,67 @@
                         <span style="color:#6a1a21;" class="total_porcentagem">{{ number_format($porcentagem, 2) }}%</span>
                     </span>
                 </div>
+                @endif
             </div>
+
+
+            <div id="header_esquerda_concessionaria" style="display:none;background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; align-items:center; justify-content: space-between; height: 70px;">
+                <div style="background-color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:3%;">
+                    <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
+                </div>
+                @if(isset($totals_con[0]) && !empty($totals_con[0]))
+                <div class="container-meta">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;">{{$totals_con[0]->total_meta}}</span>
+                    </span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;" class="total_individual">{{$totals_con[0]->total_individual}}</span>
+                    </span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Super Simples</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;" class="total_super_simples">{{$totals_con[0]->total_super_simples}}</span>
+                     </span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">PME</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;" class="total_pme">{{$totals_con[0]->total_pme}}</span>
+                    </span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Adesão</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;" class="total_adesao">{{$totals_con[0]->total_adesao}}</span>
+                    </span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;" class="total_vidas">{{$totals_con[0]->total_vidas}}</span>
+                    </span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;" class="total_porcentagem">{{ number_format($totals_con[0]->porcentagem_geral, 2) }}%</span>
+                    </span>
+                </div>
+                @endif
+            </div>
+
+
 
             <div class="stage">
 
@@ -487,12 +550,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-
-
-
-
-
 
         function createSlideShow() {
             const slides = document.querySelectorAll('.slide'); // Seleciona todos os slides

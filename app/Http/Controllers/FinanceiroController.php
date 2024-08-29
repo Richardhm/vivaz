@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acomodacao;
+use App\Models\Administradora;
 use App\Models\cidadeCodigoVendedor;
 use App\Models\Cliente;
 use App\Models\Comissoes;
@@ -226,7 +227,7 @@ class FinanceiroController extends Controller
                         $comissao->data = date('Y-m-d');
                         $comissao->corretora_id = $corretora_id;
                         $comissao->save();
-/*
+
                         $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
                             ::where("plano_id", 1)
                             ->where("administradora_id", 4)
@@ -288,6 +289,7 @@ class FinanceiroController extends Controller
                             $dados = ComissoesCorretoresDefault
                                 ::where("plano_id", 1)
                                 ->where("administradora_id", 4)
+                                ->where("corretora_id",$corretora_id)
                                 //->where("tabela_origens_id", 2)
                                 ->get();
                             foreach ($dados as $c) {
@@ -329,47 +331,12 @@ class FinanceiroController extends Controller
                             //}
                             /****FIm SE Comissoes Lancadas */
                         }
-/*
 
-                        $comissoes_configurada_corretora = ComissoesCorretoraConfiguracoes
-                            ::where("administradora_id", 4)
-                            ->where('plano_id', 1)
-                            //->where('tabela_origens_id', 2)
-                            ->get();
-                        $comissoes_corretora_contagem = 0;
-                        if (count($comissoes_configurada_corretora) >= 1) {
-                            foreach ($comissoes_configurada_corretora as $cc) {
-                                $comissaoCorretoraLancadas = new ComissoesCorretoraLancadas();
-                                $comissaoCorretoraLancadas->comissoes_id = $comissao->id;
-                                $comissaoCorretoraLancadas->parcela = $cc->parcela;
-                                if ($comissoes_corretora_contagem == 0) {
-                                    $comissaoCorretoraLancadas->data = $data_vigencia;
-                                    $comissaoCorretoraLancadas->status_financeiro = 1;
-                                } else {
-                                    $data_vigencia_sem_dia = date("Y-m", strtotime($data_vigencia));
-                                    $dates = date("Y-m", strtotime($data_vigencia_sem_dia . "+{$comissoes_corretora_contagem}month"));
-                                    $mes = explode("-", $dates)[1];
-                                    if ($dia == 30 && $mes == 02) {
-                                        $comissaoCorretoraLancadas->data = date("Y-02-28");
-                                        $ano = explode("-", $comissaoCorretoraLancadas->data)[0];
-                                        $bissexto = date('L', mktime(0, 0, 0, 1, 1, $ano));
-                                        if ($bissexto == 1) {
-                                            $comissaoCorretoraLancadas->data = date("Y-02-29");
-                                        } else {
-                                            $comissaoCorretoraLancadas->data = date("Y-02-28");
-                                        }
-                                    } else {
-                                        $comissaoCorretoraLancadas->data = date("Y-m-" . $dia, strtotime($dates));
-                                    }
-                                }
-                                $valor_cc = (float) str_replace([".",","],["","."], $cells[12]->getValue()) - 25;
-                                $comissaoCorretoraLancadas->valor = ($valor_cc * $cc->valor) / 100;
-                                $comissaoCorretoraLancadas->save();
-                                $comissoes_corretora_contagem++;
-                            }
-                        }
+
+
+
                     }
-*/
+
                     //unlink("public/".$filename);
                 }
             }
@@ -377,6 +344,96 @@ class FinanceiroController extends Controller
         //Cliente::orderBy("id","desc")->first()->update(["last"=>1]);
         return "sucesso";
     }
+
+    public function formCreateColetivo()
+    {
+
+        $users = User::where("id","!=",1)->get();
+        $origem_tabela = TabelaOrigens::all();
+        $administradoras = Administradora::whereRaw("id != (SELECT id FROM administradoras WHERE nome LIKE '%hapvida%')")->get();
+        return view('financeiro.cadastrar-coletivo',[
+            'users' => $users,
+            'cidades' => $origem_tabela,
+            'administradoras' => $administradoras
+        ]);
+    }
+
+    public function montarPlanos(Request $request)
+    {
+        $sql = "";
+        $chaves = [];
+        foreach($request->faixas[0] as $k => $v) {
+            if($v != null AND $v != 0) {
+                $sql .= "WHEN (SELECT id FROM faixa_etarias WHERE faixa_etarias.id = tabelas.faixa_etaria_id) = $k THEN $v ";
+                $chaves[] = $k;
+            }
+        }
+
+        $administradora = $request->administradora_id;
+        $chaves = implode(",",$chaves);
+        $cidade = $request->tabela_origem;
+        $odonto = $request->odonto == "sim" ? 1 : 0;
+        $coparticipacao = $request->coparticipacao == "sim" ? 1 : 0;
+
+        $dados = DB::select("SELECT
+            id,
+            (select logo from administradoras where administradoras.id = tabelas.administradora_id) as logo,
+            (select id from administradoras where administradoras.id = tabelas.administradora_id) as administradora,
+            tabela_origens_id,
+            (select nome from planos where planos.id = tabelas.plano_id) as planos,
+            (select nome from acomodacoes where acomodacoes.id = tabelas.acomodacao_id) as acomodacao,
+
+            (select nome from faixa_etarias where faixa_etarias.id = tabelas.faixa_etaria_id) as faixa,
+            if(coparticipacao,'Com Coparticipação','Sem Coparticipação') as coparticipacao,
+            if(odonto,'Com Odonto','Sem Odonto') as odonto,
+        CASE
+            $sql
+        ELSE 0
+        END AS quantidade,
+        valor,
+        CONCAT('card_',acomodacao_id) AS card
+        FROM tabelas
+        WHERE faixa_etaria_id IN($chaves) AND tabela_origens_id =  $cidade AND administradora_id = $administradora AND odonto = $odonto AND coparticipacao = $coparticipacao");
+
+        return view("financeiro.acomodacao",[
+            "dados" => $dados,
+            "card_inicial" => $dados[0]->card,
+            "quantidade" => count($dados)
+        ]);
+
+    }
+
+
+
+
+
+
+    public function detalhesContrato($id)
+    {
+
+        $contratos = Contrato
+            ::where("id",$id)
+            ->with(['administradora',
+                'financeiro',
+                'cidade',
+                'comissao',
+                'acomodacao',
+                'plano',
+                'comissao.comissaoAtualFinanceiro','comissao.comissoesLancadas','clientes','clientes.user'])
+            ->orderBy("id","desc")
+            ->first();
+
+        $users = User::where("id","!=",auth()->user()->id)->get();
+
+
+        return view('financeiro.detalhe',[
+            "dados" => $contratos,
+            "users" => $users,
+
+            "plano" => $contratos->plano->id
+        ]);
+    }
+
 
 
 

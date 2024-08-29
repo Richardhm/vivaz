@@ -19,12 +19,19 @@ class ImagemController extends Controller
         $odonto = request()->odonto;
         $sql = "";
         $chaves = [];
+        $linhas = 0;
+
+
+
         foreach(request()->faixas[0] as $k => $v) {
             if($v != null AND $v != 0) {
+
                 $sql .= " WHEN tabelas.faixa_etaria_id = {$k} THEN ${v} ";
                 $chaves[] = $k;
             }
         }
+        $linhas = count($chaves);
+
         $cidade_nome = TabelaOrigens::find($cidade)->nome;
         $plano_nome = Plano::find($plano)->nome;
         $admin_nome = Administradora::find($operadora)->nome;
@@ -54,6 +61,7 @@ class ImagemController extends Controller
         $image_user = 'data:image/png;base64,'.base64_encode(file_get_contents(public_path(auth()->user()->image)));
         $nome = auth()->user()->name;
         $celular = auth()->user()->celular;
+        $corretora = auth()->user()->corretora_id;
         $status_carencia = request()->status_carencia == "true" ? 1 : 0;
         $view = \Illuminate\Support\Facades\View::make("cotacao.cotacao3",[
            'image' => $image_user,
@@ -66,7 +74,9 @@ class ImagemController extends Controller
            'frase' => $frase,
            'status_carencia' => $status_carencia,
            'odonto' => $odonto,
-           'celular' => $celular
+           'celular' => $celular,
+           'linhas' => $linhas,
+           'corretora' => $corretora
         ]);
         $pdf = PDFFile::loadHTML($view);
         return $pdf->stream("teste.pdf");
