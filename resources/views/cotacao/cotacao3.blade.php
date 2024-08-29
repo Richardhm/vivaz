@@ -27,7 +27,7 @@
             top: 380px;
             left: 50%;
             transform: translateX(-50%);
-            width: 87%;
+            width: 95%;
         }
 
         .tabela-container {
@@ -371,14 +371,14 @@
 
 
 
-    <table id="valores_coparticipacao" style="{{$status_carencia == 0 ? 'width:60%;' : 'width:100%;' }}border-collapse: collapse;margin:0;padding:0;">
+    <table id="valores_coparticipacao" style="{{$status_carencia == 0 ? 'width:50%;' : 'width:100%;' }}border-collapse: collapse;margin:0;padding:0;">
         <tr>
-            <td style="{{$status_carencia == 0 ? 'width:100%;' : 'width:60%;' }}vertical-align:top;padding:0;margin:0;">
+            <td style="{{$status_carencia == 0 ? 'width:100%;' : 'width:50%;' }}vertical-align:top;padding:0;margin:0;">
                 <h3 style="margin: 0;text-align:left;">Coparticipação:</h3>
 
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
-                        <td style="width: 40%; vertical-align: top;text-align:left;">
+                        <td style="width: 35%; vertical-align: top;text-align:left;">
                             <p class="section-title">Procedimentos</p>
                             <div class="section-content" style="text-align:left;">
                                 @if($pdf->consultas_eletivas_total || $pdf->consultas_eletivas_parcial)
@@ -407,7 +407,7 @@
                                 @endif
                             </div>
                         </td>
-                        <td style="width: 25%; vertical-align: top;text-align:left;">
+                        <td style="width: 30%; vertical-align: top;text-align:left;">
                             <p class="section-title">Copart Total</p>
                             <div class="section-content" style="text-align:left;">
                                 <p>{{$pdf->consultas_eletivas_total ?? ''}}</p>
@@ -420,7 +420,7 @@
                                 <p>{{$pdf->cirurgia_total ?? ''}}</p>
                             </div>
                         </td>
-                        <td style="width: 25%; vertical-align: top;text-align:left;">
+                        <td style="width: 30%; vertical-align: top;text-align:left;">
                             <p class="section-title">Copart Parcial</p>
                             <div class="section-content" style="text-align:left;">
                                 <p>{{$pdf->consultas_eletivas_parcial ?? ''}}</p>
@@ -437,7 +437,7 @@
                 </table>
             </td>
             @if($status_carencia == 1)
-            <td style="width: 45%; vertical-align: top; padding-left: 7%; margin: 0;color:#366EBF;">
+            <td style="width: 50%; vertical-align: top; padding-left: 2%; margin: 0;color:#366EBF;">
                 <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
                 <table style="width: 100%;border-spacing: 0; padding: 0;">
                     <tr style="padding: 0;">
