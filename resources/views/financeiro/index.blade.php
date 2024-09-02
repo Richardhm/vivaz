@@ -93,7 +93,7 @@
 
         </style>
     @endsection
-    <input type="text" id="janela_atual" value="aba_individual">
+    <input type="hidden" id="janela_atual" value="aba_individual">
     <div>
         <ul class="list_abas">
             <li data-id="aba_individual" class="ativo">Individual</li>
