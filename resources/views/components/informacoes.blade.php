@@ -21,7 +21,7 @@
 
 
     <div class="flex flex-wrap justify-around" id="faixa_etarias">
-        <div class="flex flex-col w-[33%]">
+        <div class="flex flex-col w-[40%]">
             <div class="mb-2 w-full">
 
                 <span class="text-white text-sm">0 - 18</span>
@@ -30,7 +30,7 @@
 
                     <div class="flex rounded overflow-hidden border border-gray-200 align-center text-center mx-auto faixa-etaria-buttons h-8">
                         <button class="bg-red-400 text-gray-500 minus w-10 text-white flex-grow" style="width:33%;">-</button>
-                        <input name="input_0_18" style="width:33%;" id="input_0_18" type="text" value="0" class="flex w-28 text-xs text-center flex-grow border-none bg-opacity-20 bg-gray-300 text-white faixa-etaria-input">
+                        <input name="input_0_18" style="width:33%;" id="input_0_18" type="text" value="0" class="flex w-44 text-xs text-center flex-grow border-none bg-opacity-20 bg-gray-300 text-white faixa-etaria-input">
                         <button style="width:33%;" class="bg-green-400 text-gray-500 minus w-10 text-white flex-grow plus_0_18">+</button>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
 
         </div>
 
-        <div class="flex flex-col w-[33%]">
+        <div class="flex flex-col w-[40%]">
 
             <div class="mb-2">
                 <span class="text-white text-sm">19 - 23</span>

@@ -44,7 +44,12 @@ class Contrato extends Model
         return $this->hasOne(Comissoes::class);
     }
 
-
+    public function somarCotacaoFaixaEtaria()
+    {
+        return $this->hasMany(CotacaoFaixaEtaria::class)
+            ->selectRaw("cotacao_faixa_etarias.contrato_id,sum(cotacao_faixa_etarias.quantidade) as soma")
+            ->groupBy("cotacao_faixa_etarias.contrato_id");
+    }
 
 
 

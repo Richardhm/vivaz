@@ -36,961 +36,321 @@
 </head>
 <body>
 
-<div class="ajax_load hidden">
-    <div class="ajax_load_box">
-        <div class="ajax_load_box_circle"></div>
-        <p class="ajax_load_box_title">Aguarde, carregando...</p>
-    </div>
-</div>
 
-<!-- Modal -->
-<!-- Modal -->
-<div class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50" id="jaExisteCodigoExterno">
-    <div class="bg-white rounded-lg shadow-xl max-w-sm w-full">
-        <div class="flex justify-between items-center border-b px-4 py-2">
-            <h4 class="text-lg font-semibold text-red-600">Opsssss....</h4>
-            <button type="button" class="text-gray-500 hover:text-gray-700 close-modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="px-4 py-6">
-            <h5 class="text-center text-lg">
-                Já Existe esse código externo cadastrado
-                <br>
-                <span>
-                    <i class="far fa-smile-wink fa-xl"></i>
-                </span>
-            </h5>
-        </div>
-        <div class="px-4 py-3 border-t">
-            <button type="button" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 focus:outline-none close-modal">Fechar</button>
-        </div>
-    </div>
-</div>
 
 
-
-
-
-
-
-
-<div class="modal fade hidden" id="mudarDataCriacao" tabindex="-1" role="dialog" aria-labelledby=cadastrar_pessoa_fisica_formulario_modal_coletivo"mudarDataCriacaoLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mudarDataCriacaoLabel">Data de Cadastro:</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="date" value="<?php echo date('Y-m-d');?>" class="form-control" id="data_criacao">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salvar Data</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade hidden" id="mudarValorColetivo" tabindex="-1" role="dialog" aria-labelledby="mudarValorColetivoLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mudarValorColetivoLabel">Valor:</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="alvo_acomodacao">
-                <input type="text" value="" class="form-control" id="valor_correto">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-block mudar_valor_correto">Salvar Valor</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" id="modalDiferencaEntreValores" tabindex="-1" role="dialog" aria-labelledby="modalDiferencaEntreValoresLabel" aria-hidden="true">
-    <div class="modal-dialog bg-white rounded-lg shadow-lg max-w-md mx-auto p-6" role="document">
-        <div class="modal-content">
-            <div class="modal-header flex justify-between items-center pb-4 border-b border-gray-200">
-                <h5 class="modal-title text-lg font-semibold" id="modalDiferencaEntreValoresLabel">Diferença entre Valores</h5>
-                <button type="button" class="close close-modal text-gray-500 hover:text-gray-800" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="text-center my-4">
-                <p>Diferença entre valores: <span class="diferenca_entre_valores font-semibold text-red-600"></span></p>
-            </div>
-
-            <div class="flex justify-around my-4">
-                <div class="flex flex-col">
-                    <label for="desconto_corretora_valores" class="mb-2 text-sm font-medium text-gray-700">Corretora:</label>
-                    <input type="text" id="desconto_corretora_valores" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div class="flex flex-col">
-                    <label for="desconto_corretor_valores" class="mb-2 text-sm font-medium text-gray-700">Corretor</label>
-                    <input type="text" id="desconto_corretor_valores" class="border border-gray-300 rounded-md p-2 bg-gray-100" disabled>
-                </div>
-            </div>
-
-            <div class="modal-footer flex justify-end border-t border-gray-200 pt-4">
-                <button type="button" class="btn btn-secondary salvar_valores bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Salvar Valores</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] flex mx-auto mt-2"   style="border-radius:5px;padding:10px 5px;flex-basis:98%;">
-
-    <form action="" method="post" class="px-3" name="cadastrar_pessoa_fisica_formulario_modal_coletivo" id="cadastrar_pessoa_fisica_formulario_modal_coletivo">
-        @csrf
-        <input type="hidden" name="tipo_cadastro" value="administrador_cadastro">
-        <input type="hidden" name="tipo_financeiro" value="true">
-        <input type="hidden" name="created_at" id="created_at">
-        <input type="hidden" name="desconto_corretor" id="desconto_corretor">
-        <input type="hidden" name="desconto_corretora" id="desconto_corretora">
-
-        <div class="flex flex-wrap gap-4 w-full">
-
-            <!-- Usuários -->
-            <div style="flex-basis:18%;" class="flex flex-col">
-                <label for="usuario_coletivo_switch" class="text-white text-sm">Usuários:</label>
-                <select name="usuario_coletivo_switch" required id="usuario_coletivo_switch" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Usuários --</option>
-                    @foreach($users as $u)
-                        <option value="{{$u->id}}">{{$u->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-
-            <!-- Administradora -->
-            <div style="flex-basis:13%;" class="flex flex-col">
-                <label for="administradora_coletivo" class="text-white text-sm">Administradora:</label>
-                <select required id="administradora_coletivo" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Administradora --</option>
-                    @foreach($administradoras as $admin)
-                        <option value="{{$admin->id}}" {{old('administradora') == $admin->id ? 'selected' : ''}}>{{$admin->nome}}</option>
-                    @endforeach
-                </select>
-                <div class="erroradministradora text-red-500"></div>
-            </div>
-
-            <!-- Tabela Origem -->
-            <div class="flex flex-col" style="flex-basis:13%;">
-                <label for="tabela_origem_coletivo" class="text-white text-sm">Tabela Origem:</label>
-                <select required id="tabela_origem_coletivo" name="tabela_origem" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Tabela Origem --</option>
-                    @foreach($cidades as $cc)
-                        <option value="{{$cc->id}}" {{old('cidade_id') == $cc->id ? 'selected' : ''}}>{{$cc->nome}}</option>
-                    @endforeach
-                </select>
-                <div class="errorcidade text-red-500"></div>
-            </div>
-
-
-            <!-- Titular -->
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="nome_coletivo" class="text-white text-sm">Titular:</label>
-                <input type="text" id="nome_coletivo" name="nome_coletivo" required class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome">
-                <div class="errorcliente text-red-500"></div>
-            </div>
-
-            <!-- CPF -->
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="cpf_coletivo" class="text-white text-sm">CPF:</label>
-                <input type="text" name="cpf_coletivo" id="cpf_coletivo" required class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXX.XXXX.XXX-XX">
-                <div class="errorcpf text-red-500"></div>
-                @if($errors->has('cpf'))
-                    <p class="alert alert-danger text-red-500">{{$errors->first('cpf')}}</p>
-                @endif
-            </div>
-
-            <!-- Data Nascimento -->
-            <div class="flex flex-col" style="flex-basis:8%;">
-                <label for="data_nascimento_coletivo" class="text-white text-sm">Data Nascimento:</label>
-                <input type="date" name="data_nascimento_coletivo" value="{{old('data_nascimento_coletivo')}}" id="data_nascimento_coletivo" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <div class="errordatanascimento text-red-500"></div>
-            </div>
-
-            <!-- Email -->
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="email_coletivo" class="text-white text-sm">Email:</label>
-                <input type="email" name="email_coletivo" id="email_coletivo" placeholder="Email" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <div class="erroremail text-red-500"></div>
-            </div>
-
-            <!-- Celular -->
-            <div class="flex flex-col" style="flex-basis:7%;">
-                <label for="celular" class="text-white text-sm">Celular:</label>
-                <input type="text" placeholder="Celular" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="celular" id="celular">
-            </div>
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Segunda Linha -->
-        <div class="flex flex-wrap gap-4 w-full">
-
-
-
-
-
-            <div class="flex flex-col" style="flex-basis:5%;">
-
-                <label for="cep" class="text-white w-full" style="font-size:0.78em;">CEP:</label>
-                <input type="text" name="cep_coletivo" id="cep_coletivo" value="{{old('cep_coletivo')}}" placeholder="CEP" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-
-            </div>
-
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <span for="rua" class="text-white" style="font-size:0.78em;">Cidade:</span>
-                <input type="text" name="cidade_origem_coletivo" id="cidade_origem_coletivo" value="{{old('cidade_origem_coletivo')}}" placeholder="Cidade" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-            </div>
-
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="bairro" class="text-white" style="font-size:0.78em;">Bairro:</label>
-                <input type="text" name="bairro_coletivo" id="bairro_coletivo" value="{{old('bairro_coletivo')}}" placeholder="Bairro" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-            </div>
-
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="rua" class="text-white" style="font-size:0.78em;">Rua:</label>
-                <input type="text" name="rua_coletivo" id="rua_coletivo" value="{{old('rua_coletivo')}}" placeholder="Logradouro(Rua)" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-            </div>
-
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="bairro" class="text-white" style="font-size:0.78em;">Complemento:</label>
-                <input type="text" name="complemento_coletivo" id="complemento_coletivo" value="{{old('complemento_coletivo')}}" placeholder="Complemento(Opcional)" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-            </div>
-
-
-            <div class="flex flex-col" style="flex-basis:3%;">
-                <label for="uf" class="text-white" style="font-size:0.78em;">UF:</label>
-                <input type="text" name="uf_coletivo" id="uf_coletivo" value="{{old('uf_coletivo')}}" placeholder="UF" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-            </div>
-
-
-
-
-            <div class="flex flex-col" style="flex-basis:8%;">
-
-                <label for="codigo_externo" class="text-white" style="font-size:0.78em;">Codigo Externo:</label>
-                <input type="text" name="codigo_externo_coletivo" required id="codigo_externo_coletivo" value="{{old('codigo_externo_coletivo')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD.">
-
-
-            </div>
-
-            <div x-data="{ coparticipacao: '{{ old('coparticipacao_coletivo') ? old('coparticipacao_coletivo') : '' }}' }" class="flex" style="flex-basis:10%;">
-                <div class="flex flex-col">
-                    <span class="text-white text-xs mb-1">Coparticipaçãoooooo:</span>
-                    <div class="flex space-x-2">
-                        <label :class="{'bg-purple-600 border-white': coparticipacao === 'sim'}" for="coparticipacao_radio_sim" class="cursor-pointer border border-gray-300 rounded-lg px-3 py-1.5 text-white">
-                            <input type="radio" name="coparticipacao_coletivo" id="coparticipacao_radio_sim" value="sim" x-model="coparticipacao" class="sr-only">
-                            <span>Sim</span>
-                        </label>
-                        <label :class="{'bg-purple-600 border-white': coparticipacao === 'nao'}" for="coparticipacao_radio_nao" class="cursor-pointer border border-gray-300 rounded-lg px-3 py-1.5 text-white">
-                            <input type="radio" name="coparticipacao_coletivo" id="coparticipacao_radio_nao" value="nao" x-model="coparticipacao" class="sr-only">
-                            <span>Não</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-
-            <div x-data="{ odonto: '{{ old('odonto_coletivo') ? old('odonto_coletivo') : '' }}' }" class="flex" style="flex-basis:10%;">
-                <div class="flex flex-col">
-                    <span for="odonto" class="text-white" style="font-size:0.78em;">Odonto:</span>
-                    <div class="flex space-x-2">
-                        <label :class="{'bg-red-800 border-white': odonto === 'sim'}" for="odonto_radio_sim" class="cursor-pointer bg-transparent border border-gray-300 rounded-lg px-3 py-1.5 text-white hover:bg-gray-700 hover:border-gray-500 transition-colors duration-200">
-                            <input type="radio" name="odonto_coletivo" id="odonto_radio_sim" value="sim" x-model="odonto" class="sr-only">
-                            <span>Sim</span>
-                        </label>
-                        <label :class="{'bg-red-800 border-white': odonto === 'nao'}" for="odonto_radio_nao" class="cursor-pointer bg-transparent border border-gray-300 rounded-lg px-3 py-1.5 text-white hover:bg-gray-700 hover:border-gray-500 transition-colors duration-200">
-                            <input type="radio" name="odonto_coletivo" id="odonto_radio_nao" value="nao" x-model="odonto" class="sr-only">
-                            <span>Não</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Data Cadastro (Plano) -->
-            <div class="flex flex-col" style="flex-basis:12%;">
-                <label for="data_cadastro_coletivo" class="text-white" style="font-size:0.78em;">Data Cadastro (Plano):</label>
-                <input type="date" name="data_cadastro_coletivo" required id="data_cadastro_coletivo" value="{{old('data_cadastro_coletivo')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            </div>
-
-
-
-        </div>
-        <!-- Fim Segunda Linha -->
-
-        <div class="flex flex-col">
-
-            <div>
-                <input type="checkbox" id="dependente_coletivo" name="dependente_coletivo"><span class="text-white">Responsável</span>
-            </div>
-
-            <div class="hidden" id="container_responsavel_coletivo">
-
-                <div class="flex">
-                    <div style="flex-basis:30%;margin-right:1%;display:flex;">
-
-                        <span style="flex-basis:30%;" for="codigo_externo" class="text-white">Responsável:</span>
-                        <input style="flex-basis:70%;" type="text" name="responsavel_financeiro_coletivo_cadastrar_nome" id="responsavel_financeiro_coletivo_cadastrar_nome" value="{{old('responsavel_financeiro_coletivo_cadastrar_nome')}}" class="form-control  form-control-sm" placeholder="Nome Responsavel">
-                    </div>
-                    <div style="flex-basis:70%;display:flex;">
-                        <span style="flex-basis:17%;" for="codigo_externo" class="text-white">CPF Responsável:</span>
-                        <input style="flex-basis:30%;" type="text" name="responsavel_financeiro_coletivo_cadastrar_cpf" id="responsavel_financeiro_coletivo_cadastrar_cpf" value="{{old('responsavel_financeiro_coletivo_cadastrar_cpf')}}" class="form-control  form-control-sm" placeholder="CPF Responsavel">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!--Faixas Etarias--->
-        <section>
-            <div class="errorfaixas"></div>
-            <div class="flex">
-
-                <div style="flex-basis:10%;">
-                    <span for="" class="text-white">0-18:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="flex items-center justify-center minus bg-red-600" id="faixa-0-18_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-                            <input type="tel" data-change="change_faixa_0_18" name="faixas_etarias[1]" value="{{isset($colunas) && in_array(1,$colunas) ? $faixas[array_search(1, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-0-18_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;font-size:1.2em;max-height: 30px;width:40%;" value="" step="1" min="0" class="text-center" />
-                            <button type="button" class="flex items-center justify-center plus" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+        <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] flex mx-auto mt-2 w-11/12">
+
+            <form action="{{route('contratos.storeEmpresarial.financeiro')}}" method="post" class="px-1 mx-auto" name="cadastrar_dados_empresarial" id="cadastrar_dados_empresarial">
+                @csrf
+                <div class="flex flex-wrap gap-4 w-full">
+                    <!-- Primeiro Linha -->
+                    <div class="flex">
+                        <div style="flex-basis:11%;margin-right:1%;">
+                            <div>
+                                <span for="user_id" class="text-white text-xs">Vendedor:</span>
+                                <select required name="user_id" id="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="" class="text-center">--Vendedor--</option>
+                                    @foreach($users as $u)
+                                        <option value="{{$u->id}}">{{$u->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-
-                <div style="flex-basis:10%;margin:0 10px;">
-                    <span for="" class="text-white">19-23:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="flex items-center justify-center minus bg-red-600" id="faixa-19-23_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em">－</span>
-                            </button>
-                            <input type="tel" data-change="change_faixa_19_23" name="faixas_etarias[2]" value="{{isset($colunas) && in_array(2,$colunas) ? $faixas[array_search(2, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-19-23_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
-                            <button type="button" class="flex items-center justify-center plus" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em">＋</span>
-                            </button>
+                        <div style="flex-basis:10%">
+                            <div>
+                                <span for="plano_id" class="text-white text-xs">Plano:</span>
+                                <select required class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="plano_id" name="plano_id">
+                                    <option value="" class="text-center">--Plano--</option>
+                                    @foreach($planos_empresarial as $p)
+                                        <option value="{{$p->id}}">{{$p->nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div style="flex-basis:10%;">
-                    <span for="" class="text-white">24-28:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="flex items-center justify-center minus bg-red-600" id="faixa-24-28_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em">－</span>
-                            </button>
-                            <input type="tel" data-change="change_faixa_24_28" name="faixas_etarias[3]" value="{{isset($colunas) && in_array(3,$colunas) ? $faixas[array_search(3, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-24-28_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em">＋</span>
-                            </button>
+                        <div style="flex-basis:15%;margin:0% 1%;">
+                            <div>
+                                <span for="tabela_origens_id" class="text-white text-xs">Origem Tabela:</span>
+                                <select  class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="tabela_origens_id" name="tabela_origens_id" required>
+                                    <option value="" class="text-center">--Origem Tabela--</option>
+                                    @foreach($origem_tabela as $o)
+                                        <option value="{{$o->id}}">{{$o->nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div style="flex-basis:10%;margin:0 10px;">
-                    <span for="" class="text-white">29-33:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="minus align-center flex justify-center bg-red-600" id="faixa-29-33_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-                            <input type="tel" data-change="change_faixa_29_33" name="faixas_etarias[4]" value="{{isset($colunas) && in_array(4,$colunas) ? $faixas[array_search(4, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-29-33_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+                        <div style="flex-basis:12%;">
+                            <div>
+                                <span for="codigo_corretora" class="text-white text-xs">Codigo Corretora:</span>
+                                <input type="text" name="codigo_corretora" value="{{old('codigo_corretora')}}" required id="codigo_corretora" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD. Corretora">
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div style="flex-basis:10%;">
-                    <span for="" class="text-white">34-38:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="minus align-center flex justify-center bg-red-600" id="faixa-34-38_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-                            <input type="tel" name="faixas_etarias[5]" data-change="change_faixa_34_38" value="{{isset($colunas) && in_array(5,$colunas) ? $faixas[array_search(5, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-34-38_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+                        <div style="flex-basis:14%;margin:0% 1%;">
+                            <div>
+                                <span for="cnpj" class="text-white text-xs">CNPJ:</span>
+                                <input type="text" name="cnpj" id="cnpj" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="CNPJ" required>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div style="flex-basis:10%;margin:0 10px;">
-                    <span for="" class="text-white">39-43:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-39-43_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-                            <input type="tel" name="faixas_etarias[6]" data-change="change_faixa_39_43" value="{{isset($colunas) && in_array(6,$colunas) ? $faixas[array_search(6, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-39-43_coletivo" class="text-center font-weight-bold flex-fill w-25 faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+                        <div style="flex-basis:21%;margin-right:1%;">
+                            <span for="razao_social" class="text-white text-xs">Razão Social:</span>
+                            <input type="text" name="razao_social" required id="razao_social" value="{{old('razao_social')}}" placeholder="Razão Social" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
-                    </div>
-                </div>
-
-                <div style="flex-basis:10%;">
-                    <span for="" class="text-white">44-48:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-44-48_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-                            <input type="tel" name="faixas_etarias[7]" data-change="change_faixa_44_48" value="{{isset($colunas) && in_array(7,$colunas) ? $faixas[array_search(7, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-44-48_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+                        <div style="flex-basis:12%;margin-right:1%;">
+                            <div>
+                                <span for="codigo_externo" class="text-white text-xs">Codigo Externo:</span>
+                                <input type="text" name="codigo_externo" value="{{old('codigo_externo')}}" required id="codigo_externo" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD. Externo">
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div style="flex-basis:10%;margin:0 10px;">
-                    <span for="" class="text-white">49-53:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-49-53_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-                            <input type="tel" name="faixas_etarias[8]" data-change="change_faixa_49_53" value="{{isset($colunas) && in_array(8,$colunas) ? $faixas[array_search(8, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-49-53_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+                        <div style="flex-basis:8%;">
+                            <span for="quantidade_vidas" class="text-white text-xs">Vidas:</span>
+                            <input type="number" name="quantidade_vidas" required id="quantidade_vidas" value="{{old('quantidade_vidas')}}" placeholder="QTE" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
+
                     </div>
+                    <!-- Fim Primeiro Linha -->
+
                 </div>
 
-                <div style="flex-basis:10%;margin:0 10px 0 0;">
-                    <span for="" class="text-white">54-58:</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-                            <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-54-58_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-                            <input type="tel" name="faixas_etarias[9]" data-change="change_faixa_54_58" value="{{isset($colunas) && in_array(9,$colunas) ? $faixas[array_search(9, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-54-58_coletivo"  class="text-center font-weight-bold faixas_etarias d-flex" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+
+                <div style="padding:0;margin:8px 0;">
+
+                    <!-- Primeiro Linha -->
+                    <div class="flex">
+
+                        <div style="flex-basis:15%;">
+                            <div>
+                                <span for="responsavel" class="text-white text-xs">Responsável:</span>
+                                <input type="text" name="responsavel" id="responsavel" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Responsável" required>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div style="flex-basis:10%;">
-                    <span for="" class="text-white">59+</span>
-                    <div class="border border-white rounded">
-                        <div class="flex content">
-
-                            <button type="button" class="minus items-center flex justify-center bg-red-600"  id="faixa-59_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
-                            </button>
-
-                            <input type="tel" data-change="change_faixa_59" name="faixas_etarias[10]" value="{{isset($colunas) && in_array(10,$colunas) ? $faixas[array_search(10, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-59_coletivo" class="text-center font-weight-bold faixas_etarias d-flex" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
-
-                            <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
-                                <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
-                            </button>
+                        <div style="flex-basis:10%;margin:0% 1%;">
+                            <div>
+                                <span for="telefone" class="text-white text-xs">Telefone:</span>
+                                <input type="text" name="telefone" id="telefone" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Telefone">
+                            </div>
                         </div>
+
+                        <div style="flex-basis:10%;">
+                            <div>
+                                <span for="celular" class="text-white text-xs">Celular:</span>
+                                <input type="text" name="celular" id="celular" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Celular" required>
+                            </div>
+                        </div>
+
+                        <div style="flex-basis:15%;margin:0% 1%;">
+                            <div>
+                                <span for="email" class="text-white text-xs">Email:</span>
+                                <input type="text" name="email" id="email" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" required>
+                            </div>
+                        </div>
+
+
+                        <div style="flex-basis:10%;margin-right: 1%;">
+                            <div>
+                                <span for="uf" class="text-white text-xs">UF:</span>
+                                <select id="uf" name="uf" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 select2-single" required>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="flex-basis:15%;margin-right:1%;">
+                            <div>
+                                <span for="cidade" class="text-white text-xs">Cidade:</span>
+                                <select id="cidade" name="cidade" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 select2-single" required></select>
+                            </div>
+                        </div>
+
+                        <div style="flex-basis:15%;margin-right:1%;">
+                            <div>
+                                <span for="plano_contrado" class="text-white text-xs">Plano Contratado:</span>
+                                <select name="plano_contrado" id="plano_contrado" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option class="text-center" value="">--Plano Contratado--</option>
+                                    <option value="1">C/ Copart + Odonto</option>
+                                    <option value="2">C/ Copart Sem Odonto</option>
+                                    <option value="3">Sem Copart + Odonto</option>
+                                    <option value="4">Sem Copart Sem Odonto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="flex-basis:8%;">
+                            <div>
+                                <span for="created_at" class="text-white text-xs">Data Cadastrado:</span>
+                                <input type="date" required name="created_at" id="created_at" value="<?= date('Y-m-d'); ?>" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
+
                     </div>
+
+                    <!-- <div style="flex-basis:8%;">
+                        <div>
+                            <span for="created_at" class="text-white" style="font-size:0.875em;">Data de Cadastro:</span>
+                            <input type="date" name="created_at" id="created_at" value="">
+                        </div>
+                    </div> -->
+
+                    <!-- Fim Primeiro Linha -->
+
                 </div>
 
-            </div>
-            <!--Fim Faixa Etaria-->
-        </section>
-        <div class="form-row mt-3">
-            <div class="col-12 d-flex rounded w-full bg-white backdrop-blur-[15px] text-center">
-                <button id="mostrar_plano_coletivo" class="w-100">Mostrar Planos</button>
-            </div>
+                <div>
+                    <div class="flex" style="padding:0;margin:8px 0;">
+
+                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                            <span for="valor_plano_saude" class="text-white" style="font-size:0.875em;">Valor Plano Saúde:</span>
+                            <input type="text" name="valor_plano_saude" required id="valor_plano_saude" value="{{old('valor_plano_saude')}}" placeholder="Valor Plano Saúde" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        </div>
+
+                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                            <span for="valor_plano_odonto" class="text-white" style="font-size:0.875em;">Valor Plano Odonto:</span>
+                            <input type="text" name="valor_plano_odonto" required id="valor_plano_odonto" value="{{old('valor_plano_odonto')}}" placeholder="Valor Plano Odonto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        </div>
+
+                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                            <span for="taxa_adesao" class="text-white" style="font-size:0.875em;">Taxa Adesão:</span>
+                            <input type="text" name="taxa_adesao" required id="taxa_adesao" value="{{old('taxa_adesao')}}" placeholder="Taxa Adesão" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        </div>
+
+                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                            <span for="valor_boleto" class="text-white" style="font-size:0.875em;">Valor Boleto:</span>
+                            <input type="text" name="valor_boleto" required id="valor_boleto" value="{{old('valor_boleto')}}" placeholder="Valor Boleto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        </div>
+
+                        <div class="form-group" style="flex-basis:6%;margin-right:1%;">
+                            <span for="vencimento_boleto" class="text-white" style="font-size:0.875em;">Vencimento:</span>
+                            <input type="date" name="vencimento_boleto" required id="vencimento_boleto" value="{{old('vencimento_boleto')}}" placeholder="Vencimento Boleto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        </div>
+
+                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
+                            <span for="codigo_saude" class="text-white" style="font-size:0.875em;">Codigo Saude:</span>
+                            <input type="text" name="codigo_saude" id="codigo_saude" value="{{old('codigo_saude')}}" placeholder="Codigo Saude" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        </div>
+
+                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
+                            <span for="codigo_odonto" class="text-white" style="font-size:0.875em;">Codigo Odonto:</span>
+                            <input type="text" name="codigo_odonto" id="codigo_odonto" value="{{old('codigo_odonto')}}" placeholder="Codigo Odonto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        </div>
+
+                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
+                            <span for="senha_cliente" class="text-white" style="font-size:0.875em;">Senha Cliente:</span>
+                            <input type="text" name="senha_cliente" id="senha_cliente" value="{{old('senha_cliente')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Senha Cliente">
+                        </div>
+
+                        <div style="flex-basis:6%;">
+                            <div class="form-group">
+                                <span for="data_boleto" class="text-white" style="font-size:0.875em;">Data 1º Boleto:</span>
+                                <input type="date" name="data_boleto" required id="data_boleto" value="{{old('data_boleto')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Data Boleto">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Segunda Linha -->
+
+
+
+
+
+                <!-- Fim Segunda Linha -->
+                <input type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-full" value="Cadastrar">
+                <!--Faixas Etarias--->
+            </form>
+
+
+
+
+
         </div>
-        <div id="resultado_coletivo">
-        </div>
-    </form>
-
-</div>
-
-<script src="{{asset('js/jquery.mask.min.js')}}"></script>
-<script>
-    $(function(){
-
-
-        $('#usuario_coletivo_switch').select2();
-        $('#administradora_coletivo').select2();
-        $('#tabela_origem_coletivo').select2();
 
 
 
 
 
-        $("#email_coletivo").on('keyup',(e) => {
-            $('#email_coletivo').val($('#email_coletivo').val().toLowerCase());
-        });
-
-        function TestaCPF(strCPF) {
-            var Soma;
-            var Resto;
-            Soma = 0;
-
-            if (strCPF == "00000000000") return false;
-            for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
-            Resto = (Soma * 10) % 11;
-            if ((Resto == 10) || (Resto == 11))  Resto = 0;
-            if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
-            Soma = 0;
-            for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
-            Resto = (Soma * 10) % 11;
-            if ((Resto == 10) || (Resto == 11))  Resto = 0;
-            if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
-            return true;
-        }
-
-        $(".close-modal").on('click',function(){
-            //alert("Olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        });
 
 
-        function adicionaZero(numero){
-            if (numero <= 9)
-                return "0" + numero;
-            else
-                return numero;
-        }
-        $("#cep_coletivo").change(function(){
-            let cep = $(this).val().replace("-","");
-            const url = `https://viacep.com.br/ws/${cep}/json`;
-            const options = {method: "GET",mode: "cors",
-                headers: {'content-type': 'application/json;charset=utf-8'}
-            }
-            fetch(url,options).then(response => response.json()).then(
-                data => {
-                    $("#rua_coletivo").val(data.logradouro);
-                    $("#bairro_coletivo").val(data.bairro);
-                    $("#complemento_coletivo").val(data.complemento);
-                    $("#uf_coletivo").val(data.uf);
-                    $("#cidade_origem_coletivo").val(data.localidade);
+
+
+
+
+
+
+
+
+    <script src="{{asset('js/select2.min.js')}}"></script>
+
+	<script src="{{asset('js/jquery.mask.min.js')}}"></script>
+	<script>
+		$(function(){
+
+            $("#email").on('keyup',(e) => {
+                $('#email').val($('#email').val().toLowerCase());
+            });
+
+			$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            )
-            if($(this).val() != "") {
-                $(".errorcep").html('');
-            }
-        });
+            });
 
-        $('#cnpj').mask('00.000.000/0000-00');
-        $('#telefone').mask('(00) 0000-0000');
-        // $('#telefone_individual').mask('0000-0000');
-        $('#celular_individual').mask('(00) 0 0000-0000');
-        $('#celular').mask('(00) 0 0000-0000');
-        $('#taxa_adesao').mask("#.##0,00", {reverse: true});
-        $('#valor_plano').mask("#.##0,00", {reverse: true});
-        $('#valor_total').mask("#.##0,00", {reverse: true});
-        $('#valor_boleto').mask("#.##0,00", {reverse: true});
-        $('#valor_correto').mask("#.##0,00", {reverse: true});
-        $('#valor_plano_saude').mask("#.##0,00", {reverse: true});
+			$('#cnpj').mask('00.000.000/0000-00');
+            //$('#telefone_individual').mask('0000-0000');
+            //$('#celular_individual').mask('(00) 0 0000-0000');
 
-        $('#valor_plano_saude').mask("#.##0,00", {reverse: true});
-        $('#valor_plano_odonto').mask("#.##0,00", {reverse: true});
-        $('#desconto_corretora_valores').mask("#.##0,00", {reverse: true});
-        //$('#desconto_corretor_valores').mask("#.##0,00", {reverse: true});
-        $('#cpf_individual').mask('000.000.000-00');
-        $('#cpf_financeiro_individual_cadastro').mask('000.000.000-00');
-        $('#responsavel_financeiro_coletivo_cadastrar_cpf').mask('000.000.000-00');
-        $('#cpf_coletivo').mask('000.000.000-00');
-        $('#cep_individual').mask('00000-000');
-        $('#cep_coletivo').mask('00000-000');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+            $('#telefone').mask('(00) 0000-0000');
+            $('#celular').mask('(00) 0 0000-0000');
+            $('#taxa_adesao').mask("#.##0,00", {reverse: true});
 
-        $("body").on('change','#dependente_coletivo',function(){
-            if($(this).is(':checked')) {
-                $("#container_responsavel_coletivo").removeClass('hidden');
-            } else {
-                $("#container_responsavel_coletivo").addClass('hidden');
-            }
-        });
+            $('#desconto_corretor').mask("#.##0,00", {reverse: true});
+            $('#desconto_corretora').mask("#.##0,00", {reverse: true});
+            $('#taxa_adesao').mask("#.##0,00", {reverse: true});
 
-        let plus = $(".plus");
-        let minus = $(".minus");
-        $(plus).on('click',function(e){
-            let alvo = e.target;
-            let pai = alvo.closest('.content');
-            let input = $(pai).find('input');
-            if(input.val() == "") {
-                input.val(0);
-            }
-            let newValue = parseInt(input.val()) + 1;
-            if(newValue >= 0) {
-                input.val(newValue);
-            }
-        });
+         //    $('#valor_plano').mask("#.##0,00", {reverse: true},translation: {
+         //    	"%": {
+         //        	pattern: /\%/,
+         //        	optional: true
+         //    	}
+        	// });
 
-        $(minus).on('click',function(e){
-            let alvo = e.target;
-            let pai = alvo.closest('.content');
-            let input = $(pai).find('input');
-            let newValue = parseInt(input.val()) - 1;
-            if(newValue >= 0) {
-                input.val(newValue);
-            }
-        });
+            $("#valor_plano").mask("#.##0,00", {reverse: true});
+            $('#valor_total').mask("#.##0,00", {reverse: true});
+            $('#valor_boleto').mask("#.##0,00", {reverse: true});
+            $('#valor_plano_saude').mask("#.##0,00", {reverse: true});
+            $('#valor_plano_saude').mask("#.##0,00", {reverse: true});
+            $('#valor_plano_odonto').mask("#.##0,00", {reverse: true});
+            $('#cpf_individual').mask('000.000.000-00');
+            $('#cpf_financeiro_individual_cadastro').mask('000.000.000-00');
+            $('#cpf_coletivo').mask('000.000.000-00');
+            $('#cep_individual').mask('00000-000');
+            $('#cep_coletivo').mask('00000-000');
 
-        $("body").on('change','input[name="boleto"]',function(){
-            let data_boleto = $(this).val();
-            $(this).closest('form').find('#data_boleto').val(data_boleto);
-        });
-
-        $("body").on('change','input[name="adesao"]',function(){
-            let valor_adesao = $(this).val();
-            $(this).closest('form').find('#valor_adesao').val(valor_adesao);
-        });
-
-        $("body").find('form[name="cadastrar_pessoa_fisica_formulario_modal_coletivo"]').on("click","#mostrar_plano_coletivo",function(){
-            if($("#usuario_coletivo_switch").val() == "") {
-                alert("Vendedor é campo obrigatório")
-                return false;
-            }
-
-            if($("#administradora_coletivo").val() == "") {
-                alert("Administradora é campo obrigatório")
-                return false;
-            }
-
-            if($("#tabela_origem_coletivo").val() == "") {
-                alert("Tabela Origem campo obrigatório")
-                return false;
-            }
-
-            if($("#nome_coletivo").val() == "") {
-                alert("Titular é campo obrigatório")
-                return false;
-            }
-
-            if($("#cpf_coletivo").val() == "") {
-                alert("CPF é obrigatório")
-                return false;
-            }
-
-            if(!TestaCPF($("#cpf_coletivo").val().replace(/[^0-9]/g,''))) {
-                alert("CPF é inválido")
-                return false;
-            }
-
-            if($("#data_nascimento_coletivo").val() == "") {
-                alert("Data Nascimento campo obrigatório")
-                return false;
-            }
-
-            if($("#email_coletivo").val() == "") {
-                alert("Email campo obrigatório")
-                return false;
-            }
-
-            if($("#celular").val() == "") {
-                alert("Celular é campo obrigatório")
-                return false;
-            }
-
-            if($("#cep_coletivo").val() == "") {
-                alert("Cep é campo obrigatório")
-                return false;
-            }
-
-            if($("#cidade_coletivo").val() == "") {
-                alert("Cidade é campo obrigatório")
-                return false;
-            }
-
-            if($("#bairro_coletivo").val() == "") {
-                alert("Bairro é campo obrigatório")
-                return false;
-            }
-
-            if($("#rua_coletivo").val() == "") {
-                alert("Rua é campo obrigatório")
-                return false;
-            }
-
-            if($("#uf_coletivo").val() == "") {
-                alert("UF é campo obrigatório")
-                return false;
-            }
-
-            if($("#codigo_externo_coletivo").val() == "") {
-                alert("Codigo Externo é campo obrigatório")
-                return false;
-            }
-
-            if(!$('input:radio[name=coparticipacao_coletivo]').is(':checked')) {
-                alert("Coparticipação é campo obrigatório")
-                return false;
-            }
-
-            if(!$('input:radio[name=odonto_coletivo]').is(':checked')) {
-                alert("Odonto é campo obrigatório")
-                return false;
-            }
-
-            if($("#data_cadastro_coletivo").val() == "") {
-                alert("Data Cadastro é campo obrigatório")
-                return false;
-            }
-            if(
-                $("#faixa-input-0-18_coletivo").val() == "" &&
-                $("#faixa-input-19-23_coletivo").val() == "" &&
-                $("#faixa-input-24-28_coletivo").val() == "" &&
-                $("#faixa-input-29-33_coletivo").val() == "" &&
-                $("#faixa-input-34-38_coletivo").val() == "" &&
-                $("#faixa-input-39-43_coletivo").val() == "" &&
-                $("#faixa-input-44-48_coletivo").val() == "" &&
-                $("#faixa-input-49-53_coletivo").val() == "" &&
-                $("#faixa-input-54-58_coletivo").val() == "" &&
-                $("#faixa-input-59_coletivo").val() == ""
-            ) {
-                alert("Preencher pelo menos 1 faixa etaria")
-                return false;
-            }
-
-            $.ajax({
-
-                url:"{{route('contratos.montarPlanos')}}",
-                method:"POST",
-                data:{
-                    "tabela_origem": $("#tabela_origem_coletivo").val(),
-                    "administradora_id":$("#administradora_coletivo").val(),
-                    "coparticipacao":$('input:radio[name=coparticipacao_coletivo]:checked').val(),
-                    "odonto":$("input:radio[name=odonto_coletivo]:checked").val(),
-                    "faixas" : [{
-                        '1' : $('#faixa-input-0-18_coletivo').val(),
-                        '2' : $('#faixa-input-19-23_coletivo').val(),
-                        '3' : $('#faixa-input-24-28_coletivo').val(),
-                        '4' : $('#faixa-input-29-33_coletivo').val(),
-                        '5' : $('#faixa-input-34-38_coletivo').val(),
-                        '6' : $('#faixa-input-39-43_coletivo').val(),
-                        '7' : $('#faixa-input-44-48_coletivo').val(),
-                        '8' : $('#faixa-input-49-53_coletivo').val(),
-                        '9' : $('#faixa-input-54-58_coletivo').val(),
-                        '10' : $('#faixa-input-59_coletivo').val()
-                    }]
-                },
-
-                success(res) {
-                    $("#resultado_coletivo").slideUp().html(res).delay(100).slideToggle(100,function(){
-                        $('body,html').animate({
-                            scrollTop:$(window).scrollTop() + $(window).height(),
-                        },1500);
+            $.getJSON("{{asset('js/estados_cidades.json')}}", function (data) {
+                var items = [];
+                var options = '<option value="">UF</option>';
+                $.each(data, function (key, val) {
+                    options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+                });
+                $("#uf").html(options);
+                $("#uf").change(function () {
+                    var options_cidades = '';
+                    var str = "";
+                    $("#uf option:selected").each(function () {
+                        str += $(this).text();
                     });
-                    $("body").find('.vigente').on('change',function(){
-                        let data = $(this).val();
-                        $("form[name='cadastrar_pessoa_fisica_formulario_modal_coletivo']").find("#data_vigencia").attr("value",data);
+                    $.each(data, function (key, val) {
+                        if(val.nome == str) {
+                            $.each(val.cidades, function (key_city, val_city) {
+                                options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                            });
+                        }
                     });
-
-                }
+                    $("#cidade").html(options_cidades);
+                }).change();
             });
-            return false;
-        });
-
-        $('body').on('click','.valores-acomodacao',function(e){
-            // if($("#created_at").val() == "") {
-            //     $('#mudarDataCriacao').modal('show');
-            // }
-            $(".valores-acomodacao").removeClass('destaque');
-            $(this).addClass('destaque');
-            let valor_plano = $(this).find('.valor_plano').text().replace("R$ ","");
-            let tipo = $(this).find('.tipo').text();
-            //$("#valor").val(valor_plano);
-            $("#acomodacao").val(tipo);
-            if(!$(this).hasClass('destaque')) {
-                $('#data_vigencia').val('')
-                $('#data_boleto').val('');
-                $('#valor_adesao').val('');
-            }
-            // $('body,html').animate({
-            //     scrollTop:$(window).scrollTop() + $(window).height(),
-            // },1500);
-
-            $("#btn_submit").html("<button type='submit' class='text-gray-900 w-full bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 salvar_contrato'>Salvar Contrato</button>")
-            $('.valores-acomodacao').not('.destaque').each(function(i,e){
-                $(e).find('.vigente').val('')
-                $(e).find('.boleto').val('')
-                $(e).find('.valor_adesao').val('')
-            });
-            if($(e.target).is('.form-control')) {
-                return;
-            }
-        });
-
-        $("body").on('click','.editar_valor_coletivo',function(){
-            $("#mudarValorColetivo").modal('show');
-            let acomodacao = $(this).attr('data-btn-acomodacao');
-            $("#alvo_acomodacao").val(acomodacao);
-
-        });
-
-        $("body").on('click','.mudar_valor_correto',function(){
-            let acomodacao = $("#alvo_acomodacao").val();
-            let valor = $("#valor_correto").val();
-            $("div[data-acomodacao='"+acomodacao+"']").find('.aqui_total_change').text(valor);
-            $("#valor").val(valor);
-            $("#valor_correto").val('');
-            $("#mudarValorColetivo").modal('hide');
-        });
-
-
-
-        // $('#mudarDataCriacao').on('hidden.bs.modal', function (e) {
-        //     let valor = $("#data_criacao").val();
-        //     $("#created_at").val(valor);
-        // });
-
-        $("#data_cadastro_coletivo").on('change',function(){
-            let valor = $(this).val();
-            $("#created_at").val(valor);
-        });
-
-        var intVal = function (i) {
-            return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
-        };
-
-        // $('#modalDiferencaEntreValores').on('hidden.bs.modal', function (e) {
-        //     $('form[name="cadastrar_pessoa_fisica_formulario_modal_coletivo"]').submit();
-        // });
-
-
-        $("#desconto_corretora_valores").change(function(){
-            let valor = $(this).val().replace(".","").replace(",",".");
-            let total = $(".diferenca_entre_valores").text().replace("R$","").replace(".","").replace(",",".").trim();
-            let corretor = total - valor;
-            let resto_corretor = parseFloat(corretor);
-            $("#desconto_corretor_valores").val(resto_corretor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}));
-            $("#desconto_corretor").val(resto_corretor);
-            $("#desconto_corretora").val(valor);
-        });
-
-        $(document).on('click', '.close-modal', function() {
-            $("#jaExisteCodigoExterno").removeClass('flex').addClass('hidden');
-        });
-
-
-
-        $('form[name="cadastrar_pessoa_fisica_formulario_modal_coletivo"]').on('submit',function(e){
-            e.preventDefault();
-            let valor_plano = $(".destaque").find('.valor_plano').text().replace("R$ ","").trim();
-            $("#valor").val(valor_plano);
-            let load = $(".ajax_load");
-            $.ajax({
-                url:"{{route('contratos.store')}}",
-                method:"POST",
-                data:$(this).serialize(),
-                beforeSend:function() {
-
-                    if($("#data_vigencia").val() == "") {
-                        alert("Preencher o campo data vigencia");
-                        return false;
-                    }
-
-                    if($("#data_boleto").val() == "") {
-                        alert("Preencher o campo data boleto");
-                        return false;
-                    }
-
-                    if($("#valor_adesao").val() == "") {
-                        alert("Preencher o campo valor adesão");
-                        return false;
-                    }
-
-                    if(($("#valor_adesao").val() != $("#valor").val()) && $("#desconto_corretor").val() == "") {
-                        let valor_t = $("#valor").val().replace(".","").replace(",",".");
-                        let valor_a = $("#valor_adesao").val().replace(".","").replace(",",".");
-                        let diferenca = valor_t - valor_a;
-                        let valor_difrenca = diferenca.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
-                        $(".diferenca_entre_valores").text(valor_difrenca);
-                        $("#modalDiferencaEntreValores").removeClass('hidden').addClass('flex');
-
-                        return false;  // Cancela o envio do formulário
-
-                    }
-                    load.fadeIn(100).css("display", "flex");
-                },
-                success:function(res) {
-                    load.fadeOut(300);
-                    if(res == "ja_existe") {
-                        $("#jaExisteCodigoExterno").removeClass('hidden').addClass('flex');
-                        return false;
-                    }
-                    if(res == "contratos") {
-                        $(location).prop('href','/contratos?ac=coletivo');
-                        return true;
-                    } else if(res == "financeiro") {
-                        $(location).prop('href','/financeiro?ac=coletivo');
-                        return true;
-                    }  else {
-                        $(location).prop('href','/contrato?ac=coletivo');
-                        return true;
-                    }
-                }
-            });
-            return false;
-
-        });
-
-        $("body").on('click','.salvar_valores',function(){
-            $('form[name="cadastrar_pessoa_fisica_formulario_modal_coletivo"]').submit();
-        });
-
-
-
-
-
-
-    });
-</script>
-
-
-
+		});
+	</script>
 
 </body>
 </html>

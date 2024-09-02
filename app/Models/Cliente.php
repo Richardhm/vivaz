@@ -13,4 +13,10 @@ class Cliente extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function dependentes()
+    {
+
+        return $this->hasMany(Dependente::class);
+    }
+
 }

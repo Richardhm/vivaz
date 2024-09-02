@@ -49,11 +49,11 @@ class ImagemController extends Controller
             ->whereIn('tabelas.faixa_etaria_id', explode(',', $keys))
             ->get();
         $hasTabelaOrigens = Pdf::where('plano_id', $plano)
-            ->whereNotNull('tabela_origens_id')
+            ->where('tabela_origens_id',$cidade)
             ->exists();
         if ($hasTabelaOrigens) {
             $pdf_copar = Pdf::where('plano_id', $plano)
-                ->whereNotNull('tabela_origens_id')
+                ->where('tabela_origens_id',$cidade)
                 ->first();
         } else {
             $pdf_copar = Pdf::where('plano_id', $plano)->first();
