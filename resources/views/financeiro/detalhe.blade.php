@@ -129,7 +129,7 @@
                     font-weight: bold;
                     margin-bottom: 0px;
                     text-decoration:none;" href="https://api.whatsapp.com/send?phone=55{{$dados->clientes->celular}}&amp;text=Oi tudo bem?" target="_blank" rel="nofollow">
-                    <i class="fab fa-whatsapp"></i>
+                    <img src="{{asset('whatsapp.png')}}" alt="Whatsapp" title="Whatsapp">
                 </a>
             </div>
 

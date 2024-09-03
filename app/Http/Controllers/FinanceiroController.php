@@ -1428,15 +1428,7 @@ class FinanceiroController extends Controller
 
 
 
-                $comissaoCorretora = ComissoesCorretoraLancadas
-                    ::where('comissoes_id',$request->comissao_id)
-                    ->where('parcela',1)
-                    ->first();
-                if(isset($comissaoCorretora) && $comissaoCorretora) {
-                    $comissaoCorretora->status_financeiro = 1;
-                    $comissaoCorretora->data_baixa = $request->data_baixa;
-                    $comissaoCorretora->save();
-                }
+
 
                 break;
 
@@ -1459,15 +1451,7 @@ class FinanceiroController extends Controller
 
                 ComissoesCorretoresLancadas::where("comissoes_id",$request->comissao_id)->where("parcela",3)->update(['atual'=>1]);
 
-                $comissaoCorretora = ComissoesCorretoraLancadas
-                    ::where('comissoes_id',$request->comissao_id)
-                    ->where('parcela',2)
-                    ->first();
-                if(isset($comissaoCorretora) && $comissaoCorretora) {
-                    $comissaoCorretora->status_financeiro = 1;
-                    $comissaoCorretora->data_baixa = $request->data_baixa;
-                    $comissaoCorretora->save();
-                }
+
 
                 break;
 
@@ -1488,15 +1472,8 @@ class FinanceiroController extends Controller
 
                 ComissoesCorretoresLancadas::where("comissoes_id",$request->comissao_id)->where("parcela",4)->update(['atual'=>1]);
 
-                $comissaoCorretora = ComissoesCorretoraLancadas
-                    ::where('comissoes_id',$request->comissao_id)
-                    ->where('parcela',3)
-                    ->first();
-                if(isset($comissaoCorretora) && $comissaoCorretora) {
-                    $comissaoCorretora->status_financeiro = 1;
-                    $comissaoCorretora->data_baixa = $request->data_baixa;
-                    $comissaoCorretora->save();
-                }
+
+
                 break;
 
             case 4:
@@ -1514,15 +1491,7 @@ class FinanceiroController extends Controller
                 }
                 ComissoesCorretoresLancadas::where("comissoes_id",$request->comissao_id)->where("parcela",5)->update(['atual'=>1]);
 
-                $comissaoCorretora = ComissoesCorretoraLancadas
-                    ::where('comissoes_id',$request->comissao_id)
-                    ->where('parcela',4)
-                    ->first();
-                if(isset($comissaoCorretora) && $comissaoCorretora) {
-                    $comissaoCorretora->status_financeiro = 1;
-                    $comissaoCorretora->data_baixa = $request->data_baixa;
-                    $comissaoCorretora->save();
-                }
+
                 break;
 
             case 5:
@@ -1540,15 +1509,7 @@ class FinanceiroController extends Controller
                 }
                 ComissoesCorretoresLancadas::where("comissoes_id",$request->comissao_id)->where("parcela",6)->update(['atual'=>1]);
 
-                $comissaoCorretora = ComissoesCorretoraLancadas
-                    ::where('comissoes_id',$request->comissao_id)
-                    ->where('parcela',5)
-                    ->first();
-                if(isset($comissaoCorretora) && $comissaoCorretora) {
-                    $comissaoCorretora->status_financeiro = 1;
-                    $comissaoCorretora->data_baixa = $request->data_baixa;
-                    $comissaoCorretora->save();
-                }
+
                 break;
 
             case 6:
@@ -1567,15 +1528,7 @@ class FinanceiroController extends Controller
 
                 ComissoesCorretoresLancadas::where("comissoes_id",$request->comissao_id)->where("parcela",7)->update(['atual'=>1]);
 
-                $comissaoCorretora = ComissoesCorretoraLancadas
-                    ::where('comissoes_id',$request->comissao_id)
-                    ->where('parcela',6)
-                    ->first();
-                if(isset($comissaoCorretora) && $comissaoCorretora) {
-                    $comissaoCorretora->status_financeiro = 1;
-                    $comissaoCorretora->data_baixa = $request->data_baixa;
-                    $comissaoCorretora->save();
-                }
+
                 break;
 
             case 7:
@@ -1592,15 +1545,7 @@ class FinanceiroController extends Controller
                     $comissao->save();
                 }
 
-                $comissaoCorretora = ComissoesCorretoraLancadas
-                    ::where('comissoes_id',$request->comissao_id)
-                    ->where('parcela',7)
-                    ->first();
-                if(isset($comissaoCorretora) && $comissaoCorretora) {
-                    $comissaoCorretora->status_financeiro = 1;
-                    $comissaoCorretora->data_baixa = $request->data_baixa;
-                    $comissaoCorretora->save();
-                }
+
 
                 break;
 

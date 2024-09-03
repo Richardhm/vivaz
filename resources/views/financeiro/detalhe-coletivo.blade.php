@@ -66,77 +66,71 @@
 
 
 
-    <div class="modal fade hidden" id="dataBaixaModal" tabindex="-1" role="dialog" aria-labelledby="dataBaixaModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="dataBaixaModalLabel">Data Da Baixa?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" name="data_da_baixa" id="data_da_baixa" method="POST">
-                        <input type="date" name="data_baixa" id="data_baixa" class="form-control form-control-sm">
-                        <input type="hidden" name="comissao_id" id="comissao_id_baixa" value="{{$dados->comissao->id}}">
+    <div id="dataBaixaModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg max-w-sm w-full">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h5 class="text-xl font-semibold" id="dataBaixaModalLabel">Data Da Baixa?</h5>
+                <button type="button" class="text-gray-600 hover:text-gray-900" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="p-4">
+                <form action="" name="data_da_baixa" id="data_da_baixa" method="POST">
+                    <input type="date" name="data_baixa" id="data_baixa" class="w-full p-2 border rounded">
+                    <input type="hidden" name="comissao_id" id="comissao_id_baixa" value="{{$dados->comissao->id}}">
+                    <div id="error_data_baixa" class="text-red-500 mt-2"></div>
+            </div>
+            <div class="flex justify-end p-4 border-t">
+                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2" id="closeModalBtn">Fechar</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+            </div>
+            </form>
+        </div>
+    </div>
 
-                        <div id="error_data_baixa">
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
+
+
+
+
+
+
+    <div id="cancelarModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h5 class="text-xl font-semibold" id="cancelarModalLabel">Cancelados</h5>
+                <button type="button" class="text-gray-600 hover:text-gray-900" id="closeModalBtnCancelado">&times;</button>
+            </div>
+            <div class="p-4">
+                <form action="" method="POST" name="formulario_cancelados" id="formulario_cancelados">
+                    <input type="hidden" name="comissao_id_cancelado" id="comissao_id_cancelado" value="{{$dados->comissao->id}}">
+
+                    <div class="mb-4">
+                        <label for="date" class="block text-sm font-medium text-gray-700">Data Baixa:</label>
+                        <input type="date" name="date" id="date" class="mt-1 w-full p-2 border rounded">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="motivo" class="block text-sm font-medium text-gray-700">Motivo Cancelamento:</label>
+                        <select name="motivo" id="motivo" class="mt-1 w-full p-2 border rounded">
+                            <option value="">--Escolher o Motivo--</option>
+                            @foreach($motivo_cancelados as $mm)
+                                <option value="{{$mm->id}}">{{$mm->nome}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="obs" class="block text-sm font-medium text-gray-700">Observação:</label>
+                        <textarea name="obs" id="obs" cols="30" rows="4" class="mt-1 w-full p-2 border rounded"></textarea>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2" id="closeModalBtn">Fechar</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-
-
-
-
-    <div class="modal fade hidden" id="cancelarModal" tabindex="-1" aria-labelledby="cancelarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cancelarModalLabel">Cancelados</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="POST" name="formulario_cancelados" id="formulario_cancelados">
-                        <input type="hidden" name="comissao_id_cancelado" id="comissao_id_cancelado" value="{{$dados->comissao->id}}">
-                        <div class="form-group">
-                            <label for="">Data Baixa:</label>
-                            <input type="date" name="date" id="date" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="motivo">Motivo Cancelamento:</label>
-                            <select name="motivo" id="motivo" class="form-control">
-                                <option value="">--Escolher o Motivo--</option>
-
-                                @foreach($motivo_cancelados as $mm)
-                                    <option value="{{$mm->id}}">{{$mm->nome}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="obs">Observação:</label>
-                            <textarea name="obs" id="obs" cols="30" rows="4" class="form-control"></textarea>
-                        </div>
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
@@ -147,13 +141,15 @@
 
     <input type="hidden" id="data_financeiro" value="{{$dados->financeiro_id}}">
 
-
-
-
-
     <main class="container_full_cards">
 
         <section class="p-4 bg-gray-800 rounded-lg shadow-md card_info">
+
+            <div class="flex flex-col">
+                <label class="text-white text-sm">Corretor:</label>
+                <input type="text" value="{{$dados->clientes->user->name}}" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md">
+            </div>
+
 
             <!-- Linha 1 -->
             <div class="grid grid-cols-3 gap-4 mb-4">
@@ -274,28 +270,40 @@
                 </div>
             </div>
 
-            <!-- Linha 7 -->
-            <div class="grid grid-cols-4 gap-4 mb-4">
-                <div class="flex flex-col">
-                    <label class="text-white text-sm">Vidas:</label>
-                    <input type="text" name="quantidade_vidas" id="quantidade_vidas_individual_cadastrar" value="" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" readonly>
+            <div class="flex justify-between">
+                <div class="flex flex-col w-[45%]">
+                    <label class="text-white text-sm">Desconto Corretora:</label>
+                    <input type="text" value="{{$dados->desconto_corretora ?? '0,00'}}" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" readonly>
                 </div>
 
-                <div class="flex flex-col">
-                    <label class="text-white text-sm">Data Vigência:</label>
-                    <input type="text" name="data_vigencia" id="data_vigencia" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" value="{{date('d/m/Y',strtotime($dados->data_vigencia))}}" readonly>
+                <div class="flex flex-col w-[45%]">
+                    <label class="text-white text-sm">Desconto Corretor:</label>
+                    <input type="text" value="{{$dados->desconto_corretor ?? '0,00'}}" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" readonly>
                 </div>
 
-                <div class="flex flex-col">
-                    <label class="text-white text-sm">Data Fim:</label>
-                    <input type="text" name="data_fim" id="data_fim" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" value="{{date('d/m/Y',strtotime($dados->data_fim))}}" readonly>
-                </div>
-
-                <div class="flex flex-col">
-                    <label class="text-white text-sm">Periodicidade:</label>
-                    <input type="text" name="periodicidade" id="periodicidade" value="{{$dados->periodicidade}}" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" readonly>
-                </div>
             </div>
+
+
+
+
+            <!-- Linha 7 -->
+            <div class="flex justify-between">
+                <div class="flex flex-col w-[45%]">
+                    <label class="text-white text-sm">Nome Responsavel:</label>
+                    <input type="text" value="{{$dependentes->nome ?? ''}}" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" readonly>
+                </div>
+
+                <div class="flex flex-col w-[45%]">
+                    <label class="text-white text-sm">CPF Responsavel:</label>
+                    <input type="text" value="{{$dependentes->cpf ?? ''}}" class="form-input mt-1 bg-gray-700 text-white border-gray-600 rounded-md" value="{{date('d/m/Y',strtotime($dados->data_vigencia))}}" readonly>
+                </div>
+
+            </div>
+
+
+
+
+
         </section>
         @php
             @endphp
@@ -489,8 +497,23 @@
             });
 
             $("body").on('click','.cancelar',function(){
-                $('#cancelarModal').modal('show')
+                $('#cancelarModal').removeClass('hidden').addClass('flex');
             });
+
+            $('#closeModalBtnCancelado').click(function() {
+                $('#cancelarModal').removeClass('flex').addClass('hidden');
+            });
+
+            // Fechar o modal
+            $('#closeModalBtn, #dataBaixaModal').on('click', function(event) {
+                if (event.target.id === 'closeModalBtn' || event.target.id === 'dataBaixaModal') {
+                    $('#dataBaixaModal').addClass('hidden');
+                }
+            });
+
+
+
+
 
             $("body").on('click','.excluir_coletivo',function(){
 
@@ -532,6 +555,7 @@
 
 
             $("body").on('click','.next',function(){
+
                 //if($("#data_cliente").val() && $("#data_contrato").val()) {
                 let id_cliente = $("#data_cliente").val();
                 let id_contrato = $("#data_contrato").val();
@@ -551,7 +575,7 @@
                         })
                     }
                 } else {
-                    $('#dataBaixaModal').modal('show');
+                    $('#dataBaixaModal').removeClass('hidden');
                 }
 
 
@@ -635,7 +659,7 @@
                     },
                     success:function(res) {
 
-                        window.location.href = "/admin/financeiro?ac=coletivo&search="+cliente;
+                        window.location.href = "/financeiro?ac=coletivo";
                         // $(".coletivo_quantidade_em_analise").html(res.qtd_coletivo_em_analise);
                         // $(".coletivo_quantidade_emissao_boleto").html(res.qtd_coletivo_emissao_boleto);
                         // $(".coletivo_quantidade_pagamento_adesao").html(res.qtd_coletivo_pg_adesao);

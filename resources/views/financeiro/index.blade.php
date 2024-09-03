@@ -124,18 +124,18 @@
                             <div class="flex w-full border-b-2 border-white mb-2">
                                 <p class="text-center">Listagem(Completa)</p>
                             </div>
-                            <div class="flex w-full bg-red-400">
-                                <select id="mudar_ano_table" class="form-control flex w-[45%] text-sm">
+                            <div class="flex w-full justify-between">
+                                <select id="mudar_ano_table" class="flex w-[49%] py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option>--Ano--</option>
                                 </select>
-                                <select id="mudar_mes_table" class="form-control flex w-[45%] text-sm">
+                                <select id="mudar_mes_table" class="flex w-[49%] py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option>--Mês--</option>
                                 </select>
                             </div>
 
 
-                            <select id="select_usuario_individual" class="form-control w-full mt-1 text-sm text-black">
-                                <option value="todos">---Escolher Corretor---</option>
+                            <select id="select_usuario_individual" class="form-control w-full mt-1 text-sm text-black bg-[rgba(254,254,254,0.18)]">
+
                             </select>
                         </div>
 
@@ -330,39 +330,39 @@
                         <ul class="list-none m-0 py-1" id="listar">
                             <li class="px-2 flex justify-between mb-1 coletivo" id="em_analise_coletivo">
                                 <span>Em Analise</span>
-                                <span class="badge badge-light coletivo_quantidade_em_analise w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_em_analise w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="emissao_boleto_coletivo">
                                 <span>Emissão Boleto</span>
-                                <span class="badge badge-light coletivo_quantidade_emissao_boleto w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_emissao_boleto w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_adesao_coletivo">
                                 <span>Pag. Adesão</span>
-                                <span class="badge badge-light coletivo_quantidade_pagamento_adesao w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_pagamento_adesao w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_vigencia_coletivo">
                                 <span>Pag. Vigência</span>
-                                <span class="badge badge-light coletivo_quantidade_pagamento_vigencia w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_pagamento_vigencia w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_segunda_parcela">
                                 <span>Pag. 2º Parcela</span>
-                                <span class="badge badge-light coletivo_quantidade_segunda_parcela w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_segunda_parcela w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_terceira_parcela">
                                 <span>Pag. 3º Parcela</span>
-                                <span class="badge badge-light coletivo_quantidade_terceira_parcela w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_terceira_parcela w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quarta_parcela">
                                 <span>Pag. 4º Parcela</span>
-                                <span class="badge badge-light coletivo_quantidade_quarta_parcela w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_quarta_parcela w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quinta_parcela">
                                 <span>Pag. 5º Parcela</span>
-                                <span class="badge badge-light coletivo_quantidade_quinta_parcela w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_quinta_parcela w-[45px] text-right">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_sexta_parcela">
                                 <span>Pag. 6º Parcela</span>
-                                <span class="badge badge-light coletivo_quantidade_sexta_parcela w-[45px] text-right">0</span>
+                                <span class="text-sm coletivo_quantidade_sexta_parcela w-[45px] text-right">0</span>
                             </li>
                         </ul>
                     </div>
@@ -981,7 +981,7 @@
                     processing: true,
                     ajax: {
                         "url":"{{ route('financeiro.individual.geralIndividualPendentes') }}",
-                        "dataSrc": ""
+                        "dataSrc": "data"
                     },
                     "lengthMenu": [500,1000],
                     "ordering": false,
@@ -1008,13 +1008,6 @@
                         {data:"parcelas",name:"parcelas"},
                         {data:"id",name:"ver"},
                         {data:"status",name:"status"},
-                        {data:"data_nascimento",name:"data_nascimento"},
-                        {data:"fone",name:"fone"},
-                        {data:"email",name:"email"},
-                        {data:"cidade",name:"cidade"},
-                        {data:"bairro",name:"bairro"},
-                        {data:"rua",name:"rua"},
-                        {data:"cep",name:"cep"},
 
 
                     ],
@@ -1034,30 +1027,29 @@
                                 if(cellData == "Cancelado") {
                                     var id = cellData;
                                     $(td).html(`<div class='text-center text-white'>
-                                            <a href="/admin/financeiro/cancelado/detalhes/${id}" class="text-white">
-                                                <i class="fas fa-ban"></i>
+                                            <a href="/financeiro/cancelado/detalhes/${id}" class="text-white">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
                                             </a>
                                         </div>
                                     `);
                                 } else {
                                     var id = rowData.id;
                                     $(td).html(`<div class='text-center text-white'>
-                                            <a href="/admin/financeiro/detalhes/${id}" class="text-white">
-                                                <i class='fas fa-eye div_info'></i>
+                                            <a href="/financeiro/detalhes/${id}" class="text-white">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
                                             </a>
                                         </div>
                                     `);
                                 }
                             }
                         },
-                        {"targets": 11,"visible":false},
-                        {"targets": 12,"visible":false},
-                        {"targets": 13,"visible":false},
-                        {"targets": 14,"visible":false},
-                        {"targets": 15,"visible":false},
-                        {"targets": 16,"visible":false},
-                        {"targets": 17,"visible":false},
-                        {"targets": 18,"visible":false},
+                        {"targets": 11,"width":"3%","visible": false},
                     ],
                     "initComplete": function( settings, json ) {
 
@@ -2370,7 +2362,7 @@
                     processData: false,
                     beforeSend: function () {
                         load.fadeIn(200).css("display", "flex");
-                        $('#uploadModal').modal('hide');
+                        //$('#uploadModal').modal('hide');
                     },
                     success:function(res) {
 

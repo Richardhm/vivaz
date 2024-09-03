@@ -309,7 +309,7 @@
 
             <div x-data="{ coparticipacao: '{{ old('coparticipacao_coletivo') ? old('coparticipacao_coletivo') : '' }}' }" class="flex" style="flex-basis:10%;">
                 <div class="flex flex-col">
-                    <span class="text-white text-xs mb-1">Coparticipaçãoooooo:</span>
+                    <span class="text-white text-xs mb-1">Coparticipação:</span>
                     <div class="flex space-x-2">
                         <label :class="{'bg-purple-600 border-white': coparticipacao === 'sim'}" for="coparticipacao_radio_sim" class="cursor-pointer border border-gray-300 rounded-lg px-3 py-1.5 text-white">
                             <input type="radio" name="coparticipacao_coletivo" id="coparticipacao_radio_sim" value="sim" x-model="coparticipacao" class="sr-only">
@@ -332,11 +332,11 @@
                 <div class="flex flex-col">
                     <span for="odonto" class="text-white" style="font-size:0.78em;">Odonto:</span>
                     <div class="flex space-x-2">
-                        <label :class="{'bg-red-800 border-white': odonto === 'sim'}" for="odonto_radio_sim" class="cursor-pointer bg-transparent border border-gray-300 rounded-lg px-3 py-1.5 text-white hover:bg-gray-700 hover:border-gray-500 transition-colors duration-200">
+                        <label :class="{'bg-purple-600 border-white': odonto === 'sim'}" for="odonto_radio_sim" class="cursor-pointer border border-gray-300 rounded-lg px-3 py-1.5 text-white">
                             <input type="radio" name="odonto_coletivo" id="odonto_radio_sim" value="sim" x-model="odonto" class="sr-only">
                             <span>Sim</span>
                         </label>
-                        <label :class="{'bg-red-800 border-white': odonto === 'nao'}" for="odonto_radio_nao" class="cursor-pointer bg-transparent border border-gray-300 rounded-lg px-3 py-1.5 text-white hover:bg-gray-700 hover:border-gray-500 transition-colors duration-200">
+                        <label :class="{'bg-purple-600 border-white': odonto === 'nao'}" for="odonto_radio_nao" class="cursor-pointer border border-gray-300 rounded-lg px-3 py-1.5 text-white">
                             <input type="radio" name="odonto_coletivo" id="odonto_radio_nao" value="nao" x-model="odonto" class="sr-only">
                             <span>Não</span>
                         </label>
