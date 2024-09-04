@@ -30,14 +30,14 @@ class FinanceiroController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware(["can:configuracoes"]);
+        //return $this->middleware(["can:configuracoes"]);
     }
 
 
 
     public function index(Request $request)
     {
-        //dd(bcrypt('12345678'));
+        dd(bcrypt('12345678'));
 
         return view('financeiro.index');
     }
