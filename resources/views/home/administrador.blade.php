@@ -537,34 +537,28 @@
 
                <div class="flex my-1 ranking_classificacao" style="height:20%;">
                    @foreach(collect($ranking_mes)->take(5) as $r)
-
-                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex">
-                           <div class="flex justify-between w-full flex-wrap">
-                               <div class="text-white flex flex-wrap align-between font-weight-bold" style="height:70%;width:70%;">
-                                   <div class="flex justify-between bg-red-600 w-full">
-                                       <span class="w-[10%]] ml-1" style="font-size:1em;">{{$loop->iteration}}º</span>
-                                       <div class="flex justify-end" style="width:100%;height:45%;justify-content:flex-end;">
-                                           @if(file_exists($r->image))
-                                               <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" class="img-fluid" style="border-radius:50%;">
-                                           @else
-
-                                           @endif
-                                       </div>
-                                   </div>
-
-                                   <span class="w-full ml-1" style="font-size:0.9em;">
-                                       @php
-                                           // Divida a string em palavras
-                                           $words = explode(' ', $r->usuario);
-                                           // Pegue as duas primeiras palavras
-                                           $firstTwoWords = implode(' ', array_slice($words, 0, 2));
-                                       @endphp
-                                       {{ $firstTwoWords }}
-                                   </span>
+                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex flex-col">
+                           <!-- Primeira Linha: Posição e Foto -->
+                           <div class="text-white flex w-full items-center justify-between">
+                               <span class="ml-1" style="font-size:1em; flex-shrink: 0;">{{$loop->iteration}}º</span>
+                               <div class="flex justify-end items-center" style="flex-grow: 1; height: 60px; max-width: 60px;">
+                                   @if(file_exists($r->image))
+                                       <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" class="img-fluid" style="border-radius:50%; max-height:100%; max-width:100%;">
+                                   @endif
                                </div>
-
                            </div>
-                           <div class="small-box-footer flex justify-between" style="font-size:0.8em;">
+
+                           <!-- Segunda Linha: Nome do Usuário -->
+                           <div class="w-full text-white text-center" style="font-size:0.7em; margin-top: 6px;">
+                               @php
+                                   $words = explode(' ', $r->usuario);
+                                   $firstTwoWords = implode(' ', array_slice($words, 0, 2));
+                               @endphp
+                               {{ $firstTwoWords }}
+                           </div>
+
+                           <!-- Terceira Linha: Vidas e Valor -->
+                           <div class="small-box-footer flex justify-between w-full text-white" style="font-size:0.8em; margin-top: 6px; padding-bottom: 6px;">
                                <span class="ml-1">{{$r->quantidade}} Vidas</span>
                                <span class="mr-2">R$ {{number_format($r->valor,2,",",".")}}</span>
                            </div>
@@ -572,13 +566,16 @@
                    @endforeach
                </div>
 
+
+
+
                <div class="flex w-full justify-between" style="height:78%;">
                    <div class="content_table">
                        <table class="table table-sm border bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full text-white tabela_ranking_mes" style="width:100%;">
                            <thead>
                            <tr>
                                <th colspan="4" class="bg-warning">
-                                   <select name="ranking_mes" id="ranking_mes" class="font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                                   <select name="ranking_mes" id="ranking_mes" class="font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:100%;">
                                        <option value="">Mês</option>
                                        @foreach($mesesSelect as $mm)
                                            <option value="{{$mm->month_date}}"
