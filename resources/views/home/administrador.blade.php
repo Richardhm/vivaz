@@ -232,7 +232,7 @@
        {{--Meio--}}
        <div class="flex w-full m-0 p-0" style="height: 73vh;" id="main_body">
 
-           <div class="flex flex-col p-0 h-full" style="flex-basis:40%;margin:0 0.5% 0 0;">
+           <div class="flex flex-col p-0 h-full" style="flex-basis:30%;margin:0 0.5% 0 0;">
 
                <div class="flex w-full justify-between m-0 p-0" style="height:33vh;">
 
@@ -495,15 +495,15 @@
                    <div class="w-50 justify-content-around content_legenda">
                     <span class="flex items-center">
                         <span class="text-dark">Individual</span>
-                        <span class="ml-1" style="background:#1b9e77;width:10px;height:10px;"></span>
+                        <span class="ml-1" style="width:10px;height:10px;"></span>
                     </span>
                        <span class="flex items-center">
                         <span class="text-dark">Coletivo</span>
-                        <span class="ml-1" style="background:#d95f02;width:10px;height:10px;"></span>
+                        <span class="ml-1" style="width:10px;height:10px;"></span>
                     </span>
                        <span class="flex items-center">
                         <span class="text-dark">Empresarial</span>
-                        <span class="ml-1" style="background:#7570b3;width:10px;height:10px;"></span>
+                        <span class="ml-1" style="width:10px;height:10px;"></span>
                     </span>
                    </div>
                    <div class="total_janeiro">0</div>
@@ -525,33 +525,44 @@
 
            </div>
 
-           <div class="flex" style="flex-basis:55%;flex-direction:column;height:100%;">
+           <div class="flex" style="flex-basis:60%;flex-direction:column;height:100%;">
                <div class="bg-amber-300 flex items-center" style="border-radius:5px;height:5%;">
                    <h5 class="flex items-center my-auto w-full">
-                       <span class="flex justify-end" style="flex-basis:60%;">Ranking Vendedor</span>
+                       <span class="flex justify-end" style="flex-basis:60%;">Ranking Vendedorssss</span>
                        <span class="flex justify-end" style="flex-basis:40%;">
                         <i class="fas fa-medal"></i>
                     </span>
-
                    </h5>
                </div>
 
                <div class="flex my-1 ranking_classificacao" style="height:20%;">
                    @foreach(collect($ranking_mes)->take(5) as $r)
 
-                       <div class="small-box bg-blue-600 w-full mb-0 mr-1 flex">
-                           <div class="d-flex justify-between w-full">
+                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex">
+                           <div class="flex justify-between w-full flex-wrap">
                                <div class="text-white flex flex-wrap align-between font-weight-bold" style="height:70%;width:70%;">
-                                   <span class="w-full ml-1" style="font-size:1em;">{{$loop->iteration}}º</span>
-                                   <span class="w-full ml-1" style="font-size:0.9em;">{{$r->usuario}}</span>
+                                   <div class="flex justify-between bg-red-600 w-full">
+                                       <span class="w-[10%]] ml-1" style="font-size:1em;">{{$loop->iteration}}º</span>
+                                       <div class="flex justify-end" style="width:100%;height:45%;justify-content:flex-end;">
+                                           @if(file_exists($r->image))
+                                               <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" class="img-fluid" style="border-radius:50%;">
+                                           @else
+
+                                           @endif
+                                       </div>
+                                   </div>
+
+                                   <span class="w-full ml-1" style="font-size:0.9em;">
+                                       @php
+                                           // Divida a string em palavras
+                                           $words = explode(' ', $r->usuario);
+                                           // Pegue as duas primeiras palavras
+                                           $firstTwoWords = implode(' ', array_slice($words, 0, 2));
+                                       @endphp
+                                       {{ $firstTwoWords }}
+                                   </span>
                                </div>
-                               <div class="flex mt-1 mr-1" style="width:28%;height:45%;justify-content:flex-end;">
-                                   @if(file_exists("storage/".$r->image))
-                                       <img src="{{asset("storage/".$r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" class="img-fluid" style="border-radius:50%;">
-                                   @else
-                                       <span style="font-size:0.7em;" class="mr-1 my-auto">{{$r->usuario}}</span>
-                                   @endif
-                               </div>
+
                            </div>
                            <div class="small-box-footer flex justify-between" style="font-size:0.8em;">
                                <span class="ml-1">{{$r->quantidade}} Vidas</span>
@@ -563,7 +574,7 @@
 
                <div class="flex w-full justify-between" style="height:78%;">
                    <div class="content_table">
-                       <table class="table table-sm border bg-white tabela_ranking_mes" style="width:100%;">
+                       <table class="table table-sm border bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full text-white tabela_ranking_mes" style="width:100%;">
                            <thead>
                            <tr>
                                <th colspan="4" class="bg-warning">
@@ -601,12 +612,12 @@
                    </div>
 
                    <div class="content_table">
-                       <table class="table table-sm border bg-white tabela_semestral" style="width:100%;">
+                       <table class="table table-sm border bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white tabela_semestral" style="width:100%;">
                            <thead>
 
                            <tr>
                                <th colspan="4" class="bg-warning">
-                                   <select name="ranking_semestral" id="ranking_semestral" class="text-center bg-warning font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                                   <select name="ranking_semestral" id="ranking_semestral" class="text-center bg-warning w-full font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:100%;">
                                        <option value="">Semestre</option>
                                        @php
                                            // Obtém o ano atual
@@ -660,13 +671,13 @@
                        </table>
                    </div>
                    <div class="content_table">
-                       <table class="table table-sm border bg-white tabela_ranking_ano" style="width:100%;">
+                       <table class="table table-sm border bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full text-white tabela_ranking_ano" style="width:100%;">
                            <thead>
 
                            <tr>
 
                                <th colspan="4" class="bg-warning">
-                                   <select name="ranking_ano" id="ranking_ano" class="ranking_ano text-center bg-warning font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                                   <select name="ranking_ano" id="ranking_ano" class="ranking_ano text-center bg-warning font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:100%;">
                                        <option value="">Ano</option>
                                        <option value="2023" {{$ano_atual == 2023 ? 'selected' : ''}}>2023</option>
                                        <option value="2024" {{$ano_atual == 2024 ? 'selected' : ''}}>2024</option>
