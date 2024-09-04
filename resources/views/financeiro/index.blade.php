@@ -94,6 +94,16 @@
         </style>
     @endsection
     <input type="hidden" id="janela_atual" value="aba_individual">
+        @if(auth()->user()->can('listar_todos'))
+            <div style="display:flex;justify-content: center;">
+                    <button data-corretora="1" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;margin-right:5px;">Accert</button>
+                    <button data-corretora="2" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;margin-right:5px;">Innove</button>
+                    <button data-corretora="0" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;">Vivaz</button>
+            </div>
+        @endif
+
+
+
     <div>
         <ul class="list_abas">
             <li data-id="aba_individual" class="ativo">Individual</li>
@@ -102,6 +112,38 @@
         </ul>
     </div>
     <x-upload-modal></x-upload-modal>
+
+        <!-- Modal -->
+        <div id="atualizarModal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
+            <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-auto">
+                <div class="px-6 py-4">
+                    <div class="flex justify-between items-center">
+                        <h5 class="text-xl font-medium text-gray-900">Upload</h5>
+                        <button type="button" class="text-gray-900 close-modal">&times;</button>
+                    </div>
+                </div>
+                <div class="px-6 py-4">
+                    <form action="" method="POST" name="formulario_atualizar" id="formulario_atualizar" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex items-center mb-4">
+                            <div class="w-full mr-2">
+                                <label for="arquivo" class="block text-sm font-medium text-gray-700">Arquivo:</label>
+                                <input type="file" name="arquivo_atualizar" id="arquivo_atualizar" class="form-input mt-1 block w-full">
+                            </div>
+                            <button type="button" class="text-red-600 close-modal ml-2">
+                                <i class="fas fa-window-close fa-lg"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
     <section class="conteudo_abas mt-2">
         <!--------------------------------------INDIVIDUAL------------------------------------------>
         <main id="aba_individual" class="block active-tab">
@@ -113,7 +155,7 @@
 
                     <div class="flex justify-between my-1">
                         <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%] modal_upload">Upload</span>
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%]">Atualizar</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%] btn-atualizar">Atualizar</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%]">Cancelados</span>
                     </div>
 
@@ -134,9 +176,7 @@
                             </div>
 
 
-                            <select id="select_usuario_individual" class="form-control w-full mt-1 text-sm text-black bg-[rgba(254,254,254,0.18)]">
-
-                            </select>
+                            <select id="select_usuario_individual" class="form-control w-full mt-1 text-sm text-black bg-[rgba(254,254,254,0.18)]"></select>
                         </div>
 
                         <ul class="list-none space-y-2" id="list_individual_begin">
@@ -602,6 +642,24 @@
         // mostrarAba('aba_individual');
 
         $(document).ready(function(){
+
+            $('button[data-corretora]').on('click', function() {
+                let corretora_id = $(this).data('corretora');
+
+
+                if($("#janela_atual").val() == "aba_individual") {
+                    inicializarIndividual(corretora_id);
+                } else if($("#janela_atual").val() == "aba_coletivo") {
+                    inicializarColetivo(corretora_id);
+                } else {
+                    inicializarEmpresarial(corretora_id);
+                }
+            });
+
+
+
+
+
             $('.modal_upload').on('click', function() {
                 $('#uploadModal').addClass('show');
             });
@@ -941,7 +999,7 @@
                 $(this).closest('tr').addClass('textoforte');
             });
 
-            function inicializarIndividual() {
+            function inicializarIndividual(corretora_id = 1) {
 
                 if($.fn.DataTable.isDataTable('.listarindividual')) {
                     $('.listarindividual').DataTable().destroy();
@@ -981,7 +1039,9 @@
                     processing: true,
                     ajax: {
                         "url":"{{ route('financeiro.individual.geralIndividualPendentes') }}",
-                        "dataSrc": "data"
+                        data: function (d) {
+                            d.corretora_id = corretora_id;
+                        }
                     },
                     "lengthMenu": [500,1000],
                     "ordering": false,
@@ -1082,11 +1142,11 @@
                             corretoresUnicos.add(v);
                         });
                         let corretoresOrdenados = Array.from(corretoresUnicos).sort();
-                        $('#select_usuario_individual').empty();
-                        $('#select_usuario_individual').append('<option value="todos">-- Escolher Corretor --</option>');
-                        corretoresOrdenados.forEach(function(corretor) {
-                            $('#select_usuario_individual').append('<option value="' + corretor + '">' + corretor + '</option>');
-                        });
+                        $('#select_usuario_individual').append('olaaaaaaaaaaaaaaaaaaaaaa');
+                        // $('#select_usuario_individual').append('<option value="todos">-- Escolher Corretor --</option>');
+                        // corretoresOrdenados.forEach(function(corretor) {
+                        //     $('#select_usuario_individual').append('<option value="' + corretor + '">' + corretor + '</option>');
+                        // });
 
                         let anos = this.api().column(0).data().toArray().map(function(value) {
                             let year = new Date(value).getFullYear();
@@ -1961,7 +2021,7 @@
                     });
 
                     // Inicializar o select2 novamente
-                    $("#select_usuario_individual").select2();
+                    //$("#select_usuario_individual").select2();
                     let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
                     let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
                     let primeiraParcelaIndividual = 0;
@@ -2020,7 +2080,7 @@
                     });
 
                     // Inicializar o select2 novamente
-                    $("#select_usuario_individual").select2();
+                    //$("#select_usuario_individual").select2();
 
                     let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
                     let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
@@ -2322,7 +2382,7 @@
                     contentType: false,
                     processData: false,
                     beforeSend: function () {
-                        $('#atualizarModal').modal('hide');
+                        //$('#atualizarModal').modal('hide');
                         load.fadeIn(200).css("display", "flex");
 
                     },
@@ -2339,12 +2399,25 @@
 
 
 
-            $(".btn-atualizar").on('click',function(){
-
-                $("#atualizarModal").modal('show');
 
 
+            $(".btn-atualizar").on('click', function() {
+                $("#atualizarModal").removeClass('hidden').addClass('flex');
             });
+
+            // Fechar a modal ao clicar no botão de fechar
+            $(".close-modal").on('click', function() {
+                $("#atualizarModal").removeClass('flex').addClass('hidden');
+            });
+
+            $(window).on('click', function(event) {
+                if ($(event.target).is('#atualizarModal')) {
+                    $("#atualizarModal").removeClass('flex').addClass('hidden');
+                }
+            });
+
+
+
 
             /*************************************************REALIZAR UPLOAD DO EXCEL*********************************************************************/
             $("#arquivo_upload").on('change',function(e){

@@ -28,104 +28,83 @@ use Illuminate\Support\Str;
 
 class FinanceiroController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware(["can:configuracoes"]);
+    }
+
+
+
     public function index(Request $request)
     {
+        //dd(bcrypt('12345678'));
+
         return view('financeiro.index');
     }
 
     public function geralIndividualPendentes(Request $request)
     {
-
-        $corretora_id = 1;
+        $corretora_id = $request->input('corretora_id');
         $user = auth()->user();
 
-        if ($request->ajax()) {
+        // Consulta base
+        $query = DB::table('comissoes_corretores_lancadas')
+            ->join('comissoes', 'comissoes.id', '=', 'comissoes_corretores_lancadas.comissoes_id')
+            ->join('contratos', 'contratos.id', '=', 'comissoes.contrato_id')
+            ->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
+            ->join('users', 'users.id', '=', 'clientes.user_id')
+            ->join('estagio_financeiros', 'estagio_financeiros.id', '=', 'contratos.financeiro_id')
+            ->select(
+                DB::raw("DATE_FORMAT(contratos.created_at, '%d/%m/%Y') as data"),
+                'contratos.codigo_externo as orcamento',
+                'users.name as corretor',
+                'clientes.nome as cliente',
+                'clientes.cpf as cpf',
+                'clientes.quantidade_vidas as quantidade_vidas',
+                'contratos.valor_plano as valor_plano',
+                'contratos.id',
+                'estagio_financeiros.nome as parcelas',
+                DB::raw("DATE_FORMAT(comissoes_corretores_lancadas.data, '%d/%m/%Y') as vencimento"),
+                DB::raw("DATE_FORMAT(clientes.data_nascimento, '%d/%m/%Y') as data_nascimento"),
+                'clientes.celular as fone',
+                'clientes.email as email',
+                'clientes.cidade as cidade',
+                'clientes.bairro as bairro',
+                'clientes.rua as rua',
+                'clientes.cep as cep',
+                DB::raw("CASE WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado' ELSE 'Aprovado' END AS status")
+            );
 
-            if($request->mes == '00' || !isset($request->mes)) {
-
-                $cacheKey = 'geralIndividualPendentesCobranca'.time();
-                $tempoDeExpiracao = 60;
-                $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use($corretora_id){
-                    return DB::select("
-                        SELECT
-                        DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as data,
-                        (contratos.codigo_externo) as orcamento,
-                        users.name as corretor,
-                        clientes.nome as cliente,
-                        DATE_FORMAT(clientes.data_nascimento,'%d/%m/%Y') AS data_nascimento,
-                        clientes.celular AS telefone,
-                        clientes.cpf as cpf,
-                        clientes.quantidade_vidas as quantidade_vidas,
-                        (contratos.valor_plano) as valor_plano,
-                        contratos.id,
-                        estagio_financeiros.nome as parcelas,
-                        DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') as vencimento,
-                        CASE
-                            WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado'
-                            ELSE 'Aprovado'
-                        END AS status
-
-                    FROM comissoes_corretores_lancadas
-                            INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
-                            INNER JOIN contratos ON contratos.id = comissoes.contrato_id
-                            INNER JOIN clientes ON clientes.id = contratos.cliente_id
-                            INNER JOIN users ON users.id = clientes.user_id
-                            INNER JOIN estagio_financeiros ON estagio_financeiros.id = contratos.financeiro_id
-                    WHERE
-                    contratos.plano_id = 1 AND ( (comissoes_corretores_lancadas.data_baixa IS NULL AND comissoes_corretores_lancadas.status_financeiro = 0)
-	                OR (comissoes_corretores_lancadas.parcela = 6 AND comissoes_corretores_lancadas.status_financeiro = 1))
-                    AND clientes.corretora_id = $corretora_id
-                    GROUP BY comissoes_corretores_lancadas.comissoes_id;
-                    ");
-                });
-
-
-
-
-
-
-
-            } else {
-                $mes = $request->mes;
-                $cacheKey = "geralIndividualPendentesCobranca{$mes}";
-                $tempoDeExpiracao = 60;
-                $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use($mes,$corretora_id) {
-                    return DB::select("
-                        SELECT
-                        DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as data,
-                        (contratos.codigo_externo) as orcamento,
-                        users.name as corretor,
-                        clientes.nome as cliente,
-                        DATE_FORMAT(clientes.data_nascimento,'%d/%m/%Y') AS data_nascimento,
-                        clientes.celular AS telefone,
-                        clientes.cpf as cpf,
-                        clientes.quantidade_vidas as quantidade_vidas,
-                        (contratos.valor_plano) as valor_plano,
-                        contratos.id,
-                        estagio_financeiros.nome as parcelas,
-                        DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') as vencimento,
-                        CASE
-                            WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado'
-                            ELSE 'Aprovado'
-                        END AS status
-
-                    FROM comissoes_corretores_lancadas
-                            INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
-                            INNER JOIN contratos ON contratos.id = comissoes.contrato_id
-                            INNER JOIN clientes ON clientes.id = contratos.cliente_id
-                            INNER JOIN users ON users.id = clientes.user_id
-                            INNER JOIN estagio_financeiros ON estagio_financeiros.id = contratos.financeiro_id
-                    WHERE
-                        (status_financeiro = 0 OR (status_financeiro = 1 AND parcela = 6))
-                    AND contratos.plano_id = 1
-                    AND clientes.cateirinha IS NOT NULL and month(contratos.created_at) = {$mes} and clientes.corretora_id = $corretora_id
-
-                    GROUP BY contratos.id;
-                    ");
-                });
-            }
-            return response()->json(['data' => $resultado]);
+        if ($request->mes != '00' && isset($request->mes)) {
+            $mes = $request->mes;
+            $query->whereMonth('contratos.created_at', $mes);
         }
+
+        if($corretora_id != 0) {
+            $query->where('clientes.corretora_id', $corretora_id);
+        }
+
+        // Se o usuário pode listar todos, aplicar o filtro por corretora somente se corretora_id for diferente de 0
+//        if ($user->can('listar_todos')) {
+//            if ($corretora_id != 0) {
+//                $query->where('clientes.corretora_id', $corretora_id);
+//            }
+//        } else {
+//            // Para usuários que não podem listar todos, filtrar apenas pela corretora do usuário
+//            $userCorretoraId = $user->corretora_id; // Supondo que o modelo User tem um campo corretora_id
+//            if ($corretora_id != $userCorretoraId) {
+//                // Se o corretora_id solicitado não corresponde à corretora do usuário, não retornar dados
+//                $query->where('clientes.corretora_id', $userCorretoraId);
+//            } else {
+//                // Caso contrário, aplicar o filtro pelo corretora_id solicitado
+//                $query->where('clientes.corretora_id', $corretora_id);
+//            }
+//        }
+        $query->where('contratos.plano_id',1);
+        $resultado = $query->groupBy('comissoes_corretores_lancadas.comissoes_id')->get();
+
+        return response()->json(['data' => $resultado]);
+
 
     }
 
@@ -610,6 +589,32 @@ class FinanceiroController extends Controller
             "plano" => $contratos->plano->id
         ]);
     }
+
+
+    private function verificarCarteirinha($nome,$codigo)
+    {
+        $carteirinha = Cliente
+            ::select('clientes.*')
+            ->join('users','users.id','=','clientes.user_id')
+            ->join('contratos','contratos.cliente_id','=','clientes.id')
+            ->where('clientes.nome','like',$nome)
+            ->where('users.codigo_vendedor',$codigo)
+            ->whereNull("cateirinha")
+            ///->whereDate('contratos.created_at',$cells[6]->getValue()->format('Y-m-d'))
+            ->with(['user','contrato','contrato.comissao','contrato.comissao.comissoesLancadas'])
+            ->first();
+
+        if($carteirinha) {
+            return $carteirinha->id;
+        } else {
+            return null;
+        }
+
+    }
+
+
+
+
 
 
 

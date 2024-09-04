@@ -222,7 +222,9 @@
             <div class="navbar">
                 <div class="profile">
                     <div class="imgbox">
-                        <img src="{{asset('2vzOt5oxSsZl6X3OiovpxVdW1B5SZFPIjIYeJuy1old.png')}}" alt="User">
+                        @if(auth()->user()->image)
+                        <img src="{{asset(auth()->user()->image)}}" alt="User">
+                        @endif
                     </div>
                     <div class="heading">
                         <h3 class="title">WebKit Coding</h3>
@@ -239,6 +241,8 @@
                             <span>dashboard</span>
                         </a>
                     </li>
+
+                    @if(auth()->user()->can('ranking'))
                     <li text-data="ranking" class="hover:text-black">
                         <a href="{{route('ranking.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -250,6 +254,8 @@
                             <span>ranking</span>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->can('ranking'))
                     <li text-data="vendedores" class="hover:text-black">
                         <a href="#" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -260,6 +266,8 @@
                             <span>vendedores</span>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->can('orcamento'))
                     <li text-data="orçamento" class="hover:text-black">
                         <a href="{{route('orcamento')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -271,7 +279,8 @@
                             <span>orçamento</span>
                         </a>
                     </li>
-
+                    @endif
+                    @if(auth()->user()->can('estrela'))
                     <li text-data="estrela" class="hover:text-black">
                         <a href="{{route('estrela.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -281,6 +290,8 @@
                             <span>estrela</span>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->can('financeiro'))
                     <li text-data="financeiro" class="hover:text-black">
                         <a href="{{route('financeiro.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -292,8 +303,10 @@
                             <span>financeiro</span>
                         </a>
                     </li>
+                    @endif
+                    @if(auth()->user()->can('comissao'))
                     <li text-data="gerente">
-                        <a href="#gerente" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                        <a href="{{route('gerente.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path fill="currentColor" fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Zm5.178 12.137a4.137 4.137 0 1 1 1.036-8.144A6.113 6.113 0 0 0 8.726 12c0 1.531.56 2.931 1.488 4.006a4.114 4.114 0 0 1-1.036.131ZM10.726 12c0-1.183.496-2.252 1.294-3.006A4.125 4.125 0 0 1 13.315 12a4.126 4.126 0 0 1-1.294 3.006A4.126 4.126 0 0 1 10.726 12Zm4.59 0a6.11 6.11 0 0 1-1.489 4.006 4.137 4.137 0 1 0 0-8.013A6.113 6.113 0 0 1 15.315 12Z" clip-rule="evenodd"/>
                             </svg>
@@ -301,23 +314,25 @@
                             <span>gerente</span>
                         </a>
                     </li>
+                    @endif
 
+                    @if(auth()->user()->can('configuracoes'))
                     <li text-data="configurações">
                         <a href="#configuracoes" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                 <path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" clip-rule="evenodd" />
                             </svg>
-
-
-
-
                             <span>configurações</span>
                         </a>
                     </li>
+                    @endif
 
                     <li text-data="sair">
-                        <a href="#sair" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                            @csrf
+                        </form>
+                        <a href="#sair" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
                             </svg>
