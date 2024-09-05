@@ -182,7 +182,7 @@
                             </div>
 
 
-                            <select id="select_usuario_individual" class="form-control w-full mt-1 text-sm text-black bg-[rgba(254,254,254,0.18)]"></select>
+                            <select id="select_usuario_individual" class="form-control w-full mt-1 rounded-lg text-sm text-black bg-[rgba(254,254,254,0.18)]"></select>
                         </div>
 
                         <ul class="list-none space-y-2" id="list_individual_begin">
