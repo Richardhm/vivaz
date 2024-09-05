@@ -300,13 +300,13 @@
 
                         <div class="flex flex-wrap">
                             <div class="flex w-[40%]">
-                                <select id="mudar_ano_table_coletivo" class="form-control">
+                                <select id="mudar_ano_table_coletivo" class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option value="todos" class="text-center">-Anos-</option>
                                     <option value="2023">2023</option>
                                 </select>
                             </div>
                             <div class="flex w-[42%]">
-                                <select id="mudar_mes_table_coletivo" class="form-control">
+                                <select id="mudar_mes_table_coletivo" class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option value="00" class="text-center">-Meses-</option>
                                     <option value="01">Janeiro</option>
                                     <option value="02">Fevereiro</option>
@@ -322,12 +322,12 @@
                                     <option value="12">Dezembro</option>
                                 </select>
                             </div>
-                            <select class="form-control flex w-full" id="select_usuario">
+                            <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario">
                                 <option value="todos" class="text-center">---Escolher Corretor---</option>
                             </select>
 
 
-                            <select class="form-control w-full" id="select_coletivo_administradoras">
+                            <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_coletivo_administradoras">
                                 <option value="todos" class="text-center">---Administradora---</option>
                             </select>
                         </div>
@@ -1189,9 +1189,6 @@
                 table_individual.$('tr').removeClass('textoforte');
                 $(this).closest('tr').addClass('textoforte');
             });
-
-
-
 
             var tableempresarial;
             function inicializarEmpresarial() {
