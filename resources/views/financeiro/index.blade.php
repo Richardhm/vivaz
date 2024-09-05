@@ -186,9 +186,9 @@
                         </div>
 
                         <ul class="list-none rounded p-2 mb-1" id="list_individual_begin">
-                            <li class="flex justify-between individual space-y-1">
+                            <li style="height:30px;" class="flex justify-between individual space-y-1">
                                 <span class="text-sm">Contratos:</span>
-                                <span class="text-right rounded w-[30%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento text-sm">0</span>
+                                <span  class="text-right rounded w-[30%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento text-sm">0</span>
                             </li>
                             <li class="flex justify-between individual space-y-1">
                                 <span class="text-sm">Vidas:</span>
