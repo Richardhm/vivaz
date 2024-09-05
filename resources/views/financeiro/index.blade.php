@@ -188,13 +188,13 @@
                         <ul class="list-none rounded p-2 mb-1" id="list_individual_begin">
                             <li style="height:30px;" class="flex justify-between individual space-y-1">
                                 <span class="text-sm">Contratos:</span>
-                                <span  class="text-right rounded w-[30%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento text-sm">0</span>
+                                <span  class="text-right rounded w-[49%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento text-sm">0</span>
                             </li>
-                            <li class="flex justify-between individual space-y-1">
+                            <li style="height:30px;" class="flex justify-between individual space-y-1">
                                 <span class="text-sm">Vidas:</span>
-                                <span class="text-right rounded w-[30%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_vida text-sm">0</span>
+                                <span class="text-right rounded w-[49%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_vida text-sm">0</span>
                             </li>
-                            <li class="flex justify-between individual space-y-1">
+                            <li style="height:30px;" class="flex justify-between individual space-y-1">
                                 <span class="text-sm">Valor:</span>
                                 <span class="text-right rounded w-[49%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_page text-sm">0</span>
                             </li>
@@ -203,7 +203,7 @@
 
                     <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 my-1">
                         <ul id="atrasado_corretor">
-                            <li class="flex justify-between individual">
+                            <li class="flex justify-between individual" style="height:30px;">
                                 <span class="text-sm">Atrasados</span>
                                 <span class="text-right rounded w-[30%] text-sm text-black bg-transparent backdrop-blur-[80px] text-white pr-1 individual_quantidade_atrasado">0</span>
                             </li>
@@ -212,7 +212,7 @@
 
                     <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
                         <ul id="finalizado_corretor">
-                            <li class="flex justify-between individual">
+                            <li class="flex justify-between individual" style="height:30px;">
                                 <span class="text-sm">Finalizado</span>
                                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] bg-transparent backdrop-blur-[80px] text-sm rounded text-right w-[30%] text-white  pr-1">0</span>
                             </li>
@@ -221,7 +221,7 @@
 
                     <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
                         <ul id="cancelado_corretor">
-                            <li class="flex justify-between individual">
+                            <li class="flex justify-between individual" style="height:30px;">
                                 <span class="text-sm">Cancelados</span>
                                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded bg-transparent text-sm text-right w-[30%] text-white pr-1 individual_quantidade_atrasado">0</span>
                             </li>
@@ -230,23 +230,23 @@
 
                     <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
                         <ul id="listar_individual">
-                            <li class="flex justify-between individual" id="aguardando_pagamento_1_parcela_individual">
+                            <li class="flex justify-between individual" style="height:30px;" id="aguardando_pagamento_1_parcela_individual">
                                 <span class="text-sm">Pag. 1º Parcela</span>
                                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_1_parcela">0</span>
                             </li>
-                            <li class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_2_parcela_individual">
+                            <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_2_parcela_individual">
                                 <span class="text-sm">Pag. 2º Parcela</span>
                                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm text-white individual_quantidade_2_parcela">0</span>
                             </li>
-                            <li class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_3_parcela_individual">
+                            <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_3_parcela_individual">
                                 <span class="text-sm">Pag. 3º Parcela</span>
                                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_3_parcela">0</span>
                             </li>
-                            <li class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_4_parcela_individual">
+                            <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_4_parcela_individual">
                                 <span class="text-sm">Pag. 4º Parcela</span>
                                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_4_parcela">0</span>
                             </li>
-                            <li class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_5_parcela_individual">
+                            <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_5_parcela_individual">
                                 <span class="text-sm">Pag. 5º Parcela</span>
                                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_5_parcela">0</span>
                             </li>
