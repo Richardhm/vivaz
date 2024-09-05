@@ -999,7 +999,7 @@
                 $(this).closest('tr').addClass('textoforte');
             });
 
-            function inicializarIndividual(corretora_id = 1) {
+            function inicializarIndividual(corretora_id = null) {
 
                 if($.fn.DataTable.isDataTable('.listarindividual')) {
                     $('.listarindividual').DataTable().destroy();

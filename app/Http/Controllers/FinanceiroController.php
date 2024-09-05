@@ -42,7 +42,7 @@ class FinanceiroController extends Controller
 
     public function geralIndividualPendentes(Request $request)
     {
-        $corretora_id = $request->input('corretora_id');
+        $corretora_id = $request->input('corretora_id') ?? auth()->user()->corretora_id;
         $user = auth()->user();
 
         // Consulta base
@@ -1120,6 +1120,7 @@ class FinanceiroController extends Controller
         $comissao->administradora_id = $request->administradora;
         $comissao->tabela_origens_id = $request->tabela_origem;
         $comissao->data = date('Y-m-d');
+        $comissao->corretora_id = $corretora_id;
         $comissao->save();
 
         /* Comissao Corretor */

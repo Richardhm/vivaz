@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
-
+use Barryvdh\DomPDF\Facade\Pdf as PDFFile;
 
 class GerenteController extends Controller
 {
@@ -175,7 +175,7 @@ class GerenteController extends Controller
             ->selectRaw("valor_total as total")
             ->whereMonth("data",$mes)
             ->get();
-        return view('admin.pages.gerente.table-modal',[
+        return view('gerente.table-modal',[
             "dados" => $users
         ]);
     }
@@ -814,13 +814,15 @@ class GerenteController extends Controller
         //Fim Empresarial
 
 
+        $corretora_id = auth()->user()->corretora_id;
+
 
         $users = DB::select("
             SELECT users.id AS id, users.name AS name
             FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
             INNER JOIN users ON users.id = comissoes.user_id
-            WHERE (status_financeiro = 1 or status_gerente = 1) and finalizado != 1 and valor != 0 and users.id NOT IN
+            WHERE (status_financeiro = 1 or status_gerente = 1) and finalizado != 1 and valor != 0 and users.corretora_id = {$corretora_id} and users.id NOT IN
             (SELECT user_id FROM valores_corretores_lancados WHERE MONTH(data) = {$mes} AND YEAR(data) = {$ano})
             GROUP BY users.id, users.name
             ORDER BY users.name
@@ -1295,7 +1297,7 @@ class GerenteController extends Controller
 
 
         return [
-            "view" => view('admin.pages.gerente.list-users-pdf-historico',[
+            "view" => view('gerente.list-users-pdf-historico',[
                 "users" => $users
             ])->render(),
             "dados" => $dados,
@@ -1633,7 +1635,7 @@ class GerenteController extends Controller
 
 
             return [
-                "view" => view('admin.pages.gerente.list-users-pdf',[
+                "view" => view('gerente.list-users-pdf',[
                     "users" => $users
                 ])->render(),
                 "dados" => $dados,
@@ -1692,7 +1694,7 @@ class GerenteController extends Controller
         $mes_folha = $meses[$mes];
 
 
-        $pdf = PDF::loadView('admin.pages.gerente.pdf-folha-mes-geral',[
+        $pdf = PDFFile::loadView('admin.pages.gerente.pdf-folha-mes-geral',[
             "dados" => $dados,
             "mes" => $mes_folha
         ]);
@@ -4113,7 +4115,7 @@ class GerenteController extends Controller
 
     public function infoCorretor(Request $request)
     {
-
+        $corretora_id = auth()->user()->corretora_id;
         $premiacao_cad = str_replace([".",","],["","."], $request->premiacao);
         $salario_cad = str_replace([".",","],["","."], $request->salario);
         $total_cad   = str_replace([".",","],["","."], $request->total);
@@ -4149,9 +4151,10 @@ class GerenteController extends Controller
             COUNT(*) AS total
             FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
+            INNER JOIN contratos ON contratos.id = comissoes.contrato_id
             WHERE comissoes_corretores_lancadas.status_financeiro = 1 AND
             comissoes_corretores_lancadas.status_gerente = 0 AND
-            comissoes_corretores_lancadas.status_apto_pagar != 1 AND
+            comissoes_corretores_lancadas.status_apto_pagar != 1 AND contratos.financeiro_id != 12 AND
             comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND comissoes.plano_id = 3
         ")[0]->total;
 
@@ -4179,7 +4182,11 @@ class GerenteController extends Controller
             ->whereHas('comissao',function($query) use($id){
                 $query->where("plano_id",1);
                 $query->where("user_id",$id);
-            })->count();
+            })
+            ->whereHas('comissao.contrato',function($query){
+                $query->where("financeiro_id","!=",12);
+            })
+            ->count();
 
         $total_empresarial_quantidade = ComissoesCorretoresLancadas
             ::where("status_financeiro",1)
@@ -4202,7 +4209,11 @@ class GerenteController extends Controller
             ->whereHas('comissao',function($query)use($id){
                 $query->where("plano_id",3);
                 $query->where("user_id",$id);
-            })->count();
+            })
+            ->whereHas('comissao.contrato',function($query){
+                $query->where("financeiro_id","!=",12);
+            })
+            ->count();
 
         $total_individual = DB::select("
             SELECT IFNULL(total_plano1, 0) - IFNULL(total_plano3, 0) AS total_individual_valor FROM (
@@ -4326,7 +4337,7 @@ class GerenteController extends Controller
             select name as user,users.id as user_id,valor_total as total from
             valores_corretores_lancados
             inner join users on users.id = valores_corretores_lancados.user_id
-            where MONTH(data) = {$mes} AND YEAR(data) = {$ano} order by users.name
+            where MONTH(data) = {$mes} AND YEAR(data) = {$ano} AND users.corretora_id = {$corretora_id} order by users.name
         ");
 
 
@@ -4336,8 +4347,11 @@ class GerenteController extends Controller
             FROM comissoes_corretores_lancadas
                      INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
                      INNER JOIN users ON users.id = comissoes.user_id
-            WHERE (status_financeiro = 1 or status_gerente = 1)
-              and finalizado != 1 and valor != 0 and users.id NOT IN (SELECT user_id FROM valores_corretores_lancados WHERE MONTH(data) = {$mes} AND YEAR(data) = {$ano})
+            WHERE (status_financeiro = 1 or status_gerente = 1) AND users.corretora_id = {$corretora_id}
+              and finalizado != 1 and valor != 0 and users.id NOT IN (SELECT user_id FROM valores_corretores_lancados
+              WHERE MONTH(data) = {$mes} AND YEAR(data) = {$ano}
+
+              )
             GROUP BY users.id, users.name
             ORDER BY users.name;
          ");
@@ -4356,7 +4370,7 @@ class GerenteController extends Controller
             "desconto" =>  number_format($desconto,2,",","."),
             "total" =>  number_format($total,2,",","."),
             "estorno" => number_format($estorno,2,",","."),
-            "view" => view('admin.pages.gerente.list-users-pdf',[
+            "view" => view('gerente.list-users-pdf',[
                 "users" => $users
             ])->render(),
             "usuarios" => $usuarios,
@@ -4378,7 +4392,7 @@ class GerenteController extends Controller
             where MONTH(data) = {$mes} AND YEAR(data) = {$ano} order by users.name
         ");
         return [
-            "view" => view('admin.pages.gerente.list-users-pdf',[
+            "view" => view('gerente.list-users-pdf',[
                 "users" => $users
             ])->render(),
         ];
@@ -4844,17 +4858,6 @@ class GerenteController extends Controller
 
         }
 
-
-//        $dados_totais = DB::table('valores_corretores_lancados')
-//            ->selectRaw("REPLACE(FORMAT(sum(valor_comissao),2),'.',',') as total_comissao")
-//            ->selectRaw("REPLACE(FORMAT(sum(valor_salario),2),'.',',') as total_salario")
-//            ->selectRaw("REPLACE(FORMAT(sum(valor_premiacao),2),'.',',') as valor_premiacao")
-//            ->selectRaw("REPLACE(FORMAT(sum(valor_desconto),2),'.',',') as valor_desconto")
-//            ->selectRaw("REPLACE(FORMAT(sum(valor_total),2),'.',',') as total_mes")
-//            ->selectRaw("REPLACE(FORMAT(sum(valor_estorno),2),'.',',') as total_estorno")
-//            ->whereMonth("data",$mes)
-//            ->first();
-
         return $request->all();
 
     }
@@ -5286,7 +5289,8 @@ SELECT
                         WHERE
                             comissoes_corretores_default.plano_id = comissoes.plano_id AND
                             comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
-                            comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
+                            comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela AND
+                            comissoes_corretores_default.corretora_id = comissoes.corretora_id
                     )
                     END AS porcentagem,
     /*if(comissoes_corretores_lancadas.valor_pago,comissoes_corretores_lancadas.valor_pago,comissoes_corretores_lancadas.valor) AS valor,*/
@@ -6324,6 +6328,7 @@ AS desconto,
                                         comissoes_corretores_default.plano_id = comissoes.plano_id AND
                                         comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
                                         comissoes_corretores_default.tabela_origens_id = comissoes.tabela_origens_id AND
+                                        comissoes_corretores_default.corretora_id = comissoes.corretora_id AND
                                         comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
                             )
                         END
@@ -6394,7 +6399,7 @@ AS desconto,
                         WHERE
                             comissoes_corretores_default.plano_id = comissoes.plano_id AND
                             comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
-
+                            comissoes_corretores_default.corretora_id = comissoes.corretora_id AND
                             comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
                     )
                     END AS porcentagem_parcela_corretor,
@@ -6432,7 +6437,7 @@ AS desconto,
                 INNER JOIN contratos ON comissoes.contrato_id = contratos.id
                 WHERE comissoes_corretores_lancadas.status_financeiro = 1 AND
                 comissoes_corretores_lancadas.status_gerente = 0 AND
-                comissoes_corretores_lancadas.status_apto_pagar != 1 AND
+                comissoes_corretores_lancadas.status_apto_pagar != 1 AND contratos.financeiro_id != 12 AND
                 comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND contratos.plano_id = 3
                 ORDER BY comissoes.administradora_id
         ");
@@ -6524,7 +6529,7 @@ AS desconto,
     {
         $dados = Administradoras::with(['comissao','comissao.comissoesLancadasCorretoraQuantidade'])->get();
         $logo = 'data:image/png;base64,'.base64_encode(file_get_contents(public_path("storage/logo-certa.jpg")));
-        return view('admin.pages.gerente.pdf',[
+        return view('pages.gerente.pdf',[
             "dados" => $dados,
             "logo" => $logo
         ]);
@@ -6604,7 +6609,7 @@ AS desconto,
 
 
         return [
-            'view' => view('admin.pages.gerente.list-users-pdf',[
+            'view' => view('gerente.list-users-pdf',[
                 "users" => $users
             ])->render(),
             'users_aptos' => $usuarios
@@ -6807,7 +6812,7 @@ AS desconto,
         $primeiroDia = date('d/m/Y', strtotime('2024-' . $mes . '-01'));
         $ultimoDia = date('t/m/Y', strtotime('2024-' . $mes . '-01'));
 
-        $pdf = PDF::loadView('admin.pages.gerente.pdf-folha-historico',[
+        $pdf = PDFFile::loadView('gerente.pdf-folha-historico',[
             "individual" => $individual,
             "coletivo" => $coletivo,
             "empresarial" => $empresarial,
@@ -7121,7 +7126,7 @@ AS desconto,
 
         }
 
-        $pdf = PDF::loadView('admin.pages.gerente.pdf-folha',[
+        $pdf = PDFFile::loadView('gerente.pdf-folha',[
             "individual" => $individual,
             "coletivo" => $coletivo,
             "empresarial" => $empresarial,

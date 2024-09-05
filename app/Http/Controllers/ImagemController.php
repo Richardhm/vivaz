@@ -21,17 +21,13 @@ class ImagemController extends Controller
         $chaves = [];
         $linhas = 0;
 
-
-
         foreach(request()->faixas[0] as $k => $v) {
             if($v != null AND $v != 0) {
-
                 $sql .= " WHEN tabelas.faixa_etaria_id = {$k} THEN ${v} ";
                 $chaves[] = $k;
             }
         }
         $linhas = count($chaves);
-
         $cidade_nome = TabelaOrigens::find($cidade)->nome;
         $plano_nome = Plano::find($plano)->nome;
         $admin_nome = Administradora::find($operadora)->nome;

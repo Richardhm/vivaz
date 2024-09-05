@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FolhaPagamento extends Model
 {
     use HasFactory;
+    protected $table = 'folha_pagamento';
+
+
+
 }
