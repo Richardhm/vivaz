@@ -169,14 +169,14 @@
 
                     <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] p-1 rounded" id="content_list_individual_begin">
                         <div class="flex flex-wrap justify-around mb-4 w-full">
-                            <div class="flex w-full border-b-2 border-white mb-2">
-                                <p class="text-center">Listagem(Completa)</p>
-                            </div>
+{{--                            <div class="flex w-full border-b-2 border-white mb-2">--}}
+{{--                                <p class="text-center">Listagem(Completa)</p>--}}
+{{--                              </div>--}}
                             <div class="flex w-full justify-between">
-                                <select id="mudar_ano_table" class="flex w-[49%] py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+                                <select id="mudar_ano_table" class="flex w-[49%] py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option>--Ano--</option>
                                 </select>
-                                <select id="mudar_mes_table" class="flex w-[49%] py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+                                <select id="mudar_mes_table" class="flex w-[49%] py-2 text-lg text-center justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option>--Mês--</option>
                                 </select>
                             </div>
@@ -1162,9 +1162,9 @@
 
                         let selectAno = $('#mudar_ano_table');
                         selectAno.empty(); // Limpar opções existentes
-                        selectAno.append('<option value="" selected>- Ano -</option>'); // Opção padrão
+                        selectAno.append('<option value="" selected class="text-white text-center">- Ano -</option>'); // Opção padrão
                         anosUnicos.forEach(function(ano) {
-                            selectAno.append('<option value="' + ano + '">' + ano + '</option>');
+                            selectAno.append('<option class="text-white text-center" value="' + ano + '">' + ano + '</option>');
                         });
                     },
                     "drawCallback": function( settings ) {
@@ -1969,7 +1969,7 @@
                 // // Preencher o select de meses
                 let selectMes = $('#mudar_mes_table');
                 selectMes.empty(); // Limpar opções existentes
-                selectMes.append('<option value="" selected>- Mês -</option>'); // Opção padrão
+                selectMes.append('<option value="" selected class="text-white text-center">- Mês -</option>'); // Opção padrão
                 let nomesMeses = {
                     '1': "Janeiro",
                     '2': "Fevereiro",
