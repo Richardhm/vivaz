@@ -96,9 +96,15 @@
     <input type="hidden" id="janela_atual" value="aba_individual">
         @if(auth()->user()->can('listar_todos'))
             <div style="display:flex;justify-content: center;">
-                    <button data-corretora="1" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;margin-right:5px;">Accert</button>
-                    <button data-corretora="2" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;margin-right:5px;">Innove</button>
-                    <button data-corretora="0" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;">Vivaz</button>
+
+
+
+
+
+
+                    <button data-corretora="1" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;margin-right:5px;">Accert</button>
+                    <button data-corretora="2" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;margin-right:5px;">Innove</button>
+                    <button data-corretora="0" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;">Vivaz</button>
             </div>
         @endif
 
@@ -334,16 +340,16 @@
 
                         <ul class="list-none m-0 py-1" id="list_coletivo_begin">
                             <li class="px-2 flex justify-between mb-1 coletivo">
-                                <span class="flex basis-[50%] font-bold">Contratos:</span>
-                                <span class="badge badge-light total_por_orcamento_coletivo flex basis-[50%] justify-end">0</span>
+                                <span class="flex basis-[50%] font-bold text-sm">Contratos:</span>
+                                <span class="badge badge-light total_por_orcamento_coletivo flex basis-[50%] justify-end text-sm">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo">
-                                <span class="flex basis-[50%] font-bold">Vidas:</span>
-                                <span class="badge badge-light total_por_vida_coletivo flex basis-[50%] justify-end">0</span>
+                                <span class="flex basis-[50%] font-bold text-sm">Vidas:</span>
+                                <span class="badge badge-light total_por_vida_coletivo flex basis-[50%] justify-end text-sm">0</span>
                             </li>
                             <li class="px-2 flex justify-between coletivo">
-                                <span class="flex basis-[50%] font-bold">Valor:</span>
-                                <span class="badge badge-light total_por_page_coletivo flex basis-[50%] justify-end">0</span>
+                                <span class="flex basis-[50%] font-bold text-sm">Valor:</span>
+                                <span class="badge badge-light total_por_page_coletivo flex basis-[50%] justify-end text-sm">0</span>
                             </li>
                         </ul>
                     </div>
@@ -3487,7 +3493,7 @@
         .ativo {background-color:#FFF !important;color: #000 !important;}
         .ocultar {display: none;}
         .list_abas {list-style: none;display: flex;border-bottom: 1px solid white;margin: 4px 0;padding: 0;}
-        .list_abas li {color: #fff;width: 150px;padding: 8px 5px;text-align:center;border-radius: 5px 5px 0 0;background-color:#123449;}
+        .list_abas li {color: #fff;width: 150px;padding: 8px 5px;text-align:center;border-radius: 5px 5px 0 0;background-color:rgba(254,254,254,0.18);}
         .list_abas li:hover {cursor: pointer;}
         .list_abas li:nth-of-type(2) {margin: 0 1%;}
         .list_abas li:nth-of-type(4) {margin-left:1%;}
