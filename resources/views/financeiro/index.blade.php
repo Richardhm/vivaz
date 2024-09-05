@@ -157,7 +157,7 @@
 
                 <!--COLUNA DA ESQUERDA-->
                 <div class="flex flex-col text-white rounded w-[16%]" style="border-radius:5px;">
-                    <button class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-lg py-1 px-4 rounded w-full text-sm">Arquivos</button>
+{{--                    <button class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-lg py-1 px-4 rounded w-full text-sm">Arquivos</button>--}}
 
                     <div class="flex justify-between my-1">
                         <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%] modal_upload">Upload</span>
