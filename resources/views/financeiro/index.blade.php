@@ -110,7 +110,7 @@
 
 
 
-    <div>
+    <div style="width:95%;margin:0 auto;">
         <ul class="list_abas">
             <li data-id="aba_individual" class="ativo">Individual</li>
             <li data-id="aba_coletivo">Coletivo</li>
@@ -150,7 +150,7 @@
 
 
 
-    <section class="conteudo_abas mt-2">
+    <section class="conteudo_abas mt-2" style="width:95%;margin:0 auto;">
         <!--------------------------------------INDIVIDUAL------------------------------------------>
         <main id="aba_individual" class="block active-tab">
             <section class="flex flex-wrap justify-between">
