@@ -42,68 +42,60 @@ class FinanceiroController extends Controller
 
     public function geralIndividualPendentes(Request $request)
     {
-        $corretora_id = $request->input('corretora_id') ?? auth()->user()->corretora_id;
-        $user = auth()->user();
+        $corretora_id = 1;
+        $mes = $request->mes != '00' && isset($request->mes) ? $request->mes : null;
 
-        // Consulta base
-        $query = DB::table('comissoes_corretores_lancadas')
-            ->join('comissoes', 'comissoes.id', '=', 'comissoes_corretores_lancadas.comissoes_id')
-            ->join('contratos', 'contratos.id', '=', 'comissoes.contrato_id')
-            ->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
-            ->join('users', 'users.id', '=', 'clientes.user_id')
-            ->join('estagio_financeiros', 'estagio_financeiros.id', '=', 'contratos.financeiro_id')
-            ->select(
-                DB::raw("DATE_FORMAT(contratos.created_at, '%d/%m/%Y') as data"),
-                'contratos.codigo_externo as orcamento',
-                'users.name as corretor',
-                'clientes.nome as cliente',
-                'clientes.cpf as cpf',
-                'clientes.quantidade_vidas as quantidade_vidas',
-                'contratos.valor_plano as valor_plano',
-                'contratos.id',
-                'estagio_financeiros.nome as parcelas',
-                DB::raw("DATE_FORMAT(comissoes_corretores_lancadas.data, '%d/%m/%Y') as vencimento"),
-                DB::raw("DATE_FORMAT(clientes.data_nascimento, '%d/%m/%Y') as data_nascimento"),
-                'clientes.celular as fone',
-                'clientes.email as email',
-                'clientes.cidade as cidade',
-                'clientes.bairro as bairro',
-                'clientes.rua as rua',
-                'clientes.cep as cep',
-                DB::raw("CASE WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado' ELSE 'Aprovado' END AS status")
-            );
+        // Definir uma chave de cache baseada nos parâmetros da requisição
+        $cacheKey = 'geralIndividualPendentes_' . $corretora_id . '_' . ($mes ?? 'todos_meses');
+        $tempoDeExpiracao = 60 * 60; // Cache por 1 hora
 
-        if ($request->mes != '00' && isset($request->mes)) {
-            $mes = $request->mes;
-            $query->whereMonth('contratos.created_at', $mes);
-        }
+        // Verificar se o resultado já está no cache ou executar a consulta
+        $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use ($corretora_id, $mes) {
+            // Consulta base
+            $query = DB::table('comissoes_corretores_lancadas')
+                ->join('comissoes', 'comissoes.id', '=', 'comissoes_corretores_lancadas.comissoes_id')
+                ->join('contratos', 'contratos.id', '=', 'comissoes.contrato_id')
+                ->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
+                ->join('users', 'users.id', '=', 'clientes.user_id')
+                ->join('estagio_financeiros', 'estagio_financeiros.id', '=', 'contratos.financeiro_id')
+                ->select(
+                    DB::raw("DATE_FORMAT(contratos.created_at, '%d/%m/%Y') as data"),
+                    'contratos.codigo_externo as orcamento',
+                    'users.name as corretor',
+                    'clientes.nome as cliente',
+                    'clientes.cpf as cpf',
+                    'clientes.quantidade_vidas as quantidade_vidas',
+                    'contratos.valor_plano as valor_plano',
+                    'contratos.id',
+                    'estagio_financeiros.nome as parcelas',
+                    DB::raw("DATE_FORMAT(comissoes_corretores_lancadas.data, '%d/%m/%Y') as vencimento"),
+                    DB::raw("DATE_FORMAT(clientes.data_nascimento, '%d/%m/%Y') as data_nascimento"),
+                    'clientes.celular as fone',
+                    'clientes.email as email',
+                    'clientes.cidade as cidade',
+                    'clientes.bairro as bairro',
+                    'clientes.rua as rua',
+                    'clientes.cep as cep',
+                    DB::raw("CASE WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado' ELSE 'Aprovado' END AS status")
+                );
 
-        if($corretora_id != 0) {
-            $query->where('clientes.corretora_id', $corretora_id);
-        }
+            // Filtros opcionais
+            if ($mes) {
+                $query->whereMonth('contratos.created_at', $mes);
+            }
 
-        // Se o usuário pode listar todos, aplicar o filtro por corretora somente se corretora_id for diferente de 0
-//        if ($user->can('listar_todos')) {
-//            if ($corretora_id != 0) {
-//                $query->where('clientes.corretora_id', $corretora_id);
-//            }
-//        } else {
-//            // Para usuários que não podem listar todos, filtrar apenas pela corretora do usuário
-//            $userCorretoraId = $user->corretora_id; // Supondo que o modelo User tem um campo corretora_id
-//            if ($corretora_id != $userCorretoraId) {
-//                // Se o corretora_id solicitado não corresponde à corretora do usuário, não retornar dados
-//                $query->where('clientes.corretora_id', $userCorretoraId);
-//            } else {
-//                // Caso contrário, aplicar o filtro pelo corretora_id solicitado
-//                $query->where('clientes.corretora_id', $corretora_id);
-//            }
-//        }
-        $query->where('contratos.plano_id',1);
-        $resultado = $query->groupBy('comissoes_corretores_lancadas.comissoes_id')->get();
+            if($corretora_id != 0) {
+                $query->where('clientes.corretora_id', $corretora_id);
+            }
 
+            $query->where('contratos.plano_id', 1);
+
+            // Executar a consulta e retornar o resultado
+            return $query->groupBy('comissoes_corretores_lancadas.comissoes_id')->get();
+        });
+
+        // Retornar o resultado como JSON
         return response()->json(['data' => $resultado]);
-
-
     }
 
 
@@ -1029,6 +1021,7 @@ class FinanceiroController extends Controller
 
     public function store(Request $request)
     {
+
         $corretora_id = User::find($request->usuario_coletivo_switch)->corretora_id;
         if($cod = $this->coletivoVerificarCodigoExterno($request->codigo_externo_coletivo) != 0) {
             return "ja_existe";

@@ -11,13 +11,15 @@
 
 
         <script src="{{asset('assets/jquery.min.js')}}"></script>
-        <script src="{{asset('js/select2.min.js')}}"></script>
-        <script src="{{asset('js/jquery.mask.min.js')}}"></script>
 
+        <script src="{{asset('js/jquery.mask.min.js')}}"></script>
+        <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/datatables.min.css')}}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <script src="{{asset('js/select2.min.js')}}"></script>
         @yield('css')
         <script src="{{asset('assets/datatables.min.js')}}"></script>
 

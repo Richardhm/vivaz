@@ -4868,7 +4868,6 @@ class GerenteController extends Controller
         $ano = $request->ano;
         $id = $request->id;
         $valores = ValoresCorretoresLancados::whereMonth('data',$mes)->whereYear('data',$ano)->where("user_id",$id);
-
         $salario = 0;
         $premiacao = 0;
         $comissao = 0;
@@ -4997,9 +4996,10 @@ class GerenteController extends Controller
             COUNT(*) AS total
             FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
+            INNER JOIN contratos on contratos.id = comissoes.contrato_id
             WHERE comissoes_corretores_lancadas.status_financeiro = 1 AND
             comissoes_corretores_lancadas.status_gerente = 0 AND
-            comissoes_corretores_lancadas.status_apto_pagar != 1 AND
+            comissoes_corretores_lancadas.status_apto_pagar != 1 AND financeiro_id != 12 AND
             comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND comissoes.plano_id = 3
         ")[0]->total;
 
@@ -5770,7 +5770,8 @@ where comissoes_corretores_lancadas.status_financeiro = 1 AND comissoes_corretor
                         WHERE
                             comissoes_corretores_default.plano_id = comissoes.plano_id AND
                             comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
-
+                            comissoes_corretores_default.tabela_origens_id = comissoes.tabela_origens_id AND
+                            comissoes_corretores_default.corretora_id = comissoes.corretora_id AND
                             comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
                     )
                     END AS porcentagem,
@@ -6400,6 +6401,7 @@ AS desconto,
                             comissoes_corretores_default.plano_id = comissoes.plano_id AND
                             comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
                             comissoes_corretores_default.corretora_id = comissoes.corretora_id AND
+                            comissoes_corretores_default.tabela_origens_id = comissoes.tabela_origens_id AND
                             comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
                     )
                     END AS porcentagem_parcela_corretor,

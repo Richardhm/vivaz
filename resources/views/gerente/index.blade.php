@@ -2427,7 +2427,6 @@
                        data:"mes="+mes+"&id="+id+"&ano="+ano,
                        method:"POST",
                        success:function(res) {
-                           console.log()
                            $(".valor_individual_a_receber").text(res.valor_individual_a_receber);
                            $(".valor_coletivo_a_receber").text(res.valor_coletivo_a_receber);
                            $(".valor_empresarial_a_receber").text(res.valor_empresarial_a_receber);
@@ -4425,14 +4424,14 @@
                     if($("#tabela_principal_historico").is(':visible')) {
                         $("#tabela_principal_historico").slideUp('fast',function(){
                             $("#title_individual_confirmados_historico").html("<h4>Coletivo</h4>");
-                            listaraptosapagarhistorico.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                            listaraptosapagarhistorico.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             $("#tabela_aptos_a_pagar_historico").slideDown('slow');
                         });
                     }
 
                     if($("#tabela_aptos_a_pagar_table_historico").is(":visible")) {
                         $("#title_individual_confirmados_historico").html("<h4>Coletivo</h4>");
-                        listaraptosapagarhistorico.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                        listaraptosapagarhistorico.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                     }
 
 
@@ -5148,35 +5147,35 @@
                         $("#tabela_principal").slideUp('fast',function(){
                             if(mes == "") {
                                 $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                                listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                                listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                                 $("#tabela_aptos_a_pagar").slideDown('slow');
                             } else {
                                 $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                                listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                                listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                                 $("#tabela_aptos_a_pagar").slideDown('slow');
                             }
                         });
                     } else {
                         $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                        listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                        listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                     }
 
                     if($("#listar_a_receber").is(':visible')) {
                         $("#listar_a_receber").slideUp('fast',function(){
                             $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     } else {
                         $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                        listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                        listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                     }
 
                     if($("#tabela_estorno_table_back").is(":visible")) {
                         $("#tabela_estorno_back").slideUp(1000,function(){
                             $("#tabela_aptos_a_pagar").slideDown('slow',function(){
                                 $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                                listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                                listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             });
                         });
                     }
@@ -5184,12 +5183,12 @@
                     if($("#tabela_estorno_table").is(':visible')) {
                         $("#tabela_estorno").slideUp('fast',function(){
                             $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     } else {
                         $("#title_individual_confirmados").html("<h4>Recebidas - Coletivo</h4>");
-                        listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                        listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/coletivo/confirmadas/${id}/${mes}/${ano}') }}`).load();
                     }
 
                 } else {

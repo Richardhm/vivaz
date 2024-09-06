@@ -96,19 +96,11 @@
     <input type="hidden" id="janela_atual" value="aba_individual">
         @if(auth()->user()->can('listar_todos'))
             <div style="display:flex;justify-content: center;">
-
-
-
-
-
-
                     <button data-corretora="1" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;margin-right:5px;">Accert</button>
                     <button data-corretora="2" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;margin-right:5px;">Innove</button>
                     <button data-corretora="0" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;">Vivaz</button>
             </div>
         @endif
-
-
 
     <div style="width:95%;margin:0 auto;">
         <ul class="list_abas">
@@ -154,7 +146,7 @@
         <!--------------------------------------INDIVIDUAL------------------------------------------>
         <main id="aba_individual" class="block active-tab">
             <section class="flex flex-wrap justify-between">
-
+{{--FOQUE EM VOCÊ QUE ELES MUDARAM DE OPINIÃO AO VER O SEU SUCESSO--}}
                 <!--COLUNA DA ESQUERDA-->
                 <div class="flex flex-col text-white rounded w-[16%]" style="border-radius:5px;">
 {{--                    <button class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-lg py-1 px-4 rounded w-full text-sm">Arquivos</button>--}}
@@ -168,7 +160,7 @@
 {{--                    <a href="{{route('financeiro.formCreate')}}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[80px] text-white text-lg mb-1 py-1 rounded w-full text-center text-sm">Cadastrar</a>--}}
 
                     <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] p-1 rounded" id="content_list_individual_begin">
-                        <div class="flex flex-wrap justify-around mb-4 w-full">
+                        <div class="flex flex-wrap justify-around mb-0 w-full">
 {{--                            <div class="flex w-full border-b-2 border-white mb-2">--}}
 {{--                                <p class="text-center">Listagem(Completa)</p>--}}
 {{--                              </div>--}}
@@ -186,9 +178,9 @@
                         </div>
 
                         <ul class="list-none rounded p-2 mb-1" id="list_individual_begin">
-                            <li style="height:30px;" class="flex justify-between individual space-y-1">
-                                <span class="text-sm">Contratos:</span>
-                                <span  class="text-right rounded w-[49%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento text-sm">0</span>
+                            <li style="height:30px;line-height: 30px;" class="flex justify-between my-auto individual space-y-1">
+                                <span class="text-sm my-auto">Contratos:</span>
+                                <span class="text-right rounded w-[49%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento text-sm">0</span>
                             </li>
                             <li style="height:30px;" class="flex justify-between individual space-y-1">
                                 <span class="text-sm">Vidas:</span>
@@ -613,17 +605,9 @@
                     </div>
                 </div>
                 <!--FIM COLUNA DA CENTRAL-->
-
-
-
             </section>
-
-
-
-
         </main>
     </section>
-
     <script>
         // function mostrarAba(id) {
         //     // Esconder todas as abas
@@ -651,8 +635,6 @@
 
             $('button[data-corretora]').on('click', function() {
                 let corretora_id = $(this).data('corretora');
-
-
                 if($("#janela_atual").val() == "aba_individual") {
                     inicializarIndividual(corretora_id);
                 } else if($("#janela_atual").val() == "aba_coletivo") {
@@ -661,10 +643,6 @@
                     inicializarEmpresarial(corretora_id);
                 }
             });
-
-
-
-
 
             $('.modal_upload').on('click', function() {
                 $('#uploadModal').addClass('show');
@@ -702,7 +680,6 @@
                     inicializarColetivo();
                 }
                 if(alvo == "empresarial") {
-
                     $('.list_abas li').removeClass('ativo');
                     $('.list_abas li:nth-child(3)').addClass("ativo");
                     $('.conteudo_abas main').addClass('ocultar');
@@ -714,16 +691,10 @@
                     window.history.pushState({path:c},'',c);
                     $("#janela_atual").val("aba_empresarial");
                     inicializarEmpresarial();
-
                 }
             }
 
-
-
-
-
             $(".list_abas li").on('click',function(){
-
                 $('li').removeClass('ativo');
                 $(this).addClass("ativo");
                 let id = $(this).attr('data-id');
@@ -848,7 +819,6 @@
                                 $(td).html(
                                     `<div class='text-center text-white'>
                                         <a href="/financeiro/detalhes/coletivo/${id}" class="text-white">
-
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -927,6 +897,7 @@
 
                         let selectAno = $('#mudar_ano_table_coletivo');
                         selectAno.empty(); // Limpar opções existentes
+                        selectAno.empty(); // Limpar opções existentes
                         selectAno.append('<option value="" selected>- Ano -</option>'); // Opção padrão
                         anosUnicos.forEach(function(ano) {
                             selectAno.append('<option value="' + ano + '">' + ano + '</option>');
@@ -971,18 +942,22 @@
             }
 
             $('.dataTables_filter input').on('input', function() {
-
                 if ($(this).val() === '') {
-
                     inicializarColetivo();
                 }
             });
 
 
-
-
-
-
+            $("#select_usuario_individual").select2({
+                width: '98%',
+                containerCss: {
+                    "background-color": "rgba(254,254,254,0.18)",
+                    "border-radius": "0.5rem"
+                },
+                dropdownCss: {
+                    "background-color": "white"
+                }
+            });
 
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -1009,22 +984,11 @@
 
                 if($.fn.DataTable.isDataTable('.listarindividual')) {
                     $('.listarindividual').DataTable().destroy();
-
                 }
 
                 $(".listarindividual").DataTable({
                     dom: '<"flex justify-between"<"#title_individual">Bftr><t><"flex justify-between"lp>',
-                    buttons: [
-                        {
-                            extend: 'excelHtml5',
-                            text: 'Exportar para Excel',
-                            className: 'btn btn-primary',
-                            exportOptions: {
-                                //columns: ':visible' // ou selecione as colunas específicas
-                                columns: [0,4,5,6,3,14,0,13,15,16,17,18]
-                            }
-                        }
-                    ],
+
                     language: {
                         "search": "Pesquisar",
                         "paginate": {
@@ -1043,13 +1007,14 @@
                         "lengthMenu": "Exibir _MENU_ por página"
                     },
                     processing: true,
+
                     ajax: {
                         "url":"{{ route('financeiro.individual.geralIndividualPendentes') }}",
                         data: function (d) {
                             d.corretora_id = corretora_id;
                         }
                     },
-                    "lengthMenu": [500,1000],
+                    "lengthMenu": [100,200,250,300,400],
                     "ordering": false,
                     "paging": true,
                     "searching": true,
@@ -1080,8 +1045,31 @@
                     "columnDefs": [
                         {"targets": 0,"width":"2%"},
                         {"targets": 1,"width":"5%"},
-                        {"targets": 2,"width":"18%"},
-                        {"targets": 3,"width":"18%"},
+                        {"targets": 2,"width":"18%",
+                            "createdCell":function(td, cellData, rowData, row, col) {
+                                let words = cellData.split(" ");
+
+                                // Limita para as duas primeiras palavras
+                                if (words.length > 2) {
+                                    $(td).html(words.slice(0, 2).join(" ") + "...");
+                                } else {
+                                    $(td).html(cellData);  // Se for menos de 2 palavras, mostra tudo
+                                }
+                            }
+                        },
+                        {"targets": 3,"width":"18%",
+                            "createdCell":function(td, cellData, rowData, row, col) {
+                                let words = cellData.split(" ");
+
+                                // Limita para as duas primeiras palavras
+                                if (words.length > 4) {
+                                    $(td).html(words.slice(0,4).join(" ") + "...");
+                                } else {
+                                    $(td).html(cellData);  // Se for menos de 2 palavras, mostra tudo
+                                }
+                            }
+
+                        },
                         {"targets": 4,"width":"14%"},
                         {"targets": 5,"width":"5%"},
                         {"targets": 6,"width":"8%"},
@@ -1148,7 +1136,7 @@
                             corretoresUnicos.add(v);
                         });
                         let corretoresOrdenados = Array.from(corretoresUnicos).sort();
-                        $('#select_usuario_individual').append('olaaaaaaaaaaaaaaaaaaaaaa');
+
                         // $('#select_usuario_individual').append('<option value="todos">-- Escolher Corretor --</option>');
                         // corretoresOrdenados.forEach(function(corretor) {
                         //     $('#select_usuario_individual').append('<option value="' + corretor + '">' + corretor + '</option>');
@@ -1583,8 +1571,6 @@
                         if (valor.toLowerCase() == 'pag. 6º parcela') {sextaParcela++;}
                         if (valor.toLowerCase() == 'finalizado') {finalizado++;}
                         if (valor.toLowerCase() == 'cancelado') {cancelados++;}
-
-
                     });
 
                     dadosColuna11.each(function (valor) {
@@ -1664,30 +1650,25 @@
 
 
             $("#select_usuario").select2({width:"98%"});
-            $("#select_usuario_individual").select2({width:"99.5%"});
+            //$("#select_usuario_individual").select2({width:"99.5%"});
             $("#select_coletivo_administradoras").select2({width:"98%"});
 
 
             $("#mudar_user_empresarial").select2({width:"98%"});
             $("#mudar_planos_empresarial").select2({width:"98%"});
 
-
-
-
-
-
             function aplicarEstilos() {
-                $('.select2-results__option[role="option"]').css({'font-size': '0.8em'});
+                //$('.select2-results__option[role="option"]').css({'font-size': '0.8em'});
             }
 
             $('#select_usuario').on('select2:open', function() {setTimeout(aplicarEstilos,0);});
 
-            $('#select_usuario_individual').on('select2:open', function() {
-                setTimeout(aplicarEstilos,0);
-            });
+            // $('#select_usuario_individual').on('select2:open', function() {
+            //     setTimeout(aplicarEstilos,0);
+            // });
 
             $('#select_usuario').on('select2:select', aplicarEstilos);
-            $('#select_usuario_individual').on('select2:select', aplicarEstilos);
+            //$('#select_usuario_individual').on('select2:select', aplicarEstilos);
 
 
             $("#select_usuario").on('change',function(){
@@ -1727,7 +1708,7 @@
                     if(mes != null && ano != null) {
 
                         let mesAno = mes+"/"+ano;
-                        console.log(mesAno);
+
                         table.column(0).search(mesAno,true,false).draw();
                     }
 
@@ -3171,9 +3152,7 @@
                 } else if(id_lista == "aguardando_pagamento_5_parcela_individual") {
                     //table_individual.clear().draw();
                     $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 5º Parcela</h4>");
-
                     table_individual.column(11).search('').draw();
-
                     table_individual.column(9).search('Pag. 5º Parcela').draw();
                     $(".container_edit").addClass('ocultar');
                     $("ul#listar_individual li.individual").removeClass('textoforte-list');
@@ -3196,12 +3175,8 @@
                 $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 6º Parcela</h4>");
                 let mes = $("#mudar_mes_table").val();
                 let dataId = $("#select_usuario_individual").find('option:selected').data('id');
-
-
                 table_individual.column(11).search('').draw();
-
                 table_individual.column(9).search('Finalizado').draw();
-
                 $(".container_edit").addClass('ocultar')
                 $("ul#listar_individual li.individual").removeClass('textoforte-list').removeClass('destaque_content');
                 $("#all_pendentes_individual").removeClass('textoforte-list');
@@ -3460,8 +3435,10 @@
 
     </script>
     <style>
-        th { font-size: 0.8em !important; }
-        td { font-size: 0.7em !important; }
+        table.dataTable tbody td {
+            font-size: 0.95em !important; /* Tamanho da fonte para o corpo da tabela */
+        }
+
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             color: white !important; /* Define a cor da fonte como branca */
         }
