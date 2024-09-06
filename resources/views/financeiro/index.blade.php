@@ -3436,7 +3436,7 @@
     </script>
     <style>
         table.dataTable tbody td {
-            font-size: 0.95em !important; /* Tamanho da fonte para o corpo da tabela */
+            font-size: 0.9em !important; /* Tamanho da fonte para o corpo da tabela */
             padding: 1px !important;
         }
 
