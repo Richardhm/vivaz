@@ -1043,8 +1043,8 @@
 
                     ],
                     "columnDefs": [
-                        {"targets": 0,"width":"2%"},
-                        {"targets": 1,"width":"5%"},
+                        {"targets": 0,"width":"8%"},
+                        {"targets": 1,"width":"8%"},
                         {"targets": 2,"width":"14%",
                             "createdCell":function(td, cellData, rowData, row, col) {
                                 let words = cellData.split(" ");
@@ -1057,23 +1057,11 @@
                                 }
                             }
                         },
-                        {"targets": 3,"width":"22%",
-                            "createdCell":function(td, cellData, rowData, row, col) {
-                                let words = cellData.split(" ");
-
-                                // Limita para as duas primeiras palavras
-                                if (words.length > 4) {
-                                    $(td).html(words.slice(0,4).join(" ") + "...");
-                                } else {
-                                    $(td).html(cellData);  // Se for menos de 2 palavras, mostra tudo
-                                }
-                            }
-
-                        },
-                        {"targets": 4,"width":"14%"},
-                        {"targets": 5,"width":"5%"},
-                        {"targets": 6,"width":"8%"},
-                        {"targets": 7,"width":"5%"},
+                        {"targets": 3,"width":"22%"},//cliente
+                        {"targets": 4,"width":"12%"},//cpf
+                        {"targets": 5,"width":"5%"},//vidas
+                        {"targets": 6,"width":"8%"},//valor
+                        {"targets": 7,"width":"8%"},//vencimento
                         {"targets": 8,"width":"3%","visible": false},
                         {"targets": 9,"width":"10%"},
                         {"targets": 10,"width":"2%",
@@ -3436,13 +3424,13 @@
     </script>
     <style>
         table.dataTable tbody td {
-            font-size: 0.9em !important; /* Tamanho da fonte para o corpo da tabela */
+            font-size: 0.9em !important;
             padding: 1px !important;
         }
 
         table.dataTable thead th {
-            font-weight: normal;
-
+            font-size: 0.9em !important;
+            padding: 1px !important;
         }
 
 
