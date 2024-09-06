@@ -1107,7 +1107,7 @@
                     ],
                     "initComplete": function( settings, json ) {
 
-                        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completasss)</h4>");
+                        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'></h4>");
                         let countPagamento1 = this.api().column(9).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
                         let countPagamento2 = this.api().column(9).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
                         let countPagamento3 = this.api().column(9).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
@@ -3437,7 +3437,9 @@
     <style>
         table.dataTable tbody td {
             font-size: 0.95em !important; /* Tamanho da fonte para o corpo da tabela */
+            padding: 4px !important;
         }
+
 
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             color: white !important; /* Define a cor da fonte como branca */
