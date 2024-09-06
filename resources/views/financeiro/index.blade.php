@@ -260,7 +260,7 @@
                                 <th>CPF</th>
                                 <th>Vidas</th>
                                 <th>Valor</th>
-                                <th>Venc.</th>
+                                <th>Vencimento</th>
                                 <th>Atrasado</th>
                                 <th>Status</th>
                                 <th>Ver</th>
