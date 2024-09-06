@@ -196,7 +196,7 @@
                         </ul>
                     </div>
 
-                    <div class="bg-red-500 backdrop-blur-[15px] rounded p-2 my-1">
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 my-1">
                         <ul id="atrasado_corretor">
                             <li class="flex justify-between individual" style="height:30px;line-height: 30px;">
                                 <span class="text-sm">Atrasados</span>
@@ -209,7 +209,7 @@
                         <ul id="finalizado_corretor">
                             <li class="flex justify-between individual" style="height:30px;line-height: 30px;">
                                 <span class="text-sm">Finalizado</span>
-                                <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] bg-transparent backdrop-blur-[80px] text-sm rounded text-right w-[30%] text-white  pr-2">0</span>
+                                <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] bg-transparent backdrop-blur-[80px] text-sm rounded text-right w-[30%] text-white  pr-3">0</span>
                             </li>
                         </ul>
                     </div>
