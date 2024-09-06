@@ -294,20 +294,18 @@
             </span>
                     </div>
 
-                    <div id="content_list_coletivo_begin" class="destaque_content_radius bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
-                        <div class="flex w-full justify-center mb-1 py-1">
-                            <p class="m-0 p-0">Listagem(Completa)</p>
-                        </div>
+                    <div id="content_list_coletivo_begin" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
 
-                        <div class="flex flex-wrap">
-                            <div class="flex w-[40%]">
-                                <select id="mudar_ano_table_coletivo" class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+
+                        <div class="flex w-full justify-center">
+                            <div class="flex-1">
+                                <select id="mudar_ano_table_coletivo" class="flex w-[49%] py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black mr-1 focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option value="todos" class="text-center">-Anos-</option>
                                     <option value="2023">2023</option>
                                 </select>
                             </div>
-                            <div class="flex w-[42%]">
-                                <select id="mudar_mes_table_coletivo" class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+                            <div class="flex-1">
+                                <select id="mudar_mes_table_coletivo" class="flex w-[49%] py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black mr-1 focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                                     <option value="00" class="text-center">-Meses-</option>
                                     <option value="01">Janeiro</option>
                                     <option value="02">Fevereiro</option>
@@ -323,85 +321,88 @@
                                     <option value="12">Dezembro</option>
                                 </select>
                             </div>
-                            <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario">
-                                <option value="todos" class="text-center">---Escolher Corretor---</option>
-                            </select>
 
-
-                            <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_coletivo_administradoras">
-                                <option value="todos" class="text-center">---Administradora---</option>
-                            </select>
                         </div>
 
-                        <ul class="list-none m-0 py-1" id="list_coletivo_begin">
+                        <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario">
+                            <option value="todos" class="text-center">---Escolher Corretor---</option>
+                        </select>
+
+
+                        <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_coletivo_administradoras">
+                            <option value="todos" class="text-center">---Administradora---</option>
+                        </select>
+
+
+                        <ul class="list-none m-0 py-2" id="list_coletivo_begin">
                             <li class="px-2 flex justify-between mb-1 coletivo">
                                 <span class="flex basis-[50%] font-bold text-sm">Contratos:</span>
-                                <span class="badge badge-light total_por_orcamento_coletivo flex basis-[50%] justify-end text-sm">0</span>
+                                <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm total_por_orcamento_coletivo flex basis-[50%] justify-end text-sm">0</span>
                             </li>
                             <li class="px-2 flex justify-between mb-1 coletivo">
                                 <span class="flex basis-[50%] font-bold text-sm">Vidas:</span>
-                                <span class="badge badge-light total_por_vida_coletivo flex basis-[50%] justify-end text-sm">0</span>
+                                <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm total_por_vida_coletivo flex basis-[50%] justify-end text-sm">0</span>
                             </li>
                             <li class="px-2 flex justify-between coletivo">
                                 <span class="flex basis-[50%] font-bold text-sm">Valor:</span>
-                                <span class="badge badge-light total_por_page_coletivo flex basis-[50%] justify-end text-sm">0</span>
+                                <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm total_por_page_coletivo flex basis-[50%] justify-end text-sm">0</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="bg-red-500 rounded-lg my-1">
-                        <ul class="list-none m-0 py-1" id="atrasado_corretor_coletivo">
-                            <li class="px-1 flex justify-between">
-                                <span>Atrasados</span>
-                                <span class="badge badge-light coletivo_quantidade_atrasado w-[45px] text-right">0</span>
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 my-1">
+                        <ul id="atrasado_corretor_coletivo" >
+                            <li class="flex justify-between individual" style="height:30px;line-height: 30px;">
+                                <span class="text-sm">Atrasados</span>
+                                <span class="text-right rounded w-[30%] text-sm text-black bg-transparent backdrop-blur-[80px] text-white pr-1 coletivo_quantidade_atrasado text-right">0</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg my-1">
-                        <ul class="list-none m-0 py-1" id="finalizado_corretor_coletivo">
-                            <li class="px-1 flex justify-between">
-                                <span>Finalizado</span>
-                                <span class="badge badge-light quantidade_coletivo_finalizado w-[45px] text-right">0</span>
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 my-1">
+                        <ul id="finalizado_corretor_coletivo">
+                            <li class="flex justify-between individual" style="height:30px;line-height: 30px;">
+                                <span class="text-sm">Finalizado</span>
+                                <span class="text-right rounded w-[30%] text-sm text-black bg-transparent backdrop-blur-[80px] text-white pr-1 quantidade_coletivo_finalizado">0</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg my-1">
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
                         <ul class="list-none m-0 py-1" id="listar">
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="em_analise_coletivo">
-                                <span>Em Analise</span>
-                                <span class="text-sm coletivo_quantidade_em_analise w-[45px] text-right">0</span>
+                            <li class="flex justify-between coletivo" id="em_analise_coletivo" style="height:30px;">
+                                <span class="text-sm">Em Analise</span>
+                                <span class="text-right rounded w-[30%] text-sm text-black bg-transparent backdrop-blur-[80px] text-white pr-1">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="emissao_boleto_coletivo">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="emissao_boleto_coletivo" style="height:30px;">
                                 <span>Emissão Boleto</span>
                                 <span class="text-sm coletivo_quantidade_emissao_boleto w-[45px] text-right">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_adesao_coletivo">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_adesao_coletivo" style="height:30px;">
                                 <span>Pag. Adesão</span>
                                 <span class="text-sm coletivo_quantidade_pagamento_adesao w-[45px] text-right">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_vigencia_coletivo">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_vigencia_coletivo" style="height:30px;line-height: 30px;">
                                 <span>Pag. Vigência</span>
                                 <span class="text-sm coletivo_quantidade_pagamento_vigencia w-[45px] text-right">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_segunda_parcela">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_segunda_parcela" style="height:30px;line-height: 30px;">
                                 <span>Pag. 2º Parcela</span>
                                 <span class="text-sm coletivo_quantidade_segunda_parcela w-[45px] text-right">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_terceira_parcela">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_terceira_parcela" style="height:30px;line-height: 30px;">
                                 <span>Pag. 3º Parcela</span>
                                 <span class="text-sm coletivo_quantidade_terceira_parcela w-[45px] text-right">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quarta_parcela">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quarta_parcela" style="height:30px;line-height: 30px;">
                                 <span>Pag. 4º Parcela</span>
                                 <span class="text-sm coletivo_quantidade_quarta_parcela w-[45px] text-right">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quinta_parcela">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_quinta_parcela" style="height:30px;line-height: 30px;">
                                 <span>Pag. 5º Parcela</span>
                                 <span class="text-sm coletivo_quantidade_quinta_parcela w-[45px] text-right">0</span>
                             </li>
-                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_sexta_parcela">
+                            <li class="px-2 flex justify-between mb-1 coletivo" id="pagamento_sexta_parcela" style="height:30px;line-height: 30px;">
                                 <span>Pag. 6º Parcela</span>
                                 <span class="text-sm coletivo_quantidade_sexta_parcela w-[45px] text-right">0</span>
                             </li>
@@ -410,7 +411,7 @@
 
                     <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg">
                         <ul class="list-none m-0 py-1" id="grupo_finalizados">
-                            <li class="px-1 flex justify-between mb-1 coletivo" id="cancelado_coletivo">
+                            <li class="px-1 flex justify-between mb-1 coletivo" id="cancelado_coletivo" style="height:30px;line-height: 30px;">
                                 <span>Cancelados</span>
                                 <span class="badge badge-light quantidade_coletivo_cancelados w-[45px] text-right">0</span>
                             </li>

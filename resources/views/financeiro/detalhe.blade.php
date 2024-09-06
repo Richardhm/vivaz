@@ -62,7 +62,7 @@
 <main class="container_full_cards">
 
     <section class="p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
-        <div class="d-flex">
+        <div class="flex">
             @if($dados->clientes->user->codigo_vendedor == "1827537")
                 <select name="trocar_users" id="trocar_users" class="form-control">
                     <option>Trocar de Usuario</option>
@@ -73,154 +73,158 @@
             @endif
         </div>
 
-        <div class="d-flex">
-            <div style="flex-basis:25%;">
-                <span class="text-white" style="font-size:0.81em;">Administradora:</span>
-                <input type="text" value="{{$dados->administradora->nome}}" name="administradora_individual" id="administradora_individual" class="form-control form-control-sm text-blue-500" readonly>
+        <div class="flex justify-between space-x-4">
+            <!-- Administradora -->
+            <div class="flex-1">
+                <label class="text-white text-sm">Administradora:</label>
+                <input type="text" value="{{$dados->administradora->nome}}" name="administradora_individual" id="administradora_individual"
+                       class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-white w-full" readonly>
             </div>
 
-            <div style="flex-basis:33%;margin:0 1%;">
-                <span class="text-white" style="font-size:0.81em;">Tipo Plano:</span>
-                <input type="text" value="{{$dados->plano->nome}}" id="tipo_plano_individual" class="form-control form-control-sm" readonly>
+            <!-- Tipo Plano -->
+            <div class="flex-1">
+                <label class="text-white text-sm">Tipo Plano:</label>
+                <input type="text" value="{{$dados->plano->nome}}" id="tipo_plano_individual"
+                       class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-white w-full" readonly>
             </div>
 
-            <div style="flex-basis:40%;margin-top:1%;" id="status">
-                <span class="text-white" style="margin:0;padding:0;font-size:0.81em;display:flex;">
-                    <span style="flex-basis:50%;">Status:</span>
-                </span>
-                <input type="text" id="status_individual_view" value="{{$dados->financeiro->nome}}" class="form-control form-control-sm" readonly>
-            </div>
-        </div>
-
-        <div class="d-flex">
-            <div style="flex-basis:40%;">
-                <span class="text-white" style="font-size:0.81em;">Cliente:</span>
-                <input type="text" name="cliente" id="cliente" class="form-control form-control-sm" value="{{$dados->clientes->nome}}" readonly>
-            </div>
-
-            <div style="flex-basis:28%;margin:0 1%;">
-                <span class="text-white" style="font-size:0.81em;">Data Nascimento:</span>
-                <input type="text" name="data_nascimento" id="data_nascimento" class="form-control form-control-sm" value="{{date('d/m/Y',strtotime($dados->clientes->data_nascimento))}}" readonly>
-            </div>
-
-            <div style="flex-basis:30%;">
-                <span class="text-white" style="font-size:0.81em;">Codigo Externo:</span>
-                <input type="text" name="codigo_externo" id="codigo_externo_individual" value="{{$dados->codigo_externo}}" class="form-control form-control-sm" readonly>
+            <!-- Status -->
+            <div class="flex-1">
+                <label class="text-white text-sm">Status:</label>
+                <input type="text" id="status_individual_view" value="{{$dados->financeiro->nome}}"
+                       class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded w-full text-white" readonly>
             </div>
         </div>
 
-        <div class="d-flex">
-            <div style="flex-basis:33%;">
-                <span class="text-white" style="font-size:0.81em;">CPF:</span>
-                <input type="text" id="cpf" class="form-control form-control-sm" value="{{$dados->clientes->cpf}}" readonly>
+
+        <div class="flex justify-between space-x-4">
+
+            <div class="flex-1">
+                <label class="text-white" style="font-size:0.81em;">Cliente:</label>
+                <input type="text" name="cliente" id="cliente" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white rounded w-full" value="{{$dados->clientes->nome}}" readonly>
             </div>
 
-            <div style="flex-basis:33%;margin:0 1%;display:flex;align-items: flex-end;">
-                <span style="flex-basis:90%;">
-                    <span class="text-white" style="font-size:0.81em;">Celular:</span>
-                    <input type="text" id="celular_individual_view_input" value="{{$dados->clientes->celular}}" class="form-control form-control-sm" readonly>
-                </span>
+            <div class="flex-1">
+                <label class="text-white" style="font-size:0.81em;">Data Nascimento:</label>
+                <input type="text" name="data_nascimento" id="data_nascimento" class="bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] rounded w-full" value="{{date('d/m/Y',strtotime($dados->clientes->data_nascimento))}}" readonly>
+            </div>
 
-                <a class="" style="background: #25cb66;flex-basis:10%;
-                    border-radius: 8px !important;
-                    padding: 3px 7px;
-                    text-align: center;
-                    color:#FFF;
-                    font-weight: bold;
-                    margin-bottom: 0px;
-                    text-decoration:none;" href="https://api.whatsapp.com/send?phone=55{{$dados->clientes->celular}}&amp;text=Oi tudo bem?" target="_blank" rel="nofollow">
-                    <img src="{{asset('whatsapp.png')}}" alt="Whatsapp" title="Whatsapp">
+            <div class="flex-1">
+                <label class="text-white" style="font-size:0.81em;">Codigo Externo:</label>
+                <input type="text" name="codigo_externo" id="codigo_externo_individual" value="{{$dados->codigo_externo}}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded w-full text-white" readonly>
+            </div>
+
+        </div>
+
+
+
+        <div class="flex">
+            <div class="flex-1">
+                <span class="text-white text-sm">CPF:</span>
+                <input type="text" id="cpf" class="bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] rounded w-full" value="{{$dados->clientes->cpf}}" readonly>
+            </div>
+
+            <div class="flex-1 flex items-center px-4">
+                <div class="flex-1 items-center">
+                    <label class="text-white text-sm">Celular:</label>
+                    <input type="text" id="celular_individual_view_input" value="{{$dados->clientes->celular}}" class="bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] rounded w-full h-10" readonly>
+                </div>
+                <a class="bg-[#25cb66] rounded text-center text-white font-bold ml-1 mt-5" href="https://api.whatsapp.com/send?phone=55{{$dados->clientes->celular}}&text=Oi tudo bem?" target="_blank" rel="nofollow">
+                    <img src="{{asset('whatsapp.png')}}" alt="Whatsapp" title="Whatsapp" class="w-9 h-9">
                 </a>
             </div>
 
-            <div style="flex-basis:33%;">
-                <span class="text-white" style="font-size:0.81em;">Telefone:</span>
-                <input type="text" id="telefone_individual_view_input" class="form-control form-control-sm" readonly>
+            <div class="flex-1">
+                <span class="text-white text-sm">Telefone:</span>
+                <input type="text" id="telefone_individual_view_input" class="bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] rounded w-full" readonly>
             </div>
         </div>
 
-        <div class="d-flex">
-            <div style="flex-basis:40%;">
-                <span class="text-white" style="font-size:0.81em;">Email:</span>
-                <input type="text" id="email" class="form-control form-control-sm" value="{{$dados->clientes->email}}" readonly>
+        <div class="flex">
+            <div class="flex-1">
+                <label class="text-white" style="font-size:0.81em;">Email:</label>
+                <input type="text" id="email" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded w-full" value="{{$dados->clientes->email}}" readonly>
             </div>
 
-            <div style="flex-basis:25%;margin:0 1%;">
-                <span class="text-white" style="font-size:0.81em;">Numero Registro:</span>
-                <input type="text" id="numero_registro" class="form-control form-control-sm" value="{{$dados->clientes->numero_registro_plano}}" readonly>
+            <div class="flex-1 px-4">
+                <label class="text-white" style="font-size:0.81em;">Numero Registro:</label>
+                <input type="text" id="numero_registro" class="form-control w-full form-control-sm bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-white" value="{{$dados->clientes->numero_registro_plano}}" readonly>
             </div>
 
-            <div style="flex-basis:35%;">
-                <span class="text-white" style="font-size:0.81em;">Carteirinha:</span>
-                <input type="text" id="carteirinha" class="form-control form-control-sm" value="{{$dados->clientes->cateirinha}}" readonly>
-            </div>
-        </div>
-
-        <div class="d-flex">
-            <div style="flex-basis:18%;">
-                <span class="text-white" style="font-size:0.81em;">CEP:</span>
-                <input type="text" name="cep" id="cep_individual_cadastro" value="{{$dados->clientes->cep}}" class="form-control form-control-sm" readonly>
-            </div>
-
-            <div style="flex-basis:35%;margin:0 1%;">
-                <span class="text-white" style="font-size:0.81em;">Cidade:</span>
-                <input type="text" id="cidade" class="form-control form-control-sm" value="{{$dados->clientes->cidade}}" readonly>
-            </div>
-
-            <div style="flex-basis:45%;">
-                <span class="text-white" style="font-size:0.81em;">Bairro:</span>
-                <input type="text" id="bairro_individual_cadastro" class="form-control form-control-sm" value="{{$dados->clientes->bairro}}" readonly>
+            <div class="flex-1">
+                <label class="text-white" style="font-size:0.81em;">Carteirinha:</label>
+                <input type="text" id="carteirinha" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded w-full" value="{{$dados->clientes->cateirinha}}" readonly>
             </div>
         </div>
 
-        <div class="d-flex">
-            <div style="flex-basis:60%;">
-                <span class="text-white" style="font-size:0.81em;">Rua:</span>
-                <input type="text" id="rua_individual_cadastro" class="form-control form-control-sm" value="{{$dados->clientes->rua}}" readonly>
+        <div class="flex">
+            <div class="flex-1 flex flex-col">
+                <label class="text-white text-sm">CEP:</label>
+                <input type="text" name="cep" id="cep_individual_cadastro" value="{{$dados->clientes->cep}}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded w-full" readonly>
             </div>
 
-            <div style="flex-basis:29%;margin:0 1%;">
-                <span class="text-white" style="font-size:0.81em;">Complemento:</span>
-                <input type="text" id="complemento_individual_cadastro" class="form-control form-control-sm" value="{{$dados->clientes->complemento}}" readonly>
+            <div class="flex-1 flex flex-col px-4">
+                <label class="text-white text-sm">Cidade:</label>
+                <input type="text" id="cidade" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded w-full" value="{{$dados->clientes->cidade}}" readonly>
             </div>
 
-            <div style="flex-basis:10%;margin-right:1%;">
-                <span class="text-white" style="font-size:0.81em;">UF:</span>
-                <input type="text" id="uf" class="form-control form-control-sm" value="{{$dados->clientes->uf}}" readonly>
+            <div class="flex-1 flex flex-col">
+                <label class="text-white text-sm">Bairro:</label>
+                <input type="text" id="bairro_individual_cadastro" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded w-full" value="{{$dados->clientes->bairro}}" readonly>
             </div>
         </div>
 
-        <div class="d-flex">
-            <div style="flex-basis:23%;">
+
+        <div class="flex">
+            <div class="flex-1 flex flex-col">
+                <label class="text-white" style="font-size:0.81em;">Rua:</label>
+                <input type="text" id="rua_individual_cadastro" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" value="{{$dados->clientes->rua}}" readonly>
+            </div>
+
+            <div class="flex-1 flex flex-col px-4">
+                <label class="text-white" style="font-size:0.81em;">Complemento:</label>
+                <input type="text" id="complemento_individual_cadastro" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" value="{{$dados->clientes->complemento}}" readonly>
+            </div>
+
+            <div class="flex-1 flex flex-col">
+                <label class="text-white" style="font-size:0.81em;">UF:</label>
+                <input type="text" id="uf" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" value="{{$dados->clientes->uf}}" readonly>
+            </div>
+        </div>
+
+        <div class="flex">
+
+            <div class="flex-1 flex flex-col">
                 <span class="text-white" style="font-size:0.81em;">Data Contrato:</span>
-                <input type="text" name="data_contrato" id="data_contrato" class="form-control form-control-sm" value="{{date('d/m/Y',strtotime($dados->clientes->created_at))}}" readonly>
+                <input type="text" name="data_contrato" id="data_contrato" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-white" value="{{date('d/m/Y',strtotime($dados->clientes->created_at))}}" readonly>
             </div>
 
-            <div style="flex-basis:23%;margin:0 1%;">
+            <div class="flex-1 flex flex-col px-2">
                 <span class="text-white" style="font-size:0.81em;">Valor Contrato:</span>
-                <input type="text" name="valor_contrato" id="valor_contrato" value="R$ {{number_format($dados->valor_plano,2,',','.')}}" class="form-control form-control-sm" readonly>
+                <input type="text" name="valor_contrato" id="valor_contrato" value="R$ {{number_format($dados->valor_plano,2,',','.')}}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-white" readonly>
             </div>
 
-            <div style="flex-basis:23%;">
+            <div class="flex-1 flex flex-col px-3">
                 <span class="text-white" style="font-size:0.81em;">Valor Adesão:</span>
-                <input type="text" name="valor_adesao" id="valor_adesao" value="R$ {{number_format($dados->valor_adesao,2,',','.')}}" class="form-control form-control-sm" readonly>
+                <input type="text" name="valor_adesao" id="valor_adesao" value="R$ {{number_format($dados->valor_adesao,2,',','.')}}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-white" readonly>
             </div>
 
-            <div style="flex-basis:30%;margin-right:1%;">
+            <div class="flex-1 flex flex-col">
                 <span class="text-white" style="font-size:0.81em;">Codigo Tabela:</span>
-                <input type="text" name="codigo_tabela" id="codigo_tabela" class="form-control form-control-sm" value="{{$dados->codigo_tabela}}" readonly>
+                <input type="text" name="codigo_tabela" id="codigo_tabela" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-white" value="{{$dados->codigo_tabela}}" readonly>
             </div>
+
         </div>
 
         <div class="d-flex">
             <div style="flex-basis:50%;">
                 <span class="text-white" style="font-size:0.81em;">Criado por:</span>
-                <input type="text" name="users_id" id="users_id" class="form-control form-control-sm" value="" readonly>
+                <input type="text" name="users_id" id="users_id" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" value="" readonly>
             </div>
 
             <div style="flex-basis:50%;margin-left:1%;">
                 <span class="text-white" style="font-size:0.81em;">Vendedor:</span>
-                <input type="text" name="codigo_vendedor" id="codigo_vendedor" class="form-control form-control-sm" value="{{$dados->clientes->user->name}}" readonly>
+                <input type="text" name="codigo_vendedor" id="codigo_vendedor" class="bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] rounded" value="{{$dados->clientes->user->name}}" readonly>
             </div>
         </div>
     </section>
