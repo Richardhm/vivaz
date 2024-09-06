@@ -205,7 +205,7 @@
                         </ul>
                     </div>
 
-                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
+                    <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-2">
                         <ul id="finalizado_corretor">
                             <li class="flex justify-between individual" style="height:30px;line-height: 30px;">
                                 <span class="text-sm">Finalizado</span>
