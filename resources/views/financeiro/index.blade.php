@@ -260,7 +260,7 @@
                                 <th>CPF</th>
                                 <th>Vidas</th>
                                 <th>Valor</th>
-                                <th>Vencimento</th>
+                                <th>Venc.</th>
                                 <th>Atrasado</th>
                                 <th>Status</th>
                                 <th>Ver</th>
@@ -1045,7 +1045,7 @@
                     "columnDefs": [
                         {"targets": 0,"width":"2%"},
                         {"targets": 1,"width":"5%"},
-                        {"targets": 2,"width":"18%",
+                        {"targets": 2,"width":"14%",
                             "createdCell":function(td, cellData, rowData, row, col) {
                                 let words = cellData.split(" ");
 
@@ -1057,7 +1057,7 @@
                                 }
                             }
                         },
-                        {"targets": 3,"width":"18%",
+                        {"targets": 3,"width":"22%",
                             "createdCell":function(td, cellData, rowData, row, col) {
                                 let words = cellData.split(" ");
 
@@ -3441,8 +3441,8 @@
         }
 
         table.dataTable thead th {
-            font-size: 0.9em !important; /* Tamanho da fonte para o corpo da tabela */
-            text-align:left;
+            font-weight: normal;
+
         }
 
 
@@ -3523,8 +3523,7 @@
         }
 
 
-        th { font-size: 0.8em !important; }
-        td { font-size: 0.7em !important; }
+
 
 
         .select2-container .select2-selection {
