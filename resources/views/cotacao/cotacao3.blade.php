@@ -556,8 +556,9 @@
 
 
 <div class="footer">
+    @if($image != "")
     <img src="{{ $image }}" alt="User Image">
-
+    @endif
     <div class="middle">
         <p>{{$nome}}</p>
         <p>{{$celular}}</p>

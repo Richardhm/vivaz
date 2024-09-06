@@ -54,7 +54,11 @@ class ImagemController extends Controller
         } else {
             $pdf_copar = Pdf::where('plano_id', $plano)->first();
         }
-        $image_user = 'data:image/png;base64,'.base64_encode(file_get_contents(public_path(auth()->user()->image)));
+        $image_user = "";
+        if(auth()->user()->image) {
+            $image_user = 'data:image/png;base64,'.base64_encode(file_get_contents(public_path(auth()->user()->image)));
+        }
+
         $nome = auth()->user()->name;
         $celular = auth()->user()->celular;
         $corretora = auth()->user()->corretora_id;
