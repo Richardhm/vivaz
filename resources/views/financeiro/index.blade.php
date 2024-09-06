@@ -250,7 +250,7 @@
                 <!--COLUNA CENTRAL-->
                 <div class="flex w-[83%] mr-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
                     <div class="text-white rounded p-4 w-full">
-                        <table id="tabela_individual" class="table table-sm listarindividual w-100">
+                        <table id="tabela_individual" class="table table-sm listarindividual w-100 text-left">
                             <thead>
                             <tr>
                                 <th>Data</th>
@@ -260,7 +260,7 @@
                                 <th>CPF</th>
                                 <th>Vidas</th>
                                 <th>Valor</th>
-                                <th>Venc.</th>
+                                <th>Vencimento</th>
                                 <th>Atrasado</th>
                                 <th>Status</th>
                                 <th>Ver</th>
@@ -3438,6 +3438,11 @@
         table.dataTable tbody td {
             font-size: 0.9em !important; /* Tamanho da fonte para o corpo da tabela */
             padding: 1px !important;
+        }
+
+        table.dataTable thead th {
+            font-size: 0.9em !important; /* Tamanho da fonte para o corpo da tabela */
+            text-align:left;
         }
 
 
