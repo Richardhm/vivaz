@@ -3437,7 +3437,7 @@
     <style>
         table.dataTable tbody td {
             font-size: 0.95em !important; /* Tamanho da fonte para o corpo da tabela */
-            padding: 4px !important;
+            padding: 1px !important;
         }
 
 
