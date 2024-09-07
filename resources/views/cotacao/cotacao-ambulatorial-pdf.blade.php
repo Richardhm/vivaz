@@ -249,27 +249,18 @@
     <div class="tabela-container">
         <table>
             <thead>
-                <tr>
-                    <td class="text-center title">{{$administradora}}</td>
-                    <td colspan="2" class="apart">Com Coparticipação</td>
-                    <td colspan="2" class="copart-parcial">Coparticipação Parcial</td>
-                </tr>
-                <tr>
-                    <td class="faixa-etaria">Faixa Etária</td>
-                    <td class="apart-enfer apart">Apart</td>
-                    <td class="apart-enfer apart">Enfer</td>
-                    <td class="apart-enfer copart-parcial">Apart</td>
-                    <td class="apart-enfer copart-parcial">Enfer</td>
-                </tr>
+            <tr>
+                <td class="text-center title">{{$administradora}}</td>
+                <td colspan="2" class="apart">Com Coparticipação</td>
+                <td colspan="2" class="copart-parcial">Coparticipação Parcial</td>
+            </tr>
+
             </thead>
             <tbody>
             @php
                 $dadosComOdontoComCopar = [];
                 $dadosComOdontoSemCopar = [];
-                $totalApartamento_com_copar = 0;
-                $totalEnfermaria_com_copar = 0;
-                $totalApartamento_sem_copar = 0;
-                $totalEnfermaria_sem_copar = 0;
+
             @endphp
 
             @foreach($dados as $dado)
@@ -295,7 +286,7 @@
                                 'quantidade' => $quantidade
                             ];
                         }
-                        $dadosComOdonto[$faixaEtaria]["{$acomodacao}_{$index}"] = $valor ?? 0;
+                        $dadosComOdonto[$faixaEtaria]["{$index}"] = $valor ?? 0;
                     //}
                 @endphp
             @endforeach
@@ -305,30 +296,19 @@
                 @for($i=0;$i<$valores['quantidade'];$i++)
                     <tr>
                         <td class="tbody_faixa_etaria">{{ $faixaEtaria }}</td>
-                        <td class="tbody_com_copart">
+                        <td colspan="2" class="tbody_com_copart">
                             {{ number_format($valores['1_com_copar'], 2, ",", ".") }}
                             @php
                                 $totalApartamento_com_copar += $valores['1_com_copar'];
                             @endphp
                         </td>
-                        <td class="tbody_com_copart">
+                        <td colspan="2" class="tbody_com_copart">
                             {{ number_format($valores['2_com_copar'], 2, ",", ".") }}
                             @php
                                 $totalEnfermaria_com_copar += $valores['2_com_copar'];
                             @endphp
                         </td>
-                        <td class="tbody_sem_copart">
-                            {{ number_format($valores['1_sem_copar'], 2, ",", ".") }}
-                            @php
-                                $totalApartamento_sem_copar += $valores['1_sem_copar'];
-                            @endphp
-                        </td>
-                        <td class="tbody_sem_copart">
-                            {{ number_format($valores['2_sem_copar'], 2, ",", ".") }}
-                            @php
-                                $totalEnfermaria_sem_copar += $valores['2_sem_copar'];
-                            @endphp
-                        </td>
+
                     </tr>
                 @endfor
             @endforeach
@@ -339,8 +319,7 @@
                 <td>Total</td>
                 <td>{{number_format($totalApartamento_com_copar,2,",",".")}}</td>
                 <td>{{number_format($totalEnfermaria_com_copar,2,",",".")}}</td>
-                <td>{{number_format($totalApartamento_sem_copar,2,",",".")}}</td>
-                <td>{{number_format($totalEnfermaria_sem_copar,2,",",".")}}</td>
+
             </tr>
             </tfoot>
         </table>
@@ -353,11 +332,11 @@
     </div>
 
     @php
-      if($linhas <= 4) {
-          echo '<div style="margin-bottom:100px"></div>';
-      } else {
-          echo '<div style="margin-bottom:0px"></div>';
-      }
+        if($linhas <= 4) {
+            echo '<div style="margin-bottom:100px"></div>';
+        } else {
+            echo '<div style="margin-bottom:0px"></div>';
+        }
     @endphp
 
 
@@ -430,118 +409,118 @@
                 </table>
             </td>
             @if($status_carencia == 1)
-            <td style="width: 50%; vertical-align: top; padding-left: 2%; margin: 0;color:#366EBF;">
-                <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
-                <table style="width: 100%;border-spacing: 0; padding: 0;">
-                    <tr style="padding: 0;">
-                        <!-- Coluna da Esquerda (70%) -->
-                        <td style="width: 60%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
-                            <p style="margin: 0;padding:0;text-align:left;">
+                <td style="width: 50%; vertical-align: top; padding-left: 2%; margin: 0;color:#366EBF;">
+                    <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
+                    <table style="width: 100%;border-spacing: 0; padding: 0;">
+                        <tr style="padding: 0;">
+                            <!-- Coluna da Esquerda (70%) -->
+                            <td style="width: 60%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                                <p style="margin: 0;padding:0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px;">
                                     24<br />horas
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
+                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
                                     Urgência, Emergência e<br />Acidentes Pessoais
                                 </span>
-                            </p>
-                            <p style="margin: 10px 0;text-align:left;">
+                                </p>
+                                <p style="margin: 10px 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     30<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
+                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
                                     Consultas Médicas,<br />Exames Médicos Simples
                                 </span>
-                            </p>
-                            <p style="margin: 0;text-align:left;">
+                                </p>
+                                <p style="margin: 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     90<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                    <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
                                     Exames Cardiológicos, Exames<br /> de Imagem, Oftalmológicos,<br />Otorrino Simples, Raio X,<br />Ultrassonografia
                                 </span>
-                            </p>
-                            <p style="margin:10px 0px 0px 0px;text-align:left;">
+                                </p>
+                                <p style="margin:10px 0px 0px 0px;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     180<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                    <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
                                     Cirurgias, Internações, Exames<br />de Alto Custo, Tratamento<br />Psicológico, Terapia Ocupacional,<br />Fisioterapia
                                 </span>
-                            </p>
-                        </td>
-                        <!-- Coluna da Direita (30%) -->
-                        <td style="width: 40%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
-                            <p style="margin: 0;text-align:left;">
+                                </p>
+                            </td>
+                            <!-- Coluna da Direita (30%) -->
+                            <td style="width: 40%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                                <p style="margin: 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     300<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
+                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
                                     Parto
                                 </span>
-                            </p>
-                            <p style="margin: 10px 0 0 0;text-align:left;">
+                                </p>
+                                <p style="margin: 10px 0 0 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     720<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;;">
+                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;;">
                                     Doenças e Lesões<br />Pré-existentes
                                 </span>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
             @endif
 
         </tr>
     </table>
 
     @if($odonto == 1 && $status_carencia == 1)
-    <!-- Nova Tabela -->
-    <table id="valores_odonto" style="width: 100%; border-collapse: collapse; margin-top: 10px;color:#366EBF;">
-        <!-- Título -->
-        <tr>
-            <td colspan="3" style="text-align: left; padding: 10px 0;">
-                <h3 style="margin: 0; text-align: left; width: 100%;">Carências Odonto</h3>
-            </td>
-        </tr>
-        <!-- Conteúdo das Colunas -->
-        <tr>
-            <!-- Coluna 1 -->
-            <td style="width: 33%; vertical-align: top; padding: 0 10px;">
-                <p style="margin: 0; text-align: left;">
+        <!-- Nova Tabela -->
+        <table id="valores_odonto" style="width: 100%; border-collapse: collapse; margin-top: 10px;color:#366EBF;">
+            <!-- Título -->
+            <tr>
+                <td colspan="3" style="text-align: left; padding: 10px 0;">
+                    <h3 style="margin: 0; text-align: left; width: 100%;">Carências Odonto</h3>
+                </td>
+            </tr>
+            <!-- Conteúdo das Colunas -->
+            <tr>
+                <!-- Coluna 1 -->
+                <td style="width: 33%; vertical-align: top; padding: 0 10px;">
+                    <p style="margin: 0; text-align: left;">
                 <span style="border: 4px solid #366EBF; font-size: 0.8em; border-radius: 5px; display: inline-block; vertical-align: top; text-align: center; padding: 5px 12px;">
                     24<br />horas
                 </span>
-                    <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
+                        <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
                     Atendimento Urgência e<br />Emergência
                 </span>
-                </p>
-            </td>
-            <!-- Coluna 2 -->
-            <td style="width: 33%; vertical-align: top; padding: 0 10px;">
-                <p style="margin: 0; text-align: left;">
+                    </p>
+                </td>
+                <!-- Coluna 2 -->
+                <td style="width: 33%; vertical-align: top; padding: 0 10px;">
+                    <p style="margin: 0; text-align: left;">
                 <span style="border: 4px solid #366EBF; font-size: 0.8em; border-radius: 5px; display: inline-block; vertical-align: top; text-align: center; padding: 5px 12px;">
                     60<br />dias
                 </span>
-                    <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
+                        <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
                     Diagnóstico, Prevenção<br />em Saúde Bucal e Dentista
                 </span>
-                </p>
-            </td>
-            <!-- Coluna 3 -->
-            <td style="width: 33%; vertical-align: top; padding: 0 10px;">
-                <p style="margin: 0; text-align: left;">
+                    </p>
+                </td>
+                <!-- Coluna 3 -->
+                <td style="width: 33%; vertical-align: top; padding: 0 10px;">
+                    <p style="margin: 0; text-align: left;">
                 <span style="border: 4px solid #366EBF; font-size: 0.8em; border-radius: 5px; display: inline-block; vertical-align: top; text-align: center; padding: 5px 12px;">
                     180<br />dias
                 </span>
-                    <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
+                        <span style="display: inline-block; vertical-align: middle; margin-left: 10px; font-size: 0.8em;">
                     Demais Procedimentos<br />Odontológicos
                 </span>
-                </p>
-            </td>
-        </tr>
-    </table>
+                    </p>
+                </td>
+            </tr>
+        </table>
     @endif
 
 
@@ -550,7 +529,7 @@
 
 <div class="footer">
     @if($image != "")
-    <img src="{{ $image }}" alt="User Image">
+        <img src="{{ $image }}" alt="User Image">
     @endif
     <div class="middle">
         <p>{{$nome}}</p>

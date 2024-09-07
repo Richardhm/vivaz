@@ -138,7 +138,7 @@
                /***********Incrementar valores aos input*****************************/
 
 
-               function atualizarResultado() {
+               function atualizarResultado(ambulatorial = 0) {
 
                    setTimeout(()=>{
                        let cidade = "";
@@ -178,6 +178,7 @@
                                "faixas": faixas,
                                "status_carencia":status_carencia,
                                "_token": "{{ csrf_token() }}",
+                               "ambulatorial" : ambulatorial
                            },
                            success: function(res) {
 
@@ -292,6 +293,22 @@
                    });
                    return false;
                });
+
+
+               $("body").on('click','.btn_ambulatorial',function(){
+                  $("#resultado").slideUp("slow");
+                  $("#resultado").empty();
+                   atualizarResultado(1)
+
+               });
+
+               $("body").on('click','.btn_normal',function(){
+                   $("#resultado").slideUp("slow");
+                   $("#resultado").empty();
+                   atualizarResultado(0)
+               });
+
+
            });
       </script>
     @endsection

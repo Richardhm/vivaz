@@ -189,10 +189,10 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
     <tr>
         <td style="text-align:center;font-size:0.7em;border-right:1px solid #FFF;border-bottom:1px solid #FFF;color:#FFF;" class="">APART</td>
         <td style="text-align:center;font-size:0.7em;border-right:1px solid #FFF;border-bottom:1px solid #FFF;color:#FFF;" class="">ENFER</td>
-        <td style="text-align:center;font-size:0.7em;border-right:1px solid #FFF;border-bottom:1px solid #FFF;color:#FFF;" class="">AMBUL</td>
+
         <td style="text-align:center;color:#FFF;font-size:0.7em;border-bottom:1px solid #FFF;border-right:1px solid #FFF;" class="">APART</td>
         <td style="text-align:center;color:#FFF;font-size:0.7em;border-bottom:1px solid #FFF;border-right:1px solid #FFF;" class="">ENFER</td>
-        <td style="text-align:center;color:#FFF;font-size:0.7em;border-bottom:1px solid #FFF;" class="">AMBUL</td>
+
     </tr>
     </thead>
     <tbody>
@@ -203,8 +203,7 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
         $totalEnfermariaSemOdonto_com_copar = 0;
         $totalApartamentoSemOdonto_sem_copar = 0;
         $totalEnfermariaSemOdonto_sem_copar = 0;
-        $totalAmbulatorialSemOdonto_sem_copar = 0;
-        $totalAmbulatorialSemOdonto_com_copar = 0;
+
     @endphp
 
     @foreach($dados as $dd)
@@ -251,10 +250,7 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
                     @php $totalEnfermariaSemOdonto_com_copar += $valorSemOdonto['2_com_copar'];@endphp
                 </td>
 
-                <td class="text-white" style="font-size: 0.7em;text-align: right;">
-                    <span class="mr-2">0</span>
-                    @php $totalAmbulatorialSemOdonto_com_copar += 0;@endphp
-                </td>
+
 
 
                 <td class="text-white" style="font-size: 0.7em;text-align: right;">
@@ -267,12 +263,7 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
                         $totalEnfermariaSemOdonto_sem_copar += $valorSemOdonto['2_sem_copar'];
                     @endphp
                 </td>
-                <td class="text-white" style="font-size: 0.7em;text-align: right;">
-                    <span class="mr-2">0</span>
-                    @php
-                        $totalAmbulatorialSemOdonto_sem_copar += 0;
-                    @endphp
-                </td>
+
             </tr>
         @endfor
     @endforeach
@@ -290,18 +281,14 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
             <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermariaSemOdonto_com_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
-                <span class="mr-2">0</span>
-            </td>
+
             <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalApartamentoSemOdonto_sem_copar, 2, ",", ".") }}</span>
             </td>
             <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermariaSemOdonto_sem_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
-                <span class="mr-2">0</span>
-            </td>
+
         </tr>
         </tfoot>
 
@@ -320,12 +307,17 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
 @endif
 
 
-<div style="text-align: center;margin-top: 8px;">
+<div class="flex justify-around items-center w-full mt-4">
     <label for="status_carencia">
         <input type="checkbox" name="status_carencia" id="status_carencia" class="w-6 h-6 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
         <span style="color:white;" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-2xl">Com Carências</span>
     </label>
+    <div>
+        <button class="btn_ambulatorial">
+            <img src="{{asset('ambulatorial.png')}}" alt="Ambulatorial" title="Plano Ambulatorial" style="width:50px;height:50px;">
 
+        </button>
+    </div>
 
 </div>
 

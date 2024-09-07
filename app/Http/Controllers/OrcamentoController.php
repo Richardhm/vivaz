@@ -30,7 +30,7 @@ class OrcamentoController extends Controller
 
     public function orcamento(Request $request)
     {
-        $dados = request()->all();
+        $ambulatorial = $request->ambulatorial;
         $sql = "";
         $chaves = [];
         foreach(request()->faixas[0] as $k => $v) {
@@ -47,24 +47,47 @@ class OrcamentoController extends Controller
         $plano_nome = Plano::find($plano)->nome;
         $imagem_plano = Administradora::find($operadora)->logo;
         $cidade_nome = TabelaOrigens::find($cidade)->nome;
-        $dados = Tabela::select('tabelas.*')
-            ->selectRaw("CASE $sql END AS quantidade")
-            ->join('faixa_etarias', 'faixa_etarias.id', '=', 'tabelas.faixa_etaria_id')
-            ->where('tabelas.tabela_origens_id', $cidade)
-            ->where('tabelas.plano_id', $plano)
-            ->where('tabelas.administradora_id', $operadora)
-            //->where('acomodacao_id',"!=",3)
-            ->whereIn('tabelas.faixa_etaria_id', explode(',', $keys))
-            ->get();
-        $status = $dados->contains('odonto', 0);
-        return view("cotacao.cotacao2",[
-            "dados" => $dados,
-            "operadora" => $imagem_operadora,
-            "plano_nome" => $plano_nome,
-            "cidade_nome" => $cidade_nome,
-            "imagem_plano" => $imagem_plano,
-            "status" => $status
-        ]);
+        if($ambulatorial == 0) {
+            $dados = Tabela::select('tabelas.*')
+                ->selectRaw("CASE $sql END AS quantidade")
+                ->join('faixa_etarias', 'faixa_etarias.id', '=', 'tabelas.faixa_etaria_id')
+                ->where('tabelas.tabela_origens_id', $cidade)
+                ->where('tabelas.plano_id', $plano)
+                ->where('tabelas.administradora_id', $operadora)
+                //->where('acomodacao_id',"!=",3)
+                ->whereIn('tabelas.faixa_etaria_id', explode(',', $keys))
+                ->get();
+                $status = $dados->contains('odonto', 0);
+                return view("cotacao.cotacao2",[
+                    "dados" => $dados,
+                    "operadora" => $imagem_operadora,
+                    "plano_nome" => $plano_nome,
+                    "cidade_nome" => $cidade_nome,
+                    "imagem_plano" => $imagem_plano,
+                    "status" => $status
+                ]);
+        } else {
+            $dados = Tabela::select('tabelas.*')
+                ->selectRaw("CASE $sql END AS quantidade")
+                ->join('faixa_etarias', 'faixa_etarias.id', '=', 'tabelas.faixa_etaria_id')
+                ->where('tabelas.tabela_origens_id', $cidade)
+                ->where('tabelas.plano_id', $plano)
+                ->where('tabelas.administradora_id', $operadora)
+                ->where('acomodacao_id',"=",3)
+                ->whereIn('tabelas.faixa_etaria_id', explode(',', $keys))
+                ->get();
+            //return $dados;
+            $status = $dados->contains('odonto', 0);
+            return view("cotacao.cotacao-ambulatorial",[
+                "dados" => $dados,
+                "operadora" => $imagem_operadora,
+                "plano_nome" => $plano_nome,
+                "cidade_nome" => $cidade_nome,
+                "imagem_plano" => $imagem_plano,
+                "status" => $status
+            ]);
+        }
+
 
     }
 }

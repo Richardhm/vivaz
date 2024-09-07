@@ -13,6 +13,7 @@ class ImagemController extends Controller
 {
     public function criarPDF()
     {
+        $ambulatorial = request()->ambulatorial;
         $cidade = request()->tabela_origem;
         $plano = request()->plano;
         $operadora = request()->operadora;
@@ -34,6 +35,8 @@ class ImagemController extends Controller
         $odonto_frase = $odonto == 1 ? " c/ Odonto" : " s/ Odonto";
         $frase = $plano_nome.$odonto_frase;
         $keys = implode(",",$chaves);
+
+
         $dados = Tabela::select('tabelas.*')
             ->selectRaw("CASE $sql END AS quantidade")
             ->join('faixa_etarias', 'faixa_etarias.id', '=', 'tabelas.faixa_etaria_id')
