@@ -12,7 +12,7 @@
                    if (window.innerWidth <= 768) { // Aplica apenas para mobile
                        $('html, body').animate({
                            scrollTop: $(document).height() // Define o scroll para o final do documento
-                       }, 1000); // Tempo da animação (1 segundo)
+                       },1500, 'swing'); // Tempo da animação (1 segundo)
                    }
                }
 
@@ -32,7 +32,9 @@
                    scrollToBottom();
                });
 
-
+               function ultimaEtapa() {
+                   scrollToBottom();
+               }
 
 
 
