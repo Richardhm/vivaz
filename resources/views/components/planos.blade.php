@@ -1,4 +1,4 @@
-<div class="p-1 rounded mt-2 ml-3 mr-3 bg-[rgba(254,254,254,0.18)] hidden backdrop-blur-[15px] border" style="width:22%;min-height:420px;" id="planos">
+<div class="p-1 rounded mt-2 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border hidden w-full lg:w-[22%] min-h-[420px]" id="planos">
     <button class="py-1.5 w-full px-1 me-2 mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
         Planos
     </button>

@@ -1,12 +1,9 @@
 <x-app-layout>
-    @section('css')
-
-    @endsection
-    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex">
+    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row">
         <x-informacoes :cidades="$cidades"></x-informacoes>
         <x-operadoras :operadoras="$administradoras"></x-operadoras>
         <x-planos :planos="$planos"></x-planos>
-        <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border" id="resultado" style="width:30%;"></div>
+        <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[30%]" id="resultado"></div>
     </div>
     @section('scripts')
        <script>
@@ -18,14 +15,10 @@
                });
                $("input[name='operadoras']").on('change',function(){
                    let valor = $(this).val();
-
                    if($("#resultado").is(":visible")){
                        $("input[name='planos-radio']").prop('checked', false);
                        $("#resultado").hide().empty();
                    }
-
-
-
                    $.ajax({
                        url: '{{route('buscar_planos')}}',  // URL da rota que irá processar a requisição
                        type: 'POST',
@@ -45,16 +38,7 @@
                            alert('Erro ao buscar os planos. Tente novamente.');
                        }
                    });
-
-
-
-
-
                });
-
-
-
-
                /*****************verificar se cidade e minus estão preenchidos para aparecer administradoras*******/
                function checkFields() {
                    var hasValue = false;
@@ -65,10 +49,8 @@
                            hasValue = true;
                        }
                    });
-
                    // Verifica se o select está preenchido
                    var cidadeSelected = $('#cidade').val() !== '';
-
                    // Se ambas as condições forem verdadeiras, remova a classe 'hidden'
                    if (hasValue && cidadeSelected) {
                        $('#operadoras').removeClass('hidden');
@@ -79,12 +61,6 @@
                    if($("#planos").is(":visible") && $("#operadoras").is(":visible") && $("#resultado").is(":visible")) {
                        atualizarResultado();
                    }
-
-
-
-
-
-
                }
 
                $('input[type="text"]').on('input', checkFields);
@@ -242,9 +218,6 @@
                            //"cliente" : cliente,
                            //"_token": "{{ csrf_token() }}"
                        },
-                       // success:function(res){
-                       //     console.log(res);
-                       // }
                        xhrFields: {
                            responseType: 'blob'
                        },
@@ -283,26 +256,12 @@
                                        URL.revokeObjectURL(downloadUrl);
                                    },100);
                                    load.fadeOut(100).css("display", "none");
-
-
-
                                }
-
-
-
-
                            }
                        }
                    });
                    return false;
                });
-
-
-
-
-
-
-
            });
       </script>
     @endsection

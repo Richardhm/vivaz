@@ -1,4 +1,4 @@
-<div class="mt-2 rounded p-1 mr-3 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border" style="width:22%;" id="container_informacoes">
+<div class="mt-2 rounded p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[22%]" id="container_informacoes">
     <button class="py-1.5 w-full px-1 me-2 mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
         Tabela de Origem
     </button>

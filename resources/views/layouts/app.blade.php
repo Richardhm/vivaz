@@ -46,7 +46,7 @@
                 top:5px;
                 left:5px;
                 backdrop-filter: blur(15px);
-                border:2px solid rgba(254,254,254,0.5);
+
                 border-radius:15px;
                 width:45px;
                 padding:10px;
@@ -66,20 +66,20 @@
             }
 
             .profile::after {
-                position:absolute;
-                content:'';
-                width:100%;
-                height:2px;
-                background:#fff;
-                opacity:0.5;
-                left:0;
-                bottom: -20px;
+                /*position:absolute;*/
+                /*content:'';*/
+                /*width:100%;*/
+                /*height:2px;*/
+                /*background:#fff;*/
+                /*opacity:0.5;*/
+                /*left:0;*/
+                /*bottom: -20px;*/
             }
             .profile .imgbox {
                 position:relative;
                 height:42px;
                 width:42px;
-                border:2px solid #fff;
+
                 border-radius:50%;
                 overflow: hidden;
             }
@@ -105,7 +105,7 @@
             }
 
             .navbar ul {
-                margin-top:40px;
+
             }
             .navbar ul li {
                 list-style: none;
@@ -169,10 +169,6 @@
             .navbar ul li::after {
                 position:absolute;
                 content:'';
-                border:10px solid #fff;
-                border-bottom-color:transparent;
-                border-top-color:transparent;
-                border-left-color:transparent;
                 left:20px;
                 top:50%;
                 transform: translateX(30px) translateY(-50%);
@@ -190,9 +186,7 @@
             main {
                 flex: 1; /* O main ocupará o espaço restante */
                 margin-left: 5px; /* Espaço entre a navbar e o main */
-                /*background: rgba(255, 255, 255, 0.5); !* Ajuste de fundo para melhor visualização *!*/
-                /*padding: 1px;*/
-                /*border-radius: 15px;*/
+
 
             }
 
@@ -230,13 +224,39 @@
                         <img src="{{asset(auth()->user()->image)}}" alt="User">
                         @endif
                     </div>
-                    <div class="heading">
-                        <h3 class="title">WebKit Coding</h3>
-                        <h4 class="label">Developer</h4>
-                    </div>
+
                 </div>
 
                 <ul>
+
+                    @if(auth()->user()->can('orcamento'))
+                        <li text-data="orçamento" class="hover:text-black">
+                            <a href="{{route('orcamento')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                                <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17.345a4.76 4.76 0 0 0 2.558 1.618c2.274.589 4.512-.446 4.999-2.31.487-1.866-1.273-3.9-3.546-4.49-2.273-.59-4.034-2.623-3.547-4.488.486-1.865 2.724-2.899 4.998-2.31.982.236 1.87.793 2.538 1.592m-3.879 12.171V21m0-18v2.2"/>
+                                </svg>
+
+
+                                <span>orçamento</span>
+                            </a>
+                        </li>
+                    @endif
+
+                        @if(auth()->user()->can('ranking'))
+                            <li text-data="ranking" class="hover:text-black">
+                                <a href="{{route('ranking.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                                    <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M11 9a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"/>
+                                        <path fill-rule="evenodd" d="M9.896 3.051a2.681 2.681 0 0 1 4.208 0c.147.186.38.282.615.255a2.681 2.681 0 0 1 2.976 2.975.681.681 0 0 0 .254.615 2.681 2.681 0 0 1 0 4.208.682.682 0 0 0-.254.615 2.681 2.681 0 0 1-2.976 2.976.681.681 0 0 0-.615.254 2.682 2.682 0 0 1-4.208 0 .681.681 0 0 0-.614-.255 2.681 2.681 0 0 1-2.976-2.975.681.681 0 0 0-.255-.615 2.681 2.681 0 0 1 0-4.208.681.681 0 0 0 .255-.615 2.681 2.681 0 0 1 2.976-2.975.681.681 0 0 0 .614-.255ZM12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" clip-rule="evenodd"/>
+                                        <path d="M5.395 15.055 4.07 19a1 1 0 0 0 1.264 1.267l1.95-.65 1.144 1.707A1 1 0 0 0 10.2 21.1l1.12-3.18a4.641 4.641 0 0 1-2.515-1.208 4.667 4.667 0 0 1-3.411-1.656Zm7.269 2.867 1.12 3.177a1 1 0 0 0 1.773.224l1.144-1.707 1.95.65A1 1 0 0 0 19.915 19l-1.32-3.93a4.667 4.667 0 0 1-3.4 1.642 4.643 4.643 0 0 1-2.53 1.21Z"/>
+                                    </svg>
+
+                                    <span>ranking</span>
+                                </a>
+                            </li>
+                        @endif
+
+
                     <li text-data="dashboard" class="hover:text-black">
                         <a href="{{route('home.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black flex align-middle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -246,19 +266,18 @@
                         </a>
                     </li>
 
-                    @if(auth()->user()->can('ranking'))
-                    <li text-data="ranking" class="hover:text-black">
-                        <a href="{{route('ranking.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                    <li text-data="estrela" class="hover:text-black">
+                        <a href="{{route('estrela.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M11 9a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"/>
-                                <path fill-rule="evenodd" d="M9.896 3.051a2.681 2.681 0 0 1 4.208 0c.147.186.38.282.615.255a2.681 2.681 0 0 1 2.976 2.975.681.681 0 0 0 .254.615 2.681 2.681 0 0 1 0 4.208.682.682 0 0 0-.254.615 2.681 2.681 0 0 1-2.976 2.976.681.681 0 0 0-.615.254 2.682 2.682 0 0 1-4.208 0 .681.681 0 0 0-.614-.255 2.681 2.681 0 0 1-2.976-2.975.681.681 0 0 0-.255-.615 2.681 2.681 0 0 1 0-4.208.681.681 0 0 0 .255-.615 2.681 2.681 0 0 1 2.976-2.975.681.681 0 0 0 .614-.255ZM12 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" clip-rule="evenodd"/>
-                                <path d="M5.395 15.055 4.07 19a1 1 0 0 0 1.264 1.267l1.95-.65 1.144 1.707A1 1 0 0 0 10.2 21.1l1.12-3.18a4.641 4.641 0 0 1-2.515-1.208 4.667 4.667 0 0 1-3.411-1.656Zm7.269 2.867 1.12 3.177a1 1 0 0 0 1.773.224l1.144-1.707 1.95.65A1 1 0 0 0 19.915 19l-1.32-3.93a4.667 4.667 0 0 1-3.4 1.642 4.643 4.643 0 0 1-2.53 1.21Z"/>
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
                             </svg>
 
-                            <span>ranking</span>
+                            <span>estrela</span>
                         </a>
                     </li>
-                    @endif
+
+
+
                     @if(auth()->user()->can('ranking'))
                     <li text-data="vendedores" class="hover:text-black">
                         <a href="#" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
@@ -271,29 +290,8 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->can('orcamento'))
-                    <li text-data="orçamento" class="hover:text-black">
-                        <a href="{{route('orcamento')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
-                            <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M6 16v-3h.375a.626.626 0 0 1 .625.626v1.749a.626.626 0 0 1-.626.625H6Zm6-2.5a.5.5 0 1 1 1 0v2a.5.5 0 0 1-1 0v-2Z"/>
-                                <path fill-rule="evenodd" d="M11 7V2h7a2 2 0 0 1 2 2v5h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2H3a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h6a2 2 0 0 0 2-2Zm7.683 6.006 1.335-.024-.037-2-1.327.024a2.647 2.647 0 0 0-2.636 2.647v1.706a2.647 2.647 0 0 0 2.647 2.647H20v-2h-1.335a.647.647 0 0 1-.647-.647v-1.706a.647.647 0 0 1 .647-.647h.018ZM5 11a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.376A2.626 2.626 0 0 0 9 15.375v-1.75A2.626 2.626 0 0 0 6.375 11H5Zm7.5 0a2.5 2.5 0 0 0-2.5 2.5v2a2.5 2.5 0 0 0 5 0v-2a2.5 2.5 0 0 0-2.5-2.5Z" clip-rule="evenodd"/>
-                                <path d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Z"/>
-                            </svg>
 
-                            <span>orçamento</span>
-                        </a>
-                    </li>
-                    @endif
 
-                    <li text-data="estrela" class="hover:text-black">
-                        <a href="{{route('estrela.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
-                            <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-                            </svg>
-
-                            <span>estrela</span>
-                        </a>
-                    </li>
 
                     @if(auth()->user()->can('financeiro'))
                     <li text-data="financeiro" class="hover:text-black">
@@ -308,16 +306,17 @@
                         </a>
                     </li>
                     @endif
-                    @if(auth()->user()->can('comissao'))
-                    <li text-data="gerente">
-                        <a href="{{route('gerente.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
-                            <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path fill="currentColor" fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Zm5.178 12.137a4.137 4.137 0 1 1 1.036-8.144A6.113 6.113 0 0 0 8.726 12c0 1.531.56 2.931 1.488 4.006a4.114 4.114 0 0 1-1.036.131ZM10.726 12c0-1.183.496-2.252 1.294-3.006A4.125 4.125 0 0 1 13.315 12a4.126 4.126 0 0 1-1.294 3.006A4.126 4.126 0 0 1 10.726 12Zm4.59 0a6.11 6.11 0 0 1-1.489 4.006 4.137 4.137 0 1 0 0-8.013A6.113 6.113 0 0 1 15.315 12Z" clip-rule="evenodd"/>
-                            </svg>
 
-                            <span>gerente</span>
-                        </a>
-                    </li>
+                    @if(auth()->user()->can('comissao'))
+                        <li text-data="gerente">
+                            <a href="{{route('gerente.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                                <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="currentColor" fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Zm5.178 12.137a4.137 4.137 0 1 1 1.036-8.144A6.113 6.113 0 0 0 8.726 12c0 1.531.56 2.931 1.488 4.006a4.114 4.114 0 0 1-1.036.131ZM10.726 12c0-1.183.496-2.252 1.294-3.006A4.125 4.125 0 0 1 13.315 12a4.126 4.126 0 0 1-1.294 3.006A4.126 4.126 0 0 1 10.726 12Zm4.59 0a6.11 6.11 0 0 1-1.489 4.006 4.137 4.137 0 1 0 0-8.013A6.113 6.113 0 0 1 15.315 12Z" clip-rule="evenodd"/>
+                                </svg>
+
+                                <span>gerente</span>
+                            </a>
+                        </li>
                     @endif
 
                     @if(auth()->user()->can('configuracoes'))
