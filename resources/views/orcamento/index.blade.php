@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row">
+    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-x-4">
         <x-informacoes :cidades="$cidades"></x-informacoes>
         <x-operadoras :operadoras="$administradoras"></x-operadoras>
         <x-planos :planos="$planos"></x-planos>
@@ -8,6 +8,34 @@
     @section('scripts')
        <script>
            $(document).ready(function(){
+               function scrollToBottom() {
+                   if (window.innerWidth <= 768) { // Ajusta para mobile
+                       $('html, body').animate({
+                           scrollTop: $(document).height() - $(window).height()
+                       }, 1000); // Faz o scroll com uma animação suave de 1 segundo
+                   }
+               }
+
+               // Exemplo de onde você pode chamar o scrollToBottom:
+               $("input[name='operadoras']").on('change', function(){
+                   // Lógica para mostrar operadoras
+                   scrollToBottom(); // Chama o scroll para o bottom após a mudança de etapa
+               });
+
+               $("input[name='planos-radio']").on('click', function(){
+                   // Lógica para selecionar um plano
+                   scrollToBottom(); // Chama o scroll para o bottom após a seleção do plano
+               });
+
+               $("input[type='text']").on('input', function(){
+                   // Quando o usuário digitar algo, o scroll segue o progresso
+                   scrollToBottom();
+               });
+
+
+
+
+
                $.ajaxSetup({
                    headers: {
                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
