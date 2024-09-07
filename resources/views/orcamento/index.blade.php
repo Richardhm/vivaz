@@ -9,10 +9,10 @@
        <script>
            $(document).ready(function(){
                function scrollToBottom() {
-                   if (window.innerWidth <= 768) { // Ajusta para mobile
+                   if (window.innerWidth <= 768) { // Aplica apenas para mobile
                        $('html, body').animate({
-                           scrollTop: $(document).height() - $(window).height()
-                       }, 1000); // Faz o scroll com uma animação suave de 1 segundo
+                           scrollTop: $(document).height() // Define o scroll para o final do documento
+                       }, 1000); // Tempo da animação (1 segundo)
                    }
                }
 
