@@ -217,7 +217,7 @@
 
         <div class="container_principal min-h-screen bg-gray-100 dark:bg-gray-900">
             <!-- Page Content -->
-            <div class="navbar hidden lg:block">
+            <div class="navbar">
                 <div class="profile">
                     <div class="imgbox">
                         @if(auth()->user()->image)
