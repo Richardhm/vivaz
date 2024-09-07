@@ -260,7 +260,8 @@
             @php
                 $dadosComOdontoComCopar = [];
                 $dadosComOdontoSemCopar = [];
-
+                $com_copar = 0;
+                $sem_copar = 0;
             @endphp
 
             @foreach($dados as $dado)
@@ -297,15 +298,15 @@
                     <tr>
                         <td class="tbody_faixa_etaria">{{ $faixaEtaria }}</td>
                         <td colspan="2" class="tbody_com_copart">
-                            {{ number_format($valores['1_com_copar'], 2, ",", ".") }}
+                            {{ number_format($valores['com_copar'], 2, ",", ".") }}
                             @php
-                                $totalApartamento_com_copar += $valores['1_com_copar'];
+                                $com_copar += $valores['com_copar'];
                             @endphp
                         </td>
                         <td colspan="2" class="tbody_com_copart">
-                            {{ number_format($valores['2_com_copar'], 2, ",", ".") }}
+                            {{ number_format($valores['sem_copar'], 2, ",", ".") }}
                             @php
-                                $totalEnfermaria_com_copar += $valores['2_com_copar'];
+                                $sem_copar += $valores['sem_copar'];
                             @endphp
                         </td>
 
@@ -317,8 +318,8 @@
             <tfoot>
             <tr>
                 <td>Total</td>
-                <td>{{number_format($totalApartamento_com_copar,2,",",".")}}</td>
-                <td>{{number_format($totalEnfermaria_com_copar,2,",",".")}}</td>
+                <td colspan="2">{{number_format($com_copar,2,",",".")}}</td>
+                <td colspan="2">{{number_format($sem_copar,2,",",".")}}</td>
 
             </tr>
             </tfoot>

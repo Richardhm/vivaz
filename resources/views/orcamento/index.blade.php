@@ -294,6 +294,194 @@
                    return false;
                });
 
+               $("body").on('click',".downloadLink",function(e){
+                   let load = $(".ajax_load");
+                   e.preventDefault();
+                   let linkUrl = $(this).attr("href");
+
+                   let cidade = "";
+                   let plano = "";
+                   let operadora = "";
+                   let faixas = [];
+                   let odonto = "";
+                   //let status_carencia = "";
+
+
+
+                   cidade = $("#cidade").val();
+                   plano = $("input[name='planos-radio']:checked").val();
+                   operadora = $("input[name='operadoras']:checked").val();
+                   let status_carencia = $("input[name='status_carencia']").is(':checked');
+
+                   // Exibe o valor booleano no console
+                   odonto = $(this).attr('data-odonto');
+                   faixas = [{
+                       '1' : $("body").find("#input_0_18").val(),
+                       '2' : $("body").find('#input_19_23').val(),
+                       '3' : $("body").find('#input_24_28').val(),
+                       '4' : $("body").find('#input_29_33').val(),
+                       '5' : $("body").find('#input_34_38').val(),
+                       '6' : $("body").find('#input_39_43').val(),
+                       '7' : $("body").find('#input_44_48').val(),
+                       '8' : $("body").find('#input_49_53').val(),
+                       '9' : $("body").find('#input_54_58').val(),
+                       '10' : $("body").find('#input_59').val()
+                   }];
+
+                   $.ajax({
+                       url: "{{route('gerar.imagem')}}",
+                       method: "POST",
+                       data: {
+                           "tabela_origem": cidade,
+                           "plano": plano,
+                           "operadora": operadora,
+                           "faixas": faixas,
+                           "odonto" : odonto,
+                           "status_carencia" : status_carencia,
+                           "ambulatorial": 0
+                           //"cliente" : cliente,
+                           //"_token": "{{ csrf_token() }}"
+                       },
+                       xhrFields: {
+                           responseType: 'blob'
+                       },
+                       beforeSend: function () {
+                           load.fadeIn(100).css("display", "flex");
+                       },
+                       success:function(blob,status,xhr,ppp) {
+                           if(blob.size && blob.size != undefined) {
+
+                               var filename = "";
+                               var disposition = xhr.getResponseHeader('Content-Disposition');
+                               if (disposition && disposition.indexOf('attachment') !== -1) {
+                                   var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                                   var matches = filenameRegex.exec(disposition);
+                                   if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                               }
+                               if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                                   window.navigator.msSaveBlob(blob, filename);
+                               } else {
+                                   var URL = window.URL || window.webkitURL;
+                                   var downloadUrl = URL.createObjectURL(blob);
+                                   if (filename) {
+                                       var a = document.createElement("a");
+                                       if (typeof a.download === 'undefined') {
+                                           window.location.href = downloadUrl;
+                                       } else {
+                                           a.href = downloadUrl;
+                                           a.download = filename;
+                                           document.body.appendChild(a);
+                                           a.click();
+                                       }
+                                   } else {
+                                       window.location.href = downloadUrl;
+                                   }
+                                   setTimeout(function () {
+                                       URL.revokeObjectURL(downloadUrl);
+                                   },100);
+                                   load.fadeOut(100).css("display", "none");
+                               }
+                           }
+                       }
+                   });
+                   return false;
+               });
+
+               $("body").on('click',".downloadLinkAmbulatorial",function(e){
+                   let load = $(".ajax_load");
+                   e.preventDefault();
+                   let linkUrl = $(this).attr("href");
+
+                   let cidade = "";
+                   let plano = "";
+                   let operadora = "";
+                   let faixas = [];
+                   let odonto = "";
+                   //let status_carencia = "";
+
+
+
+                   cidade = $("#cidade").val();
+                   plano = $("input[name='planos-radio']:checked").val();
+                   operadora = $("input[name='operadoras']:checked").val();
+                   let status_carencia = $("input[name='status_carencia']").is(':checked');
+
+                   // Exibe o valor booleano no console
+                   odonto = $(this).attr('data-odonto');
+                   faixas = [{
+                       '1' : $("body").find("#input_0_18").val(),
+                       '2' : $("body").find('#input_19_23').val(),
+                       '3' : $("body").find('#input_24_28').val(),
+                       '4' : $("body").find('#input_29_33').val(),
+                       '5' : $("body").find('#input_34_38').val(),
+                       '6' : $("body").find('#input_39_43').val(),
+                       '7' : $("body").find('#input_44_48').val(),
+                       '8' : $("body").find('#input_49_53').val(),
+                       '9' : $("body").find('#input_54_58').val(),
+                       '10' : $("body").find('#input_59').val()
+                   }];
+
+                   $.ajax({
+                       url: "{{route('gerar.imagem')}}",
+                       method: "POST",
+                       data: {
+                           "tabela_origem": cidade,
+                           "plano": plano,
+                           "operadora": operadora,
+                           "faixas": faixas,
+                           "odonto" : odonto,
+                           "status_carencia" : status_carencia,
+                           "ambulatorial": 1
+                           //"cliente" : cliente,
+                           //"_token": "{{ csrf_token() }}"
+                       },
+                       xhrFields: {
+                           responseType: 'blob'
+                       },
+                       beforeSend: function () {
+                           load.fadeIn(100).css("display", "flex");
+                       },
+                       success:function(blob,status,xhr,ppp) {
+                           if(blob.size && blob.size != undefined) {
+
+                               var filename = "";
+                               var disposition = xhr.getResponseHeader('Content-Disposition');
+                               if (disposition && disposition.indexOf('attachment') !== -1) {
+                                   var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                                   var matches = filenameRegex.exec(disposition);
+                                   if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                               }
+                               if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                                   window.navigator.msSaveBlob(blob, filename);
+                               } else {
+                                   var URL = window.URL || window.webkitURL;
+                                   var downloadUrl = URL.createObjectURL(blob);
+                                   if (filename) {
+                                       var a = document.createElement("a");
+                                       if (typeof a.download === 'undefined') {
+                                           window.location.href = downloadUrl;
+                                       } else {
+                                           a.href = downloadUrl;
+                                           a.download = filename;
+                                           document.body.appendChild(a);
+                                           a.click();
+                                       }
+                                   } else {
+                                       window.location.href = downloadUrl;
+                                   }
+                                   setTimeout(function () {
+                                       URL.revokeObjectURL(downloadUrl);
+                                   },100);
+                                   load.fadeOut(100).css("display", "none");
+                               }
+                           }
+                       }
+                   });
+                   return false;
+               });
+
+
+
 
                $("body").on('click','.btn_ambulatorial',function(){
                   $("#resultado").slideUp("slow");
