@@ -4151,7 +4151,7 @@ class GerenteController extends Controller
             WHERE comissoes_corretores_lancadas.status_financeiro = 1 AND
             comissoes_corretores_lancadas.status_gerente = 0 AND
             comissoes_corretores_lancadas.status_apto_pagar != 1 AND
-            comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND comissoes.plano_id = 1
+            comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND comissoes.plano_id = 1 AND comissoes.corretora_id = {$corretora_id}
         ")[0]->total;
 
         $valor_coletivo_a_receber = DB::select("
@@ -4163,7 +4163,7 @@ class GerenteController extends Controller
             WHERE comissoes_corretores_lancadas.status_financeiro = 1 AND
             comissoes_corretores_lancadas.status_gerente = 0 AND
             comissoes_corretores_lancadas.status_apto_pagar != 1 AND contratos.financeiro_id != 12 AND
-            comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND comissoes.plano_id = 3
+            comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND comissoes.plano_id = 3 AND comissoes.corretora_id = {$corretora_id}
         ")[0]->total;
 
         $valor_empresarial_a_receber = DB::select("
@@ -4175,7 +4175,7 @@ class GerenteController extends Controller
             WHERE comissoes_corretores_lancadas.status_financeiro = 1 AND
             comissoes_corretores_lancadas.status_gerente = 0 AND
             comissoes_corretores_lancadas.status_apto_pagar != 1 AND
-            comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0
+            comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0 AND contrato_empresarial.corretora_id = {$corretora_id}
         ")[0]->total;
 
 
@@ -4187,9 +4187,10 @@ class GerenteController extends Controller
             //->where("finalizado",1)
             ->whereMonth('data_baixa_finalizado',$mes)
             ->whereYear('data_baixa_finalizado',$ano)
-            ->whereHas('comissao',function($query) use($id){
+            ->whereHas('comissao',function($query) use($id,$corretora_id){
                 $query->where("plano_id",1);
                 $query->where("user_id",$id);
+                $query->where("corretora_id",$corretora_id)
             })
             ->whereHas('comissao.contrato',function($query){
                 $query->where("financeiro_id","!=",12);
@@ -4202,10 +4203,11 @@ class GerenteController extends Controller
             //->where("finalizado",1)
             ->whereMonth('data_baixa_finalizado',$mes)
             ->whereYear('data_baixa_finalizado',$ano)
-            ->whereHas('comissao',function($query) use($id){
+            ->whereHas('comissao',function($query) use($id,$corretora_id){
                 $query->where("plano_id","!=",1);
                 $query->where("plano_id","!=",3);
                 $query->where("user_id",$id);
+                $query->where("corretora_id",$corretora_id);
             })->count();
 
         $total_coletivo_quantidade = ComissoesCorretoresLancadas
@@ -4214,9 +4216,10 @@ class GerenteController extends Controller
             //->where("finalizado",1)
             ->whereMonth('data_baixa_finalizado',$mes)
             ->whereYear('data_baixa_finalizado',$ano)
-            ->whereHas('comissao',function($query)use($id){
+            ->whereHas('comissao',function($query)use($id,$corretora_id){
                 $query->where("plano_id",3);
                 $query->where("user_id",$id);
+                $query->where("corretora_id",$corretora_id);
             })
             ->whereHas('comissao.contrato',function($query){
                 $query->where("financeiro_id","!=",12);
@@ -4231,7 +4234,7 @@ class GerenteController extends Controller
             FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
             WHERE comissoes.plano_id = 1 AND comissoes_corretores_lancadas.status_apto_pagar = 1 and month(data_baixa_finalizado) = {$mes} AND year(data_baixa_finalizado) = {$ano}
-            AND user_id = {$id}
+            AND user_id = {$id} AND comissoes.contrato_id = {$corretora_id}
             ) AS plano1,
             (
             SELECT
@@ -4240,7 +4243,7 @@ class GerenteController extends Controller
             FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
             WHERE comissoes.plano_id = 1 AND comissoes_corretores_lancadas.estorno = 1 and month(data_baixa_finalizado) = {$mes} AND year(data_baixa_finalizado) = {$ano}
-            AND user_id = {$id}
+            AND user_id = {$id} AND comissoes.contrato_id = {$corretora_id}
             ) AS plano3;
         ")[0]->total_individual_valor;
 
@@ -4250,14 +4253,14 @@ class GerenteController extends Controller
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
             WHERE comissoes.plano_id != 3 AND comissoes.plano_id != 1 AND comissoes_corretores_lancadas.status_apto_pagar = 1 and month(data_baixa_finalizado) = {$mes}
                 AND year(data_baixa_finalizado) = {$ano}
-            AND user_id = {$id}
+            AND user_id = {$id} AND comissoes.contrato_id = {$corretora_id}
             ) AS plano1,
             (
             SELECT SUM(valor) AS total_plano3 FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
             WHERE comissoes.plano_id != 3 AND comissoes.plano_id != 1 AND comissoes_corretores_lancadas.estorno = 1 and month(data_baixa_estorno) = {$mes}
                 and year(data_baixa_estorno) = {$ano}
-            AND user_id = {$id}
+            AND user_id = {$id} AND comissoes.contrato_id = {$corretora_id}
             ) AS plano3
         ")[0]->total_empresarial_valor;
 
@@ -4268,7 +4271,7 @@ class GerenteController extends Controller
                 AS total_plano1 FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
             WHERE comissoes.plano_id = 3 AND comissoes_corretores_lancadas.status_apto_pagar = 1 and month(data_baixa_finalizado) = {$mes}
-                                                                                             and year(data_baixa_finalizado) = {$ano} AND user_id = {$id}
+                                                                                             and year(data_baixa_finalizado) = {$ano} AND user_id = {$id} AND comissoes.corretora_id = {$corretora_id}
             ) AS plano1,
             (
             SELECT
@@ -4277,7 +4280,7 @@ class GerenteController extends Controller
             FROM comissoes_corretores_lancadas
             INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
             WHERE comissoes.plano_id = 3 AND comissoes_corretores_lancadas.estorno = 1 and month(data_baixa_estorno) = {$mes}
-            and year(data_baixa_estorno) = {$ano} AND user_id = {$id}
+            and year(data_baixa_estorno) = {$ano} AND user_id = {$id} AND comissoes.corretora_id = {$corretora_id}
             ) AS plano3
         ")[0]->total_coletivo_valor;
 
@@ -4295,8 +4298,10 @@ class GerenteController extends Controller
             //->where("finalizado",1)
             ->whereMonth("data_baixa_finalizado",$mes)
             ->whereYear("data_baixa_finalizado",$ano)
-            ->whereHas('comissao.user',function($query) use($id){
+            ->whereHas('comissao.user',function($query) use($id,$corretora_id){
                 $query->where("id",$id);
+                $query->where("corretora_id",$corretora_id);
+
             })
             ->selectRaw("GROUP_CONCAT(id) as ids")
             ->first()
@@ -4307,8 +4312,9 @@ class GerenteController extends Controller
             ->where("status_apto_pagar",1)
             ->whereMonth("data_baixa_finalizado",$mes)
             ->whereYear("data_baixa_finalizado",$ano)
-            ->whereHas('comissao.user',function($query)  use($id){
+            ->whereHas('comissao.user',function($query)  use($id,$corretora_id){
                 $query->where("id",$id);
+                $query->where("corretora_id",$corretora_id);
             })
             ->selectRaw("if(SUM(desconto)>0,SUM(desconto),0) AS total")
             ->first()
@@ -4329,8 +4335,9 @@ class GerenteController extends Controller
                 ->where("status_apto_pagar",1)
                 ->whereMonth("data_baixa_finalizado",$mes)
                 ->whereYear("data_baixa_finalizado",$ano)
-                ->whereHas('comissao.user',function($query) use($id){
+                ->whereHas('comissao.user',function($query) use($id,$corretora_id){
                     $query->where("id",$id);
+                    $query->where("corretora_id",$corretora_id);
                 })
                 ->selectRaw("if(SUM(desconto)>0,SUM(desconto),0) AS total")
                 ->first()
