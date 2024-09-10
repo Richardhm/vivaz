@@ -1153,12 +1153,12 @@
                     $("#tabela_principal_historico").slideUp(1000,function(){
                         $("#tabela_estorno_back_historico").slideDown('slow',function(){
                             $('#title_estorno_back').html("<h4>Estorno Geral</h4>");
-                            listarestornosbackhistorico.ajax.url(`{{ url('/admin/gerente/mes/geral/estorno/${mes}') }}`).load();
+                            listarestornosbackhistorico.ajax.url(`{{ url('/gerente/mes/geral/estorno/${mes}') }}`).load();
                         });
                     });
                 } else {
                     $('#title_estorno_back').html("<h4>Estorno Geral</h4>");
-                    listarestornosbackhistorico.ajax.url(`{{ url('/admin/gerente/mes/geral/estorno/${mes}') }}`).load();
+                    listarestornosbackhistorico.ajax.url(`{{ url('/gerente/mes/geral/estorno/${mes}') }}`).load();
                 }
             });
 
@@ -1223,7 +1223,7 @@
                     "createdCell": function (td, cellData, rowData, row, col) {
                         let contrato_id = cellData;
                         $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
@@ -1290,13 +1290,13 @@
                     $(".empresarial_estorno_receber").removeClass("ativo");
                     if($("#tabela_estorno").is(":visible")) {
                         $("#title_estorno_confirmados").html("<h4>Estorno Individual</h4>")
-                        listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/individual/${id}') }}`).load();
+                        listarestornos.ajax.url(`{{ url('/gerente/estorno/individual/${id}') }}`).load();
                     } else {
                         if($("#tabela_principal").is(":visible")) {
                             $("#tabela_principal").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Individual</h4>")
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/individual/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/individual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1305,7 +1305,7 @@
                             $("#tabela_aptos_a_pagar").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Individual</h4>")
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/individual/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/individual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1314,7 +1314,7 @@
                             $("#tabela_estorno_back").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Individual</h4>");
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/individual/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/individual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1323,7 +1323,7 @@
                             $("#listar_a_receber").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Individual</h4>");
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/individual/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/individual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1332,7 +1332,7 @@
                             $("#listar_cadastrados").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Individual</h4>")
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/individual/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/individual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1397,7 +1397,7 @@
                         "createdCell": function (td, cellData, rowData, row, col) {
                             let contrato_id = cellData;
                             $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
@@ -1480,7 +1480,7 @@
                         "createdCell": function (td, cellData, rowData, row, col) {
                             let contrato_id = cellData;
                             $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
@@ -1530,7 +1530,7 @@
                         $("#tabela_principal_historico").slideUp(1000,function(){
                             $("#tabela_estorno_back_historico").slideDown('slow',function(){
                                 $('#title_estorno_back').html("<h4>Estorno</h4>");
-                                listarestornosbackhistorico.ajax.url(`{{ url('/admin/gerente/geral/estorno/${id}') }}`).load();
+                                listarestornosbackhistorico.ajax.url(`{{ url('/gerente/geral/estorno/${id}') }}`).load();
                             });
                         });
                     }
@@ -1556,7 +1556,7 @@
                     if($("#tabela_estorno_table_back").is(":visible")) {
 
                         $('#title_estorno_back').html("<h4>Estorno</h4>");
-                        listarestornosback.ajax.url(`{{ url('/admin/gerente/geral/estorno/${id}') }}`).load();
+                        listarestornosback.ajax.url(`{{ url('/gerente/geral/estorno/${id}') }}`).load();
 
 
                     } else {
@@ -1566,7 +1566,7 @@
                             $("#tabela_principal").slideUp(1000,function(){
                                 $("#tabela_estorno_back").slideDown('slow',function(){
                                     $('#title_estorno_back').html("<h4>Estorno</h4>");
-                                    listarestornosback.ajax.url(`{{ url('/admin/gerente/geral/estorno/${id}') }}`).load();
+                                    listarestornosback.ajax.url(`{{ url('/gerente/geral/estorno/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1576,7 +1576,7 @@
                             $("#tabela_aptos_a_pagar").slideUp(1000,function(){
                                 $("#tabela_estorno_back").slideDown('slow',function(){
                                     $('#title_estorno_back').html("<h4>Estorno</h4>");
-                                    listarestornosback.ajax.url(`{{ url('/admin/gerente/geral/estorno/${id}') }}`).load();
+                                    listarestornosback.ajax.url(`{{ url('/gerente/geral/estorno/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1586,7 +1586,7 @@
                             $("#listar_a_receber").slideUp(1000,function(){
                                 $("#tabela_estorno_back").slideDown('slow',function(){
                                     $('#title_estorno_back').html("<h4>Estorno</h4>");
-                                    listarestornosback.ajax.url(`{{ url('/admin/gerente/geral/estorno/${id}') }}`).load();
+                                    listarestornosback.ajax.url(`{{ url('/gerente/geral/estorno/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1600,7 +1600,7 @@
                             $("#listar_cadastrados").slideUp(1000,function(){
                                 $("#tabela_estorno_back").slideDown('slow',function(){
                                     $('#title_estorno_back').html("<h4>Estorno</h4>");
-                                    listarestornosback.ajax.url(`{{ url('/admin/gerente/geral/estorno/${id}') }}`).load();
+                                    listarestornosback.ajax.url(`{{ url('/gerente/geral/estorno/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1610,7 +1610,7 @@
                             $("#tabela_estorno").slideUp('fast',function(){
                                 $("#tabela_estorno_back").slideDown('slow',function(){
                                     $('#title_estorno_back').html("<h4>Estorno</h4>");
-                                    listarestornosback.ajax.url(`{{ url('/admin/gerente/geral/estorno/${id}') }}`).load();
+                                    listarestornosback.ajax.url(`{{ url('/gerente/geral/estorno/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1729,7 +1729,7 @@
 
                     if($("#tabela_estorno").is(":visible")) {
                         $("#title_estorno_confirmados").html("<h4>Estorno Empresarial</h4>")
-                        listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/empresarial/${id}') }}`).load();
+                        listarestornos.ajax.url(`{{ url('/gerente/estorno/empresarial/${id}') }}`).load();
 
                     } else {
 
@@ -1737,7 +1737,7 @@
                             $("#tabela_principal").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Empresarial</h4>")
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/empresarial/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/empresarial/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1746,7 +1746,7 @@
                             $("#tabela_aptos_a_pagar").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Empresarial</h4>")
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/empresarial/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/empresarial/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1755,7 +1755,7 @@
                             $("#listar_a_receber").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Empresarial</h4>");
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/empresarial/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/empresarial/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1764,7 +1764,7 @@
                             $("#tabela_estorno_back").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Empresarial</h4>");
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/empresarial/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/empresarial/${id}') }}`).load();
                                 });
                             });
                         }
@@ -1774,7 +1774,7 @@
                             $("#listar_cadastrados").slideUp(1000,function(){
                                 $("#tabela_estorno").slideDown('slow',function(){
                                     $("#title_estorno_confirmados").html("<h4>Estorno Empresarial</h4>")
-                                    listarestornos.ajax.url(`{{ url('/admin/gerente/estorno/empresarial/${id}') }}`).load();
+                                    listarestornos.ajax.url(`{{ url('/gerente/estorno/empresarial/${id}') }}`).load();
                                 });
                             });
                         }
@@ -2060,7 +2060,7 @@
 
             function link_excel() {
                 let mes = $("#mes_folha").val();
-                $("#criar_excel").attr("href",`/admin/gerente/excel/exportar/${mes}`);
+                $("#criar_excel").attr("href",`/gerente/excel/exportar/${mes}`);
 
             }
             link_excel();
@@ -2369,7 +2369,6 @@
 
             $("body").on('click','.user_destaque',function(){
                 let id = $(this).attr("data-id");
-                console.log(id);
                 let nome_corretor = $(this).text();
                 $("#escolher_vendedor").find("option:eq(0)").prop("selected", true);
                 $(this).closest("ul").find('.total_pagamento_finalizado').removeClass('valor_total_change');
@@ -2390,7 +2389,7 @@
                     $("#tabela_estorno").slideUp('fast',function(){
                         $("#tabela_principal").slideDown(1000,function(){
                             $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
-                            listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                            listarcomissaomesrecebidas.ajax.url(`{{ url('gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                             $(".individual_recebidas").addClass("ativo");
                         });
                     });
@@ -2400,7 +2399,7 @@
                     $("#listar_a_receber").slideUp('slow',function(){
                         $("#tabela_principal").slideDown(1000,function(){
                             $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
-                            listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                            listarcomissaomesrecebidas.ajax.url(`{{ url('gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                             $(".individual_recebidas").addClass("ativo");
                         });
                     })
@@ -2410,7 +2409,7 @@
                     $("#tabela_aptos_a_pagar").slideUp(1000,function(){
                         $("#tabela_principal").slideDown(1000,function(){
                             $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
-                            listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                            listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                             $(".individual_recebidas").addClass("ativo");
                         });
                     });
@@ -2680,7 +2679,7 @@
                if(mes != "" && ano != "") {
 
 
-                   $("#criar_excel_historico").attr('href','/admin/gerente/excel/exportar/'+mes);
+                   $("#criar_excel_historico").attr('href','/gerente/excel/exportar/'+mes);
                    $("#mes_historico").val(mes);
                    if(mes == "") {
                        //$("#escolher_vendedor").prop("disabled",true)
@@ -3161,21 +3160,21 @@
 
                             if(cellData == 1) {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
                             `);
                             } else if(cellData == 3) {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
                             `);
                             } else {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
@@ -3288,21 +3287,21 @@
                             let contrato_id = cellData;
                             if(rowData.plano == 1) {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
                             `);
                             } else if(rowData.plano == 3) {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
                             `);
                             } else {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
@@ -3425,7 +3424,7 @@
                             `);
                             } else {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/admin/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
                                         <i class='fas fa-eye'></i>
                                     </a>
                                 </div>
@@ -3781,21 +3780,21 @@
                             let contrato_id = cellData;
                             if (rowData.plano == 3) {
                                 $(td).html(`<div class='text-center text-white'>
-                                        <a href="/admin/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                        <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
                                             <i class='fas fa-eye'></i>
                                         </a>
                                     </div>
                                 `);
                             } else if (rowData.plano == 1) {
                                 $(td).html(`<div class='text-center text-white'>
-                                        <a href="/admin/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
+                                        <a href="/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
                                             <i class='fas fa-eye'></i>
                                         </a>
                                     </div>
                                 `);
                             } else {
                                 $(td).html(`<div class='text-center text-white'>
-                                        <a href="/admin/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
+                                        <a href="/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
                                             <i class='fas fa-eye'></i>
                                         </a>
                                     </div>
@@ -3928,21 +3927,21 @@
                             let contrato_id = cellData;
                             if (rowData.plano == 3) {
                                 $(td).html(`<div class='text-center text-white'>
-                                        <a href="/admin/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                        <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
                                             <i class='fas fa-eye'></i>
                                         </a>
                                     </div>
                                 `);
                             } else if (rowData.plano == 1) {
                                 $(td).html(`<div class='text-center text-white'>
-                                        <a href="/admin/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
+                                        <a href="/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
                                             <i class='fas fa-eye'></i>
                                         </a>
                                     </div>
                                 `);
                             } else {
                                 $(td).html(`<div class='text-center text-white'>
-                                        <a href="/admin/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
+                                        <a href="/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
                                             <i class='fas fa-eye'></i>
                                         </a>
                                     </div>
@@ -3980,14 +3979,14 @@
                     $("#listar_individual_apto").removeClass("ativo");
                     if($("#tabela_principal").is(":visible")) {
                         $('#title_recebidas').html("<h4>Recebidas - Coletivo</h4>");
-                        listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
+                        listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
                     } else {
 
                         if($("#listar_a_receber").is(':visible')) {
                             $("#listar_a_receber").slideUp('slow',function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $('#title_recebidas').html("<h4>Recebidas - Coletivo</h4>");
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
                                 });
                             })
                         }
@@ -3996,7 +3995,7 @@
                             $("#tabela_aptos_a_pagar").slideUp('slow',function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $('#title_recebidas').html("<h4>Recebidas - Coletivo</h4>");
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
                                 });
                             })
                         }
@@ -4005,7 +4004,7 @@
                             $("#listar_cadastrados").slideUp(1000,function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>Recebidas - Coletivo</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4014,7 +4013,7 @@
                             $("#tabela_estorno").slideUp('fast',function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>Recebidas - Coletivo</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4023,7 +4022,7 @@
                             $("#tabela_estorno_back").slideUp(1000,function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>Recebidas - Coletivo</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/recebidas/coletivo/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4065,13 +4064,13 @@
                     $("#listar_individual_apto").removeClass("ativo");
                     if($("#tabela_principal").is(":visible")) {
                         $("#title_recebidas").html("<h4>Recebidas Empresarial</h4>")
-                        listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
+                        listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
                     } else {
                         if($("#listar_a_receber").is(':visible')) {
                             $("#listar_a_receber").slideUp('slow',function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $("#title_recebidas").html("<h4>Recebidas Empresarial</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
                                 });
                             })
                         }
@@ -4079,7 +4078,7 @@
                             $("#tabela_aptos_a_pagar").slideUp('slow',function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $("#title_recebidas").html("<h4>Recebidas Empresarial</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
                                 });
                             })
                         }
@@ -4088,7 +4087,7 @@
                             $("#listar_cadastrados").slideUp(1000,function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $("#title_recebidas").html("<h4>Recebidas Empresarial</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4097,7 +4096,7 @@
                             $("#tabela_estorno").slideUp('fast',function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $("#title_recebidas").html("<h4>Recebidas Empresarial</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4106,7 +4105,7 @@
                             $("#tabela_estorno_back").slideUp(1000,function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $("#title_recebidas").html("<h4>Recebidas Empresarial</h4>")
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/empresarial/recebidas/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4142,39 +4141,39 @@
                     if($("#tabela_principal").is(':visible')) {
                         $("#tabela_principal").slideUp('fast',function(){
                             if(mes == "") {
-                                listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}') }}`).load();
+                                listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}') }}`).load();
                                 $("#tabela_aptos_a_pagar").slideDown('slow');
                             } else {
-                                listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                                listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                                 $("#tabela_aptos_a_pagar").slideDown('slow');
                             }
                         });
                     }
                     if($("#listar_a_receber").is(':visible')) {
                         $("#listar_a_receber").slideUp('fast',function(){
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     } else {
                         $("#title_individual_confirmados").html("<h4>Recebidas - Empresarial</h4>");
-                        listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                        listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                     }
 
                     if($("#tabela_estorno_table").is(':visible')) {
                         $("#tabela_estorno").slideUp('fast',function(){
                             $("#title_individual_confirmados").html("<h4>Recebidas - Empresarial</h4>");
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     } else {
                         $("#title_individual_confirmados").html("<h4>Recebidas - Empresarial</h4>");
-                        listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                        listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                     }
                     if($("#tabela_estorno_table_back").is(":visible")) {
                         $("#tabela_estorno_back").slideUp(1000,function(){
                             $("#tabela_aptos_a_pagar").slideDown('slow',function(){
                                 $("#title_individual_confirmados").html("<h4>Recebidas - Empresarial</h4>");
-                                listaraptosapagar.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                                listaraptosapagar.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             });
                         });
                     }
@@ -4271,7 +4270,7 @@
 
                     if($("#tabela_principal").is(":visible")) {
                         $("#tabela_principal").slideUp(1000,function(){
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     }
@@ -4301,33 +4300,33 @@
 
                     if($("#listar_a_receber").is(":visible")) {
                         $("#listar_a_receber").slideUp(1000,function(){
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         })
                     }
 
                     if($("#tabela_principal").is(":visible")) {
                         $("#tabela_principal").slideUp(1000,function(){
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     }
 
                     if($("#tabela_aptos_a_pagar").is(":visible")) {
-                        listaraptosapagar.ajax.url(`{{ url('/admin/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
+                        listaraptosapagar.ajax.url(`{{ url('/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
                         $("#tabela_aptos_a_pagar").slideDown('slow');
                     }
 
                     if($("#tabela_estorno_table").is(':visible')) {
                         $("#tabela_estorno").slideUp('fast',function(){
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     }
 
                     if($("#tabela_estorno_table_back").is(":visible")) {
                         $("#tabela_estorno_back").slideUp(1000,function(){
-                            listaraptosapagar.ajax.url(`{{ url('/admin/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
+                            listaraptosapagar.ajax.url(`{{ url('/gerente/mes/fechados/confirmados/${ano}/${mes}/${plano}') }}`).load();
                             $("#tabela_aptos_a_pagar").slideDown('slow');
                         });
                     }
@@ -4468,14 +4467,14 @@
                     if($("#tabela_principal_historico").is(':visible')) {
                         $("#tabela_principal_historico").slideUp('fast',function(){
                             $("#title_individual_confirmados_historico").html("<h4>Empresarial</h4>");
-                            listaraptosapagarhistorico.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                            listaraptosapagarhistorico.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                             $("#tabela_aptos_a_pagar_historico").slideDown('slow');
                         });
                     }
 
                     if($("#tabela_aptos_a_pagar_table_historico").is(":visible")) {
                         $("#title_individual_confirmados_historico").html("<h4>Empresarial</h4>");
-                        listaraptosapagarhistorico.ajax.url(`{{ url('/admin/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
+                        listaraptosapagarhistorico.ajax.url(`{{ url('/gerente/comissao/empresarial/confirmadas/${id}/${mes}/${ano}') }}`).load();
                     }
                 } else {
                     toastr["error"]("Escolha um Corretor")
@@ -5441,14 +5440,14 @@
                     $("#listar_individual_apto").removeClass("ativo");
                     if($("#tabela_principal").is(":visible")) {
                         $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
-                        listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                        listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                     } else {
 
                         if($("#listar_a_receber").is(':visible')) {
                             $("#listar_a_receber").slideUp('slow',function(){
                                 $("#tabela_principal").slideDown(1000,function(){
                                     $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -5457,7 +5456,7 @@
                             $("#tabela_aptos_a_pagar").slideUp('slow',function(){
                                 $("#tabela_principal").slideDown(1000,function(){
                                     $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -5466,7 +5465,7 @@
                             $("#listar_cadastrados").slideUp(1000,function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -5475,7 +5474,7 @@
                             $("#tabela_estorno").slideUp('fast',function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $("#title_recebidas").html("<h4>Recebidas - Individual</h4>");
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -5484,7 +5483,7 @@
                             $("#tabela_estorno_back").slideUp(1000,function(){
                                 $("#tabela_principal").slideDown('slow',function(){
                                     $("#title_recebidas").html("<h4>Recebidas - Individual</h4>");
-                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/admin/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
+                                    listarcomissaomesrecebidas.ajax.url(`{{ url('/gerente/listagem/comissao_mes_atual/${id}') }}`).load();
                                 });
                             });
                         }
@@ -5872,26 +5871,26 @@
                 let link_mes = campo_mes == "todos" ? "all" : campo_mes;
                 let link_cor = campo_cor == "todos" ? "all" : campo_cor;
 
-                $('.link_individual_um').attr("href",`/admin/gerente/ver/1/1/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_individual_dois').attr("href",`/admin/gerente/ver/1/2/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_individual_tres').attr("href",`/admin/gerente/ver/1/3/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_individual_quatro').attr("href",`/admin/gerente/ver/1/4/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_individual_cinco').attr("href",`/admin/gerente/ver/1/5/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_individual_seis').attr("href",`/admin/gerente/ver/1/6/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_individual_um').attr("href",`/gerente/ver/1/1/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_individual_dois').attr("href",`/gerente/ver/1/2/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_individual_tres').attr("href",`/gerente/ver/1/3/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_individual_quatro').attr("href",`/gerente/ver/1/4/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_individual_cinco').attr("href",`/gerente/ver/1/5/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_individual_seis').attr("href",`/gerente/ver/1/6/${link_ano}/${link_mes}/${link_cor}`);
 
-                $('.link_coletivo_um').attr("href",`/admin/gerente/ver/2/1/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_coletivo_dois').attr("href",`/admin/gerente/ver/2/2/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_coletivo_tres').attr("href",`/admin/gerente/ver/2/3/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_coletivo_quatro').attr("href",`/admin/gerente/ver/2/4/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_coletivo_cinco').attr("href",`/admin/gerente/ver/2/5/${link_ano}/${link_mes}/${link_cor}`);
-                $('.link_coletivo_seis').attr("href",`/admin/gerente/ver/2/6/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_coletivo_um').attr("href",`/gerente/ver/2/1/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_coletivo_dois').attr("href",`/gerente/ver/2/2/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_coletivo_tres').attr("href",`/gerente/ver/2/3/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_coletivo_quatro').attr("href",`/gerente/ver/2/4/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_coletivo_cinco').attr("href",`/gerente/ver/2/5/${link_ano}/${link_mes}/${link_cor}`);
+                $('.link_coletivo_seis').attr("href",`/gerente/ver/2/6/${link_ano}/${link_mes}/${link_cor}`);
 
-                $('.link_empresarial_um').attr("href",`/admin/gerente/ver/3/1/${link_ano}/${link_mes}/${link_cor}`)
-                $('.link_empresarial_dois').attr("href",`/admin/gerente/ver/3/2/${link_ano}/${link_mes}/${link_cor}`)
-                $('.link_empresarial_tres').attr("href",`/admin/gerente/ver/3/3/${link_ano}/${link_mes}/${link_cor}`)
-                $('.link_empresarial_quatro').attr("href",`/admin/gerente/ver/3/4/${link_ano}/${link_mes}/${link_cor}`)
-                $('.link_empresarial_cinco').attr("href",`/admin/gerente/ver/3/5/${link_ano}/${link_mes}/${link_cor}`)
-                $('.link_empresarial_seis').attr("href",`/admin/gerente/ver/3/6/${link_ano}/${link_mes}/${link_cor}`)
+                $('.link_empresarial_um').attr("href",`/gerente/ver/3/1/${link_ano}/${link_mes}/${link_cor}`)
+                $('.link_empresarial_dois').attr("href",`/gerente/ver/3/2/${link_ano}/${link_mes}/${link_cor}`)
+                $('.link_empresarial_tres').attr("href",`/gerente/ver/3/3/${link_ano}/${link_mes}/${link_cor}`)
+                $('.link_empresarial_quatro').attr("href",`/gerente/ver/3/4/${link_ano}/${link_mes}/${link_cor}`)
+                $('.link_empresarial_cinco').attr("href",`/gerente/ver/3/5/${link_ano}/${link_mes}/${link_cor}`)
+                $('.link_empresarial_seis').attr("href",`/gerente/ver/3/6/${link_ano}/${link_mes}/${link_cor}`)
 
                 $.ajax({
                     url:"{{route('gerente.todos.valores.usuario')}}",
@@ -6279,7 +6278,7 @@
                     },
                     {data:"comissao",name:"detalhe","width":"5%",
                         "createdCell":function(td,cellData,rowData,row,col) {
-                            $(td).css({"text-align":"center"}).html("<a href='/admin/gerente/detalhe/"+cellData+"' class='text-white btn_link'><i class='fas fa-eye'></i></a>")
+                            $(td).css({"text-align":"center"}).html("<a href='/gerente/detalhe/"+cellData+"' class='text-white btn_link'><i class='fas fa-eye'></i></a>")
                         }
                     },
                 ],
@@ -6370,7 +6369,7 @@
                             tableareceber.column(8).nodes().each(function (cell, index) {
                                 let link = $(cell).find('a').attr('href').split('/');
                                 let id = link[link.length - 1];
-                                $(cell).find('a').attr('href',`/admin/gerente/pagos/detalhe/${id}`);
+                                $(cell).find('a').attr('href',`/gerente/pagos/detalhe/${id}`);
                             });
                         });
                         $(".tabela_a_receber_container").slideDown('fast');
