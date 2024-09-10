@@ -2369,6 +2369,7 @@
 
             $("body").on('click','.user_destaque',function(){
                 let id = $(this).attr("data-id");
+                console.log(id);
                 let nome_corretor = $(this).text();
                 $("#escolher_vendedor").find("option:eq(0)").prop("selected", true);
                 $(this).closest("ul").find('.total_pagamento_finalizado').removeClass('valor_total_change');

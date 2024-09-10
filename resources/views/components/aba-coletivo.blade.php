@@ -146,7 +146,7 @@
                 <table id="tabela_coletivo" class="table-auto table-sm listardados w-full">
                     <thead>
                     <tr>
-                        <th>Datas</th>
+                        <th>Data</th>
                         <th>Cod.</th>
                         <th>Corretor</th>
                         <th>Cliente</th>
@@ -154,7 +154,7 @@
                         <th>CPF</th>
                         <th>Vidas</th>
                         <th>Valor</th>
-                        <th>Venc.</th>
+                        <th>Vencimento</th>
                         <th>Status</th>
                         <th>Ver</th>
                         <th>Teste</th>

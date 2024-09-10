@@ -184,7 +184,7 @@ class GerenteController extends Controller
 
     public function index()
     {
-        $folha_aberto = FolhaMes::where("status",0);
+        $folha_aberto = FolhaMes::where("status",0)->where("corretora_id",auth()->user()->corretora_id);
         $total_empresarial_quantidade = 0;
         $total_individual_quantidade = 0;
         $total_coletivo_quantidade = 0;
@@ -325,7 +325,7 @@ class GerenteController extends Controller
 
         }
 
-        $folhaMesAberto = FolhaMes::where("status",0)->first();
+        $folhaMesAberto = FolhaMes::where("status",0)->where("corretora_id",auth()->user()->corretora_id)->first();
 
         $status_disabled = false;
         if($folhaMesAberto == null) {
@@ -345,7 +345,7 @@ class GerenteController extends Controller
                 ->whereYear('data','2024');
             //->whereYear('data',$ano);
         })
-
+            ->where("corretora_id",auth()->user()->corretora_id)
             ->selectRaw("id as user_id")
             ->selectRaw("name as user")
             ->selectRaw("(select valor_total from valores_corretores_lancados where valores_corretores_lancados.user_id = users.id and month(data) = ${mes}
@@ -356,6 +356,7 @@ class GerenteController extends Controller
 
         $usuarios = DB::table('users')
             ->where('ativo',1)
+            ->where('corretora_id',auth()->user()->corretora_id)
             ->whereNotIn('id', function($query) {
                 $query->select('user_id')
                     ->from('valores_corretores_lancados');
@@ -4828,7 +4829,7 @@ class GerenteController extends Controller
         $co->data_baixa_finalizado = $data_comissao;
         $co->save();
 
-        $va = ValoresCorretoresLancados::where("user_id",$user_id)->whereMonth('data',$request->mes)->whereYear('data',$request->ano);
+        $va = ValoresCorretoresLancados::where("user_id",$user_id)->where("corretora_id",auth()->user()->corretora_id)->whereMonth('data',$request->mes)->whereYear('data',$request->ano);
         if($va->count() == 0) {
 
             $va = new ValoresCorretoresLancados();
@@ -4840,9 +4841,10 @@ class GerenteController extends Controller
             $va->valor_desconto = $request->desconto;
             $va->data = $data_comissao;
             $va->valor_estorno = str_replace([".",","],["","."], $request->estorno);
+            $va->corretora_id = auth()->user()->corretora_id;
             $va->save();
 
-            $id_folha_mes = FolhaMes::whereMonth("mes",$mes)->whereYear("mes",$ano)->first()->id;
+            $id_folha_mes = FolhaMes::whereMonth("mes",$mes)->where("corretora_id",auth()->user()->corretora_id)->whereYear("mes",$ano)->first()->id;
 
             $folha = new FolhaPagamento();
             $folha->folha_mes_id = $id_folha_mes;
