@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="width:95%;margin: 20px auto;padding:10px 50px;">
+    <section class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="width:95%;margin: 20px auto;padding:10px 20px;">
         <div class="flex w-full mx-auto flex-col">
 
             {{--Coluna 01--}}
@@ -14,9 +14,6 @@
                     <span style="font-size:2em;font-weight:bold;">{{$ano_atual}}</span>
                     <span>{{$semestre}}º Semestre</span>
                 </div>
-
-
-
                 <div>
                     <span class="text-white w-100 d-block font-italic text-center" style="font-size:1.2em;font-style: italic;">Programa Estrela</span>
                     <div class="flex items-center justify-between" style="border:1px solid #FFF;border-radius:5px;margin-bottom:10px;line-height: 1.1em;">
@@ -37,34 +34,68 @@
             {{--Coluna 02--}}
             <div class="content_table w-full">
                 <table class="table w-full table-borderless">
-                    <thead>
+                    <thead style="position: sticky; top: 0;">
                     <tr>
-                        <th style="width:3%"></th>
-                        <th style="width:20%;">VENDEDORES</th>
-                        <th style="width:5.6%">
-                            JUL<br />25 Vidas
+                        <th style="width:3%">
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:center;">
+                                #
+                            </div>
+                        </th>
+                        <th style="width:20%;">
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:left;">
+                                VENDEDORES
+                            </div>
                         </th>
                         <th style="width:5.6%">
-                            AGO<br />25 Vidas
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                                JUL<br />25 Vidas
+                            </div>
                         </th>
                         <th style="width:5.6%">
-                            SET<br />25 Vidas
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                                AGO<br />25 Vidas
+                            </div>
                         </th>
                         <th style="width:5.6%">
-                            OUT<br />25 Vidas
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                                SET<br />25 Vidas
+                            </div>
                         </th>
                         <th style="width:5.6%">
-                            NOV<br />25 Vidas
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                                OUT<br />25 Vidas
+                            </div>
                         </th>
                         <th style="width:5.6%">
-                            DEZ<br />25 Vidas
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                                NOV<br />25 Vidas
+                            </div>
                         </th>
                         <th style="width:5.6%">
-                            TOTAL<br />150 Vidas
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                                DEZ<br />25 Vidas
+                            </div>
                         </th>
-                        <th style="width:4%">%</th>
-                        <th style="width:5%">FALTAM</th>
-                        <th style="width:20%">STATUS</th>
+                        <th style="width:5.6%">
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                                TOTAL<br />150 Vidas
+                            </div>
+                        </th>
+                        <th style="width:4%">
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:center;">
+                                %
+                            </div>
+                        </th>
+                        <th style="width:5%">
+                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:center;">
+                                FALTAM
+                            </div>
+                        </th>
+                        <th style="width:20%">
+                            <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:10px;text-align:center;">
+                                STATUS
+                            </div>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -257,7 +288,7 @@
 
         .content_table {
             background-color: rgba(255, 193, 7, 0.5);
-            border-radius:10px;height:530px;min-height: 520px;overflow:auto;
+            border-radius:10px;height:595px;min-height: 595px;overflow:auto;
             backdrop-filter: blur(30px);
 
 

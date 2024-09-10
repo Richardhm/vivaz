@@ -185,7 +185,7 @@
 
             main {
                 flex: 1; /* O main ocupará o espaço restante */
-                margin-left: 5px; /* Espaço entre a navbar e o main */
+
 
 
             }

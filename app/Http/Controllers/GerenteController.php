@@ -345,6 +345,7 @@ class GerenteController extends Controller
                 ->whereYear('data','2024');
             //->whereYear('data',$ano);
         })
+
             ->selectRaw("id as user_id")
             ->selectRaw("name as user")
             ->selectRaw("(select valor_total from valores_corretores_lancados where valores_corretores_lancados.user_id = users.id and month(data) = ${mes}
@@ -1470,23 +1471,25 @@ class GerenteController extends Controller
 
     public function cadastrarFolhaMes(Request $request)
     {
+
         $date = \DateTime::createFromFormat('Y-m-d', $request->data);
         $formattedDate = $date->format('Y-m-d');
 
         $mes = date("m",strtotime($formattedDate));
         $ano = date("Y",strtotime($formattedDate));
-
-        $folha = FolhaMes::whereMonth("mes",$mes)->whereYear("mes",$ano)->count();
+        $corretora_id = auth()->user()->corretora_id;
+        $folha = FolhaMes::whereMonth("mes",$mes)->where("corretora_id",auth()->user()->corretora_id)->whereYear("mes",$ano)->count();
         if($folha == 0) {
             $folha = new FolhaMes();
             $folha->mes = $formattedDate;
+            $folha->corretora_id = auth()->user()->corretora_id;
             $folha->save();
             $users_select = DB::select("
                 SELECT users.id AS id, users.name AS name
                 FROM comissoes_corretores_lancadas
                 INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
                 INNER JOIN users ON users.id = comissoes.user_id
-                WHERE (status_financeiro = 1 or status_gerente = 1)
+                WHERE users.corretora_id = {$corretora_id} AND (status_financeiro = 1 or status_gerente = 1)
                   and finalizado != 1 and valor != 0 and users.id NOT IN (SELECT user_id FROM valores_corretores_lancados WHERE MONTH(data) = {$mes} AND YEAR(data) = {$ano})
                 GROUP BY users.id, users.name
                 ORDER BY users.name
@@ -1520,6 +1523,7 @@ class GerenteController extends Controller
                 ->whereYear("data",$ano)
                 ->groupBy("user_id")
                 ->get();
+
 
 
             $dados = DB::table('valores_corretores_lancados')
@@ -4123,7 +4127,7 @@ class GerenteController extends Controller
             ::where("user_id",$request->user_id)
             ->whereMonth("data",$request->mes)
             ->whereYear("data",$request->ano)
-            ->update(["valor_premiacao"=>$premiacao_cad,"valor_total"=>$total_cad,"valor_salario"=>$salario_cad]);
+            ->update(["valor_premiacao"=>$premiacao_cad,"valor_total"=>$total_cad,"valor_salario"=>$salario_cad,'corretora_id' => auth()->user()->corretora_id]);
         $id = $request->id;
         $mes = $request->mes;
         $ano = $request->ano;
@@ -4306,7 +4310,7 @@ class GerenteController extends Controller
             ->first()
             ->total;
 
-        $valores = ValoresCorretoresLancados::whereMonth('data',$mes)->whereYear("data",$ano)->where("user_id",$id);
+        $valores = ValoresCorretoresLancados::whereMonth('data',$mes)->where('corretora_id',auth()->user()->corretora_id)->whereYear("data",$ano)->where("user_id",$id);
         if($valores->count() == 1) {
             $va = $valores->first();
             $salario = $va->valor_salario;

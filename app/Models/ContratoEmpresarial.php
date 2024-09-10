@@ -62,7 +62,8 @@ class ContratoEmpresarial extends Model
 
     public function financeiro()
     {
-        return $this->belongsTo(EstagioFinanceiros::class,'financeiro_id','id');
+
+        return $this->belongsTo(EstagioFinanceiro::class,'financeiro_id','id');
     }
 
 }
