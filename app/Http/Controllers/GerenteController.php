@@ -70,6 +70,7 @@ class GerenteController extends Controller
             ->whereYear("data_baixa_finalizado",$ano)
             ->whereHas('comissao',function($query){
                 $query->where("plano_id",1);
+
             })->count();
 
 
@@ -4286,11 +4287,7 @@ class GerenteController extends Controller
 
         if($comissao == 0 && ($total_coletivo > 0 || $total_individual > 0 || $total_empresarial > 0)) {
             $comissao = $total_coletivo + $total_individual + $total_empresarial;
-
         }
-
-
-
 
         $ids_confirmados = ComissoesCorretoresLancadas
             ::where("status_financeiro",1)
