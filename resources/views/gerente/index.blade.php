@@ -4699,14 +4699,14 @@
                 if(id) {
                     if($("#listar_a_receber").is(":visible")) {
                         $("#title_comissao_diferente").html("<h4>A Receber Empresarial</h4>")
-                        listarcomissaomesdfirente.ajax.url(`{{ url('/admin/gerente/empresarial/listar/${id}') }}`).load();
+                        listarcomissaomesdfirente.ajax.url(`{{ url('/gerente/empresarial/listar/${id}') }}`).load();
                     } else {
 
                         if($("#tabela_principal").is(":visible")) {
                             $("#tabela_principal").slideUp(1000,function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>A Receber Empresarial</h4>")
-                                    listarcomissaomesdfirente.ajax.url(`{{ url('/admin/gerente/empresarial/listar/${id}') }}`).load();
+                                    listarcomissaomesdfirente.ajax.url(`{{ url('/gerente/empresarial/listar/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4714,7 +4714,7 @@
                             $("#tabela_aptos_a_pagar").slideUp(1000,function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>A Receber Empresarial</h4>")
-                                    listarcomissaomesdfirente.ajax.url(`{{ url('/admin/gerente/empresarial/listar/${id}') }}`).load();
+                                    listarcomissaomesdfirente.ajax.url(`{{ url('/gerente/empresarial/listar/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4723,7 +4723,7 @@
                             $("#listar_cadastrados").slideUp(1000,function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>A Receber Empresarial</h4>")
-                                    listarcomissaomesdfirente.ajax.url(`{{ url('/admin/gerente/empresarial/listar/${id}') }}`).load();
+                                    listarcomissaomesdfirente.ajax.url(`{{ url('/gerente/empresarial/listar/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4732,7 +4732,7 @@
                             $("#tabela_estorno").slideUp('fast',function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>A Receber Empresarial</h4>")
-                                    listarcomissaomesdfirente.ajax.url(`{{ url('/admin/gerente/empresarial/listar/${id}') }}`).load();
+                                    listarcomissaomesdfirente.ajax.url(`{{ url('/gerente/empresarial/listar/${id}') }}`).load();
                                 });
                             });
                         }
@@ -4741,7 +4741,7 @@
                             $("#tabela_estorno_back").slideUp(1000,function(){
                                 $("#listar_a_receber").slideDown('slow',function(){
                                     $("#title_comissao_diferente").html("<h4>A Receber Empresarial</h4>")
-                                    listarcomissaomesdfirente.ajax.url(`{{ url('/admin/gerente/empresarial/listar/${id}') }}`).load();
+                                    listarcomissaomesdfirente.ajax.url(`{{ url('/gerente/empresarial/listar/${id}') }}`).load();
                                 });
                             });
                         }
