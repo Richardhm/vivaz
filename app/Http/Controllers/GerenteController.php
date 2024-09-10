@@ -4190,7 +4190,7 @@ class GerenteController extends Controller
             ->whereHas('comissao',function($query) use($id,$corretora_id){
                 $query->where("plano_id",1);
                 $query->where("user_id",$id);
-                $query->where("corretora_id",$corretora_id)
+                $query->where("corretora_id",$corretora_id);
             })
             ->whereHas('comissao.contrato',function($query){
                 $query->where("financeiro_id","!=",12);
