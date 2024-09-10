@@ -2368,6 +2368,7 @@
 
 
             $("body").on('click','.user_destaque',function(){
+                console.log("Olaaaaa");
                 let id = $(this).attr("data-id");
                 let nome_corretor = $(this).text();
                 $("#escolher_vendedor").find("option:eq(0)").prop("selected", true);
@@ -2376,7 +2377,7 @@
                 $("#corretor_escolhido").val(id);
                 $("#list_user ul li").removeClass('user_destaque_ativo');
                 $(this).closest("li").addClass('user_destaque_ativo');
-                $("#container_btns").css({'class':'flex',"flex-direction":"column"});
+                $("#container_btns").addClass("flex flex-col");
                 $("#container_btns").html(`
 
                     <button class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 criar_estorno" data-id="${id}" style="font-size:0.8em;"  target="_blank">Estorno</button>
@@ -3084,10 +3085,9 @@
 
                             total_mes_atual();
                             finalizarMes();
-                            $("#container_btns").fadeOut('slow',function(){
-                                $(this).removeClass('flex')
-                                $("#list_user").css("height","235px");
-                            });
+
+                            $("#container_btns").removeClass("flex").removeClass('flex-col').addClass('hidden');
+                            $("#list_user").css("height","235px");
 
                         }
                     });
@@ -3575,10 +3575,9 @@
                                         elementoLista.remove();
                                     }
 
-                                    $("#container_btns").fadeOut('slow',function(){
-                                        $(this).removeClass('flex')
-                                        $("#list_user").css("height","235px");
-                                    });
+
+                                    $("#container_btns").removeClass("hidden").addClass("flex").addClass('flex-col');
+                                    $("#list_user").css("height","235px");
                                 }
                             }
                         }

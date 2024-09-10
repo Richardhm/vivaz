@@ -6471,6 +6471,7 @@ AS desconto,
 
     public function empresarialAReceber(Request $request)
     {
+        $corretora_id  = auth()->user()->corretora_id;
         $id = $request->id;
         $dados = DB::select("
         SELECT
@@ -6534,7 +6535,7 @@ AS desconto,
             WHERE comissoes_corretores_lancadas.status_financeiro = 1 AND
             comissoes_corretores_lancadas.status_gerente = 0 AND
             comissoes_corretores_lancadas.status_apto_pagar != 1 AND
-            comissoes.user_id = {$id} AND comissoes_corretores_lancadas.valor != 0
+            comissoes.user_id = {$id} AND comissoes.corretora_id = {$corretora_id} AND comissoes_corretores_lancadas.valor != 0
             ORDER BY comissoes.administradora_id
         ");
         return $dados;
