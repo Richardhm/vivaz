@@ -252,4 +252,23 @@ table.dataTable thead th {
     }
 }
 
+.date-picker {
+    color: transparent; /* Esconde o valor do campo */
+    text-align: center; /* Centraliza o ícone de calendário */
+    position: relative;
+    cursor: pointer; /* Torna o campo clicável */
+    width: 150px; /* Defina uma largura adequada para o campo */
+    height: 40px; /* Defina uma altura adequada para o campo */
+}
 
+/* Torna o ícone de calendário visível */
+.date-picker::-webkit-calendar-picker-indicator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Centraliza o ícone */
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: black; /* Mantém o ícone visível */
+}
