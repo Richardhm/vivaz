@@ -104,47 +104,47 @@
                             <tr>
                                 <td style="width:3%">{{$loop->iteration}}°</td>
                                 <td style="width:20%;">
-                                    <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:left;">
+                                    <div style="color:#FFF;border-radius:8px;width:96%;padding:3px;text-align:left;">
                                         {{$r->usuario}}
                                     </div>
                                 </td>
                                 <td style="width:5.6%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->julho}}
                                     </div>
                                 </td>
                                 <td style="width:5.6%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->agosto}}
                                     </div>
                                 </td>
                                 <td style="width:5.6%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->setembro}}
                                     </div>
                                 </td>
                                 <td style="width:5.6%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->outubro}}
                                     </div>
                                 </td>
                                 <td style="width:5.6%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->novembro}}
                                     </div>
                                 </td>
                                 <td style="width:5.6%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->dezembro}}
                                     </div>
                                 </td>
                                 <td style="width:5.6%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->quantidade}}
                                     </div>
                                 </td>
                                 <td style="width:4%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:6px;font-size:0.7em;">
+                                    <div style="border-radius:8px;width:90%;color:black;padding:6px;font-size:0.7em;color:#FFF;">
                                         @if($r->status == "nao_classificado")
                                             {{number_format(($r->quantidade / 150) * 100,2)}}
                                         @elseif($r->status == "tres_estrelas")
@@ -157,12 +157,12 @@
                                     </div>
                                 </td>
                                 <td style="width:4%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="border-radius:8px;width:90%;color:black;padding:3px;color:#FFF;">
                                         {{$r->falta}}
                                     </div>
                                 </td>
                                 <td style="width:20%">
-                                    <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:3px;">
+                                    <div style="border-radius:8px;width:90%;color:black;padding:3px;color:#FFF;">
                                         @if($r->status == "nao_classificado")
                                             Não Classificado
                                         @elseif($r->status == "tres_estrelas")
@@ -287,9 +287,9 @@
 
 
         .content_table {
-            background-color: rgba(255, 193, 7, 0.5);
+
             border-radius:10px;height:595px;min-height: 595px;overflow:auto;
-            backdrop-filter: blur(30px);
+
 
 
 
