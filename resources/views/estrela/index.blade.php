@@ -1,20 +1,32 @@
 <x-app-layout>
-    <section class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="width:95%;margin: 20px auto;padding:10px 20px;">
+    <section class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="width:95%;margin: 3px auto;padding:1px 20px;">
         <div class="flex w-full mx-auto flex-col">
 
             {{--Coluna 01--}}
             <div class="flex justify-between items-center">
-                <div class="flex flex-col text-center text-white" style="font-size: 1.5em;line-height: 1em;font-style: italic;">
-                    <span class="font-italic">Ranking</span>
-                    <span>de
-                        <span style="color:#ffc107;">Vendas</span>
-                    </span>
+                <div class="flex flex-1 justify-between">
+
+                    <div class="flex flex-col text-center text-white" style="font-size: 1.5em;line-height: 1em;font-style: italic;">
+                        <span class="font-italic">Ranking</span>
+                        <span>de
+                            <span style="color:#ffc107;">Vendas</span>
+                        </span>
+                    </div>
+
+                    <div>
+                        <img src="{{asset('hapvida-notreDame.png')}}" alt="Hapvida" style="width:200px;">
+                    </div>
+
+
+
+
                 </div>
-                <div class="flex flex-col text-white text-center" style="line-height: 1.6em;">
+
+                <div class="flex flex-1 flex-col text-white text-center" style="line-height: 1.6em;">
                     <span style="font-size:2em;font-weight:bold;">{{$ano_atual}}</span>
                     <span>{{$semestre}}º Semestre</span>
                 </div>
-                <div>
+                <div class="flex flex-col justify-end">
                     <span class="text-white w-100 d-block font-italic text-center" style="font-size:1.2em;font-style: italic;">Programa Estrela</span>
                     <div class="flex items-center justify-between" style="border:1px solid #FFF;border-radius:5px;margin-bottom:10px;line-height: 1.1em;">
                         <svg class="w-10 h-10 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -37,62 +49,62 @@
                     <thead style="position: sticky; top: 0;">
                     <tr>
                         <th style="width:3%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-3">
                                 #
                             </div>
                         </th>
                         <th style="width:20%;">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:left;">
+                            <div class="bg-white rounded-md w-full text-black text-left p-3">
                                 VENDEDORES
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-1">
                                 JUL<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-1">
                                 AGO<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-1">
                                 SET<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-1">
                                 OUT<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-1">
                                 NOV<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                             <div class="bg-white rounded-md w-full text-black text-center p-1">
                                 DEZ<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:3px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-1">
                                 TOTAL<br />150 Vidas
                             </div>
                         </th>
                         <th style="width:4%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-3">
                                 %
                             </div>
                         </th>
                         <th style="width:5%">
-                            <div style="background-color:white;border-radius:8px;width:96%;color:black;padding:10px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-3">
                                 FALTAM
                             </div>
                         </th>
                         <th style="width:20%">
-                            <div style="background-color:white;border-radius:8px;width:90%;color:black;padding:10px;text-align:center;">
+                            <div class="bg-white rounded-md w-full text-black text-center p-3">
                                 STATUS
                             </div>
                         </th>
@@ -101,50 +113,37 @@
                     <tbody>
                     @foreach($ranking as $r)
                         @if($r->quantidade != 0)
-                            <tr>
-                                <td style="width:3%">{{$loop->iteration}}°</td>
-                                <td style="width:20%;">
-                                    <div style="color:#FFF;border-radius:8px;width:96%;padding:3px;text-align:left;">
-                                        {{$r->usuario}}
-                                    </div>
+                            <tr class="h-1">
+                                <td class="p-0" style="width:3%; text-align: center;">{{$loop->iteration}}°</td>
+                                <td class="p-0" style="width:20%;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full text-left">{{$r->usuario}}</div>
                                 </td>
-                                <td style="width:5.6%">
-                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
-                                        {{$r->julho}}
-                                    </div>
+                                <td class="p-0" style="width:5.6%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->julho}}</div>
                                 </td>
-                                <td style="width:5.6%">
-                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
-                                        {{$r->agosto}}
-                                    </div>
+                                <td class="p-0" style="width:5.6%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->agosto}}</div>
                                 </td>
-                                <td style="width:5.6%">
-                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
-                                        {{$r->setembro}}
-                                    </div>
+                                <td class="p-0" style="width:5.6%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->setembro}}</div>
                                 </td>
-                                <td style="width:5.6%">
-                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
-                                        {{$r->outubro}}
-                                    </div>
+                                <td class="p-0" style="width:5.6%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->outubro}}</div>
                                 </td>
-                                <td style="width:5.6%">
-                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
-                                        {{$r->novembro}}
-                                    </div>
+                                <td class="p-0" style="width:5.6%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->novembro}}</div>
                                 </td>
-                                <td style="width:5.6%">
-                                    <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
-                                        {{$r->dezembro}}
-                                    </div>
+                                <td class="p-0" style="width:5.6%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->dezembro}}</div>
                                 </td>
                                 <td style="width:5.6%">
                                     <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
                                         {{$r->quantidade}}
                                     </div>
                                 </td>
-                                <td style="width:4%">
-                                    <div style="border-radius:8px;width:90%;color:black;padding:6px;font-size:0.7em;color:#FFF;">
+                                <!-- Repita o padrão para os demais meses -->
+                                <td class="p-0" style="width:4%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">
                                         @if($r->status == "nao_classificado")
                                             {{number_format(($r->quantidade / 150) * 100,2)}}
                                         @elseif($r->status == "tres_estrelas")
@@ -156,31 +155,28 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td style="width:4%">
-                                    <div style="border-radius:8px;width:90%;color:black;padding:3px;color:#FFF;">
-                                        {{$r->falta}}
-                                    </div>
+                                <td class="p-0" style="width:5%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->falta}}</div>
                                 </td>
-                                <td style="width:20%">
-                                    <div style="border-radius:8px;width:90%;color:black;padding:3px;color:#FFF;">
+                                <td class="p-0" style="width:20%; text-align: center;">
+                                    <div class="bg-gray-900 text-white rounded-md w-full">
                                         @if($r->status == "nao_classificado")
                                             Não Classificado
                                         @elseif($r->status == "tres_estrelas")
-                                            <div class="d-flex">
+                                            <div class="flex justify-center text-yellow-500">
                                                 <i class="fas fa-star fa-xs"></i>
                                                 <i class="fas fa-star fa-xs"></i>
                                                 <i class="fas fa-star fa-xs"></i>
                                             </div>
-
                                         @elseif($r->status == "quatro_estrelas")
-                                            <div class="d-flex">
+                                            <div class="flex justify-center text-yellow-500">
                                                 <i class="fas fa-star fa-xs"></i>
                                                 <i class="fas fa-star fa-xs"></i>
                                                 <i class="fas fa-star fa-xs"></i>
                                                 <i class="fas fa-star fa-xs"></i>
                                             </div>
                                         @else
-                                            <div class="d-flex">
+                                            <div class="flex justify-center text-yellow-500">
                                                 <i class="fas fa-star fa-xs"></i>
                                                 <i class="fas fa-star fa-xs"></i>
                                                 <i class="fas fa-star fa-xs"></i>
@@ -199,55 +195,74 @@
             {{--Fim Coluna 02--}}
 
             {{--Coluna 03--}}
-            <div class="flex w-100 py-2 items-center">
-                <div class="flex justify-between" style="width:50%;">
+            <div class="flex w-full justify-around py-1 items-center">
 
-                    <div class="flex flex-col text-white text-center" style="line-height:1;font-size:0.785em;">
-                        <span>3 Estrelas</span>
-                        <span>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
+
+                    <div class="flex flex-col text-white text-center text-lg" style="line-height:1;font-size:0.785em;">
+                        <span class="text-sm">3 Estrelas</span>
+                        <span class="flex justify-center">
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
                         </span>
                         <span>
                             150 a 190 vidas
                         </span>
                     </div>
 
-                    <div class="flex flex-col text-white text-center" style="line-height:1;font-size:0.785em;">
-                        <span>4 Estrelas</span>
-                        <span>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
+                    <div class="flex flex-col text-white text-center text-lg" style="line-height:1;font-size:0.785em;">
+                        <span class="text-sm">4 Estrelas</span>
+                        <span class="flex justify-center">
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+
                         </span>
                         <span>191 a 250 vidas</span>
                     </div>
 
-                    <div class="flex flex-col text-white text-center" style="line-height:1;font-size:0.785em;">
-                        <span>5 Estrelas</span>
-                        <span>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
-                            <i class="fas fa-star fa-xs"></i>
+                    <div class="flex flex-col text-white text-center text-lg" style="line-height:1;font-size:0.785em;">
+                        <span class="text-sm">5 Estrelas</span>
+                        <span class="flex justify-center">
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
                         </span>
                         <span>Apartir de 251 vidas</span>
                     </div>
 
 
-                </div>
 
 
-                <div class="flex align-center justify-end" style="width:50%;line-height:1;font-size:0.785em;">
-                    <div>
-                        <div>
-                            <img src="{{asset('logo-hapvida-NotreDame-Intermedica.png')}}" alt="Hapvida" style="width:200px;background-color:white;padding:10px;border-radius:5px;">
-                        </div>
-                    </div>
-                </div>
+
+
 
             </div>
         </div>
@@ -288,7 +303,7 @@
 
         .content_table {
 
-            border-radius:10px;height:595px;min-height: 595px;overflow:auto;
+            border-radius:10px;min-height: 595px;height:595px;overflow:auto;
 
 
 
