@@ -1418,13 +1418,13 @@ class FinanceiroController extends Controller
         $id = $request->contrato_id;
         $fase = $request->fase;
 
-        $contrato = Contrato::find($id);
-        $comissao =
+        //$contrato = Contrato::find($id);
+        //$comissao =
 
 
 
 
-        return $id." - ".$fase;
+        //return $id." - ".$fase;
 
 
         if($fase > 1) {
@@ -1452,19 +1452,7 @@ class FinanceiroController extends Controller
                 break;
 
             }
-
-
-
-
-
-
-
         }
-
-
-
-
-
 
 
         return $id." - ".$fase;

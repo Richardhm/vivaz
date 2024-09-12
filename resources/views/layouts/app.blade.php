@@ -232,6 +232,9 @@
                             case "estrela.index":
                                 echo "<p class='text-white text-lg'>Programa Estrela</p>";
                             break;
+                            case "orcamento":
+                                echo "<p class='text-white'>Orçamento</p>";
+                            break;
                         }
 
 

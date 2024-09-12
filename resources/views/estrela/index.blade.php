@@ -13,10 +13,6 @@
                         </span>
                     </div>
 
-
-
-
-
                 </div>
 
                 <div class="flex flex-col text-white text-center" style="line-height: 1.6em;">
@@ -111,7 +107,7 @@
                     <tbody>
                     @foreach($ranking as $r)
                         @if($r->quantidade != 0)
-                            <tr class="h-1">
+                            <tr>
                                 <td class="p-0" style="width:3%; text-align: center;">{{$loop->iteration}}°</td>
                                 <td class="p-0" style="width:20%;">
                                     <div class="bg-gray-900 text-white rounded-md w-full text-left">{{$r->usuario}}</div>
