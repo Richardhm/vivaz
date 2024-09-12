@@ -8,14 +8,14 @@
         <!-- Email Address -->
         <div>
             <x-input-label class="text-white" for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
             <x-input-label class="text-white" for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            <x-text-input id="password" class="block mt-1 w-full bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" type="password" name="password" required autocomplete="current-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -28,9 +28,9 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="w-full text-center flex justify-center">
+            <button class="w-full text-center py-2.5 px-5 me-2 mb-2 text-sm font-medium text-white rounded-lg border border-gray-200 focus:z-10" style="background-color:#E0FFFF;color:black;">
                 {{ __('Login') }}
-            </x-primary-button>
+            </button>
         </div>
     </form>
 </x-guest-layout>
