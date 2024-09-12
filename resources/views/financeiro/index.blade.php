@@ -21,7 +21,6 @@
                     <button data-corretora="0" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;">Vivaz</button>
             </div>
         @endif
-
     <div style="width:95%;margin:0 auto;">
         <ul class="list_abas">
             <li data-id="aba_individual" class="ativo">Individual</li>
@@ -271,7 +270,6 @@
 
             $("body").on('click','.em_analise_empresarial',function(){
                 let id = $(this).data('id');
-
                 let self = $(this);
                 $.ajax({
                     url:"{{route('financeiro.analise.empresarial')}}",
@@ -393,16 +391,35 @@
             $("body").on('click', '[id^="desfazer_"]', function(){
                 let id = $(this).attr('id');
                 let number = id.split('_')[1];//Pega o número após o underscore (_)
+                let contrato_id = $(this).data("id");
+                let fase = $(this).data('fase');
+
+                if(number == 1) {
+                    $(this).closest("tr").find('.acao_aqui').html(`
+                        <button type="button" class="em_analise text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">Conferido</button>
+                    `);
+                } else if(number == 2) {
+                    $(this).closest("tr").find('.acao_aqui').html(`
+                        <button type="button" class="emissao_boleto focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-11/12">Emitido</button>
+                    `);
+                } else {
+                    $(this).closest("tr").find('.acao_aqui').html(`
+                        <input type='date' data-id='' min=''
+                                       max='' class='bg-gray-100 text-gray-800 p-1 text-sm rounded-md next date-picker'>
+                    `);
+                }
+
 
                 $.ajax({
                    url:"{{route('desfazer.tarefa.coletivo')}}",
                    method:"POST",
                    data: {
-                       id_dados
+                       contrato_id,
+                       fase
                    },
-                    sucession:function(res){
-
-                    }
+                   sucession:function(res){
+                        console.log(res);
+                   }
                 });
 
 
@@ -494,65 +511,23 @@
                             let partes = data.split('-');
                             return `${partes[2]}/${partes[1]}/${partes[0]}`;
                         }
-
                         self.closest('tr').find('.data_baixa').html(`<span style="margin-left:20px;">${formatarData(dataOriginal)}</span>`);
-
                         self.closest('td').html(`<button type="button" class="em_analise text-center text-white flex justify-center cursor-not-allowed bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">
                             <svg class="w-6 h-6 text-white dark:text-white text-center mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clip-rule="evenodd"/>
                             </svg>
-
                             </button>`)
-
                         inicializarColetivo();
-                    },
-                    // error: function (xhr, status, error) {
-                    //     // Verifica se o backend retornou erros de validação
-                    //     if (xhr.status === 422) {
-                    //         let errors = xhr.responseJSON.errors;
-                    //         let errorMessages = '';
-                    //
-                    //         // Loop para exibir todos os erros
-                    //         for (let field in errors) {
-                    //             errorMessages += errors[field].join(', ') + '\n';
-                    //         }
-                    //
-                    //         // Exibe os erros para o usuário
-                    //         alert('Erros:\n' + errorMessages);
-                    //
-                    //         // Alternativamente, você pode exibir os erros na página em vez de um alert:
-                    //         // $('#error-messages').html('<p class="text-red-500">' + errorMessages + '</p>');
-                    //     } else {
-                    //         alert('Ocorreu um erro. Por favor, tente novamente.');
-                    //     }
-                    // }
-
+                    }
                 });
-
             });
 
-
-
-
             // Fechar a modal quando clicar no botão de fechar
-
-
             $("body").on('click','#closeModalColetivo',function(){
-
                 $('#myModalColetivo').removeClass('flex').addClass('hidden');
-
                 $('.content-modal-coletivo').html('');
 
             })
-
-
-
-
-
-
-
-
-
 
 
 

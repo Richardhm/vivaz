@@ -1415,8 +1415,62 @@ class FinanceiroController extends Controller
 
     public function desfazerColetivo(Request $request)
     {
-        $nome = $request->nome;
-        alert($nome);
+        $id = $request->contrato_id;
+        $fase = $request->fase;
+
+        $contrato = Contrato::find($id);
+        $comissao =
+
+
+
+
+        return $id." - ".$fase;
+
+
+        if($fase > 1) {
+            switch($fase) {
+                case 2:
+                    $new_fase = 1;
+                break;
+                case 3:
+                    $new_fase = 2;
+                break;
+                case 4:
+                    $new_fase = 3;
+                break;
+                case 5:
+                    $new_fase = 4;
+                break;
+                case 6:
+                    $new_fase = 5;
+                break;
+                case 7:
+                    $new_fase = 6;
+                break;
+                case 8:
+                    $new_fase = 5;
+                break;
+
+            }
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+        return $id." - ".$fase;
+
+
+
     }
 
 

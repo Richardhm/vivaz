@@ -33,7 +33,9 @@
                 background-attachment: fixed;
                 min-height: 100vh;
                 display: flex;
+                flex-wrap: wrap;
                 align-items: flex-start;
+                align-content: flex-start;
                 box-sizing: border-box;
             }
             .container_formulario {
@@ -214,8 +216,44 @@
 
 
 
+        <div class="container_principal min-h-screen bg-gray-100">
 
-        <div class="container_principal min-h-screen bg-gray-100 dark:bg-gray-900">
+            <div class="flex w-full bg-transparent justify-content-between">
+                <div class="flex justify-between items-center w-full bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] py-1">
+                    <div>
+                       <img src="{{asset('logo_Bmsys11_baixa.png')}}" style="margin-right:10px;" alt="BmSys">
+                    </div>
+                    <div>
+                        @php
+                        switch(\Illuminate\Support\Facades\Route::currentRouteName()) {
+                            case "financeiro.index":
+                                echo "<p class='text-white'>Financeiro</p>";
+                            break;
+                            case "estrela.index":
+                                echo "<p class='text-white text-lg'>Programa Estrela</p>";
+                            break;
+                        }
+
+
+
+                        @endphp
+
+
+
+
+
+                    </div>
+                    <div>
+                        <img src="{{asset('hapvida-notreDame_baixa_1.png')}}" alt="Hapvida" style="width:200px;">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
             <!-- Page Content -->
             <div class="navbar hidden lg:block">
                 <div class="profile">

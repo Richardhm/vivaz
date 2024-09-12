@@ -96,8 +96,16 @@
 
     <section style="width:95%;margin:0 auto;font-size:0.875em;">
 
-       <div class="flex justify-center text-center text-white mt-1 p-2 rounded bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
-           Dashboard {{$nome_mes_atual}} {{$ano_atual}}
+       <div class="flex text-center text-white mt-1 p-2 rounded bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
+
+
+
+           <div>
+               Dashboard {{$nome_mes_atual}} {{$ano_atual}}
+           </div>
+
+
+
        </div>
 
        <div class="flex flex-wrap w-full justify-between" style="margin-top: 5px;margin-bottom:5px;">

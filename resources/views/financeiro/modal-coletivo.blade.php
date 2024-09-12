@@ -141,9 +141,9 @@
                     <th scope="col" class="px-1 py-2">
                         Ação
                     </th>
-{{--                    <th scope="col" class="px-1 py-2">--}}
-{{--                        Desfazer--}}
-{{--                    </th>--}}
+                    <th scope="col" class="px-1 py-2">
+                        Desfazer
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -154,7 +154,7 @@
                     <td style="font-size:0.875em;">-</td>
                     <td style="font-size:0.875em;" class="data_analise">-</td>
                     <td style="font-size:0.875em;">-</td>
-                    <td>
+                    <td class="acao_aqui">
                         @if($dados->data_analise == "")
                             <button type="button" data-id="{{$id}}" class="em_analise text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">Conferido</button>
                         @else
@@ -165,13 +165,13 @@
                             </button>
                         @endif
                     </td>
-{{--                    <td class="text-center flex justify-center">--}}
+                    <td class="text-center flex justify-center">
 
-{{--                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" id="desfazer_1" class="size-6">--}}
-{{--                            <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />--}}
-{{--                        </svg>--}}
+                        <svg xmlns="http://www.w3.org/2000/svg" data-id="{{$id}}" data-fase="1" viewBox="0 0 24 24" fill="currentColor" id="desfazer_1" class="size-6">
+                            <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                        </svg>
 
-{{--                    </td>--}}
+                    </td>
                 </tr>
                 <tr>
                     <td style="font-size:0.875em;">Emissão Boleto</td>
@@ -180,49 +180,72 @@
                     <td style="font-size:0.875em;">-</td>
                     <td style="font-size:0.875em;" class="data_emissao">-</td>
                     <td style="font-size:0.875em;">-</td>
-                    <td>
+                    <td class="acao_aqui">
                         @if($dados->data_emissao == "")
                             <button type="button" data-id="{{$id}}" class="emissao_boleto focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-11/12">Emitido</button>
                         @else
                             <button type="button" class="text-center text-white flex justify-center cursor-not-allowed bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">
-                                <svg class="w-6 h-6 text-white dark:text-white text-center mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 text-white dark:text-white text-center mx-auto" data-fase="2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clip-rule="evenodd"/>
                                 </svg>
                             </button>
                         @endif
                     </td>
-{{--                    <td class="text-center flex justify-center">--}}
-{{--                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" id="desfazer_2" class="size-6">--}}
-{{--                            <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />--}}
-{{--                        </svg>--}}
-{{--                    </td>--}}
+                    <td class="text-center flex justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" data-fase="2" data-id="{{$id}}" viewBox="0 0 24 24" fill="currentColor" id="desfazer_2" class="size-6">
+                            <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                        </svg>
+                    </td>
                 </tr>
                 @foreach($dados->comissao->comissoesLancadas as $kk => $cr)
-
+                    @php
+                        $fase = 0;
+                    @endphp
                     <tr>
                         <td class="" style="font-size:0.875em;">
                             @switch($cr->parcela)
                                 @case(1)
                                     Pag. Adesão
+                                    @php
+                                        $fase = 3;
+                                    @endphp
                                     @break;
                                 @case(2)
                                     Pag. Vigência
+                                    @php
+                                        $fase = 4;
+                                    @endphp
                                     @break;
                                 @case(3)
                                     Pag. 2º Parcela
+                                    @php
+                                        $fase = 6;
+                                    @endphp
                                     @break;
                                 @case(4)
                                     Pag. 3º Parcela
+                                    @php
+                                        $fase = 7;
+                                    @endphp
                                     @break;
                                 @case(5)
                                     Pag. 4º Parcela
+                                    @php
+                                        $fase = 8;
+                                    @endphp
                                     @break;
                                 @case(6)
                                     Pag. 5º Parcela
+                                    @php
+                                        $fase = 9;
+                                    @endphp
                                     @break;
                                 @case(7)
                                     Pag. 6º Parcela
-                                    @break;
+                                    @php
+                                        $fase = 11;
+                                    @endphp
+                                @break;
                             @endswitch
 
                         </td>
@@ -250,7 +273,7 @@
                         @endif
 
                         <td style="font-size:0.875em;text-align:center;">{{$cr->quantidade_dias}}</td>
-                        <td>
+                        <td class="acao_aqui">
                             @if($cr->status_financeiro == 0)
                                 <input type="date" data-id="{{$id}}" min="{{date('Y-m-d', strtotime('1900-01-01'))}}"
                                        max="{{$cr->data}}" class="bg-gray-100 text-gray-800 p-1 text-sm rounded-md next date-picker">
@@ -259,15 +282,14 @@
                                     <svg class="w-6 h-6 text-white dark:text-white text-center mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clip-rule="evenodd"/>
                                     </svg>
-
                                 </button>
                             @endif
                         </td>
-{{--                        <td class="text-center flex justify-center">--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" id="desfazer_{{$kk+3}}" class="size-6">--}}
-{{--                                <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />--}}
-{{--                            </svg>--}}
-{{--                        </td>--}}
+                        <td class="text-center flex justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" data-fase="{{$fase}}" data-id="{{$id}}" viewBox="0 0 24 24" fill="currentColor" id="desfazer_{{$kk+3}}" class="size-6">
+                                <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                            </svg>
+                        </td>
                     </tr>
 
                 @endforeach
