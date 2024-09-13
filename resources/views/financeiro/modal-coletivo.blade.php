@@ -166,11 +166,9 @@
                         @endif
                     </td>
                     <td class="text-center flex justify-center">
-
                         <svg xmlns="http://www.w3.org/2000/svg" data-id="{{$id}}" data-fase="1" viewBox="0 0 24 24" fill="currentColor" id="desfazer_1" class="size-6">
                             <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
                         </svg>
-
                     </td>
                 </tr>
                 <tr>
@@ -198,9 +196,7 @@
                     </td>
                 </tr>
                 @foreach($dados->comissao->comissoesLancadas as $kk => $cr)
-                    @php
-                        $fase = 0;
-                    @endphp
+                    @php $fase = 0; @endphp
                     <tr>
                         <td class="" style="font-size:0.875em;">
                             @switch($cr->parcela)
@@ -251,7 +247,6 @@
                         </td>
                         <td style="font-size:0.875em;">
                             {{$dados->codigo_externo}}
-
                         </td>
                         <td style="font-size:0.875em;">
                             {{date('d/m/Y',strtotime($cr->data))}}
@@ -295,6 +290,17 @@
                 @endforeach
                 </tbody>
             </table>
+{{--            <div class="flex justify-between w-full items-center">--}}
+{{--                <div class="flex" style="flex-basis:45%;">--}}
+{{--                    <button data-id="{{$id}}" class="button_excluir w-full text-white bg-red-700 hover:bg-red-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Excluir</button>--}}
+{{--                </div>--}}
+{{--                <div class="flex" style="flex-basis:45%;">--}}
+{{--                    <button data-id="{{$id}}" class="button_cancelar w-full text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2">Cancelar</button>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+
+
         </div>
 
     </div>

@@ -236,25 +236,13 @@
                                 echo "<p class='text-white text-lg'>Orçamento</p>";
                             break;
                         }
-
-
-
                         @endphp
-
-
-
-
-
                     </div>
                     <div>
                         <img src="{{asset('hapvida-notreDame_baixa_1.png')}}" alt="Hapvida" style="width:200px;">
                     </div>
                 </div>
             </div>
-
-
-
-
 
 
             <!-- Page Content -->

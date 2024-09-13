@@ -1415,22 +1415,19 @@ class FinanceiroController extends Controller
 
     public function desfazerColetivo(Request $request)
     {
+
         $id = $request->contrato_id;
+        $contrato = Contrato::find($id);
         $fase = $request->fase;
+        $new_fase = 1;
 
-        //$contrato = Contrato::find($id);
-        //$comissao =
-
-
-
-
-        //return $id." - ".$fase;
-
-
-        if($fase > 1) {
             switch($fase) {
+                case 1:
+                    $contrato->data_analise = null;
+                break;
                 case 2:
                     $new_fase = 1;
+                    $contrato->data_emissao = null;
                 break;
                 case 3:
                     $new_fase = 2;
@@ -1448,16 +1445,27 @@ class FinanceiroController extends Controller
                     $new_fase = 6;
                 break;
                 case 8:
-                    $new_fase = 5;
+                    $new_fase = 7;
                 break;
-
+                case 9:
+                    $new_fase = 8;
+                break;
+                case 11:
+                    $new_fase = 9;
+                break;
             }
+
+
+        $comissao_id = Comissoes::where("contrato_id",$id)->first()->id;
+        $contrato->financeiro_id = $new_fase;
+        $contrato->data_baixa = null;
+        $ccl = ComissoesCorretoresLancadas::where("comissoes_id",$comissao_id)->where("status_financeiro",1)->orderBy('id', 'desc')->first();
+        if($ccl) {
+            $ccl->status_financeiro = 0;
+            $ccl->data_baixa = null;
+            $ccl->save();
         }
-
-
-        return $id." - ".$fase;
-
-
+        $contrato->save();
 
     }
 
@@ -1846,6 +1854,12 @@ class FinanceiroController extends Controller
     {
         if ($request->ajax()) {
             $id_cliente = $request->id_cliente;
+            Contrato::where("cliente",$id_cliente)->delete();
+            $comissoes = Comissoes::where("contrato_id",Contrato::where("cliente",$id_cliente)->first()->id)->first();
+            ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->delete();
+
+
+
             if ($id_cliente != null) {
                 $d = Cliente::where("id", $id_cliente)->delete();
                 if ($d) {

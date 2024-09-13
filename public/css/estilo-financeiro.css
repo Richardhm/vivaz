@@ -74,9 +74,9 @@ table.dataTable thead th {
 .estilizar_pagination #tabela_mes_atual_next {color:#FFF !important;}
 .estilizar_pagination #tabela_mes_diferente_previous {color:#FFF !important;}
 .estilizar_pagination #tabela_mes_diferente_next {color:#FFF !important;}
-#tabela_individual_filter input[type='search'] {background-color: #FFF !important;margin-right:5px;margin-top:3px;}
-#tabela_coletivo_filter input[type='search'] {background-color: #FFF !important;margin-right:5px;margin-top:3px;}
-#tabela_empresarial_filter input[type='search'] {background-color: #FFF !important;}
+#tabela_individual_filter input[type='search'] {background-color: #FFF !important;margin-right:5px;margin-top:3px;color:black !important;}
+#tabela_coletivo_filter input[type='search'] {background-color: #FFF !important;margin-right:5px;margin-top:3px;color:black !important;}
+#tabela_empresarial_filter input[type='search'] {background-color: #FFF !important;color:black !important;}
 
 #tabela_empresarial td {white-space: nowrap;overflow: hidden;text-overflow: clip;}
 #tabela_individual td {white-space: nowrap;overflow: hidden;text-overflow: clip;}
