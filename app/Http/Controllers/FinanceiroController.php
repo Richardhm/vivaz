@@ -133,13 +133,12 @@ class FinanceiroController extends Controller
 
     public function storeEmpresarialFinanceiro(Request $request)
     {
-        //dd($request->all());
+
 
         $corretora_id = User::find($request->user_id)->corretora_id;
         $codigo_vendedor = User::find($request->user_id)->codigo_vendedor;
 
         $dados = $request->except('_token');
-
         $dados['taxa_adesao'] = str_replace([".", ","], ["", "."], $request->taxa_adesao);
         $dados['desconto_corretor'] = $request->desconto_corretor != "" ? str_replace([".", ","], ["", "."], $request->desconto_corretor) : 0;
         $dados['desconto_corretora'] = $request->desconto_corretora != "" ? str_replace([".", ","], ["", "."], $request->desconto_corretora) : 0;
@@ -155,11 +154,10 @@ class FinanceiroController extends Controller
         $dados['corretora_id'] = $corretora_id;
         $dados['created_at'] = $request->created_at;
         $dados['financeiro_id'] = 1;
+        $dados['desconto_operadora'] = 15;
+        $dados['quantidade_parcelas'] = 3;
         $valor = $dados['valor_plano'];
-
-
-
-
+        dd($valor);
 
         $contrato = ContratoEmpresarial::create($dados);
         $comissao = new Comissoes();
@@ -189,6 +187,7 @@ class FinanceiroController extends Controller
 
 
         $comissao_corretor_contagem = 0;
+        $valorComDesconto = 0;
         $comissao_corretor_default = 0;
         if (count($comissoes_configuradas_corretor) >= 1) {
             foreach ($comissoes_configuradas_corretor as $c) {
@@ -206,27 +205,31 @@ class FinanceiroController extends Controller
                     $data_add = $date->format('Y-m-d H:i:s');
                     //$comissaoVendedor->tempo = $data_add;
                 }
-                $comissaoVendedor->valor = ($valor * $c->valor) / 100;
+                if($dados['quantidade_parcelas'] >= 1 && $dados['desconto_operadora'] >= 0) {
+                    if($comissao_corretor_contagem <= $dados['quantidade_parcelas']) {
+                        $valorComDesconto = ($valor * (1 - $dados['desconto_operadora'] / 100)) * $c->valor / 100;
+                    }
+                } else {
+                    $valorComDesconto = ($valor * $c->valor) / 100;
+                }
+                $comissaoVendedor->valor = $valorComDesconto;
                 $comissaoVendedor->save();
                 $comissao_corretor_contagem++;
             }
         } else {
-            $dados = ComissoesCorretoresDefault
+            $dado = ComissoesCorretoresDefault
                 ::where("plano_id", $request->plano_id)
                 ->where("administradora_id", 4)
+
                 ->where('corretora_id',$corretora_id)
                 ->get();
-            foreach ($dados as $c) {
+            foreach ($dado as $c) {
                 $comissaoVendedor = new ComissoesCorretoresLancadas();
                 $comissaoVendedor->comissoes_id = $comissao->id;
                 $comissaoVendedor->parcela = $c->parcela;
                 if ($comissao_corretor_default == 0) {
                     $comissaoVendedor->data = date('Y-m-d H:i:s', strtotime($request->data_boleto));
-                    //$comissaoVendedor->data = $data_vigencia;
-                    //$comissaoVendedor->status_financeiro = 1;
-                    // if($comissaoVendedor->valor == "0.00" || $comissaoVendedor->valor == 0 || $comissaoVendedor->valor >= 0) {
-                    //     //$comissaoVendedor->status_gerente = 1;
-                    // }
+
 
                 } else {
                     $comissaoVendedor->data = date("Y-m-d H:i:s", strtotime($request->data_boleto . "+{$comissao_corretor_default}month"));
@@ -234,7 +237,21 @@ class FinanceiroController extends Controller
                     $date->add(new \DateInterval("PT{$comissao_corretor_default}M"));
                     //$data_add = $date->format('Y-m-d H:i:s');
                 }
-                $comissaoVendedor->valor = ($valor * $c->valor) / 100;
+
+                if($dados['quantidade_parcelas'] >= 1 && $dados['desconto_operadora'] >= 0) {
+                    if($comissao_corretor_default <= $dados['quantidade_parcelas']) {
+                        $valorComDesconto = ($valor * (1 - $dados['desconto_operadora'] / 100)) * $c->valor / 100;
+                    }
+                } else {
+                    $valorComDesconto = ($valor * $c->valor) / 100;
+
+                }
+                $comissaoVendedor->valor = $valorComDesconto;
+
+
+
+
+
                 $comissaoVendedor->save();
                 $comissao_corretor_default++;
             }

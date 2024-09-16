@@ -42,12 +42,12 @@
 
                 </div>
 
-                <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario">
+                <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none text-white active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-center focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario">
                     <option value="todos" class="text-center">---Escolher Corretor---</option>
                 </select>
 
 
-                <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_coletivo_administradoras">
+                <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-white focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_coletivo_administradoras">
                     <option value="todos" class="text-center">---Administradora---</option>
                 </select>
 

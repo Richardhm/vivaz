@@ -41,12 +41,12 @@
 
         <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] flex mx-auto mt-2 w-11/12">
 
-            <form action="{{route('contratos.storeEmpresarial.financeiro')}}" method="post" class="px-1 mx-auto" name="cadastrar_dados_empresarial" id="cadastrar_dados_empresarial">
+            <form action="{{route('contratos.storeEmpresarial.financeiro')}}" method="post" class="px-1 mx-auto w-full " name="cadastrar_dados_empresarial" id="cadastrar_dados_empresarial">
                 @csrf
                 <div class="flex flex-wrap gap-4 w-full">
                     <!-- Primeiro Linha -->
                     <div class="flex">
-                        <div style="flex-basis:11%;margin-right:1%;">
+                        <div style="flex-basis:26%;margin-right:1%;">
                             <div>
                                 <span for="user_id" class="text-white text-xs">Vendedor:</span>
                                 <select required name="user_id" id="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -57,7 +57,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div style="flex-basis:10%">
+                        <div style="flex-basis:18%;margin-right:1%;">
                             <div>
                                 <span for="plano_id" class="text-white text-xs">Plano:</span>
                                 <select required class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="plano_id" name="plano_id">
@@ -68,7 +68,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div style="flex-basis:15%;margin:0% 1%;">
+                        <div style="flex-basis:17%;margin-right:1%;">
                             <div>
                                 <span for="tabela_origens_id" class="text-white text-xs">Origem Tabela:</span>
                                 <select  class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="tabela_origens_id" name="tabela_origens_id" required>
@@ -79,18 +79,19 @@
                                 </select>
                             </div>
                         </div>
-                        <div style="flex-basis:12%;">
-                            <div>
-                                <span for="codigo_corretora" class="text-white text-xs">Codigo Corretora:</span>
-                                <input type="text" name="codigo_corretora" value="{{old('codigo_corretora')}}" required id="codigo_corretora" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD. Corretora">
-                            </div>
-                        </div>
-                        <div style="flex-basis:14%;margin:0% 1%;">
+                        <div style="flex-basis:25%;margin-right:1%;">
                             <div>
                                 <span for="cnpj" class="text-white text-xs">CNPJ:</span>
                                 <input type="text" name="cnpj" id="cnpj" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="CNPJ" required>
                             </div>
                         </div>
+                        <div style="flex-basis:18%;margin-right:1%;">
+                            <div>
+                                <span for="codigo_corretora" class="text-white text-xs">Codigo Corretora:</span>
+                                <input type="text" name="codigo_corretora" value="{{old('codigo_corretora')}}" required id="codigo_corretora" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD. Corretora">
+                            </div>
+                        </div>
+
                         <div style="flex-basis:21%;margin-right:1%;">
                             <span for="razao_social" class="text-white text-xs">Razão Social:</span>
                             <input type="text" name="razao_social" required id="razao_social" value="{{old('razao_social')}}" placeholder="Razão Social" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
@@ -109,6 +110,12 @@
 
                     </div>
                     <!-- Fim Primeiro Linha -->
+                    <div style="flex-basis:17%;">
+                        <div>
+                            <span for="responsavel" class="text-white text-xs">Responsável:</span>
+                            <input type="text" name="responsavel" id="responsavel" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Responsável" required>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -118,14 +125,7 @@
                     <!-- Primeiro Linha -->
                     <div class="flex">
 
-                        <div style="flex-basis:15%;">
-                            <div>
-                                <span for="responsavel" class="text-white text-xs">Responsável:</span>
-                                <input type="text" name="responsavel" id="responsavel" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Responsável" required>
-                            </div>
-                        </div>
-
-                        <div style="flex-basis:10%;margin:0% 1%;">
+                        <div style="flex-basis:10%;margin-right:1%;">
                             <div>
                                 <span for="telefone" class="text-white text-xs">Telefone:</span>
                                 <input type="text" name="telefone" id="telefone" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Telefone">
@@ -176,10 +176,17 @@
                             </div>
                         </div>
 
-                        <div style="flex-basis:8%;">
+                        <div style="flex-basis:8%;margin-right:1%;">
                             <div>
                                 <span for="created_at" class="text-white text-xs">Data Cadastrado:</span>
                                 <input type="date" required name="created_at" id="created_at" value="<?= date('Y-m-d'); ?>" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
+
+                        <div style="flex-basis:6%;">
+                            <div class="form-group">
+                                <span for="data_boleto" class="text-white" style="font-size:0.875em;">Data 1º Boleto:</span>
+                                <input type="date" name="data_boleto" required id="data_boleto" value="{{old('data_boleto')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Data Boleto">
                             </div>
                         </div>
 
@@ -199,22 +206,22 @@
                 <div>
                     <div class="flex" style="padding:0;margin:8px 0;">
 
-                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
                             <span for="valor_plano_saude" class="text-white" style="font-size:0.875em;">Valor Plano Saúde:</span>
                             <input type="text" name="valor_plano_saude" required id="valor_plano_saude" value="{{old('valor_plano_saude')}}" placeholder="Valor Plano Saúde" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
                             <span for="valor_plano_odonto" class="text-white" style="font-size:0.875em;">Valor Plano Odonto:</span>
                             <input type="text" name="valor_plano_odonto" required id="valor_plano_odonto" value="{{old('valor_plano_odonto')}}" placeholder="Valor Plano Odonto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
                             <span for="taxa_adesao" class="text-white" style="font-size:0.875em;">Taxa Adesão:</span>
                             <input type="text" name="taxa_adesao" required id="taxa_adesao" value="{{old('taxa_adesao')}}" placeholder="Taxa Adesão" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:11%;margin-right:1%;">
+                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
                             <span for="valor_boleto" class="text-white" style="font-size:0.875em;">Valor Boleto:</span>
                             <input type="text" name="valor_boleto" required id="valor_boleto" value="{{old('valor_boleto')}}" placeholder="Valor Boleto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
@@ -224,27 +231,44 @@
                             <input type="date" name="vencimento_boleto" required id="vencimento_boleto" value="{{old('vencimento_boleto')}}" placeholder="Vencimento Boleto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
+                        <div class="form-group" style="flex-basis:7%;margin-right:1%;">
                             <span for="codigo_saude" class="text-white" style="font-size:0.875em;">Codigo Saude:</span>
                             <input type="text" name="codigo_saude" id="codigo_saude" value="{{old('codigo_saude')}}" placeholder="Codigo Saude" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
+                        <div class="form-group" style="flex-basis:7%;margin-right:1%;">
                             <span for="codigo_odonto" class="text-white" style="font-size:0.875em;">Codigo Odonto:</span>
                             <input type="text" name="codigo_odonto" id="codigo_odonto" value="{{old('codigo_odonto')}}" placeholder="Codigo Odonto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
+                        <div class="form-group" style="flex-basis:7%;margin-right:1%;">
                             <span for="senha_cliente" class="text-white" style="font-size:0.875em;">Senha Cliente:</span>
                             <input type="text" name="senha_cliente" id="senha_cliente" value="{{old('senha_cliente')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Senha Cliente">
                         </div>
 
-                        <div style="flex-basis:6%;">
-                            <div class="form-group">
-                                <span for="data_boleto" class="text-white" style="font-size:0.875em;">Data 1º Boleto:</span>
-                                <input type="date" name="data_boleto" required id="data_boleto" value="{{old('data_boleto')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Data Boleto">
-                            </div>
+
+                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
+                            <span for="desconto_operadora" class="text-white" style="font-size:0.875em;">Desconto Operadora:</span>
+                            <input type="number" name="desconto_operadora" id="desconto_operadora" value="" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Desconto Operadora">
                         </div>
+
+                        <div class="form-group" style="flex-basis:15%;">
+                            <span for="quantidade_parcelas" class="text-white" style="font-size:0.875em;">Qte Parcelas do desconto:</span>
+                            <select name="quantidade_parcelas" id="quantidade_parcelas" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option class="text-center" value="">--Quantidade Parcelas--</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+
+
+
+
+
 
                     </div>
                 </div>

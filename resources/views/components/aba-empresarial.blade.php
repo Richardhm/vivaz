@@ -13,14 +13,14 @@
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] mb-1 p-1" id="content_list_empresarial_begin">
                 <div class="flex flex-wrap w-full gap-2 mb-1">
                     <div style="display:flex;flex-basis:48%;">
-                        <select id="mudar_ano_table_empresarial" class="text-gray-700 bg-transparent border border-gray-300 rounded-md h-8 px-2 w-full">
+                        <select id="mudar_ano_table_empresarial" class="text-white bg-transparent border border-gray-300 rounded-md py-2 px-2 w-full">
                             <option value="" class="text-center">-Anos-</option>
                             <option value="2022">2022</option>
                             <option value="2023" selected>2023</option>
                         </select>
                     </div>
                     <div style="display:flex;flex-basis:48%;">
-                        <select id="mudar_mes_table_empresarial" class="text-gray-700 bg-transparent border border-gray-300 rounded-md h-8 px-2 w-full">
+                        <select id="mudar_mes_table_empresarial" class="text-white bg-transparent border border-gray-300 rounded-md py-2 px-2 w-full">
                             <option value="" class="text-center">-Meses-</option>
                             <option value="01">Janeiro</option>
                             <option value="02">Fevereiro</option>
@@ -37,12 +37,12 @@
                         </select>
                     </div>
 
-                    <select style="flex-basis:99%;" name="mudar_user_empresarial" id="mudar_user_empresarial" class="form-control text-gray-700 bg-transparent border border-gray-300 rounded-md h-8 px-2 mx-auto">
+                    <select style="flex-basis:99%;" name="mudar_user_empresarial" id="mudar_user_empresarial" class="text-center text-white bg-transparent border border-gray-300 rounded-md py-2 me-2 px-2 mx-auto">
                         <option value="todos" class="text-center" data-id="0">---Escolher Corretor---</option>
 
                     </select>
 
-                    <select style="flex-basis:99%;" name="mudar_planos_empresarial" id="mudar_planos_empresarial" class="form-control text-gray-700 bg-transparent border border-gray-300 rounded-md h-8 px-2 mx-auto">
+                    <select style="flex-basis:99%;" name="mudar_planos_empresarial" id="mudar_planos_empresarial" class="text-center text-white bg-transparent border border-gray-300 rounded-md py-2 me-2 px-2 mx-auto">
                         <option value="todos" class="text-center" data-id="0">---Escolher Planos---</option>
 
                     </select>
