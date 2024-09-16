@@ -227,6 +227,7 @@
                     </div>
                     <div>
                         @php
+
                         switch(\Illuminate\Support\Facades\Route::currentRouteName()) {
                             case "financeiro.index":
                                 echo "<p class='text-white text-lg'>Financeiro</p>";
@@ -236,6 +237,9 @@
                             break;
                             case "orcamento":
                                 echo "<p class='text-white text-lg'>Orçamento</p>";
+                            break;
+                            case "home.index":
+                                echo "<p class='text-white text-lg'>Dashboard</p>";
                             break;
                         }
                         @endphp

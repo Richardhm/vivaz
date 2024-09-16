@@ -31,7 +31,7 @@
     <body class="font-sans text-gray-900 antialiased">
     <div class="container_login min-h-screen flex items-center justify-center px-4 sm:px-0 bg-red-600 dark:bg-gray-900">
         <!-- Form Container -->
-        <div class="container_formulario w-full sm:max-w-md px-6 py-16 bg-transparent border border-white dark:bg-gray-800 shadow-md sm:rounded-lg">
+        <div class="container_formulario w-full sm:max-w-md px-6 py-12 bg-transparent border border-white dark:bg-gray-800 shadow-md sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>

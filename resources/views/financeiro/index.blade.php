@@ -465,6 +465,8 @@
 
                 // Verifica se existe uma próxima linha
                 if (proximaLinha.length) {
+
+
                     // Verifica se a próxima linha tem a classe 'cursor-not-allowed'
                     if (proximaLinha.hasClass('disabled-button')) {
                         proximaLinha.removeClass('disabled-button');

@@ -342,8 +342,22 @@
                 <td>{{number_format($totalApartamento_sem_copar,2,",",".")}}</td>
                 <td>{{number_format($totalEnfermaria_sem_copar,2,",",".")}}</td>
             </tr>
+            @if($status_desconto == 1)
+            <tr>
+                <td style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">Desc.15% / 3 meses</td>
+                <td style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">{{ number_format($totalApartamento_com_copar * 0.85,2,",",".")  }}</td>
+                <td style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">{{ number_format($totalEnfermaria_com_copar * 0.85,2,",",".")  }}</td>
+                <td style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">{{ number_format($totalApartamento_sem_copar * 0.85,2,",",".")  }}</td>
+                <td style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">{{ number_format($totalEnfermaria_sem_copar * 0.85,2,",",".")  }}</td>
+            </tr>
+            @endif
             </tfoot>
         </table>
+        @if($status_desconto == 1)
+        <div style="width:60%;border-radius:50%;margin:0 auto;background-color:red;color:white;text-align:center;">
+            <p style="font-size:1.2em;">Valores válidos por tempo limitado</p>
+        </div>
+        @endif
     </div>
 
     <div class="lembretes">

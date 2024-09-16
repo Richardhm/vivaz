@@ -5,7 +5,7 @@
     tbody td,tfoot td{width:14%;padding:0;}
 </style>
 <div class="flex justify-around items-center py-2 w-full mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
-    <img src="{{$imagem_plano}}" alt="Operadora" style="width:100px;background-color:white;max-height:28px;border-radius:5px;">
+    <img src="{{$imagem_plano}}" alt="Operadora" style="width:150px;background-color:white;height:48px;border-radius:5px;padding:4px;">
     <h4 class="text-white">{{$plano_nome}}</h4>
     <p class="text-white text-center">{{$cidade_nome}}</p>
 </div>
@@ -170,7 +170,7 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
 
 @if($status)
 
-<div class="h-2 my-1 w-full bg-white rounded-lg"></div>
+<div class="h-1 my-1 w-full bg-white rounded-lg"></div>
 {{--Sem Odotno--}}
 {{-- Tabela sem Odonto --}}
 <div class="flex justify-center items-center w-full py-0.5 mb-1 text-sm font-medium text-white focus:outline-none bg-gray-700 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity-10 dark:hover:text-gray-900">
@@ -312,9 +312,16 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
         <input type="checkbox" name="status_carencia" id="status_carencia" class="w-6 h-6 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
         <span style="color:white;" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-2xl">Com Carências</span>
     </label>
+
+    <label for="status_desconto">
+        <input type="checkbox" name="status_desconto" id="status_desconto" class="w-6 h-6 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+        <span style="color:white;" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-2xl">Desconto</span>
+    </label>
+
+
     <div>
-        <button class="btn_ambulatorial">
-            <img src="{{asset('ambulatorial.png')}}" alt="Ambulatorial" title="Plano Ambulatorial" style="width:50px;height:50px;">
+        <button class="btn_ambulatorial text-white">
+            Ambulatorial
 
         </button>
     </div>

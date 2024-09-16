@@ -257,8 +257,8 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
         <span style="color:white;" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-2xl">Com Carências</span>
     </label>
     <div>
-        <button class="btn_normal">
-            <img src="{{asset('fundo_planos.png')}}" alt="Planos" title="Planos" style="width:50px;height:50px;">
+        <button class="btn_normal text-white">
+           Individual
 
         </button>
     </div>

@@ -222,6 +222,7 @@
                    plano = $("input[name='planos-radio']:checked").val();
                    operadora = $("input[name='operadoras']:checked").val();
                    let status_carencia = $("input[name='status_carencia']").is(':checked');
+                   let status_desconto = $("input[name='status_desconto']").is(':checked');
 
                    // Exibe o valor booleano no console
                    odonto = $(this).attr('data-odonto');
@@ -248,6 +249,7 @@
                            "faixas": faixas,
                            "odonto" : odonto,
                            "status_carencia" : status_carencia,
+                           "status_desconto" : status_desconto,
                            "ambulatorial": 0
                            //"cliente" : cliente,
                            //"_token": "{{ csrf_token() }}"

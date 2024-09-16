@@ -236,25 +236,25 @@
                         @case(1)
                             @php
                                 $title = "Pag. Adesão";
-                                $fase = 3;
+                                $fase = 2;
                             @endphp
                             @break;
                         @case(2)
                             @php
                                 $title = "Pag. Vigência";
-                                $fase = 4;
+                                $fase = 3;
                             @endphp
                             @break;
                         @case(3)
                             @php
                                 $title = "Pag. 2º Parcela";
-                                $fase = 6;
+                                $fase = 4;
                             @endphp
                         @break;
                         @case(4)
                             @php
                                 $title = "Pag. 3º Parcela";
-                                $fase = 7;
+                                $fase = 5;
                             @endphp
                         @break;
                         @case(5)
@@ -277,7 +277,7 @@
                         @break;
                     @endswitch
 
-                    <tr class="@if($dados->financeiro_id < $fase) disabled-button @endif">
+                    <tr class="@if($fase >= $dados->financeiro_id) disabled-button @endif">
                         <td class="" style="font-size:0.875em;">
                             {{$title}}
                         </td>
@@ -306,7 +306,7 @@
                         <td class="acao_aqui">
                             @if($cr->status_financeiro == 0)
                                 <input type="date" data-id="{{$id}}" min="{{date('Y-m-d', strtotime('1900-01-01'))}}"
-                                       max="{{date('Y-m-d')}}" disabled class="bg-gray-100  text-gray-800 p-1 text-sm rounded-md next date-picker">
+                                       max="{{date('Y-m-d')}}" @if($fase >= $dados->financeiro_id) disabled-button @endif class="bg-gray-100  text-gray-800 p-1 text-sm rounded-md next date-picker">
 
 
 

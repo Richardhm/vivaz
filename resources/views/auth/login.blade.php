@@ -1,6 +1,9 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="flex justify-center">
+        <img src="{{asset('logo_Bmsys11_baixa.png')}}" style="" alt="BmSys">
+    </div>
 
     <form method="POST" action="{{ route('login') }}" class="w-full max-w-sm mx-auto px-4">
         @csrf

@@ -44,6 +44,7 @@ class ImagemController extends Controller
         $celular = auth()->user()->celular;
         $corretora = auth()->user()->corretora_id;
         $status_carencia = request()->status_carencia == "true" ? 1 : 0;
+        $status_desconto = request()->status_desconto == "true" ? 1 : 0;
 
         if($ambulatorial == 0) {
             $dados = Tabela::select('tabelas.*')
@@ -76,6 +77,7 @@ class ImagemController extends Controller
                 'administradora' => $admin_nome,
                 'frase' => $frase,
                 'status_carencia' => $status_carencia,
+                'status_desconto' => $status_desconto,
                 'odonto' => $odonto,
                 'celular' => $celular,
                 'linhas' => $linhas,

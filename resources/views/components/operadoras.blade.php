@@ -11,7 +11,7 @@
                     <span class="ml-1 text-sm">{{$op->nome}}</span>
                 </div>
                 <div class="flex w-[50%] justify-end">
-                    <img src="{{$op->logo}}" alt="Opção 1" class="image_operadora" style="">
+                    <img src="{{$op->logo}}" alt="Opção 1" class="image_operadora rounded-md" style="background-color:#FFFFFF;padding:3px;">
                 </div>
             </div>
         </label>

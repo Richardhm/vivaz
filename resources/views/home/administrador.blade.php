@@ -96,150 +96,153 @@
 
     <section style="width:95%;margin:0 auto;font-size:0.875em;">
 
-       <div class="flex text-center text-white mt-1 p-2 rounded bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
 
-
-
-           <div>
-               Dashboard {{$nome_mes_atual}} {{$ano_atual}}
-           </div>
-
-
-
-       </div>
 
        <div class="flex flex-wrap w-full justify-between" style="margin-top: 5px;margin-bottom:5px;">
 
-           <div class="flex w-[16%] my-1">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg p-4 text-center text-white flex flex-col justify-between">
-                   <!-- Quantidade de Vidas (alinhado ao topo) -->
-                   <div class="flex items-start">
-                       <h5 class="text-white">
+           <div class="flex w-[16%] my-1  relative">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+                   <!-- Quantidade de Vidas (alinhado ao topo, lado esquerdo) -->
+                   <div class="absolute top-0 left-0">
+                       <h5 class="text-white ml-3">
                            {{$quantidade_vidas}}
                        </h5>
                    </div>
                    <!-- Total (centralizado) -->
-                   <div class="flex items-center justify-center flex-grow">
+                   <div class="flex items-center justify-center h-full">
                        <p class="text-white">
                            Total
                        </p>
                    </div>
-                   <!-- Valor (alinhado ao bottom) -->
-                   <div class="text-right text-white">
-                       R$ {{ number_format($total_valor, 2, ",", ".") }}
+                   <!-- Valor (alinhado ao bottom, lado direito) -->
+                   <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
+                       <p class="text-white">
+                           R$ {{ number_format($total_valor, 2, ",", ".") }}
+                       </p>
                    </div>
                </div>
            </div>
 
 
-           <div class="flex w-[16%] my-1">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg p-4 text-center text-white flex flex-col justify-between">
 
-                   <div class="flex items-start">
-                       <h5 class="text-white">
+           <div class="flex w-[16%] my-1 relative">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+
+                   <div class="absolute top-0 left-0">
+                       <h5 class="text-white ml-3">
                            {{$total_individual_quantidade_vidas}}
                        </h5>
                    </div>
 
-                   <div class="flex items-center justify-center flex-grow">
+                   <div class="flex items-center justify-center h-full">
                        <p class="text-white">
                            Individual
                        </p>
                    </div>
 
 
-                   <div class="text-right text-white">
-                       R$ {{ number_format($total_individual, 2, ",", ".") }}
+                   <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
+                       <p class="text-white">
+                            R$ {{ number_format($total_individual, 2, ",", ".") }}
+                       </p>
                    </div>
                </div>
            </div>
 
-           <div class="flex w-[16%] my-1">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg p-4 text-center text-white flex flex-col justify-between">
+           <div class="flex w-[16%] my-1 relative">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
 
-                   <div class="flex items-start">
-                       <h5 class="text-white">
+                   <div class="absolute top-0 left-0">
+                       <h5 class="text-white ml-3">
                            {{$total_coletivo_quantidade_vidas}}
                        </h5>
 
                    </div>
-                   <div class="flex items-center justify-center flex-grow">
+                   <div class="flex items-center justify-center h-full">
                        <p class="text-white">
                            Coletivo
                        </p>
                    </div>
-                   <div class="text-right text-white">
+                   <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
+                       <p class="text-white">
                        R$ {{ number_format($total_coletivo, 2, ",", ".") }}
+                       </p>
                    </div>
 
                </div>
            </div>
 
-           <div class="flex w-[16%] my-1">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg p-4 text-center text-white flex flex-col justify-between">
+           <div class="flex w-[16%] my-1 relative">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
 
-                   <div class="flex items-start">
-                       <h5 class="text-white">
+                   <div class="absolute top-0 left-0">
+                       <p class="text-white ml-3">
                            {{$total_super_simples_quantidade_vidas}}
-                       </h5>
+                       </p>
 
                    </div>
 
-                   <div class="flex items-center justify-center flex-grow">
+                   <div class="flex items-center justify-center h-full">
                        <p class="text-white">
                            Super Simples
                        </p>
                    </div>
 
 
-                   <div class="text-right text-white">
-                       R$ {{ number_format($total_super_simples, 2, ",", ".") }}
+                   <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
+                       <p class="text-white">
+                        R$ {{ number_format($total_super_simples, 2, ",", ".") }}
+                       </p>
                    </div>
                </div>
            </div>
 
-           <div class="flex w-[16%] my-1">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg p-4 text-center text-white flex flex-col justify-between">
+           <div class="flex w-[16%] my-1 relative">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
 
-                   <div class="flex items-start">
-                       <h5 class="text-white">
+                   <div class="absolute top-0 left-0">
+                       <p class="text-white ml-3">
                            0
-                       </h5>
+                       </p>
 
                    </div>
 
-                   <div class="flex items-center justify-center flex-grow">
+                   <div class="flex items-center justify-center h-full">
                        <p class="text-white">
                            PME
                        </p>
                    </div>
 
 
-                   <div class="text-right text-white">
-                       R$ 0,00
+                   <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
+                       <p class="text-white">
+                            R$ 0,00
+                       </p>
                    </div>
 
                </div>
            </div>
 
-           <div class="flex w-[16%] my-1">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg p-4 text-center text-white flex flex-col justify-between">
+           <div class="flex w-[16%] my-1 relative">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
 
-                   <div class="flex items-start">
-                       <h5 class="text-white">
+                   <div class="absolute top-0 left-0">
+                       <h5 class="text-white ml-3">
                            0
                        </h5>
 
                    </div>
 
-                   <div class="flex items-center justify-center flex-grow">
+                   <div class="flex items-center justify-center h-full">
                        <p class="text-white">
                            Sindicato
                        </p>
                    </div>
 
-                   <div class="text-right text-white">
+                   <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
+                       <p class="text-white">
                        R$ 0,00
+                       </p>
                    </div>
 
                </div>
@@ -554,29 +557,30 @@
                    </h5>
                </div>
 
-               <div class="flex my-1 ranking_classificacao" style="height:20%;">
+               <div class="flex my-1 ranking_classificacao" style="height:30%;">
                    @foreach(collect($ranking_mes)->take(3) as $r)
-                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex flex-col rounded">
-                           <!-- Primeira Linha: Posição e Foto -->
-                           <div class="text-white flex w-full items-center justify-between">
+                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex rounded">
+
+                           <div class="flex h-full justify-end" style="align-content: space-between;flex-basis: 50%;background-color: red;flex-direction: column">
                                <span class="ml-1" style="font-size:1em; flex-shrink: 0;">{{$loop->iteration}}º</span>
-                               <div class="flex justify-end items-center" style="flex-grow: 1; height: 60px; max-width: 60px;">
+                               <div class="text-white" style="font-size:0.9em;">
+                                   {{ $r->usuario }}
+                               </div>
+                               <span class="ml-1">{{$r->quantidade}} Vidas</span>
+                           </div>
+                           <div class="flex h-full" style="align-content: space-between;flex-basis: 50%;flex-direction: column;background-color:green;">
+                               <div class="flex justify-end w-full" style="flex-grow: 1; height: 80px; max-width: 80px;background-color: #366EBF;">
                                    @if(file_exists($r->image))
-                                       <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" class="img-fluid" style="border-radius:50%; max-height:100%; max-width:100%;">
+                                       <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" class="flex self-end" style="border-radius:50%; max-height:100%; max-width:100%;">
                                    @endif
                                </div>
-                           </div>
-
-                           <!-- Segunda Linha: Nome do Usuário -->
-                           <div class="w-full text-white text-center" style="font-size:0.9em; margin-top: 6px;">
-                               {{ $r->usuario }}
-                           </div>
-
-                           <!-- Terceira Linha: Vidas e Valor -->
-                           <div class="small-box-footer flex justify-between w-full text-white" style="font-size:0.8em; margin-top: 6px; padding-bottom: 6px;">
-                               <span class="ml-1">{{$r->quantidade}} Vidas</span>
                                <span class="mr-2">R$ {{number_format($r->valor,2,",",".")}}</span>
                            </div>
+
+
+
+
+
                        </div>
                    @endforeach
                </div>
