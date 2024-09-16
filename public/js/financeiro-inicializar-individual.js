@@ -1,12 +1,11 @@
 function inicializarIndividual(corretora_id = null) {
-
     if($.fn.DataTable.isDataTable('.listarindividual')) {
         $('.listarindividual').DataTable().destroy();
     }
 
-    $(".listarindividual").DataTable({
-        dom: '<"flex justify-between"<"#title_individual">Bftr><t><"flex justify-between"lp>',
 
+    table_individual = $(".listarindividual").DataTable({
+        dom: '<"flex justify-between"<"#title_individual">Bftr><t><"flex justify-between"lp>',
         language: {
             "search": "Pesquisar",
             "paginate": {
@@ -25,7 +24,6 @@ function inicializarIndividual(corretora_id = null) {
             "lengthMenu": "Exibir _MENU_ por página"
         },
         processing: true,
-
         ajax: {
             "url":urlGeralIndividualPendentes,
             data: function (d) {
@@ -113,7 +111,6 @@ function inicializarIndividual(corretora_id = null) {
         ],
         "initComplete": function( settings, json ) {
 
-            $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'></h4>");
             let countPagamento1 = this.api().column(9).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
             let countPagamento2 = this.api().column(9).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
             let countPagamento3 = this.api().column(9).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
@@ -122,9 +119,7 @@ function inicializarIndividual(corretora_id = null) {
             let countPagamento6 = this.api().column(9).data().filter((value, index) => value === 'Pag. 6º Parcela').length;
             let finalizado = this.api().column(9).data().filter((value, index) => value === 'Finalizado').length;
             let countCancelados = this.api().column(9).data().filter((value, index) =>  value === 'Cancelado').length;
-
             let countAprovado = this.api().column(11).data().filter((value, index) =>  value === 'Aprovado').length;
-
             let countAtrasadoTeste = this.api().rows().count(); // Inicialmente, contamos todas as linhas
             countAtrasadoTeste = countAtrasadoTeste - countPagamento6 - finalizado - countCancelados - countAprovado;
             let tablein = $('.listarindividual').DataTable();
@@ -136,30 +131,121 @@ function inicializarIndividual(corretora_id = null) {
             $(".individual_quantidade_6_parcela").text(finalizado);
             $(".individual_quantidade_cancelado").text(countCancelados);
             $(".individual_quantidade_atrasado").text(countAtrasadoTeste);
-
-            let corretoresUnicos = new Set();
-            this.api().column(2).data().each(function(v) {
-                corretoresUnicos.add(v);
+            let corretores = this.api().column(2).data().unique(); // Coluna 2 tem os corretores
+            let selectUsuarioIndividual = $('#select_usuario_individual');
+            selectUsuarioIndividual.empty(); // Limpa o select
+            selectUsuarioIndividual.append('<option value="">-- Todos os Corretores --</option>'); // Adiciona uma opção para todos
+            corretores.each(function(d) {
+                selectUsuarioIndividual.append(`<option value="${d}">${d}</option>`);
             });
-            let corretoresOrdenados = Array.from(corretoresUnicos).sort();
-
-            // $('#select_usuario_individual').append('<option value="todos">-- Escolher Corretor --</option>');
-            // corretoresOrdenados.forEach(function(corretor) {
-            //     $('#select_usuario_individual').append('<option value="' + corretor + '">' + corretor + '</option>');
-            // });
-
-            let anos = this.api().column(0).data().toArray().map(function(value) {
-                let year = new Date(value).getFullYear();
-                return !isNaN(year) ? year : null;
-            });
-            let anosUnicos = new Set(anos.filter(function(ano) {return ano !== null;}));
 
             let selectAno = $('#mudar_ano_table');
-            selectAno.empty(); // Limpar opções existentes
-            selectAno.append('<option value="" selected class="text-white text-center">- Ano -</option>'); // Opção padrão
-            anosUnicos.forEach(function(ano) {
-                selectAno.append('<option class="text-white text-center" value="' + ano + '">' + ano + '</option>');
-            });
+            let selectMes = $('#mudar_mes_table');
+
+
+            const nomesMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+
+            function atualizarMeses() {
+                let mesesUnicos = new Set();
+
+                // Itera pela coluna 0 (datas) e encontra todos os meses únicos
+                table_individual.column(0).data().each(function(value) {
+                    if (value) {
+                        let dataParts = value.split('/');
+                        if (dataParts.length === 3) {
+                            let mes = parseInt(dataParts[1]) - 1; // Meses zero-indexados
+                            if (!isNaN(mes)) {
+                                mesesUnicos.add(mes); // Adiciona o mês à lista de meses únicos
+                            }
+                        }
+                    }
+                });
+
+                // Ordena os meses
+                let mesesOrdenados = Array.from(mesesUnicos).sort((a, b) => a - b);
+
+                // Limpa e preenche o select de meses
+                selectMes.empty().append('<option value="">--Mês--</option>');
+                mesesOrdenados.forEach(mes => {
+                    selectMes.append(new Option(nomesMeses[mes], mes + 1)); // Exibe o nome do mês
+                });
+            }
+
+            // Função de filtragem da tabela
+            function filtrarTabela() {
+                let anoSelecionado = selectAno.val();
+                let mesSelecionado = selectMes.val();
+
+                // Reseta a filtragem
+                $.fn.dataTable.ext.search.length = 0;
+
+                // Adiciona filtro baseado no ano e/ou mês selecionados
+                $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                    let dataColuna = data[0]; // Coluna 0, onde está a data
+                    let dataParts = dataColuna.split('/'); // Separa a data no formato dd/mm/yyyy
+
+                    let mesData = dataParts[1];
+                    let anoData = dataParts[2];
+
+                    // Verifica se há correspondência com o ano e/ou mês selecionados
+                    if (anoSelecionado && mesSelecionado) {
+                        return anoData === anoSelecionado && mesData === mesSelecionado.padStart(2, '0');
+                    } else if (anoSelecionado) {
+                        return anoData === anoSelecionado;
+                    } else if (mesSelecionado) {
+                        return mesData === mesSelecionado.padStart(2, '0');
+                    }
+                    return true; // Sem filtros, retorna todos os dados
+                });
+
+                // Redesenha a tabela com os novos filtros aplicados
+                table_individual.draw();
+                realizarContagem()
+            }
+
+            // Evento de change para o select de ano
+            selectAno.on('change', filtrarTabela);
+
+            // Evento de change para o select de mês
+            selectMes.on('change', filtrarTabela);
+
+            // Inicializa os selects de ano e mês com os dados da tabela
+            function inicializarFiltros() {
+                let anos = new Set();
+
+                // Itera pela coluna 0 (datas) e encontra anos únicos
+                table_individual.column(0).data().each(function(value) {
+                    if (value) {
+                        let dataParts = value.split('/');
+                        if (dataParts.length === 3) {
+                            let ano = parseInt(dataParts[2]);
+                            if (!isNaN(ano)) {
+                                anos.add(ano);
+                            }
+                        }
+                    }
+                });
+
+                // Limpa e preenche o select de anos
+                selectAno.empty().append('<option value="" class="text-center">--Ano--</option>');
+                Array.from(anos).sort((a, b) => a - b).forEach(ano => {
+                    selectAno.append(new Option(ano, ano));
+                });
+
+                // Preenche o select de meses com todos os meses da tabela
+                atualizarMeses();
+            }
+
+            // Chama a função de inicialização quando a tabela estiver pronta
+            inicializarFiltros();
+
+
+
+
+
+
         },
         "drawCallback": function( settings ) {
             var api = this.api();
@@ -169,7 +255,6 @@ function inicializarIndividual(corretora_id = null) {
                 api.column(8).visible(false);
             }
         },
-
         footerCallback: function (row, data, start, end, display) {
             var intVal = (i) => typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
             total = this.api().column(6,{search: 'applied'}).data().reduce(function (a, b) {return intVal(a) + intVal(b);}, 0);
@@ -183,7 +268,33 @@ function inicializarIndividual(corretora_id = null) {
     });
 }
 
-var table_individual = $('#tabela_individual').DataTable();
+function realizarContagem() {
+
+    let countPagamento1 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
+    let countPagamento2 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
+    let countPagamento3 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
+    let countPagamento4 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 4º Parcela').length;
+    let countPagamento5 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 5º Parcela').length;
+    let countPagamento6 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 6º Parcela').length;
+    let finalizado      = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Finalizado').length;
+    let countCancelados = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Cancelado').length;
+
+    let countAprovado = table_individual.rows({ search: 'applied' }).column(11).data().filter((value, index) =>  value === 'Aprovado').length;
+
+    let countAtrasadoTeste = table_individual.rows({ search: 'applied' }).count(); // Inicialmente, contamos todas as linhas
+    countAtrasadoTeste = countAtrasadoTeste - countPagamento6 - finalizado - countCancelados - countAprovado;
+    let tablein = $('.listarindividual').DataTable();
+    $(".individual_quantidade_1_parcela").text(countPagamento1);
+    $(".individual_quantidade_2_parcela").text(countPagamento2);
+    $(".individual_quantidade_3_parcela").text(countPagamento3);
+    $(".individual_quantidade_4_parcela").text(countPagamento4);
+    $(".individual_quantidade_5_parcela").text(countPagamento5);
+    $(".individual_quantidade_6_parcela").text(finalizado);
+    $(".individual_quantidade_cancelado").text(countCancelados);
+    $(".individual_quantidade_atrasado").text(countAtrasadoTeste);
+}
+
+
 $('#tabela_individual').on('click', 'tbody tr', function () {
     table_individual.$('tr').removeClass('textoforte');
     $(this).closest('tr').addClass('textoforte');

@@ -15,11 +15,14 @@
 
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] p-1 rounded" id="content_list_individual_begin">
                 <div class="flex flex-wrap justify-around mb-0 w-full">
-                    {{--                            <div class="flex w-full border-b-2 border-white mb-2">--}}
-                    {{--                                <p class="text-center">Listagem(Completa)</p>--}}
-                    {{--                              </div>--}}
-                    <div class="flex w-full justify-center">
-                        <select id="mudar_ano_table" class="flex basis-[49%] mr-1 py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black mr-1 focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+
+                    <select id="select_usuario_individual"
+                            class="w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                            "
+                            tabindex="-1" aria-hidden="true"></select>
+                    <div class="flex w-full justify-center mt-2">
+                        <select id="mudar_ano_table" class="flex basis-[49%] mr-1 py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                             <option>--Ano--</option>
                         </select>
                         <select id="mudar_mes_table" class="flex basis-[49%] py-2 text-lg text-center justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
@@ -28,10 +31,7 @@
                     </div>
 
 
-                    <select id="select_usuario_individual"
-                            class="w-full mt-1 rounded-lg text-sm text-black select2-hidden-accessible bg-[rgba(254,254,254,0.18)]"
-                            data-select2-id="select2-data-select_usuario_individual"
-                            tabindex="-1" aria-hidden="true"></select>
+
                 </div>
 
                 <ul class="list-none rounded p-1" id="list_individual_begin">
@@ -72,30 +72,30 @@
                 <ul id="cancelado_corretor">
                     <li class="flex justify-between individual" style="height:30px;line-height: 30px;">
                         <span class="text-sm">Cancelados</span>
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded bg-transparent text-sm text-right w-[30%] text-white pr-1 individual_quantidade_atrasado">0</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded bg-transparent text-sm text-right w-[30%] text-white pr-1 individual_quantidade_cancelado">0</span>
                     </li>
                 </ul>
             </div>
 
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
                 <ul id="listar_individual">
-                    <li class="flex justify-between individual" style="height:30px;" id="aguardando_pagamento_1_parcela_individual">
+                    <li class="flex justify-between individual hover:cursor-pointer" style="height:30px;" id="aguardando_pagamento_1_parcela_individual">
                         <span class="text-sm">Pag. 1º Parcela</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_1_parcela pr-1">0</span>
                     </li>
-                    <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_2_parcela_individual">
+                    <li style="height:30px;" class="flex justify-between individual space-y-1 focus:bg-gray-300 hover:cursor-pointer" id="aguardando_pagamento_2_parcela_individual">
                         <span class="text-sm">Pag. 2º Parcela</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm text-white individual_quantidade_2_parcela pr-1">0</span>
                     </li>
-                    <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_3_parcela_individual">
+                    <li style="height:30px;" class="flex justify-between individual space-y-1 focus:bg-gray-300 hover:cursor-pointer" id="aguardando_pagamento_3_parcela_individual">
                         <span class="text-sm">Pag. 3º Parcela</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_3_parcela pr-1">0</span>
                     </li>
-                    <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_4_parcela_individual">
+                    <li style="height:30px;" class="flex justify-between individual space-y-1 focus:bg-gray-300 hover:cursor-pointer" id="aguardando_pagamento_4_parcela_individual">
                         <span class="text-sm">Pag. 4º Parcela</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_4_parcela pr-1">0</span>
                     </li>
-                    <li style="height:30px;" class="flex justify-between individual space-y-1 hover:bg-gray-200 focus:bg-gray-300" id="aguardando_pagamento_5_parcela_individual">
+                    <li style="height:30px;" class="flex justify-between individual space-y-1 focus:bg-gray-300 hover:cursor-pointer" id="aguardando_pagamento_5_parcela_individual">
                         <span class="text-sm">Pag. 5º Parcela</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[30%] bg-transparent text-sm individual_quantidade_5_parcela pr-1">0</span>
                     </li>

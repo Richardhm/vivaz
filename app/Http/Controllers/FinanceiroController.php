@@ -37,16 +37,6 @@ class FinanceiroController extends Controller
 
     public function index(Request $request)
     {
-//        $contratos = Contrato
-//            ::where("id",7791)
-//            ->with(['administradora','financeiro','cidade','comissao','acomodacao','plano','comissao.comissaoAtualFinanceiro','comissao.comissoesLancadas','clientes','clientes.user','clientes.dependentes'])
-//            ->orderBy("id","desc")
-//            ->first();
-//
-//        dd($contratos);
-
-
-
         return view('financeiro.index');
     }
 
@@ -78,7 +68,7 @@ class FinanceiroController extends Controller
                     'contratos.valor_plano as valor_plano',
                     'contratos.id',
                     'estagio_financeiros.nome as parcelas',
-                    DB::raw("DATE_FORMAT(comissoes_corretores_lancadas.data, '%d/%m/%Y') as vencimento"),
+                    DB::raw("(SELECT DATE_FORMAT(data, '%d/%m/%Y') FROM comissoes_corretores_lancadas WHERE comissoes_id = comissoes.id AND status_financeiro = 0 ORDER BY data ASC LIMIT 1) as vencimento"),
                     DB::raw("DATE_FORMAT(clientes.data_nascimento, '%d/%m/%Y') as data_nascimento"),
                     'clientes.celular as fone',
                     'clientes.email as email',
@@ -86,7 +76,18 @@ class FinanceiroController extends Controller
                     'clientes.bairro as bairro',
                     'clientes.rua as rua',
                     'clientes.cep as cep',
-                    DB::raw("CASE WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado' ELSE 'Aprovado' END AS status")
+                    DB::raw("
+                    CASE
+                    WHEN (SELECT data
+                          FROM comissoes_corretores_lancadas
+                          WHERE comissoes_id = comissoes.id AND status_financeiro = 0
+                          ORDER BY data ASC LIMIT 1) < CURDATE()
+                          AND estagio_financeiros.id != 10
+                    THEN 'Atrasado'
+                    ELSE 'Aprovado'
+                 END AS status
+
+                    ")
                 );
 
             // Filtros opcionais
@@ -1834,10 +1835,14 @@ class FinanceiroController extends Controller
 
     public function cancelarContrato(Request $request)
     {
-        $contrato_id = Comissoes::where("id", $request->comissao_id_cancelado)->first()->contrato_id;
+        $comissao_id_cancelado = Comissoes::where("contrato_id",$request->comissao_id_cancelado)->first()->id;
+
+
+
+        $contrato_id = Comissoes::where("id", $comissao_id_cancelado)->first()->contrato_id;
         $contrato = Contrato::where("id", $contrato_id)->first();
         $comissaoLancadas = ComissoesCorretoresLancadas
-            ::where('comissoes_id', $request->comissao_id_cancelado)
+            ::where('comissoes_id', $comissao_id_cancelado)
             ->where('data_baixa', null)
             ->update(["atual" => 0, "cancelados" => 1]);
         if (!$comissaoLancadas) {
@@ -1853,21 +1858,22 @@ class FinanceiroController extends Controller
     public function excluirCliente(Request $request)
     {
         if ($request->ajax()) {
-            $id_cliente = $request->id_cliente;
-            Contrato::where("cliente",$id_cliente)->delete();
-            $comissoes = Comissoes::where("contrato_id",Contrato::where("cliente",$id_cliente)->first()->id)->first();
-            ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->delete();
-
-
-
-            if ($id_cliente != null) {
-                $d = Cliente::where("id", $id_cliente)->delete();
-                if ($d) {
-                    return $this->recalcularColetivo();
-                } else {
-                    return "error";
-                }
-            }
+            $id_contrato = $request->id;
+            $contrato = Contrato::find($id_contrato);
+            $cliente = Cliente::find($contrato->cliente_id);
+            $comissao = Comissoes::where("contrato_id",$contrato->id)->first()->id;
+            ComissoesCorretoresLancadas::where("comissoes_id",$comissao)->delete();
+            Comissoes::where("contrato_id",$contrato)->delete();
+            Contrato::where("cliente_id",$cliente)->delete();
+            Cliente::find($cliente->id)->delete();
+//            if ($id_cliente != null) {
+//                $d = Cliente::where("id", $id_cliente)->delete();
+//                if ($d) {
+//                    return $this->recalcularColetivo();
+//                } else {
+//                    return "error";
+//                }
+//            }
         }
 
     }
@@ -2254,6 +2260,7 @@ class FinanceiroController extends Controller
     public function modalColetivo()
     {
         $id = request()->id;
+
         $contratos = Contrato
             ::where("id",$id)
             ->with(['administradora','financeiro','cidade','comissao','acomodacao','plano','comissao.comissaoAtualFinanceiro','comissao.comissoesLancadas','clientes','clientes.user','clientes.dependentes'])
@@ -2263,6 +2270,7 @@ class FinanceiroController extends Controller
         return view('financeiro.modal-coletivo',[
             "financeiro" => request()->financeiro,
             "status" => request()->status,
+            "administradora" => request()->administradora,
             "dados" => $contratos,
             "cliente" => request()->cliente,
             "cpf" => request()->cpf,
@@ -2281,7 +2289,8 @@ class FinanceiroController extends Controller
             "valor_plano" => request()->valor_plano,
             "desconto_corretora" => request()->desconto_corretora,
             "desconto_corretor" => request()->desconto_corretor,
-            "id" => request()->id
+            "id" => request()->id,
+            "fone" => request()->fone
         ]);
     }
 

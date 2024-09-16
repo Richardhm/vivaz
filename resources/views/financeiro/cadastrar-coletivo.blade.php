@@ -6,10 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <!-- Fonts -->
-
-
     <script src="{{asset('assets/jquery.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
     <script src="{{asset('js/select2.min.js')}}"></script>
@@ -587,7 +584,7 @@
         }
 
         $(".close-modal").on('click',function(){
-            //alert("Olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            $('#modalDiferencaEntreValores').removeClass('flex').addClass('hidden');
         });
 
 

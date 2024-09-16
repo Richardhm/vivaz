@@ -13,6 +13,8 @@
             var atualizarIndividual = "{{route('financeiro.sincronizar.baixas.jaexiste')}}";
             var cancelarIndividual = "{{route('financeiro.sincronizar.cancelados')}}";
             var table;
+            var table_individual;
+            var parcelaSelecionada;
         </script>
         @if(auth()->user()->can('listar_todos'))
             <div style="display:flex;justify-content: center;">
@@ -90,14 +92,14 @@
 
         $(document).ready(function(){
 
-
-            $("#select_usuario_individual").select2({
-                dropdownCssClass: 'text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg border-gray-300 shadow-md', // Estilo para o dropdown
-                width: '100%', // Faz o select ocupar a largura completa
-            });
-
-            // Adiciona manualmente as classes Tailwind ao contêiner do select2
-            $(".select2-container--default .select2-selection--single").addClass('text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg border-gray-300 shadow-md');
+            //
+            // $("#select_usuario_individual").select2({
+            //     dropdownCssClass: 'text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg border-gray-300 shadow-md', // Estilo para o dropdown
+            //     width: '100%', // Faz o select ocupar a largura completa
+            // });
+            //
+            // // Adiciona manualmente as classes Tailwind ao contêiner do select2
+            // $(".select2-container--default .select2-selection--single").addClass('text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg border-gray-300 shadow-md');
 
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -222,6 +224,8 @@
                 let nascimento = $(this).data("nascimento");
                 let uf = $(this).data("uf");
                 let id = $(this).data("id");
+                let administradora = $(this).data("administradora");
+                let fone = $(this).data("fone");
 
                 let valor_adesao = $(this).data("adesao");
                 let valor_plano = $(this).data("valorplano");
@@ -230,6 +234,7 @@
 
                 let status = $(this).data('status');
                 let financeiro = $(this).data('financeiro');
+
 
                 $.ajax({
                    url:"{{route('financeiro.modal.contrato.coletivo')}}",
@@ -252,7 +257,9 @@
                        desconto_corretora,
                        desconto_corretor,
                        id,
-                       financeiro
+                       financeiro,
+                       administradora,
+                       fone
                    },
                    success:function(res){
                        $('#modalLoader').addClass('hidden');
@@ -267,18 +274,98 @@
                 $('#modalLoader').removeClass('hidden');
             });
 
-            $("body").on('click','.button_excluir',function(){
-               let id = $(this).data('id');
-               $.ajax({
-                   url:"",
-                   method:"POST",
-                   data: {
-                       id
-                   },
-                   success:function(res) {
-                       console.log(res);
-                   }
-               })
+            $("body").on('click', '.button_excluir', function() {
+                let id = $(this).data('id');
+
+                // Exibe o alerta de confirmação
+                Swal.fire({
+                    title: 'Você tem certeza?',
+                    text: "Esta ação não pode ser desfeita!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim, excluir!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Se o usuário confirmar a exclusão, realiza o AJAX
+                        $.ajax({
+                            url: "{{route('financeiro.excluir.cliente')}}",
+                            method: "POST",
+                            data: {
+                                id
+                            },
+                            success: function(res) {
+                                // Exibe mensagem de sucesso após a exclusão
+                                Swal.fire(
+                                    'Excluído!',
+                                    'O cliente foi excluído com sucesso.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload(); // Atualiza a página após confirmar a mensagem de sucesso
+                                });
+                            },
+                            error: function(err) {
+                                // Exibe mensagem de erro caso algo dê errado
+                                Swal.fire(
+                                    'Erro!',
+                                    'Ocorreu um erro ao excluir o cliente.',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else {
+                        console.log('Ação de exclusão cancelada');
+                    }
+                });
+            });
+
+            $("body").on('click', '.button_cancelar', function() {
+                let id = $(this).data('id');
+
+                // Exibe o alerta de confirmação
+                Swal.fire({
+                    title: 'Tem certeza que deseja cancelar o contrato?',
+                    text: "Esta ação não pode ser desfeita!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim, cancelar!',
+                    cancelButtonText: 'Não, manter ativo'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Se o usuário confirmar o cancelamento, realiza o AJAX
+                        $.ajax({
+                            url: "{{route('financeiro.contrato.cancelados')}}",
+                            method: "POST",
+                            data: {
+                                comissao_id_cancelado: id
+                            },
+                            success: function(res) {
+                                // Exibe mensagem de sucesso após o cancelamento
+                                Swal.fire(
+                                    'Cancelado!',
+                                    'O contrato foi cancelado com sucesso.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload(); // Atualiza a página após a confirmação
+                                });
+                            },
+                            error: function(err) {
+                                // Exibe mensagem de erro caso algo dê errado
+                                Swal.fire(
+                                    'Erro!',
+                                    'Ocorreu um erro ao cancelar o contrato.',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else {
+                        console.log('Ação de cancelamento cancelada');
+                    }
+                });
             });
 
 
@@ -322,6 +409,25 @@
             $("body").on('click','.em_analise',function(){
                let id = $(this).data('id');
                let self = $(this);
+
+                let proximaLinha = $(this).closest("tr").next();
+
+                // Verifica se existe uma próxima linha
+                if (proximaLinha.length) {
+
+                    // Verifica se a próxima linha tem a classe 'cursor-not-allowed'
+                    if (proximaLinha.hasClass('disabled-button')) {
+                        proximaLinha.removeClass('disabled-button');
+                        proximaLinha.find(".emissao_boleto").removeClass('disabled-button').removeClass('pointer-events-none').removeClass('cursor-not-allowed');
+
+                        // Ação adicional (opcional)
+                        //proximaLinha.addClass('classe-nova'); // Exemplo de adicionar uma classe
+                    }
+                } else {
+                    console.log('Não existe uma próxima linha.');
+                }
+
+
                $.ajax({
                    url:"{{route('financeiro.analise.coletivo')}}",
                    method:"POST",
@@ -340,14 +446,35 @@
                                     </svg>
                                 </button>
                             `);
-
+                            inicializarColetivo();
 
                         }
                    }
                })
             });
 
-            $("body").on('click','.emissao_boleto',function(){
+            $("body").on('click','.emissao_boleto',function(event){
+                if ($(this).hasClass('pointer-events-none')) {
+                    // Previne o clique
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+
+                let proximaLinha = $(this).closest("tr").next();
+
+                // Verifica se existe uma próxima linha
+                if (proximaLinha.length) {
+                    // Verifica se a próxima linha tem a classe 'cursor-not-allowed'
+                    if (proximaLinha.hasClass('disabled-button')) {
+                        proximaLinha.removeClass('disabled-button');
+                        proximaLinha.find(".date-picker").removeAttr("disabled");
+                    }
+                } else {
+                    console.log('Não existe uma próxima linha.');
+                }
+
+
                 let id = $(this).data('id');
                 let self = $(this);
                 $.ajax({
@@ -368,6 +495,8 @@
                                     </svg>
                                </button>
                            `);
+                            inicializarColetivo();
+
                         }
                     }
                 })
@@ -439,17 +568,7 @@
                         inicializarColetivo();
                    }
                 });
-
-
-
-
-
             });
-
-
-
-
-
 
 
             $("body").on('keydown', '.next', function(e) {
@@ -485,35 +604,53 @@
 
 
             $("body").on('change','.next',function(){
-                $(this).css('color', 'transparent');
+
+
+                let proximaLinha = $(this).closest("tr").next();
+
+                // Verifica se existe uma próxima linha
+                if (proximaLinha.length) {
+                    // Verifica se a próxima linha tem a classe 'cursor-not-allowed'
+                    if (proximaLinha.hasClass('disabled-button')) {
+                        proximaLinha.removeClass('disabled-button');
+                        proximaLinha.find(".date-picker").removeAttr("disabled");
+                        // Ação adicional (opcional)
+                        //proximaLinha.addClass('classe-nova'); // Exemplo de adicionar uma classe
+                    }
+                } else {
+                    console.log('Não existe uma próxima linha.');
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {{--$(this).css('color', 'transparent');--}}
                 var dateInput = $(this).val();
                 var datePattern = /^\d{4}-\d{2}-\d{2}$/; // Formato esperado: yyyy-mm-dd
-
                 if (!datePattern.test(dateInput)) {
-                    alert('Por favor, insira a data no formato correto (yyyy-mm-dd).');
                     $(this).val(''); // Limpa o campo
                     return;
                 }
-
                 var selectedDate = new Date(dateInput);
                 var maxDate = new Date($(this).attr('max'));
-
                 if (selectedDate > maxDate) {
                     alert('A data de baixa não pode ser maior que a data de vencimento!');
                     $(this).val(''); // Limpa o campo se a data for inválida
                     return;
                 }
-
-
-
-
-
-
-
                 let id = $(this).data('id');
                 let valor = $(this).val();
                 let self = $(this);
-
                 $.ajax({
                     url:"{{route('financeiro.baixa.data')}}",
                     method:"POST",
@@ -544,8 +681,7 @@
             $("body").on('click','#closeModalColetivo',function(){
                 $('#myModalColetivo').removeClass('flex').addClass('hidden');
                 $('.content-modal-coletivo').html('');
-
-            })
+            });
 
 
 

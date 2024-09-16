@@ -13,6 +13,65 @@ $(window).on('click', function(event) {
     }
 });
 
+function atualizarParcelas() {
+    let mes = $("#mudar_mes_table").val();
+    let dataId = $("#select_usuario_individual").find('option:selected').data('id');
+
+    // Atualizar a contagem de todas as parcelas
+    table_individual.column(11).search('').draw();
+
+    atualizarQuantidadeParcela(1, 'Pag. 1º Parcela');
+    atualizarQuantidadeParcela(2, 'Pag. 2º Parcela');
+    atualizarQuantidadeParcela(3, 'Pag. 3º Parcela');
+    atualizarQuantidadeParcela(4, 'Pag. 4º Parcela');
+    atualizarQuantidadeParcela(5, 'Pag. 5º Parcela');
+}
+
+
+function atualizarQuantidadeParcela(numeroParcela, filtro) {
+    // Filtra a tabela para cada parcela e atualiza a quantidade exibida
+    table_individual.column(9).search(filtro).draw();
+    let quantidade = table_individual.rows({ filter: 'applied' }).count();
+
+    // Atualiza o valor exibido na UI
+    $(".individual_quantidade_" + numeroParcela + "_parcela").text(quantidade);
+}
+
+
+// Função para atualizar a filtragem da tabela
+function updateFiltragemParcela(id_lista) {
+    if (id_lista == "aguardando_pagamento_1_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 1º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 1º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_2_parcela_individual") {
+
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 2º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 2º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_3_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 3º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 3º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_4_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 4º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 4º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_5_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 5º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 5º Parcela').draw();
+    }
+}
+
+// Listener para clique nas parcelas
+
+
+// Listener para mudanças nos selects (mês, ano, usuário)
+
+
+
+
 
 
 
@@ -93,6 +152,7 @@ $("#atrasado_corretor_coletivo").on('click',function(){
 $("#list_individual_begin").on('click',function(){
 
     table_individual.column(9).search('').draw();
+    table_individual.column(11).search('').draw();
     let mes = $("#mudar_mes_table").val() == '' || $("#mudar_mes_table").val() == null ? '00' : $("#mudar_mes_table").val();
     let valorSelecionado = $("#select_usuario_individual").val();
 
@@ -100,8 +160,8 @@ $("#list_individual_begin").on('click',function(){
     $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
     $("#finalizado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
     $("#cancelado_corretor").removeClass('destaque_content_radius').removeClass('textoforte-list');
-    $("#content_list_individual_begin").addClass('destaque_content_radius');
-    $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
+    //$("#content_list_individual_begin").addClass('destaque_content_radius');
+    //$('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
 
     if(mes != 00) {
         let ano = $("#mudar_ano_table").val();
@@ -368,29 +428,15 @@ $("#all_pendentes_individual").on('click',function(){
 
 $("ul#listar_individual li.individual").on('click',function(){
     let id_lista = $(this).attr('id');
-    if(id_lista == "aguardando_em_analise_individual") {
-        //table_individual.clear().draw();
-        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Em Análise</h4>");
-        table_individual.column(9).search('Em Análise').draw();
-        $("#atrasado_corretor").removeClass('textoforte-list');
-        $(".container_edit").removeClass('ocultar')
-        $("ul#listar_individual li.individual").removeClass('textoforte-list');
-        $("#all_pendentes_individual").removeClass('textoforte-list');
-        $("ul#grupo_finalizados_individual li.individual").removeClass('textoforte-list');
-        $(this).addClass('textoforte-list');
-
-    } else if(id_lista == "aguardando_pagamento_1_parcela_individual") {
+    parcelaSelecionada = id_lista;
+    //updateFiltragemParcela(id_lista);
+    if(id_lista == "aguardando_pagamento_1_parcela_individual") {
         let mes = $("#mudar_mes_table").val();
         let dataId = $("#select_usuario_individual").find('option:selected').data('id');
-        //table_individual.clear().draw();
-
         $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 1º Parcela</h4>");
         table_individual.column(11).search('').draw();
-
         table_individual.column(9).search('Pag. 1º Parcela').draw();
-
-
-        $(".container_edit").addClass('ocultar')
+        $(".container_edit").addClass('ocultar');
         $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
         $("ul#listar_individual li.individual").removeClass('textoforte-list');
         $("#all_pendentes_individual").removeClass('textoforte-list');
@@ -403,13 +449,9 @@ $("ul#listar_individual li.individual").on('click',function(){
     } else if(id_lista == "aguardando_pagamento_2_parcela_individual") {
         let mes = $("#mudar_mes_table").val();
         let dataId = $("#select_usuario_individual").find('option:selected').data('id');
-        //table_individual.clear().draw();
         $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 2º Parcela</h4>");
-
         table_individual.column(11).search('').draw();
         table_individual.column(9).search('Pag. 2º Parcela').draw();
-
-
         $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
         $(".container_edit").addClass('ocultar');
         $("ul#listar_individual li.individual").removeClass('textoforte-list');
@@ -426,11 +468,8 @@ $("ul#listar_individual li.individual").on('click',function(){
         let mes = $("#mudar_mes_table").val();
         let dataId = $("#select_usuario_individual").find('option:selected').data('id');
         $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 3º Parcela</h4>");
-
         table_individual.column(11).search('').draw();
         table_individual.column(9).search('Pag. 3º Parcela').draw();
-
-
         $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
         $(".container_edit").addClass('ocultar');
         $("#cancelado_individual").removeClass('textoforte-list');
@@ -446,9 +485,7 @@ $("ul#listar_individual li.individual").on('click',function(){
     } else if(id_lista == "aguardando_pagamento_4_parcela_individual") {
         //table_individual.clear().draw();
         $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 4º Parcela</h4>");
-
         table_individual.column(11).search('').draw();
-
         table_individual.column(9).search('Pag. 4º Parcela').draw();
         $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
         $(".container_edit").addClass('ocultar')
@@ -477,8 +514,6 @@ $("ul#listar_individual li.individual").on('click',function(){
         $("#listar_individual li").removeClass('destaque_content');
         $("#cancelado_corretor").removeClass('destaque_content_radius').removeClass('textoforte-list');
         $(this).addClass('textoforte-list').addClass('destaque_content');
-    } else {
-
     }
 });
 

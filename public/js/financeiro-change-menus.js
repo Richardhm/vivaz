@@ -1,3 +1,286 @@
+// Individual
+$("#select_usuario_individual").on('change',function(){
+    if (parcelaSelecionada) {  // Verifica se há uma parcela selecionada
+        updateFiltragemParcela(parcelaSelecionada);  // Reaplica a filtragem com base na parcela já selecionada
+    }
+    let mes = $("#mudar_mes_table").val() == '' ? '00' : $("#mudar_mes_table").val();
+    let id = $('option:selected', this).attr('data-id');
+    let nome = $('option:selected', this).text();
+    let corretor = $("#corretor_selecionado_id").val();
+    let valorSelecionado = $(this).val();
+    $("ul#listar_individual li.individual").removeClass('textoforte-list').removeClass('destaque_content');
+    $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
+    $("#finalizado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
+    $("#cancelado_corretor").removeClass('destaque_content_radius').removeClass('textoforte-list');
+    //$("#content_list_individual_begin").addClass('destaque_content_radius');
+    //$('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
+    if(valorSelecionado != "todos") {
+        table_individual.column(9).search('').draw();
+        table_individual.column(2).search(valorSelecionado).draw();
+        let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
+        let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
+        let primeiraParcelaIndividual = 0;
+        let segundaParcelaIndividual = 0;
+        let terceiraParcelaIndividual = 0;
+        let quartaParcelaIndividual = 0;
+        let quintaParcelaIndividual = 0;
+        let sextaParcelaIndividual = 0;
+        let canceladosIndividual = 0;
+        let atrasadoIndividual = 0;
+        dadosColuna9.each(function (valor) {
+            if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'finalizado') {sextaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
+        });
+        dadosColuna11.each(function (valor) {
+            if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
+        });
+
+        $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
+        $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
+        $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
+        $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
+        $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
+        $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
+        $(".individual_quantidade_cancelado").text(canceladosIndividual);
+        $(".individual_quantidade_atrasado").text(atrasadoIndividual);
+    } else {
+        table_individual.column(9).search('').draw();
+        table_individual.column(2).search('').draw();
+        //$('#tabela_individual').DataTable().column(2).search(valorSelecionado).draw();
+        let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
+        let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
+        let primeiraParcelaIndividual = 0;
+        let segundaParcelaIndividual = 0;
+        let terceiraParcelaIndividual = 0;
+        let quartaParcelaIndividual = 0;
+        let quintaParcelaIndividual = 0;
+        let sextaParcelaIndividual = 0;
+        let canceladosIndividual = 0;
+        let atrasadoIndividual = 0;
+        dadosColuna9.each(function (valor) {
+            if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'finalizado') {sextaParcelaIndividual++;}
+            if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
+        });
+
+        dadosColuna11.each(function (valor) {
+            if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
+        });
+
+        $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
+        $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
+        $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
+        $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
+        $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
+        $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
+        $(".individual_quantidade_cancelado").text(canceladosIndividual);
+        $(".individual_quantidade_atrasado").text(atrasadoIndividual);
+    }
+});
+
+$("#mudar_mes_table").on('change',function(){
+    atualizarParcelas();
+    if (parcelaSelecionada) {  // Verifica se há uma parcela selecionada
+        console.log("Poraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        console.log(parcelaSelecionada);
+        //console.log(parcelaSelecionada);
+        updateFiltragemParcela(parcelaSelecionada);  // Reaplica a filtragem com base na parcela já selecionada
+    }
+    // $("#select_usuario_individual").val('');
+    // $("#corretor_selecionado_id").val('');
+    // let mes = $(this).val() != "" ? $(this).val() : "00";
+    // let ano = $("#mudar_ano_table").val() != "" ? $("#mudar_ano_table").val() : "00";
+    //
+    //
+    // $("ul#listar_individual li.individual").removeClass('textoforte-list').removeClass('destaque_content');
+    // $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
+    // $("#finalizado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
+    // $("#cancelado_corretor").removeClass('destaque_content_radius').removeClass('textoforte-list');
+    // //$("#content_list_individual_begin").addClass('destaque_content_radius');
+    // $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
+    //
+    // if(mes != 00) {
+    //     table_individual.search('').columns().search('').draw();
+    //     //let mesAno = mes + '/' + new Date().getFullYear();
+    //     let mesAno = mes + '/'+ano;
+    //     table_individual.column(0).search(mesAno, true, false).draw();
+    //     let dadosColuna2 = table_individual.column(2,{search: 'applied'}).data().toArray();
+    //     dadosColuna2.sort();
+    //     let nomesUnicos = new Set(dadosColuna2);
+    //     $("#select_usuario_individual").empty();
+    //     // Adicionar a opção padrão
+    //     $("#select_usuario_individual").append('<option value="todos" class="text-center">---Escolher Corretor---</option>');
+    //
+    //     // Adicionar as opções ordenadas ao select
+    //     nomesUnicos.forEach((nome, index) => {
+    //         $("#select_usuario_individual").append(`<option value="${nome}" data-id="${index}" style="font-size:0.5em;">${nome}</option>`);
+    //     });
+    //
+    //     // Inicializar o select2 novamente
+    //     //$("#select_usuario_individual").select2();
+    //     let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
+    //     let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
+    //     let primeiraParcelaIndividual = 0;
+    //     let segundaParcelaIndividual = 0;
+    //     let terceiraParcelaIndividual = 0;
+    //     let quartaParcelaIndividual = 0;
+    //     let quintaParcelaIndividual = 0;
+    //     let sextaParcelaIndividual = 0;
+    //     let canceladosIndividual = 0;
+    //     let atrasadoIndividual = 0;
+    //
+    //
+    //     dadosColuna9.each(function (valor) {
+    //
+    //         if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'finalizado') {sextaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
+    //
+    //     });
+    //
+    //     dadosColuna11.each(function (valor) {
+    //         if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
+    //     });
+    //
+    //
+    //
+    //     $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
+    //     $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
+    //     $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
+    //     $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
+    //     $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
+    //     $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
+    //     $(".individual_quantidade_cancelado").text(canceladosIndividual);
+    //     $(".individual_quantidade_atrasado").text(atrasadoIndividual);
+    //
+    // } else {
+    //     table_individual.search('').columns().search('').draw();
+    //
+    //     let dadosColuna2 = table_individual.column(2,{search: 'applied'}).data().toArray();
+    //
+    //     dadosColuna2.sort();
+    //     let nomesUnicos = new Set(dadosColuna2);
+    //
+    //     $("#select_usuario_individual").empty();
+    //
+    //     // Adicionar a opção padrão
+    //     $("#select_usuario_individual").append('<option value="todos" class="text-center">---Escolher Corretor---</option>');
+    //
+    //     // Adicionar as opções ordenadas ao select
+    //     nomesUnicos.forEach((nome, index) => {
+    //         $("#select_usuario_individual").append(`<option value="${nome}" data-id="${index}" style="font-size:0.5em;">${nome}</option>`);
+    //     });
+    //
+    //     // Inicializar o select2 novamente
+    //     //$("#select_usuario_individual").select2();
+    //
+    //     let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
+    //     let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
+    //     let primeiraParcelaIndividual = 0;
+    //     let segundaParcelaIndividual = 0;
+    //     let terceiraParcelaIndividual = 0;
+    //     let quartaParcelaIndividual = 0;
+    //     let quintaParcelaIndividual = 0;
+    //     let sextaParcelaIndividual = 0;
+    //     let canceladosIndividual = 0;
+    //     let atrasadoIndividual = 0;
+    //
+    //
+    //     dadosColuna9.each(function (valor) {
+    //
+    //         if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'pag. 6º parcela') {sextaParcelaIndividual++;}
+    //         if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
+    //
+    //     });
+    //
+    //     dadosColuna11.each(function (valor) {
+    //         if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
+    //     });
+    //
+    //
+    //
+    //     $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
+    //     $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
+    //     $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
+    //     $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
+    //     $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
+    //     $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
+    //     $(".individual_quantidade_cancelado").text(canceladosIndividual);
+    //     $(".individual_quantidade_atrasado").text(atrasadoIndividual);
+    // }
+    // return;
+});
+
+$('#mudar_ano_table').on('change', function() {
+    let anoSelecionado = $(this).val();
+    // Filtrar as linhas da tabela com base no ano selecionado
+    table_individual.column(0).search(anoSelecionado).draw();
+    // Obter as datas filtradas da coluna 0
+    let datasFiltradas = table_individual.column(0, { search: 'applied' }).data().toArray();
+    // Obter os meses das datas filtradas
+    let mesesPorAno = datasFiltradas.map(function(value) {
+        // Converter o formato da data para "YYYY-MM-DD"
+        let partesData = value.split('/');
+        let dataFormatada = partesData[2] + '-' + partesData[1] + '-' + partesData[0];
+        // Obter o mês (1-12) da data formatada
+        return new Date(dataFormatada).getMonth() + 1;
+    });
+    // Filtrar apenas os meses únicos
+    mesesPorAno = [...new Set(mesesPorAno)];
+    let mesesOrdenados = Array.from(mesesPorAno).sort(function(a, b) {
+        return a - b;
+    });
+    // // Preencher o select de meses
+    let selectMes = $('#mudar_mes_table');
+    selectMes.empty(); // Limpar opções existentes
+    selectMes.append('<option value="" selected class="text-white text-center">- Mês -</option>'); // Opção padrão
+    let nomesMeses = {
+        '1': "Janeiro",
+        '2': "Fevereiro",
+        '3': "Março",
+        '4': "Abril",
+        '5': "Maio",
+        '6': "Junho",
+        '7': "Julho",
+        '8': "Agosto",
+        '9': "Setembro",
+        '10': "Outubro",
+        '11': "Novembro",
+        '12': "Dezembro"
+    };
+    mesesOrdenados.forEach(function(mes) {
+        //console.log(mes);
+        selectMes.append('<option value="' + (mes) + '">' + nomesMeses[mes] + '</option>');
+    });
+
+});
+
+
+
+
+
+
+
+
+
 $("#mudar_planos_empresarial").on('change',function(){
     let plano = $(this).val();
 
@@ -482,200 +765,8 @@ $('#mudar_ano_table_empresarial').on('change', function() {
 
 
 
-
-
-
-
-
-
-$('#mudar_ano_table').on('change', function() {
-    let anoSelecionado = $(this).val();
-
-    // Filtrar as linhas da tabela com base no ano selecionado
-    table_individual.column(0).search(anoSelecionado).draw();
-
-    // Obter as datas filtradas da coluna 0
-    let datasFiltradas = table_individual.column(0, { search: 'applied' }).data().toArray();
-
-    // Obter os meses das datas filtradas
-    let mesesPorAno = datasFiltradas.map(function(value) {
-        // Converter o formato da data para "YYYY-MM-DD"
-        let partesData = value.split('/');
-        let dataFormatada = partesData[2] + '-' + partesData[1] + '-' + partesData[0];
-        // Obter o mês (1-12) da data formatada
-        return new Date(dataFormatada).getMonth() + 1;
-    });
-
-    // Filtrar apenas os meses únicos
-    mesesPorAno = [...new Set(mesesPorAno)];
-    let mesesOrdenados = Array.from(mesesPorAno).sort(function(a, b) {
-        return a - b;
-    });
-
-    // // Preencher o select de meses
-    let selectMes = $('#mudar_mes_table');
-    selectMes.empty(); // Limpar opções existentes
-    selectMes.append('<option value="" selected class="text-white text-center">- Mês -</option>'); // Opção padrão
-    let nomesMeses = {
-        '1': "Janeiro",
-        '2': "Fevereiro",
-        '3': "Março",
-        '4': "Abril",
-        '5': "Maio",
-        '6': "Junho",
-        '7': "Julho",
-        '8': "Agosto",
-        '9': "Setembro",
-        '10': "Outubro",
-        '11': "Novembro",
-        '12': "Dezembro"
-    };
-    mesesOrdenados.forEach(function(mes) {
-        //console.log(mes);
-        selectMes.append('<option value="' + (mes) + '">' + nomesMeses[mes] + '</option>');
-    });
-
-});
-
-
-
-
 var mes_old = "";
-$("#mudar_mes_table").on('change',function(){
 
-    $("#select_usuario_individual").val('');
-    $("#corretor_selecionado_id").val('');
-    let mes = $(this).val() != "" ? $(this).val() : "00";
-    let ano = $("#mudar_ano_table").val() != "" ? $("#mudar_ano_table").val() : "00";
-
-
-    $("ul#listar_individual li.individual").removeClass('textoforte-list').removeClass('destaque_content');
-    $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
-    $("#finalizado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
-    $("#cancelado_corretor").removeClass('destaque_content_radius').removeClass('textoforte-list');
-    $("#content_list_individual_begin").addClass('destaque_content_radius');
-    $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
-
-    if(mes != 00) {
-        table_individual.search('').columns().search('').draw();
-        //let mesAno = mes + '/' + new Date().getFullYear();
-        let mesAno = mes + '/'+ano;
-        table_individual.column(0).search(mesAno, true, false).draw();
-        let dadosColuna2 = table_individual.column(2,{search: 'applied'}).data().toArray();
-        dadosColuna2.sort();
-        let nomesUnicos = new Set(dadosColuna2);
-        $("#select_usuario_individual").empty();
-        // Adicionar a opção padrão
-        $("#select_usuario_individual").append('<option value="todos" class="text-center">---Escolher Corretor---</option>');
-
-        // Adicionar as opções ordenadas ao select
-        nomesUnicos.forEach((nome, index) => {
-            $("#select_usuario_individual").append(`<option value="${nome}" data-id="${index}" style="font-size:0.5em;">${nome}</option>`);
-        });
-
-        // Inicializar o select2 novamente
-        //$("#select_usuario_individual").select2();
-        let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
-        let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
-        let primeiraParcelaIndividual = 0;
-        let segundaParcelaIndividual = 0;
-        let terceiraParcelaIndividual = 0;
-        let quartaParcelaIndividual = 0;
-        let quintaParcelaIndividual = 0;
-        let sextaParcelaIndividual = 0;
-        let canceladosIndividual = 0;
-        let atrasadoIndividual = 0;
-
-
-        dadosColuna9.each(function (valor) {
-
-            if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'finalizado') {sextaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
-
-        });
-
-        dadosColuna11.each(function (valor) {
-            if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
-        });
-
-
-
-        $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
-        $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
-        $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
-        $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
-        $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
-        $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
-        $(".individual_quantidade_cancelado").text(canceladosIndividual);
-        $(".individual_quantidade_atrasado").text(atrasadoIndividual);
-
-    } else {
-        table_individual.search('').columns().search('').draw();
-
-        let dadosColuna2 = table_individual.column(2,{search: 'applied'}).data().toArray();
-
-        dadosColuna2.sort();
-        let nomesUnicos = new Set(dadosColuna2);
-
-        $("#select_usuario_individual").empty();
-
-        // Adicionar a opção padrão
-        $("#select_usuario_individual").append('<option value="todos" class="text-center">---Escolher Corretor---</option>');
-
-        // Adicionar as opções ordenadas ao select
-        nomesUnicos.forEach((nome, index) => {
-            $("#select_usuario_individual").append(`<option value="${nome}" data-id="${index}" style="font-size:0.5em;">${nome}</option>`);
-        });
-
-        // Inicializar o select2 novamente
-        //$("#select_usuario_individual").select2();
-
-        let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
-        let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
-        let primeiraParcelaIndividual = 0;
-        let segundaParcelaIndividual = 0;
-        let terceiraParcelaIndividual = 0;
-        let quartaParcelaIndividual = 0;
-        let quintaParcelaIndividual = 0;
-        let sextaParcelaIndividual = 0;
-        let canceladosIndividual = 0;
-        let atrasadoIndividual = 0;
-
-
-        dadosColuna9.each(function (valor) {
-
-            if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 6º parcela') {sextaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
-
-        });
-
-        dadosColuna11.each(function (valor) {
-            if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
-        });
-
-
-
-        $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
-        $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
-        $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
-        $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
-        $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
-        $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
-        $(".individual_quantidade_cancelado").text(canceladosIndividual);
-        $(".individual_quantidade_atrasado").text(atrasadoIndividual);
-    }
-    return;
-});
 
 
 $("#mudar_mes_table_coletivo").on('change',function(){
@@ -862,101 +953,6 @@ $("#mudar_mes_table_coletivo").on('change',function(){
     }
 
 });
-$("#select_usuario_individual").on('change',function(){
-    let mes = $("#mudar_mes_table").val() == '' ? '00' : $("#mudar_mes_table").val();
-    let id = $('option:selected', this).attr('data-id');
-    let nome = $('option:selected', this).text();
-    let corretor = $("#corretor_selecionado_id").val();
-    let valorSelecionado = $(this).val();
-    $("ul#listar_individual li.individual").removeClass('textoforte-list').removeClass('destaque_content');
-    $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
-    $("#finalizado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
-    $("#cancelado_corretor").removeClass('destaque_content_radius').removeClass('textoforte-list');
-    $("#content_list_individual_begin").addClass('destaque_content_radius');
-    $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
-    if(valorSelecionado != "todos") {
-        table_individual.column(9).search('').draw();
-        table_individual.column(2).search(valorSelecionado).draw();
-        let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
-        let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
-        let primeiraParcelaIndividual = 0;
-        let segundaParcelaIndividual = 0;
-        let terceiraParcelaIndividual = 0;
-        let quartaParcelaIndividual = 0;
-        let quintaParcelaIndividual = 0;
-        let sextaParcelaIndividual = 0;
-        let canceladosIndividual = 0;
-        let atrasadoIndividual = 0;
-
-        dadosColuna9.each(function (valor) {
-            if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'finalizado') {sextaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
-        });
-
-        dadosColuna11.each(function (valor) {
-            if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
-        });
-
-        $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
-        $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
-        $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
-        $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
-        $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
-        $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
-        $(".individual_quantidade_cancelado").text(canceladosIndividual);
-        $(".individual_quantidade_atrasado").text(atrasadoIndividual);
-
-
-    } else {
-
-        table_individual.column(9).search('').draw();
-
-        table_individual.column(2).search('').draw();
-        //$('#tabela_individual').DataTable().column(2).search(valorSelecionado).draw();
-        let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
-        let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
-        let primeiraParcelaIndividual = 0;
-        let segundaParcelaIndividual = 0;
-        let terceiraParcelaIndividual = 0;
-        let quartaParcelaIndividual = 0;
-        let quintaParcelaIndividual = 0;
-        let sextaParcelaIndividual = 0;
-        let canceladosIndividual = 0;
-        let atrasadoIndividual = 0;
-        dadosColuna9.each(function (valor) {
-            if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'finalizado') {sextaParcelaIndividual++;}
-            if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
-        });
-
-        dadosColuna11.each(function (valor) {
-            if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
-        });
-
-        $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
-        $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
-        $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
-        $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
-        $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
-        $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
-        $(".individual_quantidade_cancelado").text(canceladosIndividual);
-        $(".individual_quantidade_atrasado").text(atrasadoIndividual);
-    }
-});
-
-
-
-
-
 
 $("#mudar_mes_table_empresarial").on('change',function(){
 

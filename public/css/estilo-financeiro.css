@@ -27,8 +27,8 @@ table.dataTable thead th {
 
 .fontsize0 option {font-size: 0.7em !important;}
 
-.destaque_content {border:4px solid #FFA500;}
-.destaque_content_radius {border:4px solid #FFA500;border-radius:5px;}
+
+.destaque_content_radius {border-radius:5px;}
 
 .ajax_load {display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;}
 .ajax_load_box{margin:auto;text-align:center;color:#fff;font-weight:var(700);text-shadow:1px 1px 1px rgba(0,0,0,.5)}
@@ -272,3 +272,20 @@ table.dataTable thead th {
     cursor: pointer;
     color: black; /* Mantém o ícone visível */
 }
+
+.disabled-button {
+    background-color:rgba(254,254,254,0.18);
+    border: 1px solid #FFF; /* Lighter Gray border */
+    color: #FFF; /* Lighter text */
+    cursor: not-allowed;
+
+    filter: blur(0.8px); /* Desfoque leve */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); /* Sombra */
+    transition: all 0.3s ease;
+}
+
+
+
+
+
+

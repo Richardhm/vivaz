@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/datatables.min.css')}}">
 
+        <script src="{{asset('js/sweetalert2@11.js')}}"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
