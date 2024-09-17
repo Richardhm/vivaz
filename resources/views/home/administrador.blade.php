@@ -559,9 +559,13 @@
                        <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex rounded-lg">
                            <!-- LADO ESQUERDO -->
                            <div class="flex flex-col justify-between h-full" style="flex-basis: 50%;">
-                               <span class="ml-1 text-white" style="font-size:1.5em;">{{$loop->iteration}}º</span>
-                               <div class="text-white" style="font-size:1.2em;">{{ $r->usuario }}</div>
-                               <span class="ml-1 text-white" style="font-size:1.2em;">{{$r->quantidade}} Vidas</span>
+                               <span class="ml-2 text-white" style="font-size:1.3em;">{{$loop->iteration}}º</span>
+                               @php
+                                   $parts = explode(' ', $r->usuario);
+                                       $nome_abreviado = $parts[0] . ' ' . ($parts[1] ?? '');
+                               @endphp
+                               <div class="ml-2 text-white" style="font-size:1em;">{{ $nome_abreviado }}</div>
+                               <span class="ml-2 text-white" style="font-size:1em;">{{$r->quantidade}} Vidas</span>
                            </div>
                            <!-- Fim LADO ESQUERDO -->
 
@@ -570,11 +574,11 @@
                                <!-- Imagem (alinhada à direita) -->
                                <div class="w-full flex justify-end self-end" style="max-width: 80px;">
                                    @if(file_exists($r->image))
-                                       <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" style="border-radius:50%; max-height:95%; max-width:95%;margin-right:2%;">
+                                       <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" style="border-radius:50%; max-height:100%; max-width:100%;margin-right:2%;">
                                    @endif
                                </div>
                                <!-- Valor (alinhado à direita) -->
-                               <span class="text-white text-right">R$ {{number_format($r->valor,2,",",".")}}</span>
+                               <span class="text-white text-right mr-2">R$ {{number_format($r->valor,2,",",".")}}</span>
                            </div>
                            <!-- FIM LADO DIREITO -->
                        </div>
