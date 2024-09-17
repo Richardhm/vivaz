@@ -4,7 +4,7 @@
     .bordered {border: solid #ccc 1px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
     tbody td,tfoot td{width:14%;padding:0;}
 </style>
-<div class="flex items-center py-2 w-full mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
+<div class="flex justify-between items-center py-2 w-full mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
     <img src="{{$imagem_plano}}" alt="Operadora" class="ml-2" style="width:100px;border-radius:5px;padding:2px;background-color: white;">
     <h4 class="text-white">{{$plano_nome}}</h4>
     <p class="text-white text-center mr-2">{{$cidade_nome}}</p>
