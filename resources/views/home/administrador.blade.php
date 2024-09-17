@@ -102,7 +102,7 @@
        <div class="flex flex-wrap w-full justify-between" style="margin-top: 5px;margin-bottom:5px;">
 
            <div class="flex w-[16%] my-1  relative">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-10 text-white relative h-full text-base">
                    <!-- Quantidade de Vidas (alinhado ao topo, lado esquerdo) -->
                    <div class="absolute top-0 left-0">
                        <h5 class="text-white ml-3">
@@ -117,7 +117,7 @@
                    </div>
                    <!-- Valor (alinhado ao bottom, lado direito) -->
                    <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
-                       <p class="text-white">
+                       <p class="text-white text-sm">
                            R$ {{ number_format($total_valor, 2, ",", ".") }}
                        </p>
                    </div>
@@ -127,7 +127,7 @@
 
 
            <div class="flex w-[16%] my-1 relative">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-10 text-white relative h-full text-base">
 
                    <div class="absolute top-0 left-0">
                        <h5 class="text-white ml-3">
@@ -143,7 +143,7 @@
 
 
                    <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
-                       <p class="text-white">
+                       <p class="text-white text-sm">
                             R$ {{ number_format($total_individual, 2, ",", ".") }}
                        </p>
                    </div>
@@ -151,7 +151,7 @@
            </div>
 
            <div class="flex w-[16%] my-1 relative">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-10 text-white relative h-full text-base">
 
                    <div class="absolute top-0 left-0">
                        <h5 class="text-white ml-3">
@@ -165,7 +165,7 @@
                        </p>
                    </div>
                    <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
-                       <p class="text-white">
+                       <p class="text-white text-sm">
                        R$ {{ number_format($total_coletivo, 2, ",", ".") }}
                        </p>
                    </div>
@@ -174,7 +174,7 @@
            </div>
 
            <div class="flex w-[16%] my-1 relative">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-10 text-white relative h-full text-base">
 
                    <div class="absolute top-0 left-0">
                        <p class="text-white ml-3">
@@ -191,7 +191,7 @@
 
 
                    <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
-                       <p class="text-white">
+                       <p class="text-white text-sm">
                         R$ {{ number_format($total_super_simples, 2, ",", ".") }}
                        </p>
                    </div>
@@ -199,7 +199,7 @@
            </div>
 
            <div class="flex w-[16%] my-1 relative">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-10 text-white relative h-full text-base">
 
                    <div class="absolute top-0 left-0">
                        <p class="text-white ml-3">
@@ -216,7 +216,7 @@
 
 
                    <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
-                       <p class="text-white">
+                       <p class="text-white text-sm">
                             R$ 0,00
                        </p>
                    </div>
@@ -225,7 +225,7 @@
            </div>
 
            <div class="flex w-[16%] my-1 relative">
-               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-12 text-white relative h-full text-base">
+               <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full rounded-lg py-10 text-white relative h-full text-base">
 
                    <div class="absolute top-0 left-0">
                        <h5 class="text-white ml-3">
@@ -241,7 +241,7 @@
                    </div>
 
                    <div class="absolute right-0" style="bottom: 5px;margin-right:5px;">
-                       <p class="text-white">
+                       <p class="text-white text-sm">
                        R$ 0,00
                        </p>
                    </div>
@@ -258,7 +258,7 @@
 
                <div class="flex w-full justify-between" style="margin:0;padding:0;">
 
-                   <table class="table table-sm text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded tabela_mes mb-0" style="width:32.3%;">
+                   <table class="table w-full table-sm text-sm text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded tabela_mes mb-0" style="width:32.3%;line-height: 0.85rem">
                        <thead>
                        <tr class="w-100 text-center">
                            <th colspan="3" class="bg-warning text-white">
@@ -562,7 +562,7 @@
                                <span class="ml-2 text-white" style="font-size:1.3em;">{{$loop->iteration}}º</span>
                                @php
                                    $parts = explode(' ', $r->usuario);
-                                       $nome_abreviado = $parts[0] . ' ' . ($parts[1] ?? '');
+                                   $nome_abreviado = $parts[0] . ' ' . ($parts[1] ?? '');
                                @endphp
                                <div class="ml-2 text-white" style="font-size:1em;">{{ $nome_abreviado }}</div>
                                <span class="ml-2 text-white" style="font-size:1em;">{{$r->quantidade}} Vidas</span>
