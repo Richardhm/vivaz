@@ -251,9 +251,19 @@
 
                         </td>
                         <td style="font-size:0.875em;">
+                            @if($ii <= $dados->quantidade_parcelas)
+                                @php
+                                    $valor_total =  $dados->valor_plano;
+                                    $desconto = $dados->desconto_operadora;
+                                    $valorComDesconto = $valor_total - ($valor_total * $desconto / 100);
+
+                                @endphp
+                                <span style="margin-left:10px;">{{number_format($valorComDesconto,2,",",".")}}</span>
+                            @else
+                                <span style="margin-left:10px;">{{number_format($dados->valor_plano,2,",",".")}}</span>
+                            @endif
 
 
-                            <span style="margin-left:10px;">{{number_format($dados->valor_plano,2,",",".")}}</span>
 
                         </td>
                         <td style="font-size:0.875em;" class="data_baixa_empresarial">
