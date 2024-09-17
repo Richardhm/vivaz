@@ -544,7 +544,7 @@
            </div>
 
            <div class="flex" style="flex-basis:49.5%;flex-direction:column;height:100%;margin-bottom: 20px;">
-               <div class="bg-yellow-400 flex items-center" style="border-radius:5px;height:5%;">
+               <div class="bg-yellow-400 flex items-center" style="border-radius:5px;height:5%;margin-bottom:5px;">
                    <h5 class="flex items-center text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] my-auto p-2 rounded w-full">
                        <span class="flex justify-end" style="flex-basis:60%;">Ranking Vendedor</span>
                        <span class="flex justify-end" style="flex-basis:40%;">
@@ -554,9 +554,9 @@
                    </h5>
                </div>
 
-               <div class="flex my-1 ranking_classificacao" style="height:30%;">
+               <div class="flex my-1 ranking_classificacao" style="height:30%;margin-bottom:5px;">
                    @foreach(collect($ranking_mes)->take(3) as $r)
-                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex rounded-lg">
+                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex rounded-lg" style="margin-bottom:5px;">
                            <!-- LADO ESQUERDO -->
                            <div class="flex flex-col justify-between h-full" style="flex-basis: 50%;">
                                <span class="ml-2 text-white" style="font-size:1.3em;">{{$loop->iteration}}º</span>
