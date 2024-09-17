@@ -23,6 +23,7 @@
                 border-radius: 8px !important;
                 color:white;
                 border-radius:5px;
+                padding:10px;
 
             }
 
@@ -43,21 +44,21 @@
             .header_info .small-box > .small-box-footer .inner p {font-size:0.7em !important;}
             .header_info .small-box > .small-box-footer .inner h5 {font-size:0.8em !important;}
             .table th, .table td {padding: 0.30rem !important;vertical-align: middle;font-size:0.75em;}
-            .content_legenda {z-index: 1000;position:absolute;left:150px;top:30px;font-size:0.7em;display:none;}
+            .content_legenda {z-index: 1000;position:absolute;left:210px;top:30px;font-size:0.7em;display:none;font-size:0.6em !important;}
             .grafico_content {position:relative;width:100%;margin:0;padding:0;height:40vh;}
             #select_div {position: absolute;top: 10px;right: 0;z-index: 1000;display:none;}
-            .total_janeiro {position: absolute;top: 260px;left: 50px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_fevereiro {position: absolute;top: 260px;left: 110px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_marco {position: absolute;top: 260px;left: 168px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_abril {position: absolute;top: 260px;left: 232px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_maio {position: absolute;top: 260px;left: 292px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_junho {position: absolute;top: 260px;left: 352px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_julho {position: absolute;top: 260px;left: 412px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_agosto {position: absolute;top: 260px;left: 470px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_setembro {position: absolute;top: 260px;left: 530px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_outubro {position: absolute;top: 260px;left: 590px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_novembro {position: absolute;top: 260px;left: 650px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
-            .total_dezembro {position: absolute;top: 260px;left: 710px;z-index: 1000;font-size:0.6em;color:#666f76;display:none;}
+            .total_janeiro {position: absolute;top: 340px;left: 60px;z-index: 1000;font-size:0.6em ;color:#FFF;display:none;}
+            .total_fevereiro {position: absolute;top: 340px;left: 120px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_marco {position: absolute;top: 340px;left: 178px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_abril {position: absolute;top: 340px;left: 242px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_maio {position: absolute;top: 340px;left: 302px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_junho {position: absolute;top: 340px;left: 362px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_julho {position: absolute;top: 340px;left: 432px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_agosto {position: absolute;top: 340px;left: 480px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_setembro {position: absolute;top: 340px;left: 540px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_outubro {position: absolute;top: 340px;left: 600px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_novembro {position: absolute;top: 340px;left: 660px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
+            .total_dezembro {position: absolute;top: 340px;left: 720px;z-index: 1000;font-size:0.6em;color:#FFF;display:none;}
             .tabela_semestre .plano-col {width: 65% !important;}
             .tabela_semestre .qtd-col {width: 5% !important;}
             .tabela_semestre .valor-col {width: 30% !important;}
@@ -261,7 +262,7 @@
                        <thead>
                        <tr class="w-100 text-center">
                            <th colspan="3" class="bg-warning text-white">
-                               <select name="escolher_mes" id="escolher_mes" class="escolher_mes text-center font-weight-bold bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                               <select name="escolher_mes" id="escolher_mes" class="escolher_mes text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
                                    <option>Mês</option>
                                    @foreach($mesesSelect as $ss)
                                        <option value="{{$ss->month_date}}"
@@ -333,7 +334,7 @@
                        <tr class="w-100 text-center">
 
                            <th colspan="3" class="bg-warning text-white">
-                               <select name="escolher_semestre" id="escolher_semestre" class="escolher_semestre text-center bg-warning font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">>
+                               <select name="escolher_semestre" id="escolher_semestre" class="escolher_semestre text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
                                    <option value="0">Semestre</option>
                                    @php
                                        // Obtém o ano atual
@@ -348,14 +349,14 @@
                                        // Loop para adicionar os semestres do ano passado
                                        for ($semestre_s = 1; $semestre_s <= 2; $semestre_s++) {
                                            $optionValueSemestre = "$semestre_s/$anoPassadoSemestre";
-                                           $optionLabelSemestre = "$semestre_s Semestre de $anoPassadoSemestre";
+                                           $optionLabelSemestre = "$semestre_s ".'º'." Semestre $anoPassadoSemestre";
                                            echo "<option value=\"$optionValueSemestre\">$optionLabelSemestre</option>";
                                        }
 
                                        // Loop para adicionar os semestres deste ano até o semestre atual
                                        for ($semestre_a = 1; $semestre_a <= $semestreAtualSemestre; $semestre_a++) {
                                            $optionValue_a = "$semestre_a/$anoAtualSemestre";
-                                           $optionLabel_a = "$semestre_a Semestre de $anoAtualSemestre";
+                                           $optionLabel_a = "$semestre_a".'º'." Semestre $anoAtualSemestre";
                                            $selected_a = ($semestre_a == $semestreAtualSemestre && $anoAtualSemestre == date('Y')) ? 'selected' : '';
                                            echo "<option value=\"$optionValue_a\" $selected_a>$optionLabel_a</option>";
                                        }
@@ -427,7 +428,7 @@
                        <thead>
                        <tr class="w-100 text-center">
                            <th colspan="3" class="bg-warning text-white">
-                               <select name="escolher_ano" id="escolher_ano" class="escolher_ano text-center bg-warning text-white font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                               <select name="escolher_ano" id="escolher_ano" class="escolher_ano text-center bg-warning text-white" style="border:none;background-color: #ffc107;padding:0;width:80%;">
                                    <option value="">Anos</option>
                                    <option value="2023" {{$ano_atual == 2023 ? 'selected' : ''}}>2023</option>
                                    <option value="2024" {{$ano_atual == 2024 ? 'selected' : ''}}>2024</option>
@@ -512,20 +513,16 @@
                    </div>
 
 
-
-
-
-
-                   <div class="justify-around content_legenda bg-red-600">
-                    <span class="d-flex align-items-center">
+                   <div class="justify-around content_legenda">
+                    <span class="flex items-center">
                         <span class="text-white text-lg">Individual</span>
                         <span class="ml-1" style="background:#1b9e77;width:10px;height:10px;"></span>
                     </span>
-                       <span class="d-flex align-items-center">
+                    <span class="flex items-center mx-5">
                         <span class="text-white text-lg">Coletivo</span>
                         <span class="ml-1" style="background:#d95f02;width:10px;height:10px;"></span>
                     </span>
-                       <span class="d-flex align-items-center">
+                    <span class="flex items-center">
                         <span class="text-white text-lg">Empresarial</span>
                         <span class="ml-1" style="background:#7570b3;width:10px;height:10px;"></span>
                     </span>
@@ -559,31 +556,33 @@
 
                <div class="flex my-1 ranking_classificacao" style="height:30%;">
                    @foreach(collect($ranking_mes)->take(3) as $r)
-                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex rounded">
-
-                           <div class="flex h-full justify-end" style="align-content: space-between;flex-basis: 50%;background-color: red;flex-direction: column">
-                               <span class="ml-1" style="font-size:1em; flex-shrink: 0;">{{$loop->iteration}}º</span>
-                               <div class="text-white" style="font-size:0.9em;">
-                                   {{ $r->usuario }}
-                               </div>
-                               <span class="ml-1">{{$r->quantidade}} Vidas</span>
+                       <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] w-full mb-0 mr-1 flex rounded-lg">
+                           <!-- LADO ESQUERDO -->
+                           <div class="flex flex-col justify-between h-full" style="flex-basis: 50%;">
+                               <span class="ml-1 text-white" style="font-size:1.5em;">{{$loop->iteration}}º</span>
+                               <div class="text-white" style="font-size:1.2em;">{{ $r->usuario }}</div>
+                               <span class="ml-1 text-white" style="font-size:1.2em;">{{$r->quantidade}} Vidas</span>
                            </div>
-                           <div class="flex h-full" style="align-content: space-between;flex-basis: 50%;flex-direction: column;background-color:green;">
-                               <div class="flex justify-end w-full" style="flex-grow: 1; height: 80px; max-width: 80px;background-color: #366EBF;">
+                           <!-- Fim LADO ESQUERDO -->
+
+                           <!-- LADO DIREITO -->
+                           <div class="flex flex-col justify-between h-full items-end pr-2" style="flex-basis: 50%;">
+                               <!-- Imagem (alinhada à direita) -->
+                               <div class="w-full flex justify-end self-end" style="max-width: 80px;">
                                    @if(file_exists($r->image))
-                                       <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" class="flex self-end" style="border-radius:50%; max-height:100%; max-width:100%;">
+                                       <img src="{{asset($r->image)}}" alt="{{$r->usuario}}" title="{{$r->usuario}}" style="border-radius:50%; max-height:95%; max-width:95%;margin-right:2%;">
                                    @endif
                                </div>
-                               <span class="mr-2">R$ {{number_format($r->valor,2,",",".")}}</span>
+                               <!-- Valor (alinhado à direita) -->
+                               <span class="text-white text-right">R$ {{number_format($r->valor,2,",",".")}}</span>
                            </div>
-
-
-
-
-
+                           <!-- FIM LADO DIREITO -->
                        </div>
                    @endforeach
                </div>
+
+
+
 
 
                <div class="flex w-full justify-between" style="height:420px;">
@@ -591,8 +590,8 @@
                        <table class="table table-sm text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] tabela_ranking_mes" style="width:100%;">
                            <thead>
                            <tr>
-                               <th colspan="4" class="bg-yellow-400">
-                                   <select name="ranking_mes" id="ranking_mes" class="font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                               <th colspan="4">
+                                   <select name="ranking_mes" id="ranking_mes" class="text-center" style="border:none;background-color: #ffc107;padding:0;width:80%;">
                                        <option value="">Mês</option>
                                        @foreach($mesesSelect as $mm)
                                            <option value="{{$mm->month_date}}"
@@ -631,7 +630,7 @@
 
                            <tr>
                                <th colspan="4" class="bg-warning">
-                                   <select name="ranking_semestral" id="ranking_semestral" class="text-center bg-warning font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                                   <select name="ranking_semestral" id="ranking_semestral" class="text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
                                        <option value="">Semestre</option>
                                        @php
                                            // Obtém o ano atual
@@ -646,14 +645,14 @@
                                            // Loop para adicionar os semestres do ano passado
                                            for ($semestre_s = 1; $semestre_s <= 2; $semestre_s++) {
                                                $optionValueSemestre = "$semestre_s/$anoPassadoSemestre";
-                                               $optionLabelSemestre = "$semestre_s Semestre de $anoPassadoSemestre";
+                                               $optionLabelSemestre = "$semestre_s" .'º'." Semestre $anoPassadoSemestre";
                                                echo "<option value=\"$optionValueSemestre\">$optionLabelSemestre</option>";
                                            }
 
                                            // Loop para adicionar os semestres deste ano até o semestre atual
                                            for ($semestre_a = 1; $semestre_a <= $semestreAtualSemestre; $semestre_a++) {
                                                $optionValue_a = "$semestre_a/$anoAtualSemestre";
-                                               $optionLabel_a = "$semestre_a Semestre de $anoAtualSemestre";
+                                               $optionLabel_a = "$semestre_a".'º'." Semestre $anoAtualSemestre";
                                                $selected_a = ($semestre_a == $semestreAtualSemestre && $anoAtualSemestre == date('Y')) ? 'selected' : '';
                                                echo "<option value=\"$optionValue_a\" $selected_a>$optionLabel_a</option>";
                                            }
@@ -691,7 +690,7 @@
                            <tr>
 
                                <th colspan="4" class="bg-warning">
-                                   <select name="ranking_ano" id="ranking_ano" class="ranking_ano text-center bg-warning font-weight-bold" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                                   <select name="ranking_ano" id="ranking_ano" class="ranking_ano text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
                                        <option value="">Anoss</option>
                                        <option value="2023" {{$ano_atual == 2023 ? 'selected' : ''}}>2023</option>
                                        <option value="2024" {{$ano_atual == 2024 ? 'selected' : ''}}>2024</option>
@@ -737,7 +736,7 @@
                    <h4 class="flex" style="color:white;margin-left:5px;">Tabela Por Plano</h4>
                    <div class="justify-end flex mr-2">
                        <select name="ranking_mes_tabela" id="ranking_mes_tabela" class="bg-white flex justify-between text-dark border border-gray-300 px-4 py-2 appearance-none" style="border:none;padding:0;width:200px;">
-                           <option value="" style="color:black;">{{$nome_mes_atual}}/{{$ano_atual}}</option>
+                           <option value="" style="color:black;">Mês/Ano</option>
                            @foreach($mesesSelect as $mm)
                                <option value="{{$mm->month_date}}"
                                        style="color:black;"
@@ -749,20 +748,20 @@
                </div>
 
 
-               <div style="flex-basis:64%;" class="mr-2">
+               <div style="flex-basis:55%;" class="mr-1">
                    <div class="content_table_dados_tabela w-full text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded">
-                       <table class="table table-sm w-full">
-                           <thead>
+                       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                            <tr>
-                               <th>Usuario</th>
-                               <th class="text-center">Individual</th>
-                               <th class="text-center">Coletivo</th>
-                               <th class="text-center">Super Simples</th>
-                               <th class="text-center">PME</th>
-                               <th class="text-center">Sindipão</th>
-                               <th class="text-center">Sindimaco</th>
-                               <th class="text-center">Sincofarma</th>
-                               <th class="text-center">Total</th>
+                               <th class="text-left py-3">Usuario</th>
+                               <th class="py-3">Individual</th>
+                               <th class="py-3">Coletivo</th>
+                               <th class="py-3">Super Simples</th>
+                               <th class="py-3">PME</th>
+                               <th class="py-3">Sindipão</th>
+                               <th class="py-3">Sindimaco</th>
+                               <th class="py-3">Sincofarma</th>
+                               <th class="py-3">Total</th>
                            </tr>
                            </thead>
                            <tbody>
@@ -777,51 +776,51 @@
                                $total_table = 0;
                            @endphp
                            @foreach($dados_tabela as $dt)
-                               <tr>
-                                   <td>{{$dt->user_name}}</td>
-                                   <td class="text-center">
+                               <tr class="text-white">
+                                   <td class="text-left py-1">{{$dt->user_name}}</td>
+                                   <td class="text-center py-1">
                                        {{$dt->individual}}
                                        @php
                                            $total_table_individual += $dt->individual;
                                        @endphp
                                    </td>
-                                   <td class="text-center">
+                                   <td class="text-center py-1">
                                        {{$dt->coletivo}}
                                        @php
                                            $total_table_coletivo += $dt->coletivo;
                                        @endphp
                                    </td>
-                                   <td class="text-center">
+                                   <td class="text-center py-1">
                                        {{$dt->super_simples}}
                                        @php
                                            $total_table_super_simples += $dt->super_simples;
                                        @endphp
                                    </td>
-                                   <td class="text-center">
+                                   <td class="text-center py-1">
                                        {{$dt->pme}}
                                        @php
                                            $total_table_pme += $dt->pme;
                                        @endphp
                                    </td>
-                                   <td class="text-center">
+                                   <td class="text-center py-1">
                                        {{$dt->sindipao}}
                                        @php
                                            $total_table_sindipao += $dt->sindipao;
                                        @endphp
                                    </td>
-                                   <td class="text-center">
+                                   <td class="text-center py-1">
                                        {{$dt->sindimaco}}
                                        @php
                                            $total_table_sindimaco += $dt->sindimaco;
                                        @endphp
                                    </td>
-                                   <td class="text-center">
+                                   <td class="text-center py-1">
                                        {{$dt->sincofarma}}
                                        @php
                                            $total_table_sincofarma += $dt->sincofarma;
                                        @endphp
                                    </td>
-                                   <th class="text-center">
+                                   <th class="text-center py-1">
                                        {{$dt->total}}
                                        @php
                                            $total_table += $dt->total;
@@ -831,7 +830,7 @@
                            @endforeach
                            </tbody>
                            <tfoot>
-                           <tr>
+                           <tr class="border-t font-bold text-white text-lg">
                                <th>Total</th>
                                <th class="text-center">{{$total_table_individual}}</th>
                                <th class="text-center">{{$total_table_coletivo}}</th>
@@ -847,11 +846,65 @@
                    </div>
                </div>
 
-               <div class="d-flex justify-content-center rounded bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="flex-basis:35%;">
+               <div class="flex justify-center bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="flex-basis:44%;">
                    <div id="piechart" style="width: 100%; height: 595px;background-color: transparent;"></div>
                </div>
 
            </div>
+
+           <input type="hidden" id="janeiro_individual" value="{{$total_individual_quantidade_vidas_janeiro}}">
+           <input type="hidden" id="fevereiro_individual" value="{{$total_individual_quantidade_vidas_fevereiro}}">
+           <input type="hidden" id="marco_individual" value="{{$total_individual_quantidade_vidas_marco}}">
+           <input type="hidden" id="abril_individual" value="{{$total_individual_quantidade_vidas_abril}}">
+           <input type="hidden" id="maio_individual" value="{{$total_individual_quantidade_vidas_maio}}">
+           <input type="hidden" id="junho_individual" value="{{$total_individual_quantidade_vidas_junho}}">
+           <input type="hidden" id="julho_individual" value="{{$total_individual_quantidade_vidas_julho}}">
+           <input type="hidden" id="agosto_individual" value="{{$total_individual_quantidade_vidas_agosto}}">
+           <input type="hidden" id="setembro_individual" value="{{$total_individual_quantidade_vidas_setembro}}">
+           <input type="hidden" id="outubro_individual" value="{{$total_individual_quantidade_vidas_outubro}}">
+           <input type="hidden" id="novembro_individual" value="{{$total_individual_quantidade_vidas_novembro}}">
+           <input type="hidden" id="dezembro_individual" value="{{$total_individual_quantidade_vidas_dezembro}}">
+
+           <input type="hidden" id="janeiro_coletivo" value="{{$total_coletivo_quantidade_vidas_janeiro}}">
+           <input type="hidden" id="fevereiro_coletivo" value="{{$total_coletivo_quantidade_vidas_fevereiro}}">
+           <input type="hidden" id="marco_coletivo" value="{{$total_coletivo_quantidade_vidas_marco}}">
+           <input type="hidden" id="abril_coletivo" value="{{$total_coletivo_quantidade_vidas_abril}}">
+           <input type="hidden" id="maio_coletivo" value="{{$total_coletivo_quantidade_vidas_maio}}">
+           <input type="hidden" id="junho_coletivo" value="{{$total_coletivo_quantidade_vidas_junho}}">
+           <input type="hidden" id="julho_coletivo" value="{{$total_coletivo_quantidade_vidas_julho}}">
+           <input type="hidden" id="agosto_coletivo" value="{{$total_coletivo_quantidade_vidas_agosto}}">
+           <input type="hidden" id="setembro_coletivo" value="{{$total_coletivo_quantidade_vidas_setembro}}">
+           <input type="hidden" id="outubro_coletivo" value="{{$total_coletivo_quantidade_vidas_outubro}}">
+           <input type="hidden" id="novembro_coletivo" value="{{$total_coletivo_quantidade_vidas_novembro}}">
+           <input type="hidden" id="dezembro_coletivo" value="{{$total_coletivo_quantidade_vidas_dezembro}}">
+
+           <input type="hidden" id="janeiro_empresarial" value="{{$totalContratoEmpresarialJaneiro}}">
+           <input type="hidden" id="fevereiro_empresarial" value="{{$totalContratoEmpresarialFevereiro}}">
+           <input type="hidden" id="marco_empresarial" value="{{$totalContratoEmpresarialMarco}}">
+           <input type="hidden" id="abril_empresarial" value="{{$totalContratoEmpresarialAbril}}">
+           <input type="hidden" id="maio_empresarial" value="{{$totalContratoEmpresarialMaio}}">
+           <input type="hidden" id="junho_empresarial" value="{{$totalContratoEmpresarialJunho}}">
+           <input type="hidden" id="julho_empresarial" value="{{$totalContratoEmpresarialJulho}}">
+           <input type="hidden" id="agosto_empresarial" value="{{$totalContratoEmpresarialAgosto}}">
+           <input type="hidden" id="setembro_empresarial" value="{{$totalContratoEmpresarialSetembro}}">
+           <input type="hidden" id="outubro_empresarial" value="{{$totalContratoEmpresarialOutubro}}">
+           <input type="hidden" id="novembro_empresarial" value="{{$totalContratoEmpresarialNovembro}}">
+           <input type="hidden" id="dezembro_empresarial" value="{{$totalContratoEmpresarialDezembro}}">
+
+
+           <input type="hidden" id="total_individual_grafico" value="{{$total_individual_quantidade_vidas}}">
+           <input type="hidden" id="total_coletivo_grafico" value="{{$total_coletivo_quantidade_vidas}}">
+           <input type="hidden" id="total_super_simples_grafico" value="{{$total_super_simples_quantidade_vidas}}">
+           <input type="hidden" id="total_pme_grafico" value="0">
+           <input type="hidden" id="total_sindipao_grafico" value="{{$total_sindipao_quantidade_vidas}}">
+           <input type="hidden" id="total_sincofarma_grafico" value="{{$total_sindimaco_quantidade_vidas}}">
+           <input type="hidden" id="total_sindimaco_grafico" value="{{$total_sincofarma_quantidade_vidas}}">
+
+
+
+
+
+
 
 
 
@@ -1104,13 +1157,13 @@
 
                    function drawChartPizza() {
 
-                       let individual = parseInt($("#total_individual_grafico").val());
-                       let coletivo = parseInt($("#total_coletivo_grafico").val());
-                       let super_simples = parseInt($("#total_super_simples_grafico").val());
-                       let pme = parseInt($("#total_pme_grafico").val());
-                       let sindipao = parseInt($("#total_sindipao_grafico").val());
-                       let sincofarma = parseInt($("#total_sincofarma_grafico").val());
-                       let sindimaco = parseInt($("#total_sindimaco_grafico").val());
+                       let individual = parseInt($("#total_individual_grafico").val()) || 0;
+                       let coletivo = parseInt($("#total_coletivo_grafico").val()) || 0;
+                       let super_simples = parseInt($("#total_super_simples_grafico").val()) || 0;
+                       let pme = parseInt($("#total_pme_grafico").val()) || 0;  //Garantir que valores zerados sejam tratados
+                       let sindipao = parseInt($("#total_sindipao_grafico").val()) || 0;
+                       let sincofarma = parseInt($("#total_sincofarma_grafico").val()) || 0;
+                       let sindimaco = parseInt($("#total_sindimaco_grafico").val()) || 0;
 
                        let todosZeros = individual === 0 && coletivo === 0 && super_simples === 0 && pme === 0 && sindipao === 0 && sincofarma === 0 && sindimaco === 0;
 
@@ -1124,24 +1177,38 @@
 
                            let optionsPizza = {
                                title: '',
-                               colors: ['#3366CC'],
+                               pieSliceText: 'label',
+                               colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#3B3EAC', '#0099C6'], // Cores diferentes para as fatias
                                legend: {
                                    position: 'bottom',
                                    maxLines: 3,
                                    textStyle: {
-                                       fontSize: 9
+                                       fontSize: 14
                                    }
                                },
                                backgroundColor: {
-                                   fill: 'transparent'  // Torna o fundo transparente
+                                   fill: 'transparent',  // Torna o fundo transparente
+                                   color:"#FFFFFF"
                                },  // Remove o fundo branco
                                chartArea: {
-                                   left: '10%',
-                                   top: '10%',
-                                   width: '80%',
-                                   height: '80%',
                                    backgroundColor: {
-                                       fill: 'transparent'  // Remove o fundo da área do gráfico
+                                       fill: 'transparent',  // Remove o fundo da área do gráfico
+                                       color:"#FFFFFF"
+                                   },
+                                   width: '80%',
+                                   height: '70%'
+                               },
+                               titleTextStyle: {
+                                   color: '#FFFFFF'  // Cor do título em branco
+                               },
+                               hAxis: {
+                                   textStyle: {
+                                       color: '#FFFFFF'  // Cor do texto do eixo horizontal em branco
+                                   }
+                               },
+                               vAxis: {
+                                   textStyle: {
+                                       color: '#FFFFFF'  // Cor do texto do eixo vertical em branco
                                    }
                                }
                            };
@@ -1164,14 +1231,47 @@
 
                            let optionsPizza = {
                                title: '',
-                               colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#0099C6', '#836FFF'],
+                               pieSliceText: 'label',
+                               colors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#3B3EAC', '#0099C6'], // Cores diferentes para as fatias
+                               forceIFrame: true,  // Força o uso de iframe para layout de legenda
                                legend: {
                                    position: 'bottom',
-                                   maxLines: 3,
+                                   alignment: 'center',
                                    textStyle: {
-                                       fontSize: 9
+                                       fontSize: 13,
+                                       color: '#FFFFFF'
+                                   },
+
+                                   maxLines: 3,  // Permite mais linhas de legenda
+                               },
+                               backgroundColor: {
+                                   fill: 'transparent',  // Torna o fundo transparente
+                                   color:"#FFFFFF"
+                               },  // Remove o fundo branco
+                               chartArea: {
+                                   backgroundColor: {
+                                       fill: 'transparent',  // Remove o fundo da área do gráfico
+                                       color:"#FFFFFF"
+                                   },
+                                   width: '100%',
+                                   height: '80%',
+                                   top: '5%'
+                               },
+                               titleTextStyle: {
+                                   color: '#FFFFFF'  // Cor do título em branco
+                               },
+                               hAxis: {
+                                   textStyle: {
+                                       color: '#FFFFFF'  // Cor do texto do eixo horizontal em branco
                                    }
-                               }
+                               },
+                               vAxis: {
+                                   textStyle: {
+                                       color: '#FFFFFF'  // Cor do texto do eixo vertical em branco
+                                   }
+                               },
+                               pieSliceBorderColor: "#000",  // Cor de borda das fatias, caso você queira destacar visualmente
+                               sliceVisibilityThreshold: 0  // Mostra fatias com valor zero
                            };
 
                            let chartPizza = new google.visualization.PieChart(document.getElementById('piechart'));

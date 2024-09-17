@@ -157,7 +157,7 @@ class FinanceiroController extends Controller
         $dados['desconto_operadora'] = 15;
         $dados['quantidade_parcelas'] = 3;
         $valor = $dados['valor_plano'];
-        dd($valor);
+
 
         $contrato = ContratoEmpresarial::create($dados);
         $comissao = new Comissoes();
