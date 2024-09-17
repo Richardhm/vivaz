@@ -2373,10 +2373,11 @@ class FinanceiroController extends Controller
 
     public function listarContratoEmpresaPendentes(Request $request)
     {
+        $corretora_id = auth()->user()->corretora_id;
         if($request->ajax()) {
             $cacheKey = 'listarContratoEmpresaPendentes';
             $tempoDeExpiracao = 60;
-            $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () {
+            $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use($corretora_id) {
                 return DB::select("
                 SELECT
                 date_format(contrato_empresarial.created_at,'%d/%m/%Y') as created_at,
@@ -2422,7 +2423,7 @@ class FinanceiroController extends Controller
             INNER JOIN planos on planos.id = comissoes.plano_id
             inner join estagio_financeiros on estagio_financeiros.id = contrato_empresarial.financeiro_id
             inner join tabela_origens on tabela_origens.id = contrato_empresarial.tabela_origens_id
-            WHERE comissoes.empresarial = 1 AND (status_financeiro = 0 OR (status_financeiro = 1 AND parcela = 6))
+            WHERE comissoes.empresarial = 1 AND (status_financeiro = 0 OR (status_financeiro = 1 AND parcela = 6)) AND contrato_empresarial.corretora_id = {$corretora_id}
             GROUP BY comissoes_corretores_lancadas.comissoes_id
                 ");
             });
