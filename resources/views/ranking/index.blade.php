@@ -19,12 +19,7 @@
 <div id="planilhaModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-{{--        <h2>Cadastrar Concessionária</h2>--}}
-{{--        <!-- Botão para exibir o formulário oculto -->--}}
 
-{{--        <button id="showFormButton"--}}
-{{--                class="btn-increment"--}}
-{{--                style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:10%;font-size:2em;width:40px;" id="modal_concessionarias">+</button>--}}
 
         <div id="concessionariaForm" style="display: none; margin-top: 20px;">
 
@@ -100,7 +95,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <form id="cadastrarConcessionarias">
+
                     @php
                         $meta_individual_total = 0;
                         $meta_individual_vidas_total = 0;
@@ -114,7 +109,7 @@
                             $meta_individual_total_porcentagem = ($meta_individual_vidas_total != 0 && $meta_individual_total != 0) ? round(($meta_individual_vidas_total / $meta_individual_total) * 100, 2) : 0;
                         @endphp
 
-                        <tr>
+                        <tr data-id="{{$c->id}}">
                             <td class="bg-gray-700 bg-opacity-20 text-white">{{$c->nome}}</td>
 
                             <td><input type="number" name="concessionarias[{{$c->id}}][meta_individual]" class="meta_vidas bg-individual" placeholder="Meta" value="{{$c->meta_individual}}"></td>
@@ -129,12 +124,12 @@
                             <td><input type="number" name="concessionarias[{{$c->id}}][meta_adesao]" class="meta_vidas bg-adesao" placeholder="Meta" value="{{$c->meta_adesao}}"></td>
                             <td><input type="number" name="concessionarias[{{$c->id}}][adesao]" class="valor_vidas bg-adesao" placeholder="Vidas" value="{{$c->adesao}}"></td>
 
-                            <td style="padding-left: 30px;color:white;"><span>{{$meta_individual_total}}</span></td>
-                            <td style="padding-left: 30px;color:white;"><span>{{$meta_individual_vidas_total}}</span></td>
-                            <td style="padding-left: 30px;color:white;"><span>{{$meta_individual_total_porcentagem}}</span></td>
+                            <td style="padding-left: 30px;color:white;" id="meta_individual_total"><span>{{$meta_individual_total}}</span></td>
+                            <td style="padding-left: 30px;color:white;" id="meta_individual_vidas_total"><span>{{$meta_individual_vidas_total}}</span></td>
+                            <td style="padding-left: 30px;color:white;" id="meta_individual_total_porcentagem"><span>{{$meta_individual_total_porcentagem}}</span></td>
                         </tr>
                     @endforeach
-                </form>
+
                 </tbody>
             </table>
 
@@ -399,19 +394,20 @@
                 let valor = parseFloat($(this).val()) || 0;
                 totalVidas += valor;
             });
-            linha.find('#total_vidas').text(totalVidas);
-            let totalMeta = parseFloat(linha.find('#total_meta').text()) || 0;
+
+            linha.find('#meta_individual_vidas_total').text(totalVidas);
+            let totalMeta = parseFloat(linha.find('#meta_individual_total').text()) || 0;
             calcularPorcentagem(linha, totalMeta, totalVidas);
         }
 
 
         function calcularPorcentagem(linha, totalMeta, totalVidas) {
-            totalVidas = totalVidas || parseFloat(linha.find('#total_vidas').text()) || 0;
+            totalVidas = totalVidas || parseFloat(linha.find('#meta_individual_vidas_total').text()) || 0;
             let porcentagem = 0;
             if (totalMeta > 0) {
                 porcentagem = (totalVidas / totalMeta) * 100;
             }
-            linha.find('#total_porcentagem').text(porcentagem.toFixed(2));
+            linha.find('#meta_individual_total_porcentagem').text(porcentagem.toFixed(2));
         }
 
 
@@ -481,22 +477,81 @@
             document.getElementById('planilhaModal').style.display = 'block';
         };
 
+        function salvarConcecionario() {
+            let concessionariasData = [];
+            $('tbody tr').each(function () {
+                let concessionariaId = $(this).data('id');
+
+                // Coleta os valores dos inputs correspondentes a essa concessionária
+                let meta_individual = $(this).find('input[name="concessionarias[' + concessionariaId + '][meta_individual]"]').val();
+                let individual = $(this).find('input[name="concessionarias[' + concessionariaId + '][individual]"]').val();
+
+                let meta_super_simples = $(this).find('input[name="concessionarias[' + concessionariaId + '][meta_super_simples]"]').val();
+                let super_simples = $(this).find('input[name="concessionarias[' + concessionariaId + '][super_simples]"]').val();
+
+                let meta_pme = $(this).find('input[name="concessionarias[' + concessionariaId + '][meta_pme]"]').val();
+                let pme = $(this).find('input[name="concessionarias[' + concessionariaId + '][pme]"]').val();
+
+                let meta_adesao = $(this).find('input[name="concessionarias[' + concessionariaId + '][meta_adesao]"]').val();
+                let adesao = $(this).find('input[name="concessionarias[' + concessionariaId + '][adesao]"]').val();
+
+                // Adiciona os dados no array
+                concessionariasData.push({
+                    id: concessionariaId,
+                    meta_individual: meta_individual,
+                    individual: individual,
+                    meta_super_simples: meta_super_simples,
+                    super_simples: super_simples,
+                    meta_pme: meta_pme,
+                    pme: pme,
+                    meta_adesao: meta_adesao,
+                    adesao: adesao
+                });
+            });
+
+            $.ajax({
+                url: '{{route('cadastrar.concessionaria')}}',  // Define a rota para o update
+                method: 'POST',
+                data: {
+                    concessionarias: concessionariasData  // Dados a serem enviados
+                }
+            });
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         document.getElementsByClassName('close')[0].onclick = function() {
             document.getElementById('planilhaModal').style.display = 'none';
 
-            let formData = $('#cadastrarConcessionaria').serialize();
+            salvarConcecionario();
 
-            $.ajax({
-                type: 'POST',
-                url: "{{route('cadastrar.concessionaria')}}",
-                data: formData,
-                success: function(response) {
-                    console.log('Dados salvos com sucesso:', response);
-                },
-                error: function(error) {
-                    console.error('Erro ao salvar os dados:', error);
-                }
-            });
+
+            {{--$.ajax({--}}
+            {{--    type: 'POST',--}}
+            {{--    url: "{{route('cadastrar.concessionaria')}}",--}}
+            {{--    data: formData,--}}
+            {{--    success: function(response) {--}}
+            {{--        --}}
+            {{--        console.log('Dados salvos com sucesso:', response);--}}
+            {{--    },--}}
+            {{--    // error: function(error) {--}}
+            {{--    //     console.error('Erro ao salvar os dados:', error);--}}
+            {{--    // }--}}
+            {{--});--}}
 
 
 
@@ -506,6 +561,7 @@
         window.onclick = function(event) {
             if (event.target == document.getElementById('planilhaModal')) {
                 document.getElementById('planilhaModal').style.display = 'none';
+                salvarConcecionario()
             }
         };
 
@@ -590,7 +646,6 @@
                 type: 'GET',
                 data: { corretora: corretora },
                 success: function(data) {
-                    console.log(data);
                     $(".stage").html(data.podium);
                     $("#dados_direito").html(data.ranking);
                     $(".total_individual").text(data.totals[0].total_individual);

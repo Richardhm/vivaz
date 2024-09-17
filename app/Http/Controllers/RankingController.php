@@ -284,14 +284,34 @@ class RankingController extends Controller
 
     public function cadastrarConcessionaria(Request $request)
     {
-        $data = $request->input('concessionarias');
-        foreach ($data as $id => $fields) {
-            // Atualiza ou cria a concessão com o ID correspondente
-            Concessionaria::updateOrCreate(
-                ['id' => $id],
-                $fields
-            );
+
+        $concessionarias = $request->input('concessionarias');
+
+        // Itera sobre cada concessionária e salva as alterações
+        foreach ($concessionarias as $concessionariaData) {
+            // Encontra a concessionária pelo ID
+            $concessionaria = Concessionaria::find($concessionariaData['id']);
+
+            // Atualiza os campos da concessionária
+            if ($concessionaria) {
+                $concessionaria->meta_individual = $concessionariaData['meta_individual'];
+                $concessionaria->individual = $concessionariaData['individual'];
+
+                $concessionaria->meta_super_simples = $concessionariaData['meta_super_simples'];
+                $concessionaria->super_simples = $concessionariaData['super_simples'];
+
+                $concessionaria->meta_pme = $concessionariaData['meta_pme'];
+                $concessionaria->pme = $concessionariaData['pme'];
+
+                $concessionaria->meta_adesao = $concessionariaData['meta_adesao'];
+                $concessionaria->adesao = $concessionariaData['adesao'];
+
+                // Salva a concessionária no banco de dados
+                $concessionaria->save();
+            }
         }
+
+        // Retorna uma resposta de sucesso
         return response()->json(['success' => true]);
     }
 }

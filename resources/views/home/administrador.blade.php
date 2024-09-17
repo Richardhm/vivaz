@@ -76,7 +76,7 @@
             .select2-container--default .select2-selection--single {background-color: #ffc107 !important;color: black !important;border:none;padding:0;height:0;}
             .select2-container--default .select2-selection--single .select2-selection__arrow {height:0px;right:0px;top:-1px;}
             .select2-container--default .select2-selection--single .select2-selection__rendered {padding-left: 0;margin-top: -13px;}
-            #ranking_mes option {background-color: #ffc107 !important;}
+            #ranking_mes option {background-color: #ffc107 !important;font-weight: normal !important;}
             .select2-container--default .select2-results__option[aria-selected="true"],.select2-results__option {background-color: #ffc107 !important;}
             .select2-container--default .select2-dropdown--below {top: 20px !important;}
         </style>
@@ -544,9 +544,9 @@
            </div>
 
            <div class="flex" style="flex-basis:49.5%;flex-direction:column;height:100%;margin-bottom: 20px;">
-               <div class="bg-yellow-400 flex items-center" style="border-radius:5px;height:5%;margin-bottom:5px;">
-                   <h5 class="flex items-center text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] my-auto p-2 rounded w-full">
-                       <span class="flex justify-end" style="flex-basis:60%;">Ranking Vendedor</span>
+               <div class="flex bg-yellow-400 items-center" style="border-radius:5px;height:5%;margin-bottom:5px;">
+                   <h5 class="flex items-center text-white  bg-transparent my-auto p-2 rounded w-full">
+                       <span class="flex justify-end text-base" style="flex-basis:60%;">Ranking Vendedor</span>
                        <span class="flex justify-end" style="flex-basis:40%;">
                         <i class="fas fa-medal"></i>
                         </span>
@@ -755,9 +755,9 @@
                <div style="flex-basis:55%;" class="mr-1">
                    <div class="content_table_dados_tabela w-full text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded">
                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                           <thead class="text-xs text-gray-700 uppercase text-white">
                            <tr>
-                               <th class="text-left py-3">Usuario</th>
+                               <th style="padding-left: 5px;" class="text-left py-3">Vendedor</th>
                                <th class="py-3">Individual</th>
                                <th class="py-3">Coletivo</th>
                                <th class="py-3">Super Simples</th>
@@ -781,7 +781,7 @@
                            @endphp
                            @foreach($dados_tabela as $dt)
                                <tr class="text-white">
-                                   <td class="text-left py-1">{{$dt->user_name}}</td>
+                                   <td style="padding-left: 5px;" class="text-left py-1">{{$dt->user_name}}</td>
                                    <td class="text-center py-1">
                                        {{$dt->individual}}
                                        @php
@@ -834,16 +834,16 @@
                            @endforeach
                            </tbody>
                            <tfoot>
-                           <tr class="border-t font-bold text-white text-lg">
-                               <th>Total</th>
-                               <th class="text-center">{{$total_table_individual}}</th>
-                               <th class="text-center">{{$total_table_coletivo}}</th>
-                               <th class="text-center">{{$total_table_super_simples}}</th>
-                               <th class="text-center">{{$total_table_pme}}</th>
-                               <th class="text-center">{{$total_table_sindipao}}</th>
-                               <th class="text-center">{{$total_table_sindimaco}}</th>
-                               <th class="text-center">{{$total_table_sincofarma}}</th>
-                               <th class="text-center">{{$total_table}}</th>
+                           <tr class="border-t text-white text-lg">
+                               <td>Total</td>
+                               <td class="text-center">{{$total_table_individual}}</td>
+                               <td class="text-center">{{$total_table_coletivo}}</td>
+                               <td class="text-center">{{$total_table_super_simples}}</td>
+                               <td class="text-center">{{$total_table_pme}}</td>
+                               <td class="text-center">{{$total_table_sindipao}}</td>
+                               <td class="text-center">{{$total_table_sindimaco}}</td>
+                               <td class="text-center">{{$total_table_sincofarma}}</td>
+                               <td class="text-center">{{$total_table}}</td>
                            </tr>
                            </tfoot>
                        </table>
