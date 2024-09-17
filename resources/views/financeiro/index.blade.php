@@ -686,6 +686,11 @@
             });
 
 
+            $("body").on('click','#closeModalEmpresarial',function(){
+                $('#myModalEmpresarial').removeClass('flex').addClass('hidden');
+                $('.content-modal-empresarial').html('');
+            });
+
 
         });
     </script>
