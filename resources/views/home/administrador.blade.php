@@ -44,7 +44,7 @@
             .header_info .small-box > .small-box-footer .inner p {font-size:0.7em !important;}
             .header_info .small-box > .small-box-footer .inner h5 {font-size:0.8em !important;}
             .table th, .table td {padding: 0.30rem !important;vertical-align: middle;font-size:0.75em;}
-            .content_legenda {z-index: 1000;position:absolute;left:210px;top:30px;font-size:0.7em;display:none;font-size:0.6em !important;}
+            .content_legenda {z-index: 1000;position:absolute;left:210px;bottom:-70px;display:none;font-size:0.6em !important;}
             .grafico_content {position:relative;width:100%;margin:0;padding:0;height:40vh;}
             #select_div {position: absolute;top: 10px;right: 0;z-index: 1000;display:none;}
             .total_janeiro {position: absolute;top: 340px;left: 60px;z-index: 1000;font-size:0.6em ;color:#FFF;display:none;}
@@ -515,15 +515,15 @@
 
                    <div class="justify-around content_legenda">
                     <span class="flex items-center">
-                        <span class="text-white text-lg">Individual</span>
+                        <span class="text-white text-sm">Individual</span>
                         <span class="ml-1" style="background:#1b9e77;width:10px;height:10px;"></span>
                     </span>
                     <span class="flex items-center mx-5">
-                        <span class="text-white text-lg">Coletivo</span>
+                        <span class="text-white text-sm">Coletivo</span>
                         <span class="ml-1" style="background:#d95f02;width:10px;height:10px;"></span>
                     </span>
                     <span class="flex items-center">
-                        <span class="text-white text-lg">Empresarial</span>
+                        <span class="text-white text-sm">Empresarial</span>
                         <span class="ml-1" style="background:#7570b3;width:10px;height:10px;"></span>
                     </span>
                    </div>
@@ -994,108 +994,14 @@
                        let total_novembro = novembro_individual + novembro_coletivo + novembro_empresarial;
                        let total_dezembro = dezembro_individual + dezembro_coletivo + dezembro_empresarial;
 
-                       $(".total_janeiro").each(function(){
-                           if(total_janeiro >= 10) {
-                               $(this).css({left:"50px"}).text(total_janeiro)
-                           } else {
-                               $(this).text(total_janeiro)
-                           }
-                       }).show();
 
-                       $(".total_fevereiro").each(function(){
-                           if(total_fevereiro >= 10) {
-                               $(this).css({left:"110px"}).text(total_fevereiro)
-                           } else {
-                               $(this).text(total_fevereiro)
-                           }
-                       }).show();
-
-                       $(".total_marco").each(function(){
-                           if(total_marco >= 10) {
-                               $(this).css({left:"168px"}).text(total_marco)
-                           } else {
-                               $(this).text(total_marco)
-                           }
-                       }).show();
-
-                       $(".total_abril").each(function(){
-                           if(total_abril >= 10) {
-                               $(this).css({left:"230px"}).text(total_abril)
-                           } else {
-                               $(this).text(total_abril);
-                           }
-                       }).show();
-
-                       $(".total_maio").each(function(){
-                           if(total_maio >= 10) {
-                               $(this).css({left:"290px"}).text(total_maio)
-                           } else {
-                               $(this).text(total_maio);
-                           }
-                       }).show();
-
-                       $(".total_junho").each(function(){
-                           if(total_junho >= 10) {
-                               $(this).css({left:"350px"}).text(total_junho)
-                           } else {
-                               $(this).text(total_junho);
-                           }
-                       }).show();
-
-                       $(".total_julho").each(function(){
-                           if(total_julho >= 10) {
-                               $(this).css({left:"410px"}).text(total_julho)
-                           } else {
-                               $(this).text(total_julho);
-                           }
-                       }).show();
-
-                       $(".total_agosto").each(function(){
-                           if(total_agosto >= 10) {
-                               $(this).css({left:"468px"}).text(total_agosto)
-                           } else {
-                               $(this).text(total_agosto);
-                           }
-                       }).show();
-
-                       $(".total_setembro").each(function(){
-                           if(total_setembro >= 10) {
-                               $(this).css({left:"528px"}).text(total_setembro)
-                           } else {
-                               $(this).text(total_setembro);
-                           }
-                       }).show();
-
-                       $(".total_outubro").each(function(){
-                           if(total_outubro >= 10) {
-                               $(this).css({left:"588px"}).text(total_outubro)
-                           } else {
-                               $(this).text(total_outubro);
-                           }
-                       }).show();
-
-                       $(".total_novembro").each(function(){
-                           if(total_novembro >= 10) {
-                               $(this).css({left:"645px"}).text(total_novembro)
-                           } else {
-                               $(this).text(total_novembro);
-                           }
-                       }).show();
-
-                       $(".total_dezembro").each(function(){
-                           if(total_dezembro  >= 10) {
-                               $(this).css({left:"706px"}).text(total_dezembro)
-                           } else {
-                               $(this).text(total_dezembro);
-                           }
-                       }).show();
 
 
                        $("#select_div").show('slow');
                        $(".content_legenda").css({"display":"flex"});
 
                        var data = google.visualization.arrayToDataTable([
-                           ['Mês', 'Individual', 'Coletivo', 'Empresarial'],
+                           ['     ', 'Individual', 'Coletivo', 'Empresarial'],
                            ['Jan', janeiro_individual, janeiro_coletivo, janeiro_empresarial],
                            ['Fev', fevereiro_individual, fevereiro_coletivo, fevereiro_empresarial],
                            ['Mar', marco_individual, marco_coletivo, marco_empresarial],
@@ -1113,7 +1019,7 @@
 
 
                        var options = {
-                           title: 'Ranking Vendas Anual',
+                           title: 'Resumo Vendas Anual',
                            bars: 'vertical',
                            legend: {
                                position:'none',
