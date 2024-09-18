@@ -8,20 +8,24 @@
 
     @section('css')
         <style>
+            /* Adicionar ao seu CSS ou dentro de <style> */
             @media (max-width: 640px) {
                 #planos {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    height: 100vh;
-                    width: 100vw;
-                    z-index: 50; /* Certifique-se de que está acima dos outros elementos */
-                    overflow-y: auto;
+                    min-height: 100vh; /* Garante que o plano ocupe toda a altura */
+                    display: flex; /* Assegura que o layout é flexível */
+                    flex-direction: column;
+                    justify-content: space-between; /* Ajusta o conteúdo dentro do componente */
+                }
+
+                #planos.hidden {
+                    display: none;
+                }
+
+                #operadoras.hidden,
+                #resultado.hidden {
+                    display: none;
                 }
             }
-
 
 
         </style>
@@ -30,6 +34,51 @@
 
     @section('scripts')
        <script>
+
+           document.addEventListener('DOMContentLoaded', function() {
+               const planos = document.getElementById('planos');
+               const operadoras = document.getElementById('operadoras');
+               const resultado = document.getElementById('resultado');
+               const backButton = document.getElementById('back-button');
+               const showPlanosButton = document.getElementById('show-planos-button');
+
+               // Função para mostrar o componente Planos e ocultar os outros
+               function showPlanos() {
+                   planos.classList.remove('hidden');
+                   operadoras.classList.add('hidden');
+                   resultado.classList.add('hidden');
+                   backButton.classList.remove('hidden');
+               }
+
+               // Função para ocultar o componente Planos e mostrar os outros
+               function hidePlanos() {
+                   planos.classList.add('hidden');
+                   operadoras.classList.remove('hidden');
+                   resultado.classList.remove('hidden');
+                   backButton.classList.add('hidden');
+               }
+
+               // Adicione o evento de clique ao botão "Voltar"
+               backButton.addEventListener('click', hidePlanos);
+
+               // Simular a exibição do componente Planos (ou use isso como um exemplo)
+               if (showPlanosButton) {
+                   showPlanosButton.addEventListener('click', showPlanos);
+               }
+           });
+
+
+
+
+
+
+
+
+
+
+
+
+
            $(document).ready(function(){
                function scrollToBottom() {
                    if (window.innerWidth <= 768) { // Aplica apenas para mobile

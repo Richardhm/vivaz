@@ -1,6 +1,8 @@
-<!-- Planos -->
-<div class="p-1 rounded mt-2 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border hidden w-full lg:w-[22%] sm:fixed sm:inset-0 sm:z-50 sm:h-screen sm:w-screen sm:overflow-y-auto" id="planos">
-    <button class="py-1.5 w-full px-1 me-2 mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
+<div class="p-1 rounded mt-2 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border hidden w-full lg:w-[22%] min-h-[420px]" id="planos">
+    <button id="back-button" class="py-1.5 w-full px-1 me-2 mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10 hidden">
+        Voltar
+    </button>
+    <button id="show-planos-button" class="py-1.5 w-full px-1 me-2 mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
         Planos
     </button>
     @foreach($planos as $p)
