@@ -16,10 +16,6 @@
         </div>
     </form>
 
-
-
-
-
     <div class="flex flex-wrap justify-around" id="faixa_etarias">
         <div class="flex flex-col w-[40%]">
             <div class="mb-2 w-full">
