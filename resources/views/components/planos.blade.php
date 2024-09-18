@@ -1,4 +1,5 @@
-<div class="p-1 rounded mt-2 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border hidden w-full lg:w-[22%] min-h-[420px] sm:fixed sm:top-0 sm:left-0 sm:right-0 sm:bottom-0 sm:z-50 sm:h-full sm:w-full sm:overflow-y-auto" id="planos">
+<!-- Planos -->
+<div class="p-1 rounded mt-2 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border hidden w-full lg:w-[22%] sm:fixed sm:inset-0 sm:z-50 sm:h-screen sm:w-screen sm:overflow-y-auto" id="planos">
     <button class="py-1.5 w-full px-1 me-2 mb-2 text-sm font-medium text-white bg-white rounded-lg border border-gray-200 bg-gray-500 bg-opacity-10">
         Planos
     </button>
