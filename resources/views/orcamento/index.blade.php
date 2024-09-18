@@ -5,6 +5,29 @@
         <x-planos :planos="$planos"></x-planos>
         <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[30%]" id="resultado"></div>
     </div>
+
+    @section('css')
+        <style>
+            @media (max-width: 640px) {
+                #planos {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    height: 100vh;
+                    width: 100vw;
+                    z-index: 50; /* Certifique-se de que está acima dos outros elementos */
+                    overflow-y: auto;
+                }
+            }
+
+
+
+        </style>
+    @endsection
+
+
     @section('scripts')
        <script>
            $(document).ready(function(){
