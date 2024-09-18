@@ -20,15 +20,17 @@
                         <p style="margin:0;padding:0;">Meta: 200 Vidas</p>
                         <p style="margin:0;padding:0;">Total: {{$r->quantidade_vidas}} Vidas</p>
                     </div>
-                    <div>
-                        <div class="progress">
+                    <div style="display: flex; align-items: center;">
+                        <!-- Barra de Progresso -->
+                        <div class="progress" style="flex-grow: 1; margin-right: 10px; position: relative; background-color: #e0e0e0; height: 20px; border-radius: 10px;">
                             @php
                                 $porcentagem = ($r->quantidade_vidas / 200) * 100;
                             @endphp
-                            <div class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="{{$porcentagem}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%; background-color: #FFA500;">
-                                <span class="sr-only progress-bar-custom">{{$porcentagem}}%</span>
+                            <div class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="{{$porcentagem}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%; background-color: #FFA500; height: 100%; border-radius: 10px;">
                             </div>
                         </div>
+                        <!-- Percentual ao lado direito -->
+                        <span style="color: #FFF; font-weight: bold; margin-left: 10px;">{{$porcentagem}}%</span>
                     </div>
                     <div>
                         <p>Faltam: {{200 - $r->quantidade_vidas}} Vidas</p>

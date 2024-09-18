@@ -23,7 +23,7 @@
                 border-radius: 8px !important;
                 color:white;
                 border-radius:5px;
-                padding:10px;
+                padding:5px;
 
             }
 
@@ -261,8 +261,8 @@
                    <table class="table w-full table-sm text-sm text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded tabela_mes mb-0" style="width:32.3%;line-height: 0.85rem">
                        <thead>
                        <tr class="w-100 text-center">
-                           <th colspan="3" class="bg-warning text-white">
-                               <select name="escolher_mes" id="escolher_mes" class="escolher_mes text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                           <th colspan="3">
+                               <select name="escolher_mes" id="escolher_mes" class="escolher_mes text-center rounded" style="border:none;padding:0;width:90%;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);">
                                    <option>Mês</option>
                                    @foreach($mesesSelect as $ss)
                                        <option value="{{$ss->month_date}}"
@@ -333,8 +333,8 @@
                        <thead>
                        <tr class="w-100 text-center">
 
-                           <th colspan="3" class="bg-warning text-white">
-                               <select name="escolher_semestre" id="escolher_semestre" class="escolher_semestre text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                           <th colspan="3" class="text-white">
+                               <select name="escolher_semestre" id="escolher_semestre" class="escolher_semestre text-center rounded" style="border:none;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);padding:0;width:90%;">
                                    <option value="0">Semestre</option>
                                    @php
                                        // Obtém o ano atual
@@ -427,8 +427,8 @@
                    <table class="table bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] tabela_escolher_ano mb-0 text-white rounded" style="width:32.3%;">
                        <thead>
                        <tr class="w-100 text-center">
-                           <th colspan="3" class="bg-warning text-white">
-                               <select name="escolher_ano" id="escolher_ano" class="escolher_ano text-center bg-warning text-white" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                           <th colspan="3" class="text-white">
+                               <select name="escolher_ano" id="escolher_ano" class="escolher_ano text-center text-white rounded" style="border:none;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);padding:0;width:80%;">
                                    <option value="">Anos</option>
                                    <option value="2023" {{$ano_atual == 2023 ? 'selected' : ''}}>2023</option>
                                    <option value="2024" {{$ano_atual == 2024 ? 'selected' : ''}}>2024</option>
@@ -513,20 +513,20 @@
                    </div>
 
 
-                   <div class="justify-around content_legenda">
-                    <span class="flex items-center">
-                        <span class="text-white text-sm">Individual</span>
-                        <span class="ml-1" style="background:#1b9e77;width:10px;height:10px;"></span>
-                    </span>
-                    <span class="flex items-center mx-5">
-                        <span class="text-white text-sm">Coletivo</span>
-                        <span class="ml-1" style="background:#d95f02;width:10px;height:10px;"></span>
-                    </span>
-                    <span class="flex items-center">
-                        <span class="text-white text-sm">Empresarial</span>
-                        <span class="ml-1" style="background:#7570b3;width:10px;height:10px;"></span>
-                    </span>
-                   </div>
+{{--                   <div class="justify-around content_legenda">--}}
+{{--                    <span class="flex items-center">--}}
+{{--                        <span class="text-white text-sm">Individual</span>--}}
+{{--                        <span class="ml-1" style="background:#1b9e77;width:10px;height:10px;"></span>--}}
+{{--                    </span>--}}
+{{--                    <span class="flex items-center mx-5">--}}
+{{--                        <span class="text-white text-sm">Coletivo</span>--}}
+{{--                        <span class="ml-1" style="background:#d95f02;width:10px;height:10px;"></span>--}}
+{{--                    </span>--}}
+{{--                    <span class="flex items-center">--}}
+{{--                        <span class="text-white text-sm">Empresarial</span>--}}
+{{--                        <span class="ml-1" style="background:#7570b3;width:10px;height:10px;"></span>--}}
+{{--                    </span>--}}
+{{--                   </div>--}}
                    <div class="total_janeiro">0</div>
                    <div class="total_fevereiro">0</div>
                    <div class="total_marco">0</div>
@@ -544,15 +544,16 @@
            </div>
 
            <div class="flex" style="flex-basis:49.5%;flex-direction:column;height:100%;margin-bottom: 20px;">
-               <div class="flex bg-yellow-400 items-center" style="border-radius:5px;height:5%;margin-bottom:5px;">
-                   <h5 class="flex items-center text-white  bg-transparent my-auto p-2 rounded w-full">
+               <div class="flex items-center" style="border-radius:5px;height:5%;margin-bottom:5px; background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);">
+                   <h5 class="flex items-center text-white bg-[rgba(255,255,255,0.18)] backdrop-blur-md my-auto p-2 rounded w-full">
                        <span class="flex justify-end text-base" style="flex-basis:60%;">Ranking Vendedor</span>
                        <span class="flex justify-end" style="flex-basis:40%;">
-                        <i class="fas fa-medal"></i>
+                            <i class="fas fa-medal"></i>
                         </span>
-
                    </h5>
                </div>
+
+
 
                <div class="flex my-1 ranking_classificacao" style="height:30%;margin-bottom:5px;">
                    @foreach(collect($ranking_mes)->take(3) as $r)
@@ -595,7 +596,7 @@
                            <thead>
                            <tr>
                                <th colspan="4">
-                                   <select name="ranking_mes" id="ranking_mes" class="text-center" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                                   <select name="ranking_mes" id="ranking_mes" class="text-center rounded" style="border:none;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);padding:0;width:90%;">
                                        <option value="">Mês</option>
                                        @foreach($mesesSelect as $mm)
                                            <option value="{{$mm->month_date}}"
@@ -634,7 +635,7 @@
 
                            <tr>
                                <th colspan="4" class="bg-warning">
-                                   <select name="ranking_semestral" id="ranking_semestral" class="text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
+                                   <select name="ranking_semestral" id="ranking_semestral" class="text-center rounded" style="border:none;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);padding:0;width:90%;">
                                        <option value="">Semestre</option>
                                        @php
                                            // Obtém o ano atual
@@ -694,8 +695,8 @@
                            <tr>
 
                                <th colspan="4" class="bg-warning">
-                                   <select name="ranking_ano" id="ranking_ano" class="ranking_ano text-center bg-warning" style="border:none;background-color: #ffc107;padding:0;width:80%;">
-                                       <option value="">Anoss</option>
+                                   <select name="ranking_ano" id="ranking_ano" class="ranking_ano text-center rounded" style="border:none;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);padding:0;width:80%;">
+                                       <option value="">Anos</option>
                                        <option value="2023" {{$ano_atual == 2023 ? 'selected' : ''}}>2023</option>
                                        <option value="2024" {{$ano_atual == 2024 ? 'selected' : ''}}>2024</option>
                                    </select>
@@ -722,24 +723,13 @@
                            </tbody>
                        </table>
                    </div>
-
-
-
                </div>
-
-
-
-
            </div>
-
-
-
-
            <div class="w-full flex flex-wrap text-center justify-center mt-10 footer">
                <div class="w-full rounded justify-between flex mb-1 py-3 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
                    <h4 class="flex" style="color:white;margin-left:5px;">Tabela Por Plano</h4>
                    <div class="justify-end flex mr-2">
-                       <select name="ranking_mes_tabela" id="ranking_mes_tabela" class="bg-white flex justify-between text-dark border border-gray-300 px-4 py-2 appearance-none" style="border:none;padding:0;width:200px;">
+                       <select name="ranking_mes_tabela" id="ranking_mes_tabela" class="flex justify-between rounded text-white text-center" style="border:none;padding:0;width:200px;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);">
                            <option value="" style="color:black;">Mês/Ano</option>
                            @foreach($mesesSelect as $mm)
                                <option value="{{$mm->month_date}}"
@@ -750,8 +740,6 @@
                        </select>
                    </div>
                </div>
-
-
                <div style="flex-basis:55%;" class="mr-1">
                    <div class="content_table_dados_tabela w-full text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded">
                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -849,13 +837,10 @@
                        </table>
                    </div>
                </div>
-
                <div class="flex justify-center bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="flex-basis:44%;">
                    <div id="piechart" style="width: 100%; height: 595px;background-color: transparent;"></div>
                </div>
-
            </div>
-
            <input type="hidden" id="janeiro_individual" value="{{$total_individual_quantidade_vidas_janeiro}}">
            <input type="hidden" id="fevereiro_individual" value="{{$total_individual_quantidade_vidas_fevereiro}}">
            <input type="hidden" id="marco_individual" value="{{$total_individual_quantidade_vidas_marco}}">
@@ -868,7 +853,6 @@
            <input type="hidden" id="outubro_individual" value="{{$total_individual_quantidade_vidas_outubro}}">
            <input type="hidden" id="novembro_individual" value="{{$total_individual_quantidade_vidas_novembro}}">
            <input type="hidden" id="dezembro_individual" value="{{$total_individual_quantidade_vidas_dezembro}}">
-
            <input type="hidden" id="janeiro_coletivo" value="{{$total_coletivo_quantidade_vidas_janeiro}}">
            <input type="hidden" id="fevereiro_coletivo" value="{{$total_coletivo_quantidade_vidas_fevereiro}}">
            <input type="hidden" id="marco_coletivo" value="{{$total_coletivo_quantidade_vidas_marco}}">
@@ -881,7 +865,6 @@
            <input type="hidden" id="outubro_coletivo" value="{{$total_coletivo_quantidade_vidas_outubro}}">
            <input type="hidden" id="novembro_coletivo" value="{{$total_coletivo_quantidade_vidas_novembro}}">
            <input type="hidden" id="dezembro_coletivo" value="{{$total_coletivo_quantidade_vidas_dezembro}}">
-
            <input type="hidden" id="janeiro_empresarial" value="{{$totalContratoEmpresarialJaneiro}}">
            <input type="hidden" id="fevereiro_empresarial" value="{{$totalContratoEmpresarialFevereiro}}">
            <input type="hidden" id="marco_empresarial" value="{{$totalContratoEmpresarialMarco}}">
@@ -894,8 +877,6 @@
            <input type="hidden" id="outubro_empresarial" value="{{$totalContratoEmpresarialOutubro}}">
            <input type="hidden" id="novembro_empresarial" value="{{$totalContratoEmpresarialNovembro}}">
            <input type="hidden" id="dezembro_empresarial" value="{{$totalContratoEmpresarialDezembro}}">
-
-
            <input type="hidden" id="total_individual_grafico" value="{{$total_individual_quantidade_vidas}}">
            <input type="hidden" id="total_coletivo_grafico" value="{{$total_coletivo_quantidade_vidas}}">
            <input type="hidden" id="total_super_simples_grafico" value="{{$total_super_simples_quantidade_vidas}}">
@@ -903,44 +884,15 @@
            <input type="hidden" id="total_sindipao_grafico" value="{{$total_sindipao_quantidade_vidas}}">
            <input type="hidden" id="total_sincofarma_grafico" value="{{$total_sindimaco_quantidade_vidas}}">
            <input type="hidden" id="total_sindimaco_grafico" value="{{$total_sincofarma_quantidade_vidas}}">
-
-
-
-
-
-
-
-
-
-
-
-
        </div>
-
-
-
     </section>
-
-
-
-
-
-
-
-
-
-
-
 
        @section('scripts')
            <script type="text/javascript" src="{{asset('js/loader.js')}}"></script>
            <script>
                $(document).ready(function(){
-
-
                    google.charts.load('current', {'packages':['bar']});
                    google.charts.setOnLoadCallback(drawChart);
-
                    function drawChart() {
                        var janeiro_individual = parseInt($("#janeiro_individual").val());
                        var fevereiro_individual = parseInt($("#fevereiro_individual").val());
@@ -981,27 +933,11 @@
                        var novembro_empresarial = parseInt($("#novembro_empresarial").val());
                        var dezembro_empresarial = parseInt($("#dezembro_empresarial").val());
 
-                       let total_janeiro = janeiro_individual + janeiro_coletivo + janeiro_empresarial;
-                       let total_fevereiro = fevereiro_individual + fevereiro_coletivo + fevereiro_empresarial;
-                       let total_marco = marco_individual + marco_coletivo + marco_empresarial;
-                       let total_abril = abril_individual + abril_coletivo + abril_empresarial;
-                       let total_maio = maio_individual + maio_coletivo + maio_empresarial;
-                       let total_junho = junho_individual + junho_coletivo + junho_empresarial;
-                       let total_julho = julho_individual + julho_coletivo + julho_empresarial;
-                       let total_agosto = agosto_individual + agosto_coletivo + agosto_empresarial;
-                       let total_setembro = setembro_individual + setembro_coletivo + setembro_empresarial;
-                       let total_outubro = outubro_individual + outubro_coletivo + outubro_empresarial;
-                       let total_novembro = novembro_individual + novembro_coletivo + novembro_empresarial;
-                       let total_dezembro = dezembro_individual + dezembro_coletivo + dezembro_empresarial;
-
-
-
-
                        $("#select_div").show('slow');
-                       $(".content_legenda").css({"display":"flex"});
+
 
                        var data = google.visualization.arrayToDataTable([
-                           ['     ', 'Individual', 'Coletivo', 'Empresarial'],
+                           ['Mês', 'Individual', 'Coletivo', 'Empresarial'],
                            ['Jan', janeiro_individual, janeiro_coletivo, janeiro_empresarial],
                            ['Fev', fevereiro_individual, fevereiro_coletivo, fevereiro_empresarial],
                            ['Mar', marco_individual, marco_coletivo, marco_empresarial],
@@ -1020,9 +956,9 @@
 
                        var options = {
                            title: 'Resumo Vendas Anual',
-                           bars: 'vertical',
+
                            legend: {
-                               position:'none',
+                               position:'bottom',
                                textStyle: {
                                    color: '#FFFFFF' // Cor da legenda em branco
                                }
@@ -1038,7 +974,7 @@
                                    fill: 'transparent',  // Remove o fundo da área do gráfico
                                    color:"#FFFFFF"
                                },
-                               width: '80%',
+                               width: '92%',
                                height: '70%'
                            },
                            titleTextStyle: {
@@ -1056,8 +992,8 @@
                            },
                        };
 
-                       var chart = new google.charts.Bar(document.getElementById('chart_div'));
-                       chart.draw(data, google.charts.Bar.convertOptions(options));
+                       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));  // Mudança para ColumnChart
+                       chart.draw(data, options);
 
                    }
 
