@@ -6,32 +6,6 @@
         <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[30%]" id="resultado"></div>
     </div>
 
-    @section('css')
-        <style>
-            /* Adicionar ao seu CSS ou dentro de <style> */
-            @media (max-width: 640px) {
-                #planos {
-                    min-height: 100vh; /* Garante que o plano ocupe toda a altura */
-                    display: flex; /* Assegura que o layout é flexível */
-                    flex-direction: column;
-                    justify-content: space-between; /* Ajusta o conteúdo dentro do componente */
-                }
-
-                #planos.hidden {
-                    display: none;
-                }
-
-                #operadoras.hidden,
-                #resultado.hidden {
-                    display: none;
-                }
-            }
-
-
-        </style>
-    @endsection
-
-
     @section('scripts')
        <script>
 
