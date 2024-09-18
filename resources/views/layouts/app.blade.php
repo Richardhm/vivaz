@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-
+        <link rel="icon" href="{{ asset('icone_bmsys.png') }}">
 
         <script src="{{asset('assets/jquery.min.js')}}"></script>
 
