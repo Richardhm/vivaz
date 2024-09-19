@@ -1,12 +1,10 @@
 <x-app-layout>
-    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-x-4">
-        <x-informacoes :cidades="$cidades"></x-informacoes>
-        <x-operadoras :operadoras="$administradoras"></x-operadoras>
-        <x-planos :planos="$planos"></x-planos>
-        <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[30%]" id="resultado"></div>
+    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-x-4 px-4">
+        <x-informacoes :cidades="$cidades" class="sm:mx-5"></x-informacoes>
+        <x-operadoras :operadoras="$administradoras" class="sm:mx-5"></x-operadoras>
+        <x-planos :planos="$planos" class="sm:mx-5"></x-planos>
+        <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[30%] sm:mx-5" id="resultado"></div>
     </div>
-
-
 
 
 

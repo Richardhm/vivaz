@@ -201,6 +201,12 @@
             @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
 
+            /* Define a altura do menu */
+            :root {
+                --header-height: 60px; /* Ajuste para a altura real do seu menu */
+            }
+
+            /* Menu fixo para dispositivos móveis */
             @media (max-width: 768px) {
                 .fixed-header {
                     position: fixed;
@@ -210,13 +216,50 @@
                     z-index: 1000; /* Garante que o menu fique acima de outros elementos */
                     background: rgba(254,254,254,0.18);
                     backdrop-filter: blur(15px);
-                    margin-bottom:50px;
+                    padding: 10px 15px; /* Ajuste o padding conforme necessário */
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra para visibilidade */
+                    height:60px; /* Define a altura do menu */
+                    box-sizing: border-box; /* Inclui padding e border na altura */
                 }
+
                 .content_all {
-                    padding-top: 100px; /* Ajuste a altura para garantir que o conteúdo não fique atrás do menu */
-                    width:90%;
+                    padding-top: 60px; /* Adiciona padding superior para garantir que o conteúdo não sobreponha o menu */
+                    padding-left: 15px; /* Adiciona padding lateral para o conteúdo */
+                    padding-right: 15px; /* Adiciona padding lateral para o conteúdo */
+                    margin: 100px auto; /* Centraliza o conteúdo */
+                    max-width: 100%; /* Garante que o conteúdo não ultrapasse a largura da tela */
+                }
+                #container_informacoes {
+                    margin-top:80px !important;
+                }
+
+                .mobile-icon {
+                    display: block;
+                }
+
+                .desktop-icon {
+                    display: none;
+                }
+
+
+
+
+            }
+
+            @media (min-width: 769px) {
+                .mobile-icon {
+                    display: none; /* Oculta o ícone no desktop */
+                }
+
+                .desktop-icon {
+                    display: block; /* Exibe a imagem no desktop */
                 }
             }
+
+
+
+
+
 
 
 
@@ -238,7 +281,8 @@
             <div class="flex w-full bg-transparent justify-content-between fixed-header">
                 <div class="flex justify-between items-center w-full bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] py-1">
                     <div>
-                        <img src="{{asset('logo_Bmsys11_baixa.png')}}" style="margin-right:10px;" alt="BmSys">
+                        <img src="{{ asset('icone_bmsys.png') }}" alt="BmSys" class="mobile-icon" style="margin-right:10px;width:40px">
+                        <img src="{{ asset('logo_Bmsys11_baixa.png') }}" alt="BmSys" class="desktop-icon" style="margin-right:10px;">
                     </div>
                     <div>
                         @php
@@ -259,7 +303,8 @@
                         @endphp
                     </div>
                     <div>
-                        <img src="{{asset('hapvida-notreDame_baixa_1.png')}}" alt="Hapvida" style="width:200px;">
+                        <img src="{{asset('logo-hapvida.png')}}" alt="Hapvida" class="mobile-icon" style="width:40px;">
+                        <img src="{{asset('hapvida-notreDame_baixa_1.png')}}" alt="Hapvida" class="desktop-icon" style="width:200px;">
                     </div>
                 </div>
             </div>
