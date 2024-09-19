@@ -173,43 +173,11 @@ function inicializarIndividual(corretora_id = null) {
                 });
             }
 
-            // Função de filtragem da tabela
-            function filtrarTabela() {
-                let anoSelecionado = selectAno.val();
-                let mesSelecionado = selectMes.val();
+            //Evento de change para o select de ano
+            //selectAno.on('change', filtrarTabela);
 
-                // Reseta a filtragem
-                $.fn.dataTable.ext.search.length = 0;
-
-                // Adiciona filtro baseado no ano e/ou mês selecionados
-                $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-                    let dataColuna = data[0]; // Coluna 0, onde está a data
-                    let dataParts = dataColuna.split('/'); // Separa a data no formato dd/mm/yyyy
-
-                    let mesData = dataParts[1];
-                    let anoData = dataParts[2];
-
-                    // Verifica se há correspondência com o ano e/ou mês selecionados
-                    if (anoSelecionado && mesSelecionado) {
-                        return anoData === anoSelecionado && mesData === mesSelecionado.padStart(2, '0');
-                    } else if (anoSelecionado) {
-                        return anoData === anoSelecionado;
-                    } else if (mesSelecionado) {
-                        return mesData === mesSelecionado.padStart(2, '0');
-                    }
-                    return true; // Sem filtros, retorna todos os dados
-                });
-
-                // Redesenha a tabela com os novos filtros aplicados
-                table_individual.draw();
-                realizarContagem()
-            }
-
-            // Evento de change para o select de ano
-            selectAno.on('change', filtrarTabela);
-
-            // Evento de change para o select de mês
-            selectMes.on('change', filtrarTabela);
+            //Evento de change para o select de mês
+            //selectMes.on('change', filtrarTabela);
 
             // Inicializa os selects de ano e mês com os dados da tabela
             function inicializarFiltros() {
@@ -283,7 +251,7 @@ function realizarContagem() {
 
     let countAtrasadoTeste = table_individual.rows({ search: 'applied' }).count(); // Inicialmente, contamos todas as linhas
     countAtrasadoTeste = countAtrasadoTeste - countPagamento6 - finalizado - countCancelados - countAprovado;
-    let tablein = $('.listarindividual').DataTable();
+
     $(".individual_quantidade_1_parcela").text(countPagamento1);
     $(".individual_quantidade_2_parcela").text(countPagamento2);
     $(".individual_quantidade_3_parcela").text(countPagamento3);

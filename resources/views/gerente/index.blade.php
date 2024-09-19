@@ -22,7 +22,6 @@
                     <input type="date" name="data_baixa" id="data_baixa" class="form-control form-control-sm">
                     <input type="hidden" name="id" id="id">
                     <input type="hidden" name="corretora" id="corretora">
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

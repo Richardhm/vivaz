@@ -87,146 +87,78 @@ $("#select_usuario_individual").on('change',function(){
     }
 });
 
+
+function filtrarTabela(selectAno, selectMes) {
+    let anoSelecionado = selectAno.val();
+    let mesSelecionado = selectMes.val();
+    // Reseta a filtragem
+    $.fn.dataTable.ext.search.length = 0;
+    // Adiciona filtro baseado no ano e/ou mês selecionados
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        let dataColuna = data[0]; // Coluna 0, onde está a data
+        let dataParts = dataColuna.split('/'); // Separa a data no formato dd/mm/yyyy
+        let mesData = dataParts[1];
+        let anoData = dataParts[2];
+        // Verifica se há correspondência com o ano e/ou mês selecionados
+        if (anoSelecionado && mesSelecionado) {
+            return anoData === anoSelecionado && mesData === mesSelecionado.padStart(2, '0');
+        } else if (anoSelecionado) {
+            return anoData === anoSelecionado;
+        } else if (mesSelecionado) {
+            return mesData === mesSelecionado.padStart(2, '0');
+        }
+        return true; // Sem filtros, retorna todos os dados
+    });
+    // Redesenha a tabela com os novos filtros aplicados
+    table_individual.draw();
+}
+
+function realizarContagem() {
+    let countPagamento1 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
+    let countPagamento2 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
+    let countPagamento3 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
+    let countPagamento4 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 4º Parcela').length;
+    let countPagamento5 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 5º Parcela').length;
+    let countPagamento6 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 6º Parcela').length;
+    let finalizado      = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Finalizado').length;
+    let countCancelados = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Cancelado').length;
+    let countAprovado = table_individual.rows({ search: 'applied' }).column(11).data().filter((value, index) =>  value === 'Aprovado').length;
+    let countAtrasadoTeste = table_individual.rows({ search: 'applied' }).count(); // Inicialmente, contamos todas as linhas
+    countAtrasadoTeste = countAtrasadoTeste - countPagamento6 - finalizado - countCancelados - countAprovado;
+    $(".individual_quantidade_1_parcela").text(countPagamento1);
+    $(".individual_quantidade_2_parcela").text(countPagamento2);
+    $(".individual_quantidade_3_parcela").text(countPagamento3);
+    $(".individual_quantidade_4_parcela").text(countPagamento4);
+    $(".individual_quantidade_5_parcela").text(countPagamento5);
+    $(".individual_quantidade_6_parcela").text(finalizado);
+    $(".individual_quantidade_cancelado").text(countCancelados);
+    $(".individual_quantidade_atrasado").text(countAtrasadoTeste);
+}
+
+
+
+
+
+
+
 $("#mudar_mes_table").on('change',function(){
-    atualizarParcelas();
+
+    let selectAno = $('#mudar_ano_table');  // Supondo que você tenha um seletor de ano também
+    let selectMes = $(this);  // O select de mês que foi alterado
+
+    // Atualiza parcelas (mantendo sua lógica)
+    //atualizarParcelas();
+
+    // Reaplica a filtragem da tabela baseada no mês e ano selecionados
+    filtrarTabela(selectAno, selectMes);
+
+    //atualizarParcelas();
     if (parcelaSelecionada) {  // Verifica se há uma parcela selecionada
-        console.log("Poraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         console.log(parcelaSelecionada);
-        //console.log(parcelaSelecionada);
         updateFiltragemParcela(parcelaSelecionada);  // Reaplica a filtragem com base na parcela já selecionada
     }
-    // $("#select_usuario_individual").val('');
-    // $("#corretor_selecionado_id").val('');
-    // let mes = $(this).val() != "" ? $(this).val() : "00";
-    // let ano = $("#mudar_ano_table").val() != "" ? $("#mudar_ano_table").val() : "00";
-    //
-    //
-    // $("ul#listar_individual li.individual").removeClass('textoforte-list').removeClass('destaque_content');
-    // $("#atrasado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
-    // $("#finalizado_corretor").removeClass('textoforte-list').removeClass('destaque_content_radius');
-    // $("#cancelado_corretor").removeClass('destaque_content_radius').removeClass('textoforte-list');
-    // //$("#content_list_individual_begin").addClass('destaque_content_radius');
-    // $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
-    //
-    // if(mes != 00) {
-    //     table_individual.search('').columns().search('').draw();
-    //     //let mesAno = mes + '/' + new Date().getFullYear();
-    //     let mesAno = mes + '/'+ano;
-    //     table_individual.column(0).search(mesAno, true, false).draw();
-    //     let dadosColuna2 = table_individual.column(2,{search: 'applied'}).data().toArray();
-    //     dadosColuna2.sort();
-    //     let nomesUnicos = new Set(dadosColuna2);
-    //     $("#select_usuario_individual").empty();
-    //     // Adicionar a opção padrão
-    //     $("#select_usuario_individual").append('<option value="todos" class="text-center">---Escolher Corretor---</option>');
-    //
-    //     // Adicionar as opções ordenadas ao select
-    //     nomesUnicos.forEach((nome, index) => {
-    //         $("#select_usuario_individual").append(`<option value="${nome}" data-id="${index}" style="font-size:0.5em;">${nome}</option>`);
-    //     });
-    //
-    //     // Inicializar o select2 novamente
-    //     //$("#select_usuario_individual").select2();
-    //     let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
-    //     let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
-    //     let primeiraParcelaIndividual = 0;
-    //     let segundaParcelaIndividual = 0;
-    //     let terceiraParcelaIndividual = 0;
-    //     let quartaParcelaIndividual = 0;
-    //     let quintaParcelaIndividual = 0;
-    //     let sextaParcelaIndividual = 0;
-    //     let canceladosIndividual = 0;
-    //     let atrasadoIndividual = 0;
-    //
-    //
-    //     dadosColuna9.each(function (valor) {
-    //
-    //         if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'finalizado') {sextaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
-    //
-    //     });
-    //
-    //     dadosColuna11.each(function (valor) {
-    //         if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
-    //     });
-    //
-    //
-    //
-    //     $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
-    //     $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
-    //     $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
-    //     $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
-    //     $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
-    //     $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
-    //     $(".individual_quantidade_cancelado").text(canceladosIndividual);
-    //     $(".individual_quantidade_atrasado").text(atrasadoIndividual);
-    //
-    // } else {
-    //     table_individual.search('').columns().search('').draw();
-    //
-    //     let dadosColuna2 = table_individual.column(2,{search: 'applied'}).data().toArray();
-    //
-    //     dadosColuna2.sort();
-    //     let nomesUnicos = new Set(dadosColuna2);
-    //
-    //     $("#select_usuario_individual").empty();
-    //
-    //     // Adicionar a opção padrão
-    //     $("#select_usuario_individual").append('<option value="todos" class="text-center">---Escolher Corretor---</option>');
-    //
-    //     // Adicionar as opções ordenadas ao select
-    //     nomesUnicos.forEach((nome, index) => {
-    //         $("#select_usuario_individual").append(`<option value="${nome}" data-id="${index}" style="font-size:0.5em;">${nome}</option>`);
-    //     });
-    //
-    //     // Inicializar o select2 novamente
-    //     //$("#select_usuario_individual").select2();
-    //
-    //     let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
-    //     let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
-    //     let primeiraParcelaIndividual = 0;
-    //     let segundaParcelaIndividual = 0;
-    //     let terceiraParcelaIndividual = 0;
-    //     let quartaParcelaIndividual = 0;
-    //     let quintaParcelaIndividual = 0;
-    //     let sextaParcelaIndividual = 0;
-    //     let canceladosIndividual = 0;
-    //     let atrasadoIndividual = 0;
-    //
-    //
-    //     dadosColuna9.each(function (valor) {
-    //
-    //         if (valor.toLowerCase() == 'pag. 1º parcela') {primeiraParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 2º parcela') {segundaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 3º parcela') {terceiraParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 4º parcela') {quartaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 5º parcela') {quintaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'pag. 6º parcela') {sextaParcelaIndividual++;}
-    //         if (valor.toLowerCase() == 'cancelado') {canceladosIndividual++;}
-    //
-    //     });
-    //
-    //     dadosColuna11.each(function (valor) {
-    //         if (valor.toLowerCase() == 'atrasado') {atrasadoIndividual++;}
-    //     });
-    //
-    //
-    //
-    //     $(".individual_quantidade_1_parcela").text(primeiraParcelaIndividual);
-    //     $(".individual_quantidade_2_parcela").text(segundaParcelaIndividual);
-    //     $(".individual_quantidade_3_parcela").text(terceiraParcelaIndividual);
-    //     $(".individual_quantidade_4_parcela").text(quartaParcelaIndividual);
-    //     $(".individual_quantidade_5_parcela").text(quintaParcelaIndividual);
-    //     $(".individual_quantidade_6_parcela").text(sextaParcelaIndividual);
-    //     $(".individual_quantidade_cancelado").text(canceladosIndividual);
-    //     $(".individual_quantidade_atrasado").text(atrasadoIndividual);
-    // }
-    // return;
+    realizarContagem();
+    //realizarContagem();
 });
 
 $('#mudar_ano_table').on('change', function() {

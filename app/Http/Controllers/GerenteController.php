@@ -5439,6 +5439,7 @@ SELECT
 
     public function comissaoListagemConfirmadasEmpresarial(Request $request)
     {
+        $corretora_id = auth()->user()->corretora_id;
         $id = $request->id;
         if($request->mes) {
             $mes = $request->mes;
@@ -5479,6 +5480,7 @@ SELECT
                         WHERE
                             comissoes_corretores_default.plano_id = comissoes.plano_id AND
                             comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
+                            comissoes_corretores_default.corretora_id = {$corretora_id} AND
                             comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
                     )
                     END AS porcentagem,
@@ -5513,6 +5515,7 @@ SELECT
                 (SELECT COUNT(*) FROM comissoes_corretores_configuracoes WHERE
                         comissoes_corretores_configuracoes.plano_id = comissoes.plano_id AND
                         comissoes_corretores_configuracoes.administradora_id = comissoes.administradora_id AND
+
                         comissoes_corretores_configuracoes.tabela_origens_id = comissoes.tabela_origens_id AND
                         comissoes_corretores_configuracoes.user_id = comissoes.user_id AND
                         comissoes_corretores_configuracoes.parcela = comissoes_corretores_lancadas.parcela) > 0 ,
@@ -5526,6 +5529,7 @@ SELECT
                 (SELECT valor FROM comissoes_corretores_default WHERE
                         comissoes_corretores_default.plano_id = comissoes.plano_id AND
                         comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
+                        comissoes_corretores_default.corretora_id = {$corretora_id} AND
                         comissoes_corretores_default.tabela_origens_id = comissoes.tabela_origens_id AND
                         comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela)
         ) AS porcentagem,
@@ -6514,10 +6518,11 @@ AS desconto,
                     ELSE (
                         SELECT valor
                         FROM comissoes_corretores_default
+
                         WHERE
                             comissoes_corretores_default.plano_id = comissoes.plano_id AND
                             comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
-
+                            comissoes_corretores_default.corretora_id = {$corretora_id} AND
                             comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
                     )
                 END AS porcentagem_parcela_corretor,

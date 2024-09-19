@@ -77,20 +77,22 @@
         <x-aba-coletivo></x-aba-coletivo>
         <x-aba-empresarial></x-aba-empresarial>
     </section>
-    @section('scripts')
-            <script src="{{asset('js/financeiro-arquivo.js')}}"></script>
-            <script src="{{asset('js/financeiro-inicializar-individual.js')}}"></script>
-            <script src="{{asset('js/financeiro-inicializar-coletivo.js')}}"></script>
-            <script src="{{asset('js/financeiro-inicializar-empresarial.js')}}"></script>
 
-            <script src="{{asset('js/financeiro-click-menus.js')}}"></script>
-            <script src="{{asset('js/financeiro-change-menus.js')}}"></script>
-
-            <script src="{{asset('js/financeiro-parametro-url.js')}}"></script>
-        @endsection
     <script>
 
         $(document).ready(function(){
+
+
+
+
+
+
+
+
+
+
+
+
 
             //
             // $("#select_usuario_individual").select2({
@@ -528,13 +530,9 @@
                                 </svg>
                             </button>
                         `)
-
                         inicializarEmpresarial();
                     }
-
                 });
-
-
             });
 
             $("body").on('click', '[id^="desfazer_"]', function(){
@@ -542,7 +540,6 @@
                 let number = id.split('_')[1];
                 let contrato_id = $(this).data("id");
                 let fase = $(this).data('fase');
-
                 if(number == 1) {
                     $(this).closest("tr").find('.acao_aqui').html(`
                         <button type="button" class="em_analise text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">Conferido</button>
@@ -604,12 +601,8 @@
                 }
             });
 
-
             $("body").on('change','.next',function(){
-
-
                 let proximaLinha = $(this).closest("tr").next();
-
                 // Verifica se existe uma próxima linha
                 if (proximaLinha.length) {
                     // Verifica se a próxima linha tem a classe 'cursor-not-allowed'
@@ -622,20 +615,6 @@
                 } else {
                     console.log('Não existe uma próxima linha.');
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 {{--$(this).css('color', 'transparent');--}}
                 var dateInput = $(this).val();
                 var datePattern = /^\d{4}-\d{2}-\d{2}$/; // Formato esperado: yyyy-mm-dd
@@ -694,4 +673,23 @@
 
         });
     </script>
+
+        @section('scripts')
+            <script src="{{asset('js/financeiro-arquivo.js')}}"></script>
+            <script src="{{asset('js/financeiro-inicializar-individual.js')}}"></script>
+            <script src="{{asset('js/financeiro-inicializar-coletivo.js')}}"></script>
+            <script src="{{asset('js/financeiro-inicializar-empresarial.js')}}"></script>
+
+            <script src="{{asset('js/financeiro-click-menus.js')}}"></script>
+            <script src="{{asset('js/financeiro-change-menus.js')}}"></script>
+
+            <script src="{{asset('js/financeiro-parametro-url.js')}}"></script>
+        @endsection
+
+
+
+
+
+
+
 </x-app-layout>
