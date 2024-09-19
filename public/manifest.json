@@ -3,13 +3,8 @@
     "name": "Meu Aplicativo Laravel",
     "icons": [
         {
-            "src": "/icons/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/icons/icon-512x512.png",
-            "sizes": "512x512",
+            "src": "https://vivaz.bmsys.com.br/icons/icone_bmsys.png",
+            "sizes": "76x75",
             "type": "image/png"
         }
     ],

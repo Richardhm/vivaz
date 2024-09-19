@@ -7,10 +7,8 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icone_bmsys.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/icone_bmsys.png') }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/icone_bmsys.png') }}">
-        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('icons/icone_bmsys.png') }}">
+        <link rel="icon" type="image/png" sizes="75x76" href="{{ asset('icons/icone_bmsys.png') }}">
+        <link rel="manifest" href="{{ asset('manifest.json') }}">
 
         <script src="{{asset('assets/jquery.min.js')}}"></script>
 
