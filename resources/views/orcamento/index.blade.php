@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-x-4 sm:mt-10">
+    <div class="max-w-full mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-x-4">
         <x-informacoes :cidades="$cidades"></x-informacoes>
         <x-operadoras :operadoras="$administradoras"></x-operadoras>
         <x-planos :planos="$planos"></x-planos>

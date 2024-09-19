@@ -210,7 +210,7 @@
                     z-index: 1000; /* Garante que o menu fique acima de outros elementos */
                     background: rgba(254,254,254,0.18);
                     backdrop-filter: blur(15px);
-                    padding: 10px; /* Adicione um padding ao redor do menu, se necessário */
+                    margin-bottom:50px;
                 }
                 .content_all {
                     padding-top: 100px; /* Ajuste a altura para garantir que o conteúdo não fique atrás do menu */
