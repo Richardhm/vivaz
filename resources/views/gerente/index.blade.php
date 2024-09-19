@@ -2427,6 +2427,7 @@
                        data:"mes="+mes+"&id="+id+"&ano="+ano,
                        method:"POST",
                        success:function(res) {
+                           console.log(res);
                            $(".valor_individual_a_receber").text(res.valor_individual_a_receber);
                            $(".valor_coletivo_a_receber").text(res.valor_coletivo_a_receber);
                            $(".valor_empresarial_a_receber").text(res.valor_empresarial_a_receber);

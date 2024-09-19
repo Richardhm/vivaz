@@ -236,31 +236,7 @@ function inicializarIndividual(corretora_id = null) {
     });
 }
 
-function realizarContagem() {
 
-    let countPagamento1 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
-    let countPagamento2 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
-    let countPagamento3 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
-    let countPagamento4 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 4º Parcela').length;
-    let countPagamento5 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 5º Parcela').length;
-    let countPagamento6 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 6º Parcela').length;
-    let finalizado      = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Finalizado').length;
-    let countCancelados = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Cancelado').length;
-
-    let countAprovado = table_individual.rows({ search: 'applied' }).column(11).data().filter((value, index) =>  value === 'Aprovado').length;
-
-    let countAtrasadoTeste = table_individual.rows({ search: 'applied' }).count(); // Inicialmente, contamos todas as linhas
-    countAtrasadoTeste = countAtrasadoTeste - countPagamento6 - finalizado - countCancelados - countAprovado;
-
-    $(".individual_quantidade_1_parcela").text(countPagamento1);
-    $(".individual_quantidade_2_parcela").text(countPagamento2);
-    $(".individual_quantidade_3_parcela").text(countPagamento3);
-    $(".individual_quantidade_4_parcela").text(countPagamento4);
-    $(".individual_quantidade_5_parcela").text(countPagamento5);
-    $(".individual_quantidade_6_parcela").text(finalizado);
-    $(".individual_quantidade_cancelado").text(countCancelados);
-    $(".individual_quantidade_atrasado").text(countAtrasadoTeste);
-}
 
 
 $('#tabela_individual').on('click', 'tbody tr', function () {

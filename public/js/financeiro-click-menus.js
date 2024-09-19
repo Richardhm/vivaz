@@ -13,56 +13,7 @@ $(window).on('click', function(event) {
     }
 });
 
-function atualizarParcelas() {
-    let mes = $("#mudar_mes_table").val();
-    let dataId = $("#select_usuario_individual").find('option:selected').data('id');
 
-    // Atualizar a contagem de todas as parcelas
-    table_individual.column(11).search('').draw();
-
-    atualizarQuantidadeParcela(1, 'Pag. 1º Parcela');
-    atualizarQuantidadeParcela(2, 'Pag. 2º Parcela');
-    atualizarQuantidadeParcela(3, 'Pag. 3º Parcela');
-    atualizarQuantidadeParcela(4, 'Pag. 4º Parcela');
-    atualizarQuantidadeParcela(5, 'Pag. 5º Parcela');
-}
-
-
-function atualizarQuantidadeParcela(numeroParcela, filtro) {
-    // Filtra a tabela para cada parcela e atualiza a quantidade exibida
-    table_individual.column(9).search(filtro).draw();
-    let quantidade = table_individual.rows({ filter: 'applied' }).count();
-
-    // Atualiza o valor exibido na UI
-    $(".individual_quantidade_" + numeroParcela + "_parcela").text(quantidade);
-}
-
-
-// Função para atualizar a filtragem da tabela
-function updateFiltragemParcela(id_lista) {
-    if (id_lista == "aguardando_pagamento_1_parcela_individual") {
-        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 1º Parcela</h4>");
-        table_individual.column(11).search('').draw();
-        table_individual.column(9).search('Pag. 1º Parcela').draw();
-    } else if (id_lista == "aguardando_pagamento_2_parcela_individual") {
-
-        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 2º Parcela</h4>");
-        table_individual.column(11).search('').draw();
-        table_individual.column(9).search('Pag. 2º Parcela').draw();
-    } else if (id_lista == "aguardando_pagamento_3_parcela_individual") {
-        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 3º Parcela</h4>");
-        table_individual.column(11).search('').draw();
-        table_individual.column(9).search('Pag. 3º Parcela').draw();
-    } else if (id_lista == "aguardando_pagamento_4_parcela_individual") {
-        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 4º Parcela</h4>");
-        table_individual.column(11).search('').draw();
-        table_individual.column(9).search('Pag. 4º Parcela').draw();
-    } else if (id_lista == "aguardando_pagamento_5_parcela_individual") {
-        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 5º Parcela</h4>");
-        table_individual.column(11).search('').draw();
-        table_individual.column(9).search('Pag. 5º Parcela').draw();
-    }
-}
 
 // Listener para clique nas parcelas
 

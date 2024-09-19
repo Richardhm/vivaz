@@ -6418,7 +6418,7 @@ AS desconto,
                             comissoes_corretores_default.plano_id = comissoes.plano_id AND
                             comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
                             comissoes_corretores_default.corretora_id = comissoes.corretora_id AND
-                            comissoes_corretores_default.tabela_origens_id = comissoes.tabela_origens_id AND
+
                             comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela
                     )
                     END AS porcentagem_parcela_corretor,

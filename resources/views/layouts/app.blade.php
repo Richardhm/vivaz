@@ -201,7 +201,20 @@
             @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
 
-
+            @media (max-width: 768px) {
+                .fixed-header {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+                    background: rgba(254,254,254,0.18);
+                    backdrop-filter: blur(15px);
+                }
+                .content_all {
+                    padding-top: 50px; /* Ajuste a altura para garantir que o conteúdo não fique atrás do menu */
+                }
+            }
 
 
 
@@ -220,28 +233,27 @@
 
         <div class="container_principal min-h-screen bg-gray-100">
 
-            <div class="flex w-full bg-transparent justify-content-between">
+            <div class="flex w-full bg-transparent justify-content-between fixed-header">
                 <div class="flex justify-between items-center w-full bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] py-1">
                     <div>
-                       <img src="{{asset('logo_Bmsys11_baixa.png')}}" style="margin-right:10px;" alt="BmSys">
+                        <img src="{{asset('logo_Bmsys11_baixa.png')}}" style="margin-right:10px;" alt="BmSys">
                     </div>
                     <div>
                         @php
-
-                        switch(\Illuminate\Support\Facades\Route::currentRouteName()) {
-                            case "financeiro.index":
-                                echo "<p class='text-white text-lg'>Financeiro</p>";
-                            break;
-                            case "estrela.index":
-                                echo "<p class='text-white text-lg'>Programa Estrela</p>";
-                            break;
-                            case "orcamento":
-                                echo "<p class='text-white text-lg'>Orçamento</p>";
-                            break;
-                            case "home.index":
-                                echo "<p class='text-white text-lg'>Dashboard</p>";
-                            break;
-                        }
+                            switch(\Illuminate\Support\Facades\Route::currentRouteName()) {
+                                case "financeiro.index":
+                                    echo "<p class='text-white text-lg'>Financeiro</p>";
+                                    break;
+                                case "estrela.index":
+                                    echo "<p class='text-white text-lg'>Programa Estrela</p>";
+                                    break;
+                                case "orcamento":
+                                    echo "<p class='text-white text-lg'>Orçamento</p>";
+                                    break;
+                                case "home.index":
+                                    echo "<p class='text-white text-lg'>Dashboard</p>";
+                                    break;
+                            }
                         @endphp
                     </div>
                     <div>
@@ -381,7 +393,7 @@
                 </ul>
             </div>
 
-            <main>
+            <main class="container_all">
                 {{ $slot }}
             </main>
         </div>

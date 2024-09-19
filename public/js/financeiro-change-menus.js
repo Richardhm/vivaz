@@ -88,6 +88,174 @@ $("#select_usuario_individual").on('change',function(){
 });
 
 
+
+
+// function atualizarParcelas() {
+//     // Atualizar a contagem de todas as parcelas
+//     atualizarQuantidadeParcela(1, 'Pag. 1º Parcela');
+//     atualizarQuantidadeParcela(2, 'Pag. 2º Parcela');
+//     atualizarQuantidadeParcela(3, 'Pag. 3º Parcela');
+//     atualizarQuantidadeParcela(4, 'Pag. 4º Parcela');
+//     atualizarQuantidadeParcela(5, 'Pag. 5º Parcela');
+// }
+//
+// function atualizarQuantidadeParcela(numeroParcela, filtro) {
+//     // Aplica a filtragem e redesenha a tabela
+//     table_individual.column(9).search(filtro).draw();
+//
+//
+//
+//
+//     table_individual.one('draw', function() {
+//         let quantidade = table_individual.rows({ filter: 'applied' }).count();
+//         $(".individual_quantidade_" + numeroParcela + "_parcela").text(quantidade);
+//     });
+//
+//
+//
+//
+//
+//     // Usa um callback para garantir que a contagem só aconteça após o redesenho da tabela
+//     //table_individual.one('draw', function() {
+//         // Pega a quantidade de linhas filtradas após o redesenho
+//         //let quantidade = table_individual.rows({ filter: 'applied' }).count();
+//
+//         // Exibe no console para verificação
+//         //console.log(`Quantidade para Parcela ${numeroParcela}:`, quantidade);
+//
+//         // Atualiza o valor exibido na UI
+//         //$(".individual_quantidade_" + numeroParcela + "_parcela").text(quantidade);
+//     //});
+// }
+
+function realizarContagemEAtualizarParcelas() {
+    // Define um array com as descrições das parcelas
+    let filtrosParcelas = [
+        { numero: 1, filtro: 'Pag. 1º Parcela' },
+        { numero: 2, filtro: 'Pag. 2º Parcela' },
+        { numero: 3, filtro: 'Pag. 3º Parcela' },
+        { numero: 4, filtro: 'Pag. 4º Parcela' },
+        { numero: 5, filtro: 'Pag. 5º Parcela' }
+    ];
+
+    // Itera sobre cada parcela e aplica o filtro, conta as linhas e atualiza o HTML
+    filtrosParcelas.forEach(function(parcela) {
+        // Aplica o filtro à tabela
+        table_individual.column(9).search(parcela.filtro).draw();
+
+        // Usa um callback para garantir que a contagem só aconteça após o redesenho da tabela
+        table_individual.one('draw', function() {
+            // Pega a quantidade de linhas filtradas após o redesenho
+            let quantidade = table_individual.rows({ filter: 'applied' }).count();
+
+            // Atualiza o valor exibido no HTML
+            $(".individual_quantidade_" + parcela.numero + "_parcela").text(quantidade);
+        });
+    });
+}
+
+
+
+// function realizarContagem() {
+//     let countPagamento1 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
+//     let countPagamento2 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
+//     let countPagamento3 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
+//     let countPagamento4 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 4º Parcela').length;
+//     let countPagamento5 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 5º Parcela').length;
+//     let countPagamento6 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 6º Parcela').length;
+//     let finalizado      = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Finalizado').length;
+//     let countCancelados = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Cancelado').length;
+//     let countAprovado = table_individual.rows({ search: 'applied' }).column(11).data().filter((value, index) =>  value === 'Aprovado').length;
+//     let countAtrasadoTeste = table_individual.rows({ search: 'applied' }).count(); // Inicialmente, contamos todas as linhas
+//     countAtrasadoTeste = countAtrasadoTeste - countPagamento6 - finalizado - countCancelados - countAprovado;
+//     $(".individual_quantidade_1_parcela").text(countPagamento1);
+//     $(".individual_quantidade_2_parcela").text(countPagamento2);
+//     $(".individual_quantidade_3_parcela").text(countPagamento3);
+//     $(".individual_quantidade_4_parcela").text(countPagamento4);
+//     $(".individual_quantidade_5_parcela").text(countPagamento5);
+//     $(".individual_quantidade_6_parcela").text(finalizado);
+//     $(".individual_quantidade_cancelado").text(countCancelados);
+//     $(".individual_quantidade_atrasado").text(countAtrasadoTeste);
+// }
+
+
+
+
+
+// Função para atualizar a filtragem da tabela
+function updateFiltragemParcela(id_lista) {
+    if (id_lista == "aguardando_pagamento_1_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 1º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 1º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_2_parcela_individual") {
+
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 2º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 2º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_3_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 3º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 3º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_4_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 4º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 4º Parcela').draw();
+    } else if (id_lista == "aguardando_pagamento_5_parcela_individual") {
+        $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Pagamento 5º Parcela</h4>");
+        table_individual.column(11).search('').draw();
+        table_individual.column(9).search('Pag. 5º Parcela').draw();
+    }
+}
+
+
+
+
+
+
+function realizarContagem()
+{
+    // Obter os filtros selecionados
+    let mes = $("#mudar_mes_table").val();
+    let ano = $("#mudar_ano_table").val();
+    let usuarioId = $("#select_usuario_individual").find('option:selected').data('id');
+
+    // Aplicar filtros baseados no mês, ano e usuário
+    table_individual.column(0).search(mes).draw(); // Supondo que a coluna 0 é o mês
+    table_individual.column(1).search(ano).draw(); // Supondo que a coluna 1 é o ano
+    table_individual.column(2).search(usuarioId).draw(); // Supondo que a coluna 2 é o ID do usuário
+
+    // Contagem das parcelas
+    let countPagamento1 = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Pag. 1º Parcela').length;
+    let countPagamento2 = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Pag. 2º Parcela').length;
+    let countPagamento3 = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Pag. 3º Parcela').length;
+    let countPagamento4 = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Pag. 4º Parcela').length;
+    let countPagamento5 = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Pag. 5º Parcela').length;
+    let countPagamento6 = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Pag. 6º Parcela').length;
+
+    // Contagem de status finalizado e cancelado
+    let finalizado = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Finalizado').length;
+    let countCancelados = table_individual.column(9, { search: 'applied' }).data().filter(value => value === 'Cancelado').length;
+
+    // Contagem de status aprovado
+    let countAprovado = table_individual.column(11, { search: 'applied' }).data().filter(value => value === 'Aprovado').length;
+
+    // Contagem dos atrasados (todas as linhas aplicadas - parcelas específicas)
+    let countAtrasado = table_individual.rows({ search: 'applied' }).count();
+    countAtrasado -= (countPagamento6 + finalizado + countCancelados + countAprovado);
+
+    // Atualizando os valores no HTML
+    $(".individual_quantidade_1_parcela").text(countPagamento1);
+    $(".individual_quantidade_2_parcela").text(countPagamento2);
+    $(".individual_quantidade_3_parcela").text(countPagamento3);
+    $(".individual_quantidade_4_parcela").text(countPagamento4);
+    $(".individual_quantidade_5_parcela").text(countPagamento5);
+    $(".individual_quantidade_6_parcela").text(countPagamento6);
+    $(".individual_quantidade_cancelado").text(countCancelados);
+    $(".individual_quantidade_atrasado").text(countAtrasado);
+}
+
+
 function filtrarTabela(selectAno, selectMes) {
     let anoSelecionado = selectAno.val();
     let mesSelecionado = selectMes.val();
@@ -111,34 +279,8 @@ function filtrarTabela(selectAno, selectMes) {
     });
     // Redesenha a tabela com os novos filtros aplicados
     table_individual.draw();
+
 }
-
-function realizarContagem() {
-    let countPagamento1 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
-    let countPagamento2 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
-    let countPagamento3 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
-    let countPagamento4 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 4º Parcela').length;
-    let countPagamento5 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Pag. 5º Parcela').length;
-    let countPagamento6 = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Pag. 6º Parcela').length;
-    let finalizado      = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) => value === 'Finalizado').length;
-    let countCancelados = table_individual.column(9,{ search: 'applied' }).data().filter((value, index) =>  value === 'Cancelado').length;
-    let countAprovado = table_individual.rows({ search: 'applied' }).column(11).data().filter((value, index) =>  value === 'Aprovado').length;
-    let countAtrasadoTeste = table_individual.rows({ search: 'applied' }).count(); // Inicialmente, contamos todas as linhas
-    countAtrasadoTeste = countAtrasadoTeste - countPagamento6 - finalizado - countCancelados - countAprovado;
-    $(".individual_quantidade_1_parcela").text(countPagamento1);
-    $(".individual_quantidade_2_parcela").text(countPagamento2);
-    $(".individual_quantidade_3_parcela").text(countPagamento3);
-    $(".individual_quantidade_4_parcela").text(countPagamento4);
-    $(".individual_quantidade_5_parcela").text(countPagamento5);
-    $(".individual_quantidade_6_parcela").text(finalizado);
-    $(".individual_quantidade_cancelado").text(countCancelados);
-    $(".individual_quantidade_atrasado").text(countAtrasadoTeste);
-}
-
-
-
-
-
 
 
 $("#mudar_mes_table").on('change',function(){
@@ -146,20 +288,24 @@ $("#mudar_mes_table").on('change',function(){
     let selectAno = $('#mudar_ano_table');  // Supondo que você tenha um seletor de ano também
     let selectMes = $(this);  // O select de mês que foi alterado
 
-    // Atualiza parcelas (mantendo sua lógica)
-    //atualizarParcelas();
-
-    // Reaplica a filtragem da tabela baseada no mês e ano selecionados
     filtrarTabela(selectAno, selectMes);
 
     //atualizarParcelas();
-    if (parcelaSelecionada) {  // Verifica se há uma parcela selecionada
-        console.log(parcelaSelecionada);
-        updateFiltragemParcela(parcelaSelecionada);  // Reaplica a filtragem com base na parcela já selecionada
-    }
-    realizarContagem();
-    //realizarContagem();
+    // if (parcelaSelecionada) {  // Verifica se há uma parcela selecionada
+    //     updateFiltragemParcela(parcelaSelecionada);  // Reaplica a filtragem com base na parcela já selecionada
+    // }
+
+    table_individual.draw();  // Atualiza a tabela com o novo mês
+    realizarContagem();       // Rea
+
 });
+
+// table_individual.on('draw.dt', function() {
+//     //console.log("Olaaaaa");
+//     realizarContagem();  // Recalcula sempre que a tabela é desenhada
+// });
+
+
 
 $('#mudar_ano_table').on('change', function() {
     let anoSelecionado = $(this).val();

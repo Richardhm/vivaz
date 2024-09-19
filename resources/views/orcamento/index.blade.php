@@ -6,6 +6,10 @@
         <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[30%]" id="resultado"></div>
     </div>
 
+
+
+
+
     @section('scripts')
        <script>
 
