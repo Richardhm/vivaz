@@ -3952,7 +3952,7 @@
                 "initComplete": function( settings, json ) {
 
 
-                    $('#title_recebidas').html("<h4>Recebidas - Individual</h4>");
+                    $('#title_recebidas').html("<h4>Recebidas-Individual</h4>");
                 },
                 footerCallback: function (row, data, start, end, display) {
 
