@@ -212,7 +212,7 @@
                     backdrop-filter: blur(15px);
                 }
                 .content_all {
-                    padding-top: 50px; /* Ajuste a altura para garantir que o conteúdo não fique atrás do menu */
+                    padding-top: 70px; /* Ajuste a altura para garantir que o conteúdo não fique atrás do menu */
                 }
             }
 
