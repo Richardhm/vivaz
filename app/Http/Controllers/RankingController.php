@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RankingDiario;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Concessionaria;
@@ -13,6 +14,38 @@ use Illuminate\Support\Facades\DB;
 
 class RankingController extends Controller
 {
+    public function atualizarRankingDiario(Request $request)
+    {
+        foreach ($request->input('vidas_individual') as $id => $vidas_individual) {
+            $venda = RankingDiario::find($id);
+            $venda->vidas_individual = $vidas_individual;
+            $venda->vidas_coletivo = $request->input('vidas_coletivo')[$id];
+            $venda->vidas_empresarial = $request->input('vidas_empresarial')[$id];
+            $venda->save();
+        }
+
+        $ranking = RankingDiario::select('ranking_diario.id','user_id','nome','vidas_individual','vidas_coletivo','vidas_empresarial','users.image')
+            ->whereRaw("data = DATE(NOW())")
+            ->join("users","users.id","=","ranking_diario.user_id")
+            ->orderByRaw('vidas_individual + vidas_coletivo + vidas_empresarial DESC') // Ordena pela soma das vidas
+            ->get();
+
+        // Retorna o ranking atualizado para o frontend
+        return response()->json([
+            'ranking' => $ranking
+        ]);
+
+
+
+    }
+
+
+
+
+
+
+
+
     public function filtragem(Request $request)
     {
         $concessionarias = Concessionaria::all();

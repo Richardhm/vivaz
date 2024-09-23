@@ -4,6 +4,21 @@
         <!--COLUNA DA ESQUERDA-->
         <div class="flex flex-col text-white rounded w-[16%]" style="border-radius:5px;">
             {{--                    <button class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-lg py-1 px-4 rounded w-full text-sm">Arquivos</button>--}}
+            @if(auth()->user()->can('listar_todos'))
+                <select id="select_corretoras"
+                        class="
+                                w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                                active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                                px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                                "
+                        >
+
+                    <option value="1">Accert</option>
+                    <option value="2">Innove</option>
+                    <option value="0">Vivaz</option>
+                </select>
+            @endif
+
 
             <div class="flex justify-between my-1">
                 <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%] modal_upload">Upload</span>
@@ -17,8 +32,10 @@
                 <div class="flex flex-wrap justify-around mb-0 w-full">
 
                     <select id="select_usuario_individual"
-                            class="w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
-                            active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                            class="
+                            w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                            px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
                             "
                             tabindex="-1" aria-hidden="true"></select>
                     <div class="flex w-full justify-center mt-2">
@@ -29,8 +46,6 @@
                             <option>--Mês--</option>
                         </select>
                     </div>
-
-
 
                 </div>
 

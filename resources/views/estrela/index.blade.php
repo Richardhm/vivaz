@@ -19,7 +19,7 @@
                     <span style="font-size:1em;font-weight:bold;">{{$ano_atual}}</span>
                     <span>{{$semestre}}º Semestre</span>
                 </div>
-                <div class="flex flex-col justify-end">
+                <div class="flex flex-col justify-end mt-2">
 
                     <div class="flex items-center" style="border:1px solid #FFF;border-radius:5px;margin-bottom:10px;line-height: 1.1em;align-content: flex-start;">
                         <svg class="w-8 h-8 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -107,28 +107,28 @@
                     <tbody>
                     @foreach($ranking as $r)
                         @if($r->quantidade != 0)
-                            <tr>
+                            <tr class="p-0" style="padding:0;">
                                 <td class="p-0" style="width:3%; text-align: center;">{{$loop->iteration}}°</td>
                                 <td class="p-0" style="width:20%;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full text-left">{{$r->usuario}}</div>
+                                    <div class="text-white rounded-md w-full text-left">{{$r->usuario}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->julho}}</div>
+                                    <div class="text-white rounded-md w-full">{{$r->julho}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->agosto}}</div>
+                                    <div class="text-white rounded-md w-full">{{$r->agosto}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->setembro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$r->setembro}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->outubro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$r->outubro}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->novembro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$r->novembro}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->dezembro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$r->dezembro}}</div>
                                 </td>
                                 <td style="width:5.6%">
                                     <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">
@@ -137,7 +137,7 @@
                                 </td>
                                 <!-- Repita o padrão para os demais meses -->
                                 <td class="p-0" style="width:4%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">
+                                    <div class="text-white rounded-md w-full">
                                         @if($r->status == "nao_classificado")
                                             {{number_format(($r->quantidade / 150) * 100,2)}}
                                         @elseif($r->status == "tres_estrelas")
@@ -150,10 +150,10 @@
                                     </div>
                                 </td>
                                 <td class="p-0" style="width:5%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">{{$r->falta}}</div>
+                                    <div class="text-white rounded-md w-full">{{$r->falta}}</div>
                                 </td>
                                 <td class="p-0" style="width:20%; text-align: center;">
-                                    <div class="bg-gray-900 text-white rounded-md w-full">
+                                    <div class="text-white rounded-md w-full">
                                         @if($r->status == "nao_classificado")
                                             Não Classificado
                                         @elseif($r->status == "tres_estrelas")
@@ -251,22 +251,9 @@
                         </span>
                         <span>Apartir de 251 vidas</span>
                     </div>
-
-
-
-
-
-
-
             </div>
         </div>
-
-            {{--Fim Coluna 03--}}
-
-
-
-
-
+        {{--Fim Coluna 03--}}
         </div>
     </section>
 

@@ -40,6 +40,15 @@ class FinanceiroController extends Controller
         return view('financeiro.index');
     }
 
+    public function financeiroCorretoraChange()
+    {
+        $corretora_id = request()->corretora_id;
+        return $corretora_id;
+    }
+
+
+
+
     public function geralIndividualPendentes(Request $request)
     {
         $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
@@ -47,7 +56,7 @@ class FinanceiroController extends Controller
 
         // Definir uma chave de cache baseada nos parâmetros da requisição
         $cacheKey = 'geralIndividualPendentes_' . $corretora_id . '_' . ($mes ?? 'todos_meses');
-        $tempoDeExpiracao = 10; // Cache por 1 hora
+        $tempoDeExpiracao = 900; // Cache por 15 minutos
 
         // Verificar se o resultado já está no cache ou executar a consulta
         $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use ($corretora_id, $mes) {
@@ -64,8 +73,16 @@ class FinanceiroController extends Controller
                     'users.name as corretor',
                     'clientes.nome as cliente',
                     'clientes.cpf as cpf',
+                    'clientes.corretora_id as corretora_id',
+                    'clientes.user_id as user_id',
                     'clientes.quantidade_vidas as quantidade_vidas',
                     'contratos.valor_plano as valor_plano',
+                    'contratos.valor_adesao as valor_adesao',
+                    'clientes.cateirinha as carteirinha',
+                    'contratos.created_at as data_contrato',
+                    'contratos.data_vigencia as data_vigencia',
+                    'contratos.data_boleto as data_boleto',
+                    'contratos.codigo_externo as codigo_externo',
                     'contratos.id',
                     'estagio_financeiros.nome as parcelas',
                     DB::raw("(SELECT DATE_FORMAT(data, '%d/%m/%Y') FROM comissoes_corretores_lancadas WHERE comissoes_id = comissoes.id AND status_financeiro = 0 ORDER BY data ASC LIMIT 1) as vencimento"),
@@ -74,8 +91,10 @@ class FinanceiroController extends Controller
                     'clientes.email as email',
                     'clientes.cidade as cidade',
                     'clientes.bairro as bairro',
+                    'clientes.uf as uf',
                     'clientes.rua as rua',
                     'clientes.cep as cep',
+                    'clientes.complemento as complemento',
                     DB::raw("
                     CASE
                     WHEN (SELECT data
@@ -353,11 +372,6 @@ class FinanceiroController extends Controller
 
                         $user_id = User::where('codigo_vendedor', $cells[2]->getValue())->first()->id;
                         $corretora_id = User::where('codigo_vendedor', $cells[2]->getValue())->first()->corretora_id;
-
-
-
-
-
                         $cidade_id = 2;
                         $cliente = new Cliente();
                         $cliente->user_id = $user_id;
@@ -1693,14 +1707,15 @@ class FinanceiroController extends Controller
 
     public function editarCampoIndividualmente(Request $request)
     {
-        $cliente = Cliente::where("id",$request->id_cliente)->first();
-        $dependente = Dependentes::where('cliente_id',$request->id_cliente)->first();
-        $contrato = Contrato::where("cliente_id",$request->id_cliente)->first();
+        $contrato = Contrato::find($request->id_cliente);
 
+
+        $cliente = Cliente::where("id",$contrato->cliente_id)->first();
+        $dependente = Dependente::where('cliente_id',$cliente->id)->first();
         switch($request->alvo) {
 
             case "codigo_externo":
-                $contrato->codigo_externo = implode("-",array_reverse(explode("/",$request->valor)));
+                $contrato->codigo_externo = $request->valor;
                 $contrato->save();
                 break;
 
@@ -1747,8 +1762,8 @@ class FinanceiroController extends Controller
 
                 if(!$dependente) {
 
-                    $cad = new Dependentes();
-                    $cad->cliente_id = $request->id_cliente;
+                    $cad = new Dependente();
+                    $cad->cliente_id = $cliente->id;
                     $cad->nome = $request->valor;
                     $cad->save();
                 } else {
@@ -1772,7 +1787,7 @@ class FinanceiroController extends Controller
 
                 break;
 
-            case "celular":
+            case "fone":
 
                 $cliente->celular = $request->valor;
                 $cliente->save();
@@ -1832,6 +1847,12 @@ class FinanceiroController extends Controller
             case "complemento":
 
                 $cliente->complemento = $request->valor;
+                $cliente->save();
+
+                break;
+            case "carteirinha":
+
+                $cliente->cateirinha = $request->valor;
                 $cliente->save();
 
                 break;
@@ -2271,13 +2292,114 @@ class FinanceiroController extends Controller
         ));
     }
 
+    public function changeIndividual()
+    {
+        $contrato_id = request()->id_cliente;
+        $user_id = request()->user_id;
+
+        $contrato = Contrato::find($contrato_id);
+        $cliente = Cliente::where("id",$contrato->cliente_id)->first();
+        $comissao = Comissoes::where('contrato_id',$contrato->id)->first();
+        ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->update(["valor" => 0]);
+
+
+
+        $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
+            ::where("plano_id", 1)
+            ->where("administradora_id", 4)
+            ->where("user_id", $user_id)
+            //->where("tabela_origens_id", 2)
+            ->get();
+        $par = 0;
+        if (count($comissoes_configuradas_corretor) >= 1) {
+            foreach ($comissoes_configuradas_corretor as $c) {
+                $par++;
+                $valor_comissao = $contrato->valor_adesao;
+                $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                $comissaoVendedor->valor = ($valor_comissao * $c->valor) / 100;
+                $comissaoVendedor->save();
+            }
+        } else {
+            $dados = ComissoesCorretoresDefault
+                ::where("plano_id", 1)
+                ->where("administradora_id", 4)
+                ->where("corretora_id",$cliente->corretora_id)
+                ->get();
+            foreach ($dados as $c) {
+                $par++;
+                $valor_comissao_default = $contrato->valor_adesao;
+                $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                $comissaoVendedor->valor = ($valor_comissao_default * $c->valor) / 100;
+                $comissaoVendedor->save();
+            }
+            //}
+            /****FIm SE Comissoes Lancadas */
+        }
+
+        $cliente->user_id = $user_id;
+        $cliente->save();
+
+        $comissao->user_id = $user_id;
+        $comissao->save();
+
+
+    }
+
+
+
+
+
+    public function modalIndividual()
+    {
+        $id = request()->id;
+        $contratos = Contrato
+            ::where("id",$id)
+            ->with(['administradora','financeiro','cidade','comissao','acomodacao','plano','comissao.comissaoAtualFinanceiro','comissao.comissoesLancadas','clientes','clientes.user','clientes.dependentes'])
+            ->orderBy("id","desc")
+            ->first();
+        $users = User::where("corretora_id",auth()->user()->corretora_id)->where('ativo',1)->get();
+
+
+
+        return view('financeiro.modal-individual',[
+            "users" => $users,
+            "dados" => $contratos,
+            "corretor" => request()->corretor,
+            "id" => request()->id,
+            "vidas" => request()->vidas,
+            "status" => request()->status,
+            "rua" => request()->rua,
+            "cpf" => request()->cpf,
+            "data_criacao" => request()->data_criacao,
+            "data_nascimento" => request()->data_nascimento,
+            "email" => request()->email,
+            "celular" => request()->celular,
+            "codigo_externo" => request()->codigo_externo,
+            "valor_plano" => request()->valor_plano,
+            "cliente" => request()->cliente,
+            "cidade" => request()->cidade,
+            "cep" => request()->cep,
+            "bairro" => request()->bairro,
+            "carteirinha" => request()->carteirinha,
+            "complemento" => request()->complemento,
+            "uf" => request()->uf,
+            "valor_adesao" => request()->valor_adesao,
+            "data_vigencia" => request()->data_vigencia,
+            "data_boleto" => request()->data_boleto,
+            "user_id" => request()->user_id
+        ]);
+
+
+
+
+    }
+
 
 
 
     public function modalColetivo()
     {
         $id = request()->id;
-
         $contratos = Contrato
             ::where("id",$id)
             ->with(['administradora','financeiro','cidade','comissao','acomodacao','plano','comissao.comissaoAtualFinanceiro','comissao.comissoesLancadas','clientes','clientes.user','clientes.dependentes'])
@@ -2313,7 +2435,7 @@ class FinanceiroController extends Controller
 
     public function coletivoEmGeral(Request $request)
     {
-        $corretora_id = auth()->user()->corretora_id;
+        $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
         if ($request->ajax()) {
             $cacheKey = "geralColetivoGeral_" . now()->format('YmdHis');
             $tempoDeExpiracao = 60;

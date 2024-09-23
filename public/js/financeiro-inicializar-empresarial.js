@@ -38,20 +38,46 @@ function inicializarEmpresarial() {
         "responsive": true,
         "processing": true,
         columns: [
-            {data:"created_at",name:"created_at",width:"5%"},
-            {data:"codigo_externo",name:"codigo_externo",width:"4%"},
+            {data:"created_at",name:"created_at",width:"8%"},
+            {data:"codigo_externo",name:"codigo_externo",width:"6%"},
             {data:"usuario",name:"usuario",width:"10%"},
-            {data:"razao_social",name:"razao_social",width:"23%"},
-            {data:"cnpj",name:"cnpj",width:"10%"},
-            {data:"quantidade_vidas",name:"vidas",width:"3%"},
-            {data:"valor_plano",name:"valor_plano",width:"5%",render: $.fn.dataTable.render.number('.', ',', 2, 'R$ ')},
-            {data:"plano",name:"plano",width:"8%"},
-            {data:"vencimento",name:"vencimento",width:"7%"},
+            {data:"razao_social",name:"razao_social",width:"31%"},
+            {data:"cnpj",name:"cnpj",width:"14%"},
+            {data:"quantidade_vidas",name:"vidas",width:"5%"},
+            {data:"valor_plano",name:"valor_plano",width:"8%",render: $.fn.dataTable.render.number('.', ',', 2, 'R$ ')},
+            {data:"plano",name:"plano",width:"10%"},
+            {data:"vencimento",name:"vencimento",width:"9%"},
             {data:"status",name:"status",width:"10%"},
-            {data:"id",name:"id",width:"5%"},
+            {data:"id",name:"id",width:"4%"},
             {data:"resposta",name:"resposta",width:"10%",visible:false}
         ],
         "columnDefs": [
+            {
+                "targets": 2,
+                "createdCell":function(td, cellData, rowData, row, col) {
+                    let words = cellData.split(" ");
+
+                    // Limita para as duas primeiras palavras
+                    if (words.length > 2) {
+                        $(td).html(words.slice(0, 2).join(" ") + "...");
+                    } else {
+                        $(td).html(cellData);  // Se for menos de 2 palavras, mostra tudo
+                    }
+                }
+            },//Corretor
+            {
+                "targets": 3,
+                "createdCell":function(td, cellData, rowData, row, col) {
+                    let words = cellData.split(" ");
+
+                    // Limita para as duas primeiras palavras
+                    if (words.length > 4) {
+                        $(td).html(words.slice(0,4).join(" "));
+                    } else {
+                        $(td).html(cellData);  // Se for menos de 2 palavras, mostra tudo
+                    }
+                }
+            },//Razao Social
             {
                 "targets": 10,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -110,7 +136,7 @@ function inicializarEmpresarial() {
             },
         ],
         "initComplete": function( settings, json ) {
-            $('#title_empresarial').html("<h4 style='font-size:1em;margin-top:10px;'>Listagem(Completa)</h4>");
+            //$('#title_empresarial').html("<h4 style='font-size:1em;margin-top:10px;'>Listagem(Completa)</h4>");
             let corretoresUnicos = new Set();
             this.api().column(2).data().each(function(v) {
                 corretoresUnicos.add(v);

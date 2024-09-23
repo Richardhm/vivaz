@@ -16,14 +16,7 @@
             var table_individual;
             var parcelaSelecionada;
         </script>
-        @if(auth()->user()->can('listar_todos'))
-            <div style="display:flex;justify-content: center;">
-                    <button data-corretora="1" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;margin-right:5px;">Accert</button>
-                    <button data-corretora="2" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;margin-right:5px;">Innove</button>
-                    <button data-corretora="0" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white" style="border:none;width: 150px;padding: 8px 5px;border-radius:5px;">Vivaz</button>
-            </div>
-        @endif
-    <div style="width:95%;margin:0 auto;">
+            <div style="width:95%;margin:0 auto;">
         <ul class="list_abas">
             <li data-id="aba_individual" class="ativo">Individual</li>
             <li data-id="aba_coletivo">Coletivo</li>
@@ -32,6 +25,38 @@
     </div>
     <x-upload-modal></x-upload-modal>
     <x-upload-atualizar></x-upload-atualizar>
+
+        <!-- O container de loading com 3 pontinhos -->
+        <div id="loading-dots-change" class="hidden fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 z-50">
+            <div class="flex justify-center items-center space-x-1">
+                <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce"></div>
+                <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce delay-200"></div>
+                <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce delay-400"></div>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="myModalIndividual" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+            <!-- Backdrop -->
+            <div class="fixed inset-0 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] z-40"></div>
+            <!-- Conteúdo da Modal -->
+            <div class="relative w-11/12 rounded-lg shadow-3xl p-2 z-50">
+                <!-- Botão Fechar no Topo -->
+                <div id="modalLoaderIndividual" class="flex justify-center items-center h-64">
+                    <div class="dot-flashing">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <!-- Borda Animada -->
+                <div class="relative p-1 rounded-lg animate-border overflow-hidden content-modal-individual hidden">
+                </div>
+            </div>
+        </div>
 
         <div id="myModalColetivo" class="fixed inset-0 z-50 flex items-center justify-center hidden">
             <!-- Backdrop -->
@@ -82,27 +107,6 @@
 
         $(document).ready(function(){
 
-
-
-
-
-
-
-
-
-
-
-
-
-            //
-            // $("#select_usuario_individual").select2({
-            //     dropdownCssClass: 'text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg border-gray-300 shadow-md', // Estilo para o dropdown
-            //     width: '100%', // Faz o select ocupar a largura completa
-            // });
-            //
-            // // Adiciona manualmente as classes Tailwind ao contêiner do select2
-            // $(".select2-container--default .select2-selection--single").addClass('text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded-lg border-gray-300 shadow-md');
-
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
                 var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -110,12 +114,9 @@
                 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             }
 
-
-
             function totalMes() {
                 return $("#select_usuario_individual").val();
             }
-
 
             String.prototype.ucWords = function () {
                 let str = this.toLowerCase()
@@ -127,6 +128,102 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $("body").on('click','.editar_individual_select',function(){
+                let select = $(this).closest("div").find('select');
+                if(select.prop('disabled')) {
+                    select.prop('disabled',false);
+                } else {
+                    select.prop('disabled',true);
+                }
+            });
+
+            $("body").on('change', '#mudar_corretor_individual', function () {
+                let id_cliente = $("#id_cliente").val();
+                let user_id = $(this).val();
+
+                // Mostrar o loading (remover a classe hidden)
+                $("#loading-dots-change").removeClass('hidden');
+
+                $.ajax({
+                    url: "{{route('financeiro.changeFinanceiro')}}",
+                    method: "POST",
+                    data: {
+                        id_cliente,
+                        user_id
+                    },
+                    success: function (res) {
+                        // Esconder o loading (adicionar a classe hidden novamente)
+                        $("#loading-dots-change").addClass('hidden');
+
+                        // Exibir mensagem de sucesso (SweetAlert)
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Troca realizada com sucesso!',
+                            text: 'O cliente foi transferido para o novo vendedor.',
+                            confirmButtonText: 'OK'
+                        });
+                    },
+                    error: function (err) {
+                        // Esconder o loading (adicionar a classe hidden novamente)
+                        $("#loading-dots-change").addClass('hidden');
+
+                        // Exibir mensagem de erro (SweetAlert)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao trocar vendedor',
+                            text: 'Ocorreu um erro ao tentar transferir o cliente. Por favor, tente novamente.',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+
+
+            $("body").on('click','.editar_individual',function(){
+                let input = $(this).closest("div").find("input");
+
+                if (input.prop('readonly')) {
+                    input.prop('readonly', false); // Remove a propriedade readonly
+                } else {
+                    input.prop('readonly', true); // Adiciona a propriedade readonly
+                }
+            });
+
+            $("body").on('change','.editar_campo_individual',function(){
+                let alvo = $(this).attr('id');
+                let valor = $("#"+alvo).val();
+                let id_cliente = $("#id_cliente").val();
+
+                $.ajax({
+                    url:"{{route('financeiro.editar.campoIndividualmente')}}",
+                    method:"POST",
+                    data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id_cliente,
+                    success:function(res) {
+                        console.log(res);
+                        //table.ajax.reload();
+                    }
+                });
+            });
+
+
+            $("body").on("change","#select_corretoras_coletivo",function(){
+                let corretora_id = $(this).val();
+                inicializarColetivo(corretora_id);
+
+            });
+
+
+
+
+            $("body").on("change",'#select_corretoras',function(){
+                let corretora_id = $(this).val();
+                inicializarIndividual(corretora_id);
+            });
+
+
+
+
 
             $(document).on('click','.open-modal-empresarial',function(e){
                 e.preventDefault();
@@ -193,21 +290,77 @@
                         $('.content-modal-empresarial').removeClass('hidden');
                         $(".content-modal-empresarial").html(res);
                     }
-
                 });
-
-
                 $('#myModalEmpresarial').removeClass('hidden').addClass('flex');
-
-
             });
 
-            // $(document).on('click', function(e) {
-            //     if (!$(e.target).closest('.content-modal-coletivo').length && !$(e.target).hasClass('open-modal')) {
-            //         $('#myModalColetivo').removeClass('flex').addClass('hidden');
-            //         $('.content-modal-coletivo').html('');
-            //     }
-            // });
+            $(document).on('click','.open-model-individual',function(e){
+                e.preventDefault();
+                let corretor = $(this).data('corretor');
+                let id = $(this).data('id');
+                let vidas = $(this).data('quantidade_vidas');
+                let status = $(this).data('status');
+                let rua = $(this).data('rua');
+                let cpf = $(this).data('cpf');
+                let data_criacao = $(this).data('data-criacao');
+                let data_nascimento= $(this).data('data_nascimento');
+                let email = $(this).data('email');
+                let celular = $(this).data('celular');
+                let codigo_externo = $(this).data('codigo_externo');
+                let valor_plano = $(this).data('valor_plano');
+                let cliente = $(this).data('cliente');
+                let cidade = $(this).data('cidade');
+                let cep = $(this).data('cep');
+                let bairro = $(this).data('bairro');
+                let carteirinha = $(this).data('carteirinha');
+                let complemento = $(this).data('complemento');
+                let uf = $(this).data('uf');
+                let valor_adesao = $(this).data('valor_adesao');
+                let data_vigencia= $(this).data('data_vigencia');
+                let data_boleto= $(this).data('data_boleto');
+                let user_id = $(this).data('user_id');
+                $.ajax({
+                    url:"{{route('financeiro.modal.contrato.individual')}}",
+                    method:"POST",
+                    data: {
+                        user_id,
+                        corretor,
+                        id,
+                        vidas,
+                        status,
+                        rua,
+                        cpf,
+                        data_criacao,
+                        data_nascimento,
+                        email,
+                        celular,
+                        codigo_externo,
+                        valor_plano,
+                        cliente,
+                        cidade,
+                        cep,
+                        bairro,
+                        carteirinha,
+                        complemento,
+                        uf,
+                        valor_adesao,
+                        data_vigencia,
+                        data_boleto
+                    },
+                    success:function(res){
+                        $('#modalLoaderIndividual').addClass('hidden');
+                        $('.content-modal-individual').removeClass('hidden');
+                        $(".content-modal-individual").html(res);
+                    }
+                });
+                // Exibe a modal
+                $('#myModalIndividual').removeClass('hidden').addClass('flex');
+                $('#modalLoaderIndividual').removeClass('hidden');
+            });
+
+
+
+
 
 
             $(document).on('click', '.open-modal', function(e) {
@@ -228,16 +381,12 @@
                 let id = $(this).data("id");
                 let administradora = $(this).data("administradora");
                 let fone = $(this).data("fone");
-
                 let valor_adesao = $(this).data("adesao");
                 let valor_plano = $(this).data("valorplano");
                 let desconto_corretora = $(this).data("descontocorretora") ?? 0;
                 let desconto_corretor = $(this).data("descontocorretor") ?? 0;
-
                 let status = $(this).data('status');
                 let financeiro = $(this).data('financeiro');
-
-
                 $.ajax({
                    url:"{{route('financeiro.modal.contrato.coletivo')}}",
                    method:"POST",
@@ -467,8 +616,6 @@
 
                 // Verifica se existe uma próxima linha
                 if (proximaLinha.length) {
-
-
                     // Verifica se a próxima linha tem a classe 'cursor-not-allowed'
                     if (proximaLinha.hasClass('disabled-button')) {
                         proximaLinha.removeClass('disabled-button');
@@ -664,6 +811,11 @@
                 $('.content-modal-coletivo').html('');
             });
 
+
+            $("body").on('click','#closeModalIndividual',function(){
+                $('#myModalIndividual').removeClass('flex').addClass('hidden');
+                $('.content-modal-individual').html('');
+            });
 
             $("body").on('click','#closeModalEmpresarial',function(){
                 $('#myModalEmpresarial').removeClass('flex').addClass('hidden');

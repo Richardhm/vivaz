@@ -14,18 +14,6 @@ $(window).on('click', function(event) {
 });
 
 
-
-// Listener para clique nas parcelas
-
-
-// Listener para mudanças nos selects (mês, ano, usuário)
-
-
-
-
-
-
-
 $('button[data-corretora]').on('click', function() {
     let corretora_id = $(this).data('corretora');
     if($("#janela_atual").val() == "aba_individual") {

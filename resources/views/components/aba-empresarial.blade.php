@@ -10,17 +10,34 @@
                 </ul>
             </div>
 
-            <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] mb-1 p-1" id="content_list_empresarial_begin">
-                <div class="flex flex-wrap w-full gap-2 mb-1">
-                    <div style="display:flex;flex-basis:48%;">
-                        <select id="mudar_ano_table_empresarial" class="text-white bg-transparent border border-gray-300 rounded-md py-2 px-2 w-full">
+            <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] p-1" id="content_list_empresarial_begin">
+                <div class="flex flex-wrap w-full mb-1">
+                    <div class="flex flex-wrap justify-around mb-0 w-full">
+                        <select id="mudar_ano_table_empresarial" class="
+
+                            flex basis-[48%] py-2 text-lg justify-center
+							text-white bg-[rgba(254,254,254,0.18)] focus:outline-none
+							active:outline-none active:bg-[rgba(254,254,254,0.18)]
+							hover:bg-gray-800 py-2 focus:bg-gray-800 w-full text-xs
+							px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent
+							focus:border-transparent border-transparent
+
+                            ">
                             <option value="" class="text-center">-Anos-</option>
                             <option value="2022">2022</option>
                             <option value="2023" selected>2023</option>
                         </select>
-                    </div>
-                    <div style="display:flex;flex-basis:48%;">
-                        <select id="mudar_mes_table_empresarial" class="text-white bg-transparent border border-gray-300 rounded-md py-2 px-2 w-full">
+
+                        <select id="mudar_mes_table_empresarial" class="
+
+                            flex basis-[48%] py-2 text-lg justify-center
+							text-white bg-[rgba(254,254,254,0.18)] focus:outline-none
+							active:outline-none active:bg-[rgba(254,254,254,0.18)]
+							hover:bg-gray-800 py-2 focus:bg-gray-800 w-full text-xs
+							px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent
+							focus:border-transparent border-transparent
+
+                            ">
                             <option value="" class="text-center">-Meses-</option>
                             <option value="01">Janeiro</option>
                             <option value="02">Fevereiro</option>
@@ -35,14 +52,26 @@
                             <option value="11">Novembro</option>
                             <option value="12">Dezembro</option>
                         </select>
+
                     </div>
 
-                    <select style="flex-basis:99%;" name="mudar_user_empresarial" id="mudar_user_empresarial" class="text-center text-white bg-transparent border border-gray-300 rounded-md py-2 me-2 px-2 mx-auto">
+                    <select style="flex-basis:99%;" name="mudar_user_empresarial" id="mudar_user_empresarial" class="
+                        w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                            px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                        ">
                         <option value="todos" class="text-center" data-id="0">---Escolher Corretor---</option>
 
                     </select>
 
-                    <select style="flex-basis:99%;" name="mudar_planos_empresarial" id="mudar_planos_empresarial" class="text-center text-white bg-transparent border border-gray-300 rounded-md py-2 me-2 px-2 mx-auto">
+                    <select style="flex-basis:99%;" name="mudar_planos_empresarial" id="mudar_planos_empresarial"
+                            class="
+
+                            w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                            px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                            "
+                    >
                         <option value="todos" class="text-center" data-id="0">---Escolher Planos---</option>
 
                     </select>
@@ -65,7 +94,7 @@
                 </ul>
             </div>
 
-            <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
+            <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1 mt-1">
                 <ul id="atrasado_corretor_empresarial">
                     <li style="height:30px;line-height: 30px;" class="flex justify-between empresarial">
                         <span class="text-sm">Atrasados</span>
@@ -87,7 +116,7 @@
 
                 <ul class="list-none m-0 py-1" id="listar_empresarial">
 
-                    <li style="height:30px;line-height: 30px;" class="mb-1 justify-between flex justify-end empresarial" id="aguardando_em_analise_empresarial">
+                    <li style="height:30px;line-height: 30px;" class="mb-1 justify-between flex justify-end empresarial items-center py-1" id="aguardando_em_analise_empresarial">
                         <span class="text-sm">Em Análise</span>
                         <span class="text-right w-[30%] text-sm text-black bg-transparent backdrop-blur-[80px] text-white pr-1 rounded empresarial_quantidade_em_analise">0</span>
                     </li>
@@ -132,7 +161,7 @@
         <!--COLUNA DA CENTRAL-->
         <div style="flex-basis:83%;">
             <div class="p-2 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="color:#FFF;">
-                <table id="tabela_empresarial" class="table table-sm listarempresarial" style="table-layout: fixed;">
+                <table id="tabela_empresarial" class="table table-sm w-100 text-left listarempresarial" style="table-layout: fixed;">
 
                     <thead>
                     <tr>
@@ -144,9 +173,9 @@
                         <th>Vidas</th>
                         <th>Valor</th>
                         <th>Plano</th>
-                        <th>Venc.</th>
+                        <th>Vencimento</th>
                         <th>Status</th>
-                        <th>Detalhes</th>
+                        <th>Ver</th>
                         <th>Resposta</th>
                     </tr>
                     </thead>

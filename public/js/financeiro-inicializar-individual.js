@@ -26,6 +26,7 @@ function inicializarIndividual(corretora_id = null) {
         processing: true,
         ajax: {
             "url":urlGeralIndividualPendentes,
+
             data: function (d) {
                 d.corretora_id = corretora_id;
             }
@@ -34,6 +35,7 @@ function inicializarIndividual(corretora_id = null) {
         "ordering": false,
         "paging": true,
         "searching": true,
+        deferRender: true,
         "info": true,
         "autoWidth": false,
         "responsive": true,
@@ -56,11 +58,10 @@ function inicializarIndividual(corretora_id = null) {
             {data:"id",name:"ver"},
             {data:"status",name:"status"},
 
-
         ],
         "columnDefs": [
-            {"targets": 0,"width":"8%"},
-            {"targets": 1,"width":"8%"},
+            {"targets": 0,"width":"8%"},//data
+            {"targets": 1,"width":"8%"},//codi
             {"targets": 2,"width":"14%",
                 "createdCell":function(td, cellData, rowData, row, col) {
                     let words = cellData.split(" ");
@@ -72,7 +73,7 @@ function inicializarIndividual(corretora_id = null) {
                         $(td).html(cellData);  // Se for menos de 2 palavras, mostra tudo
                     }
                 }
-            },
+            },//Corretor
             {"targets": 3,"width":"22%"},//cliente
             {"targets": 4,"width":"12%"},//cpf
             {"targets": 5,"width":"5%"},//vidas
@@ -95,8 +96,59 @@ function inicializarIndividual(corretora_id = null) {
                                     `);
                     } else {
                         var id = rowData.id;
+                        let corretor = rowData['corretor'];
+                        let cpf = rowData['cpf'];
+                        let data_criacao = rowData['data'];
+                        let data_nascimento = rowData['data_nascimento'];
+                        let email = rowData['email'];
+                        let celular = rowData['fone'];
+                        let codigo_externo = rowData['codigo_externo'];
+                        let status = rowData['parcelas'];
+                        let quantidade_vidas = rowData['quantidade_vidas'];
+                        let rua = rowData['rua'];
+                        let valor_plano = rowData['valor_plano'];
+                        let cliente = rowData['cliente'];
+                        let cidade = rowData['cidade'];
+                        let cep = rowData['cep'];
+                        let bairro = rowData['bairro'];
+                        let carteirinha = rowData['carteirinha'];
+                        let complementos = rowData['complemento'];
+                        let uf = rowData['uf'];
+                        let valor_adesao = rowData['valor_adesao'];
+                        let data_vigencia = rowData['data_vigencia'];
+                        let data_boleto = rowData['data_boleto'];
+                        let user_id = rowData['user_id'];
+
+
+
                         $(td).html(`<div class='text-center text-white'>
-                                            <a href="/financeiro/detalhes/${id}" class="text-white">
+                                            <a href="#"
+                                                data-corretor="${corretor}"
+                                                data-id="${id}"
+                                                data-user_id="${user_id}"
+                                                data-vidas="${quantidade_vidas}"
+                                                data-status="${status}"
+                                                data-rua="${rua}"
+                                                data-cpf="${cpf}"
+                                                data-criacao="${data_criacao}"
+                                                data-nascimento="${data_nascimento}"
+                                                data-email="${email}"
+                                                data-celular="${celular}"
+                                                data-codigo_externo="${codigo_externo}"
+                                                data-valor_plano="${valor_plano}"
+                                                data-cliente="${cliente}"
+                                                data-cidade="${cidade}"
+                                                data-cep="${cep}"
+                                                data-cidade="${cidade}"
+                                                data-bairro="${bairro}"
+                                                data-carteirinha="${carteirinha}"
+                                                data-complemento="${complementos}"
+                                                data-uf="${uf}"
+                                                data-valor_adesao="${valor_adesao}"
+                                                data-data_vigencia="${data_vigencia}"
+                                                data-data_boleto="${data_boleto}"
+
+                                            class="text-white open-model-individual">
                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -107,10 +159,9 @@ function inicializarIndividual(corretora_id = null) {
                     }
                 }
             },
-            {"targets": 11,"width":"3%","visible": false},
+            {"targets": 11,"width":"3%","visible": false}
         ],
         "initComplete": function( settings, json ) {
-
             let countPagamento1 = this.api().column(9).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
             let countPagamento2 = this.api().column(9).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
             let countPagamento3 = this.api().column(9).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;

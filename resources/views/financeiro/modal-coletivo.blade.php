@@ -1,8 +1,5 @@
 <div class="flex flex-wrap">
 
-    <p>Status: {{$dados->financeiro_id}}</p>
-
-
     <div class="flex justify-end w-full">
 
         <button id="closeModalColetivo" class="text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] hover:bg-red-600 p-1 rounded-full">

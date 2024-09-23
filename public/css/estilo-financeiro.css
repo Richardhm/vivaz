@@ -1,11 +1,11 @@
 table.dataTable tbody td {
-    font-size: 0.9em !important;
-    padding: 1px !important;
+    font-size: 0.85em !important;
+    padding: 0px !important;
 }
 
 table.dataTable thead th {
-    font-size: 0.9em !important;
-    padding: 1px !important;
+    font-size: 0.85em !important;
+    padding: 0px !important;
 }
 
 
@@ -23,6 +23,9 @@ table.dataTable thead th {
     color: #FFF !important;
 }
 
+input[readonly] {
+    background-color: #9ca3af;
+}
 
 
 .fontsize0 option {font-size: 0.7em !important;}
@@ -80,10 +83,7 @@ table.dataTable thead th {
 
 #tabela_empresarial td {white-space: nowrap;overflow: hidden;text-overflow: clip;}
 #tabela_individual td {white-space: nowrap;overflow: hidden;text-overflow: clip;}
-
-#tabela_coletivo td {white-space: nowrap;overflow: hidden;
-    text-overflow: clip;
-}
+#tabela_coletivo td {white-space: nowrap;overflow: hidden;text-overflow: clip;}
 
 
 

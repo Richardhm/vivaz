@@ -2,7 +2,28 @@
 
     <section class="flex justify-between flex-wrap content-start">
         <!--COLUNA DA ESQUERDA-->
+
         <div class="flex flex-col text-white basis-[16%] rounded-lg">
+
+            @if(auth()->user()->can('listar_todos'))
+                <select id="select_corretoras_coletivo"
+                        class="
+                                w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                                active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                                px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                                "
+                >
+
+                    <option value="1">Accert</option>
+                    <option value="2">Innove</option>
+                    <option value="0">Vivaz</option>
+                </select>
+            @endif
+
+
+
+
+
             <div class="flex mb-1 justify-between">
             <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-sm py-2 text-center rounded basis-[49%]">
                 <a class="text-center text-white" href="{{route('contratos.create.coletivo')}}">Cadastrar</a>
