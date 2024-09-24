@@ -935,7 +935,6 @@
 
                        $("#select_div").show('slow');
 
-
                        var data = google.visualization.arrayToDataTable([
                            ['Mês', 'Individual', 'Coletivo', 'Empresarial'],
                            ['Jan', janeiro_individual, janeiro_coletivo, janeiro_empresarial],
@@ -952,11 +951,8 @@
                            ['Dez', dezembro_individual, dezembro_coletivo, dezembro_empresarial]
                        ]);
 
-
-
                        var options = {
                            title: 'Resumo Vendas Anual',
-
                            legend: {
                                position:'bottom',
                                textStyle: {
@@ -1116,7 +1112,7 @@
                                        color: '#FFFFFF'  // Cor do texto do eixo vertical em branco
                                    }
                                },
-                               pieSliceBorderColor: "#000",  // Cor de borda das fatias, caso você queira destacar visualmente
+                               pieSliceBorderColor: "#FFF",  // Cor de borda das fatias, caso você queira destacar visualmente
                                sliceVisibilityThreshold: 0  // Mostra fatias com valor zero
                            };
 

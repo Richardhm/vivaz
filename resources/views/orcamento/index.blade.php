@@ -47,7 +47,10 @@
                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                    }
                });
-               $("input[name='operadoras']").on('change',function(){
+
+
+               $("body").on('change touchstart',"input[name='operadoras']",function(e){
+                   e.preventDefault();
                    let valor = $(this).val();
                    if($("#resultado").is(":visible")){
                        $("input[name='planos-radio']").prop('checked', false);
@@ -57,6 +60,10 @@
                        url: '{{route('buscar_planos')}}',  // URL da rota que irá processar a requisição
                        type: 'POST',
                        data: { administradora_id: valor },
+                       headers: {
+                           'X-Requested-With': 'XMLHttpRequest', // Define como uma requisição AJAX
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Inclui o CSRF token
+                       },
                        success: function(response) {
                            // Atualiza a lista de planos com os dados recebidos
                            $('#planos').removeClass('hidden').find('div[data-plano]').each(function() {
@@ -72,7 +79,11 @@
                            alert('Erro ao buscar os planos. Tente novamente.');
                        }
                    });
-               });
+                   return false;
+               })
+
+
+
                /*****************verificar se cidade e minus estão preenchidos para aparecer administradoras*******/
                function checkFields() {
                    var hasValue = false;
