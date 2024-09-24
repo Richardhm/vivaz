@@ -9,21 +9,28 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectForMobile
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
         $agent = new Agent();
 
         // Verifica se o dispositivo é móvel e se a rota não é "/orcamento"
-        if ($agent->isMobile() && $request->path() !== 'orcamento') {
-            // Redireciona para a rota /orcamento
+        if ($agent->isMobile() && !$this->isOrcamentoRoute($request)) {
+            // Redireciona para a rota /orcamento se não for acessada
             return redirect('/orcamento');
         }
 
         return $next($request);
+    }
+
+    /**
+     * Verifica se a rota atual é a rota "orcamento" (com ou sem parâmetros).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function isOrcamentoRoute(Request $request): bool
+    {
+        // Verifica se o caminho é 'orcamento' (completo ou contendo parâmetros adicionais)
+        return $request->is('orcamento') || $request->is('orcamento/*');
     }
 }

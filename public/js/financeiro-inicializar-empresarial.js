@@ -1,5 +1,5 @@
 var tableempresarial;
-function inicializarEmpresarial() {
+function inicializarEmpresarial(corretora_id = null) {
 
     if($.fn.DataTable.isDataTable('.listarempresarial')) {
         $('.listarempresarial').DataTable().destroy();
@@ -27,7 +27,9 @@ function inicializarEmpresarial() {
         },
         ajax: {
             "url":urlGeralEmpresarialPendentes,
-            "dataSrc": ""
+            data: function (d) {
+                d.corretora_id = corretora_id;
+            }
         },
         "lengthMenu": [1000,2000,3000],
         "ordering": false,

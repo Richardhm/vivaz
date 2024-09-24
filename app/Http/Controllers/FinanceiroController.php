@@ -2436,119 +2436,142 @@ class FinanceiroController extends Controller
     public function coletivoEmGeral(Request $request)
     {
         $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
+
         if ($request->ajax()) {
             $cacheKey = "geralColetivoGeral_" . now()->format('YmdHis');
             $tempoDeExpiracao = 60;
+
             $dados = Cache::remember($cacheKey, $tempoDeExpiracao, function () use($corretora_id) {
-                return DB::select("
-                    SELECT
-                        DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as data,
-                        (contratos.codigo_externo) as orcamento,
-                        users.name as corretor,
-                        clientes.nome as cliente,
-                        clientes.cpf as cpf,
-                        clientes.quantidade_vidas as quantidade_vidas,
-                        (contratos.valor_plano) as valor_plano,
+                $query = DB::table('comissoes_corretores_lancadas')
+                    ->select(
+                        DB::raw("DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as data"),
+                        'contratos.codigo_externo as orcamento',
+                        'users.name as corretor',
+                        'clientes.nome as cliente',
+                        'clientes.cpf as cpf',
+                        'clientes.quantidade_vidas as quantidade_vidas',
+                        'contratos.valor_plano as valor_plano',
+                        'contratos.id',
+                        'estagio_financeiros.nome as parcelas',
+                        'administradoras.nome as administradora',
+                        'estagio_financeiros.nome as status',
+                        DB::raw("CASE
+                        WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10
+                        THEN 'Atrasado'
+                        ELSE 'Aprovado'
+                    END AS resposta"),
+                        'clientes.data_nascimento as nascimento',
+                        'clientes.celular as fone',
+                        'clientes.email as email',
+                        'clientes.cidade as cidade',
+                        'clientes.bairro as bairro',
+                        'clientes.rua as rua',
+                        'clientes.cep as cep',
+                        'clientes.uf as uf',
+                        'clientes.complemento as complemento',
+                        'contratos.valor_adesao as valor_adesao',
+                        'contratos.desconto_corretora as desconto_corretora',
+                        'contratos.desconto_corretor as desconto_corretor',
+                        'comissoes_corretores_lancadas.status_financeiro as financeiro_id',
+                        DB::raw("DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') as vencimento")
+                    )
+                    ->join('comissoes', 'comissoes.id', '=', 'comissoes_corretores_lancadas.comissoes_id')
+                    ->join('contratos', 'contratos.id', '=', 'comissoes.contrato_id')
+                    ->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
+                    ->join('users', 'users.id', '=', 'clientes.user_id')
+                    ->join('administradoras', 'administradoras.id', '=', 'contratos.administradora_id')
+                    ->join('estagio_financeiros', 'estagio_financeiros.id', '=', 'contratos.financeiro_id')
+                    ->where(function($query) {
+                        $query->where('status_financeiro', 0)
+                            ->orWhere(function($query) {
+                                $query->where('status_financeiro', 1)
+                                    ->where('parcela', 7);
+                            });
+                    })
+                    ->where('contratos.plano_id', 3)
+                    ->groupBy('contratos.id');
 
-                        contratos.id,
-                        estagio_financeiros.nome as parcelas,
-                        administradoras.nome as administradora,
-                        (estagio_financeiros.nome) as status,
-                        CASE
-                                WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado'
-                            ELSE 'Aprovado'
-                        END AS resposta,
+                if ($corretora_id != 0) {
+                    $query->where('clientes.corretora_id', $corretora_id);
+                }
 
-                        clientes.data_nascimento as nascimento,
-                        clientes.celular as fone,
-                        clientes.email as email,
-                        clientes.cidade as cidade,
-                        clientes.bairro as bairro,
-                        clientes.rua as rua,
-                        clientes.cep as cep,
-                        clientes.uf as uf,
-                        clientes.complemento as complemento,
-
-                        (contratos.valor_adesao) as valor_adesao,
-                        (contratos.desconto_corretora) as desconto_corretora,
-                        (contratos.desconto_corretor) as desconto_corretor,
-                        comissoes_corretores_lancadas.status_financeiro as financeiro_id,
-
-                        DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') as vencimento
-                                FROM comissoes_corretores_lancadas
-                        INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
-                        INNER JOIN contratos ON contratos.id = comissoes.contrato_id
-                        INNER JOIN clientes ON clientes.id = contratos.cliente_id
-                        INNER JOIN users ON users.id = clientes.user_id
-                        inner join administradoras on administradoras.id = contratos.administradora_id
-                        INNER JOIN estagio_financeiros ON estagio_financeiros.id = contratos.financeiro_id
-                        WHERE
-                        (status_financeiro = 0 OR (status_financeiro = 1 AND parcela = 7))
-                        AND contratos.plano_id = 3 AND clientes.corretora_id = {$corretora_id}
-                        GROUP BY contratos.id
-                ");
+                return $query->get();
             });
 
             return response()->json(['data' => $dados]);
         }
     }
 
+
     public function listarContratoEmpresaPendentes(Request $request)
     {
-        $corretora_id = auth()->user()->corretora_id;
-        if($request->ajax()) {
+        $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
+        if ($request->ajax()) {
             $cacheKey = 'listarContratoEmpresaPendentes';
             $tempoDeExpiracao = 60;
             $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use($corretora_id) {
-                return DB::select("
-                SELECT
-                date_format(contrato_empresarial.created_at,'%d/%m/%Y') as created_at,
-              codigo_externo as codigo_externo,
-              users.name as usuario,
-              razao_social,
-              cnpj,
-              quantidade_vidas,
-              valor_plano,
-              contrato_empresarial.data_analise,
-              contrato_empresarial.email as email,
-              contrato_empresarial.celular as fone,
-              contrato_empresarial.cidade as cidade,
-              contrato_empresarial.uf as uf,
+                $query = DB::table('comissoes_corretores_lancadas')
+                    ->select(
+                        DB::raw("DATE_FORMAT(contrato_empresarial.created_at,'%d/%m/%Y') as created_at"),
+                        'contrato_empresarial.codigo_externo as codigo_externo',
+                        'users.name as usuario',
+                        'contrato_empresarial.razao_social',
+                        'contrato_empresarial.cnpj',
+                        'contrato_empresarial.quantidade_vidas',
+                        'contrato_empresarial.valor_plano',
+                        'contrato_empresarial.data_analise',
+                        'contrato_empresarial.email as email',
+                        'contrato_empresarial.celular as fone',
+                        'contrato_empresarial.cidade as cidade',
+                        'contrato_empresarial.uf as uf',
+                        'planos.nome as plano',
+                        DB::raw("DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') as vencimento"),
+                        'estagio_financeiros.nome as status',
+                        'contrato_empresarial.id as id',
+                        DB::raw("CASE
+                        WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado'
+                        ELSE 'Aprovado'
+                    END AS resposta"),
+                        'contrato_empresarial.valor_plano_saude as valor_saude',
+                        'contrato_empresarial.valor_plano_odonto as valor_odonto',
+                        'contrato_empresarial.codigo_saude as codigo_saude',
+                        'contrato_empresarial.codigo_odonto as codigo_odonto',
+                        'contrato_empresarial.codigo_corretora as codigo_corretora',
+                        'contrato_empresarial.senha_cliente as senha_cliente',
+                        'contrato_empresarial.taxa_adesao as taxa_adesao',
+                        'contrato_empresarial.valor_total as valor_total',
+                        'contrato_empresarial.valor_boleto as valor_boleto',
+                        'contrato_empresarial.vencimento_boleto as vencimento_boleto',
+                        'contrato_empresarial.data_boleto as data_boleto',
+                        'tabela_origens.nome as tabela_origens',
+                        'contrato_empresarial.responsavel as responsavel',
+                        'contrato_empresarial.plano_contrado as plano_contrado'
+                    )
+                    ->join('comissoes', 'comissoes.id', '=', 'comissoes_corretores_lancadas.comissoes_id')
+                    ->join('contrato_empresarial', 'contrato_empresarial.id', '=', 'comissoes.contrato_empresarial_id')
+                    ->join('users', 'users.id', '=', 'comissoes.user_id')
+                    ->join('planos', 'planos.id', '=', 'comissoes.plano_id')
+                    ->join('estagio_financeiros', 'estagio_financeiros.id', '=', 'contrato_empresarial.financeiro_id')
+                    ->join('tabela_origens', 'tabela_origens.id', '=', 'contrato_empresarial.tabela_origens_id')
+                    ->where(function($query) {
+                        $query->where('comissoes.empresarial', 1)
+                            ->where(function($query) {
+                                $query->where('comissoes_corretores_lancadas.status_financeiro', 0)
+                                    ->orWhere(function($query) {
+                                        $query->where('comissoes_corretores_lancadas.status_financeiro', 1)
+                                            ->where('comissoes_corretores_lancadas.parcela', 6);
+                                    });
+                            });
+                    })
+                    ->groupBy('comissoes_corretores_lancadas.comissoes_id');
 
-              planos.nome as plano,
-              date_format(comissoes_corretores_lancadas.`data`,'%d/%m/%Y') AS vencimento,
-              estagio_financeiros.nome as status,
-              contrato_empresarial.id as id,
-              CASE
-                  WHEN comissoes_corretores_lancadas.data < CURDATE() AND estagio_financeiros.id != 10 THEN 'Atrasado'
-               ELSE 'Aprovado'
-               END AS resposta,
-            contrato_empresarial.valor_plano_saude as valor_saude,
-            contrato_empresarial.valor_plano_odonto as valor_odonto,
-            contrato_empresarial.codigo_saude as codigo_saude,
-            contrato_empresarial.codigo_odonto as codigo_odonto,
-            contrato_empresarial.codigo_corretora as codigo_corretora,
-            contrato_empresarial.senha_cliente as senha_cliente,
-            contrato_empresarial.taxa_adesao as taxa_adesao,
-            contrato_empresarial.valor_total as valor_total,
-            contrato_empresarial.valor_boleto as valor_boleto,
-            contrato_empresarial.vencimento_boleto as vencimento_boleto,
-            contrato_empresarial.data_boleto as data_boleto,
-            tabela_origens.nome as tabela_origens,
-            contrato_empresarial.responsavel as responsavel,
-            contrato_empresarial.plano_contrado as plano_contrado
+                if ($corretora_id != 0) {
+                    $query->where('contrato_empresarial.codigo_corretora', $corretora_id);
+                }
 
-            FROM comissoes_corretores_lancadas
-            INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
-            INNER JOIN contrato_empresarial ON contrato_empresarial.id = comissoes.contrato_empresarial_id
-            INNER JOIN users on users.id = comissoes.user_id
-            INNER JOIN planos on planos.id = comissoes.plano_id
-            inner join estagio_financeiros on estagio_financeiros.id = contrato_empresarial.financeiro_id
-            inner join tabela_origens on tabela_origens.id = contrato_empresarial.tabela_origens_id
-            WHERE comissoes.empresarial = 1 AND (status_financeiro = 0 OR (status_financeiro = 1 AND parcela = 6)) AND contrato_empresarial.corretora_id = {$corretora_id}
-            GROUP BY comissoes_corretores_lancadas.comissoes_id
-                ");
+                return $query->get();
             });
+
             return response()->json($resultado);
         }
     }

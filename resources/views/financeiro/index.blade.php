@@ -207,6 +207,13 @@
             });
 
 
+            $("body").on("change",'#select_corretoras_empresarial',function(){
+               let corretora_id = $(this).val();
+               alert(corretora_id);
+            });
+
+
+
             $("body").on("change","#select_corretoras_coletivo",function(){
                 let corretora_id = $(this).val();
                 inicializarColetivo(corretora_id);

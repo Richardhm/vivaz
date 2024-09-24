@@ -2,10 +2,28 @@
 
     <section class="flex justify-between" style="flex-wrap: wrap;">
         <div class="flex flex-col text-white ml-1" style="flex-basis:16%;border-radius:5px;">
+
+            @if(auth()->user()->can('listar_todos'))
+                <select id="select_corretoras_empresarial"
+                        class="
+                                w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                                active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                                px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                                "
+                >
+
+                    <option value="1">Accert</option>
+                    <option value="2">Innove</option>
+                    <option value="0">Vivaz</option>
+                </select>
+            @endif
+
+
+
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="margin:1px 0;">
                 <ul style="list-style:none;margin:0;padding:5px 0;" id="cadastrar_empresarial">
                     <li style="padding:0px 3px;display:flex;text-align:center;justify-content:center;">
-                        <a class="text-center w-full text-white text-lg" href="{{route('contratos.create.empresarial')}}">Financeiro</a>
+                        <a class="text-center w-full text-white text-lg" href="{{route('contratos.create.empresarial')}}">Cadastrar</a>
                     </li>
                 </ul>
             </div>
