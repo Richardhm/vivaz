@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
             $agent = new Agent();
 
             // Verifica se é um dispositivo móvel
-            if ($agent->isMobile()) {
+            if ($agent->isMobile() && !$request->is('orcamento')) {
                 // Se estiver logado e tentar acessar /login, redireciona para /orcamento
                 return redirect('/orcamento');
             }
