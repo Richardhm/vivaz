@@ -891,7 +891,7 @@
            <script type="text/javascript" src="{{asset('js/loader.js')}}"></script>
            <script>
                $(document).ready(function(){
-                   google.charts.load('current', {'packages':['bar']});
+                   google.charts.load('current', {'packages':['corechart']});
                    google.charts.setOnLoadCallback(drawChart);
                    function drawChart() {
                        var janeiro_individual = parseInt($("#janeiro_individual").val());
