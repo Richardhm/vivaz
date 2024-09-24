@@ -12,12 +12,13 @@ use App\Http\Controllers\RankingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GerenteController;
 use App\Http\Middleware\RedirectForMobile;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 //Route::get('/', function () {
 //    return view('welcome');
 //});
 
-Route::middleware(['auth',RedirectForMobile::class])->group(function () {
+Route::middleware(['auth',RedirectForMobile::class,RedirectIfAuthenticated::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('/orcamento',[OrcamentoController::class,'index'])->name('orcamento');
     Route::post('/buscar_planos',[OrcamentoController::class,'buscar_planos'])->middleware(['auth', 'verified'])->name('buscar_planos');
