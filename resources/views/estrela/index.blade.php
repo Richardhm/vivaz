@@ -40,66 +40,66 @@
             {{--Coluna 02--}}
             <div class="content_table w-full">
                 <table class="table w-full table-borderless">
-                    <thead style="position: sticky; top: 0;">
+                    <thead style="position: sticky; top: 0;z-index: 10;">
                     <tr>
 
                         <th style="width:3%">
-                            <div class="rounded-md w-full text-center p-3 bg-[rgba(254,254,254,0.18)] text-white">
+                            <div class="rounded-md w-full text-center p-3 backdrop-blur-[15px] bg-[rgba(254,254,254,0.85)] text-white shadow-md border-b border-[rgba(255,255,255,0.3)]">
                                 #
                             </div>
                         </th>
                         <th style="width:20%;">
-                            <div class="rounded-md w-full text-white text-left p-3 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-left p-3 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 VENDEDORES
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div class="rounded-md w-full text-white text-center p-1 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 JUL<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div class="rounded-md w-full text-white text-center p-1 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 AGO<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div class="rounded-md w-full text-white text-center p-1 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 SET<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div class="rounded-md w-full text-white text-center p-1 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 OUT<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div class="rounded-md w-full text-white text-center p-1 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 NOV<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                             <div class="rounded-md w-full text-white text-center p-1 bg-[rgba(254,254,254,0.18)]">
+                             <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 DEZ<br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
-                            <div class="rounded-md w-full text-white text-center p-1 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 TOTAL<br />150 Vidas
                             </div>
                         </th>
                         <th style="width:4%">
-                            <div class="rounded-md w-full text-white text-center p-3 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-3 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 %
                             </div>
                         </th>
                         <th style="width:5%">
-                            <div class="rounded-md w-full text-white text-center p-3 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-3 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 FALTAM
                             </div>
                         </th>
                         <th style="width:20%">
-                            <div class="rounded-md w-full text-white text-center p-3 bg-[rgba(254,254,254,0.18)]">
+                            <div class="rounded-md w-full text-white text-center p-3 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
                                 STATUS
                             </div>
                         </th>
@@ -316,5 +316,32 @@
 
 
     </style>
+    @section('scripts')
+        <script>
+            const tableContainer = document.querySelector('.content_table');
+
+            tableContainer.addEventListener('scroll', function () {
+                const rows = document.querySelectorAll('tbody tr');
+
+                const scrollTop = tableContainer.scrollTop;
+                const rowHeight = rows[0].offsetHeight; // Altura de uma linha da tabela
+                //
+                rows.forEach((row, index) => {
+                //     // Calcula se a linha deve sumir ou não com base na posição do scroll
+                     const rowTop = index * rowHeight; // Posição do topo da linha
+
+
+                   if (rowTop < scrollTop) {
+                //         // Se a linha estiver acima ou na posição do scroll, ela some
+                         row.style.opacity = 0;
+                     } else {
+                //         // As linhas abaixo do scroll mantêm a opacidade normal
+                         row.style.opacity = 1;
+                     }
+                });
+            });
+        </script>
+
+    @endsection
 
 </x-app-layout>
