@@ -22,8 +22,10 @@ class OrcamentoController extends Controller
     public function buscar_planos(Request $request)
     {
         $administradora_id = $request->input('administradora_id');
+        $tabela_origens_id = $request->input('tabela_origens_id');
         $planos = DB::table('administradora_planos')
             ->where('administradora_id', $administradora_id)
+            ->where('tabela_origens_id', $tabela_origens_id)
             ->pluck('plano_id');
         return response()->json(['planos' => $planos]);
     }

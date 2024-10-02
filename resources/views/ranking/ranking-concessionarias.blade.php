@@ -2,14 +2,16 @@
     @if ($i % 6 === 0)
         <div class="slide" style="height:80%;">
             @endif
-            <section style="display:flex;width:99%;justify-content:center;margin:5px auto;background-color:#2e4a7a;border-radius:10px;">
+            <section style="display:flex;width:99%;justify-content:center;margin:0 0 5px 0;background-color:#2e4a7a;border-radius:10px;padding:3px 0;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->
-                <div style="background-color:#5d859e;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1.2em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
+                <div style="background-color:#5d859e;margin-left:0.3%;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1.2em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
                     {{$loop->iteration}}°
                 </div>
 
                 <!-- 2º Div: Imagem centralizada no eixo Y com border-radius, próxima da 1ª div -->
-
+                <div style="flex: 0 1 auto; display:flex;align-items:center;margin-left: 8px;">
+                    <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;background-color: #5c636a;" />
+                </div>
 
                 <!-- 3º Div: Próxima da 2ª div -->
                 <div style="display:flex;flex-direction: column;margin-left: 8px;color:#FFF;font-size:0.875em;min-width:50%">
@@ -18,16 +20,24 @@
                         <p style="margin:0;padding:0;">Meta: 200 Vidas</p>
                         <p style="margin:0;padding:0;">Total: {{$r->total_vidas}} Vidas</p>
                     </div>
-                    <div>
-                        <div class="progress">
-
-                            <div class="progress-bar bg-yellow progress-bar-striped" role="progressbar" aria-valuenow="{{$r->porcentagem_vendas}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$r->porcentagem_vendas}}%">
-                                <span class="sr-only" style="color:red;font-weight:bold;">{{$r->porcentagem_vendas}}%</span>
+                    <div style="display:flex;align-items:center;">
+                        <!-- Barra de Progresso -->
+                        <div class="progress" style="flex-grow: 1; margin-right: 10px; position: relative; background-color: #e0e0e0; height: 20px; border-radius: 10px;">
+                            @php
+                                if(200 >= 1 && $r->total_vidas >= 1) {
+                                    $porcentagem = ($r->total_vidas / 200) * 100;
+                                } else {
+                                    $porcentagem = 0;
+                                }
+                            @endphp
+                            <div class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%; background-color: #FFA500; height: 100%; border-radius: 10px;">
                             </div>
                         </div>
+                        <!-- Percentual ao lado direito -->
+                        <span style="color: #FFF; font-weight: bold; margin-left: 10px;">{{$porcentagem}}%</span>
                     </div>
-                    <div>
-                        <p>Faltam: {{200 - $r->total_vidas}} Vidas</p>
+                    <div style="margin:0;padding:0;">
+                        <p style="margin:0;padding:0;">Faltam: {{200 - $r->total_vidas}} Vidas</p>
                     </div>
                 </div>
 

@@ -11,8 +11,20 @@
         .stage {width: 95%;flex-grow: 1;background-image: url('{{ asset('podium2.png') }}');background-size: cover;background-repeat: no-repeat;background-position: center;display: flex;justify-content: space-around;align-items: flex-end;margin: 0 auto;}
     </style>
     <script src="{{asset('assets/jquery.min.js')}}"></script>
+
+
+    <link rel="stylesheet" href="{{asset('css/ranking.css')}}">
+
+    <script>
+        var ranking = "{{ route('ranking.atualizar') }}";
+    </script>
+
+
 </head>
 <body>
+
+<x-modal-ranking :vendasDiarias="$vendasDiarias"></x-modal-ranking>
+
 <!-- Modal -->
 <div id="planilhaModal" class="modal">
     <div class="modal-content">
@@ -129,7 +141,8 @@
                 <span>Faltam <span style="color:#F8DA22;font-weight:bold;" id="quantidade_dias">21</span> dias</span>
                 <span>fim do mês</span>
             </div>
-            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:10%;padding:0 20px;font-size:2em;" id="modal_concessionarias">+</button>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_concessionarias">Concessionarias</button>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_ranking_diario">Ranking</button>
             <div class="d-flex flex-column text-center" style="font-size: 0.875em;">
                 <span id="aqui_data">09/08/2024</span>
                 <span id="aqui_hora">12:40</span>
@@ -142,7 +155,7 @@
         <div style="display: flex;flex-basis:50%;flex-direction:column;">
             @php
                 $total_vidas = $totals[0]->total_individual + $totals[0]->total_coletivo + $totals[0]->total_empresarial;
-                $meta = 200;
+                $meta = 27;
                 $porcentagem = ($total_vidas / $meta) * 100;
             @endphp
             <div id="header_esquerda" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
@@ -152,7 +165,7 @@
                 <div class="container-meta">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;">200</span>
+                        <span style="color:#6a1a21;" class="aqui_meta">{{$totals[0]->meta}}</span>
                     </span>
                 </div>
                 @if(isset($totals[0]) && !empty($totals[0]))
@@ -241,66 +254,92 @@
             </div>
         </div>
         <div id="dados_direito" style="display: flex;flex-basis:50%;flex-direction:column;margin-top:10px;overflow-y: hidden;height:100%;position:relative;">
-            @php
-                $slideCount = 0;
-            @endphp
-            @foreach($ranking as $i => $r)
-                @if ($i % 6 === 0)
-                    <div class="slide" style="height:80%;">
-                        @endif
-                        <section style="display:flex;width:99%;justify-content:center;margin:5px auto;background-color:#2e4a7a;border-radius:10px;">
-                            <!-- 1º Div: Posição ocupa toda a altura da section -->
-                            <div style="background-color:#5d859e;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1.2em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
-                                {{$loop->iteration}}°
-                            </div>
-                            <!-- 2º Div: Imagem centralizada no eixo Y com border-radius, próxima da 1ª div -->
-                            <div style="flex: 0 1 auto; display: flex; align-items: center; margin-left: 8px;">
-                                <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;" />
-                            </div>
-                            <!-- 3º Div: Próxima da 2ª div -->
-                            <div style="display:flex;flex-direction: column;margin-left: 8px;color:#FFF;font-size:0.875em;min-width:50%">
-                                <p style="margin:0;padding:0;">{{$r->corretor}}</p>
-                                <div style="display:flex;margin:0;padding:0;justify-content:space-between;">
-                                    <p style="margin:0;padding:0;">Meta: 200 Vidas</p>
-                                    <p style="margin:0;padding:0;">Total: {{$r->quantidade_vidas}} Vidas</p>
-                                </div>
-                                <div style="display: flex; align-items: center;">
-                                    <!-- Barra de Progresso -->
-                                    <div class="progress" style="flex-grow: 1; margin-right: 10px; position: relative; background-color: #e0e0e0; height: 20px; border-radius: 10px;">
-                                        @php
-                                            $porcentagem = ($r->quantidade_vidas / 200) * 100;
-                                        @endphp
-                                        <div class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="{{$porcentagem}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%; background-color: #FFA500; height: 100%; border-radius: 10px;">
-                                        </div>
-                                    </div>
-                                    <!-- Percentual ao lado direito -->
-                                    <span style="color: #FFF; font-weight: bold; margin-left: 10px;">{{$porcentagem}}%</span>
-                                </div>
-                                <div>
-                                    <p>Faltam: {{200 - $r->quantidade_vidas}} Vidas</p>
-                                </div>
-                            </div>
-                            <!-- 4º Div: Encostado do lado direito -->
-                            <div style="flex: 3;text-align: right;padding:2px;color:#FFF;font-size:0.875em;">
-                                <p style="margin:0;padding:0;">Individual: {{$r->quantidade_individual}} vidas</p>
-                                <p style="margin:0;padding:0;">Coletivo: {{$r->quantidade_coletivo}} vidas</p>
-                                <p style="margin:0;padding:0;">Empresarial: {{$r->quantidade_empresarial}} vidas</p>
-                                <p style="margin:0;padding:0;">Total: {{$r->quantidade_vidas}} vidas</p>
-                            </div>
-                        </section>
-                        @if (($i + 1) % 6 === 0)
-                    </div>
-                @endif
-            @endforeach
+
         </div>
         {{-- Fim Direita --}}
     </div>
 </main>
+
+<!-- Card do 1º lugar -->
+<div id="popup-primeiro" class="fixed inset-0 z-50 bg-black bg-opacity-50 ocultar">
+    <div style="width:400px;height:400px;border-radius:10px;color:white;display:flex;flex-direction:column;margin:5px auto;">
+
+        <!-- Header: Compacto com menos altura -->
+        <div class="header w-full bg-red-700 border-b" style="flex: 0 0 10%; display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+            <img src="{{asset('medalha-primeiro.png')}}" style="width:100px;height:100px;" alt="">
+            <p style="font-size:1.5em; display:flex; flex-direction:column; justify-content:center; color:#FFF; text-align:center; line-height: 1;">
+                <span style="font-size:2em; font-weight: bold;" class="quantidade_vidas"></span>
+                <span style="font-weight: bold;">Vidas</span>
+            </p>
+        </div>
+
+        <!-- Corpo: Diminuir o tamanho da imagem para encaixar melhor -->
+        <div class="corpo  w-full" style="flex: 1; display: flex; justify-content: center; align-items: flex-start;">
+            <img src="" class="assumir_lider" style="width:550px;height:550px;border-radius:50%;box-sizing:border-box;" alt="" title="">
+        </div>
+
+        <!-- Footer: Mais compacto com menos altura -->
+        <div class="footer w-full bg-gray-200" style="flex: 0 0 10%; display: flex; justify-content: center; align-items: center; font-size: 1.5em; color:#FFF; font-weight:bold;">
+            1º Lugar no Ranking
+        </div>
+
+    </div>
+</div>
+
+<!-- Fundo preto para os fogos de artifício -->
+<div id="fogos-bg" class="fixed inset-0 z-49 bg-black bg-opacity-50 ocultar"  style="justify-content: center; align-items: center;">
+    <div style="width:400px;height:400px;border-radius:10px;color:white;display:flex;flex-direction:column;margin:5px auto;">
+
+        <!-- Header: Compacto com menos altura -->
+        <div class="header w-full bg-red-700 border-b" style="flex: 0 0 10%; display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+            <img src="{{asset('medalha-primeiro.png')}}" style="width:100px;height:100px;" alt="">
+            <p style="font-size:1.5em; display:flex; flex-direction:column; justify-content:center; color:white; text-align:center; line-height: 1;">
+                <span style="font-size:2em; font-weight: bold;" class="quantidade_vidas"></span>
+                <span style="font-weight: bold;">Vidas</span>
+            </p>
+        </div>
+
+        <!-- Corpo: Diminuir o tamanho da imagem para encaixar melhor -->
+        <div class="corpo w-full" style="flex: 1; display: flex; justify-content: center; align-items: flex-start;">
+            <img src="" class="assumir_lider" style="width:550px;height:550px;border-radius:50%;box-sizing:border-box;" alt="Rebeca" title="Rebeca">
+        </div>
+
+        <!-- Footer: Mais compacto com menos altura -->
+        <div class="footer footer_ranking w-full bg-gray-200" style="flex: 0 0 10%;display:flex;justify-content: center;align-items:center;font-size:1.5em;color:#FFF;font-weight:bold;">
+            1º Lugar no Ranking
+        </div>
+
+    </div>
+</div>
+
+<div id="fundo-preto" class="ocultar fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
+    <div class="text-center">
+        <p id="quantidade-vidas" style="font-size: 2.5em; color: white; font-weight: bold;">10 Vidas</p>
+        <img id="imagem-corretor" src="" alt="Corretor" style="width: 550px; height: 550px; border-radius: 50%; margin-top: 20px;">
+    </div>
+    <div id="confetti-container"></div>
+</div>
+
+<!-- Animação dos fogos (opcionalmente um canvas para os fogos) -->
+<div id="fogos-container" class="fixed inset-0 z-50 hidden">
+    <!-- Conteúdo dos fogos (Canvas, SVG, etc) -->
+</div>
+
+
+<!-- Fundo preto para a animação do carro -->
+<div id="carro-bg" class="fixed inset-0 bg-black opacity-90 ocultar"></div>
+
+
+
+
+
 <footer>
     <div class="footer-buttons d-flex justify-content-between">
-        <button class="footer-btn active" data-corretora="vivaz">Time Vivaz</button>
-        <button class="footer-btn" data-corretora="accert">Time Accert</button>
-        <button class="footer-btn" data-corretora="innove">Time Innove</button>
+        <button class="footer-btn active" data-corretora="diario">Diario</button>
+        <button class="footer-btn" data-corretora="semanal">Semanal</button>
+        <button class="footer-btn" data-corretora="vivaz">Vivaz</button>
+        <button class="footer-btn" data-corretora="accert">Equipe Accert</button>
+        <button class="footer-btn" data-corretora="innove">Equipe Innove</button>
         <button class="footer-btn" data-corretora="concessi">Concessionarias</button>
         <button class="footer-btn" data-corretora="estrela">Estrelas</button>
     </div>
@@ -309,7 +348,17 @@
     </div>
 </footer>
 <script>
-    window.onload = function() {
+
+    $(document).ready(function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        let liderAtual = @json($liderAtual);
+
         function calcularTotalMeta(linha) {
             let totalMeta = 0;
             linha.find('.meta_vidas').each(function() {
@@ -319,6 +368,7 @@
             linha.find('#total_meta').text(totalMeta);
             calcularPorcentagem(linha, totalMeta);
         }
+
         function calcularTotalVidas(linha) {
             let totalVidas = 0;
             linha.find('.valor_vidas').each(function() {
@@ -330,6 +380,7 @@
             let totalMeta = parseFloat(linha.find('#meta_individual_total').text()) || 0;
             calcularPorcentagem(linha, totalMeta, totalVidas);
         }
+
         function calcularPorcentagem(linha, totalMeta, totalVidas) {
             totalVidas = totalVidas || parseFloat(linha.find('#meta_individual_vidas_total').text()) || 0;
             let porcentagem = 0;
@@ -338,6 +389,7 @@
             }
             linha.find('#meta_individual_total_porcentagem').text(porcentagem.toFixed(2));
         }
+
         $('.meta_vidas, .valor_vidas').on('input', function() {
             let linha = $(this).closest('tr');
             if ($(this).hasClass('meta_vidas')) {
@@ -406,6 +458,7 @@
                     adesao: adesao
                 });
             });
+
             $.ajax({
                 url: '{{route('cadastrar.concessionaria')}}',  // Define a rota para o update
                 method: 'POST',
@@ -421,7 +474,7 @@
         window.onclick = function(event) {
             if (event.target == document.getElementById('planilhaModal')) {
                 document.getElementById('planilhaModal').style.display = 'none';
-                salvarConcecionario()
+                salvarConcecionario();
             }
         };
         function calcularPorcentagemEtotal() {
@@ -440,72 +493,366 @@
             document.getElementById('total_meta').innerText = metaIndividual + metaSuperSimples + metaPme + metaAdesao;
             document.getElementById('total_vidas').innerText = vidasIndividual + vidasSuperSimples + vidasPme + vidasAdesao;
         }
-    };
-    $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        function createSlideShow() {
-            const slides = document.querySelectorAll('.slide'); // Seleciona todos os slides
-            let currentSlide = 0;
-            function showSlide(n) {
-                slides.forEach((slide, index) => {
-                    slide.style.display = index === n ? 'block' : 'none';
-                });
-            }
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            }
-            showSlide(currentSlide);
-            setInterval(nextSlide, 10000); // Troca de slide a cada 3 segundos
-        }
-        createSlideShow();
-        const footerButtons = $('.footer-btn');
-        let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
-        function logCorretora() {
-            const currentButton = footerButtons.eq(activeButtonIndex);
-        }
-        // Função para mudar o botão ativo
-        function changeActiveButton() {
-            footerButtons.removeClass('active');
-            footerButtons.eq(activeButtonIndex).addClass('active');
-            const corretora = footerButtons.eq(activeButtonIndex).data('corretora');
-            $.ajax({
-                url: '{{ route('ranking.filtragem') }}',
-                type: 'GET',
-                data: { corretora: corretora },
-                success: function(data) {
-                    $(".stage").html(data.podium);
-                    $("#dados_direito").html(data.ranking);
-                    $(".total_individual").text(data.totals[0].total_individual);
-                    $(".total_coletivo").text(data.totals[0].total_coletivo);
-                    $(".total_empresarial").text(data.totals[0].total_empresarial);
-                    let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
-                    let meta = 200;
-                    let porcentagem = (total_vidas / meta) * 100;
-                    $(".total_vidas").text(total_vidas);
-                    $(".total_porcentagem").text(porcentagem.toFixed(2));
-                    createSlideShow();
 
+        function fecharRankingModal() {
+            $('.modal_ranking_diario').removeClass('aparecer').addClass('ocultar');
+        }
+
+        function abrirFogosModal() {
+            $('#fogosModal').addClass('aparecer').removeClass('ocultar');
+        }
+
+        // Variável global para armazenar o líder atual
+
+
+        function exibirPopUpComFogos(nome, imagem) {
+            let popUp = $("#popup-primeiro");
+            // let carroContainer = $("#carro-container");
+            // let carroBg = $("#carro-bg");
+            // let nomeContainer = $("#nome-primeiro");
+            // let imagemContainer = $("#imagem-primeiro");
+            // Exibe o pop-up e a animação dos fogos
+            //$("#rankingModal").removeClass("aparecer").addClass("ocultar");
+            $("#popup-primeiro").removeClass("ocultar").addClass("aparecer");
+
+            // abrirFogosModal(); // Função para abrir a modal dos fogos de artifício
+            // nomeContainer.html(nome);
+            // imagemContainer.attr('src', imagem);
+            // // Toca o som dos fogos
+            // const somFogos = new Audio('fogos.mp3');
+            // somFogos.play().catch(error => console.error('Erro ao reproduzir som de fogos:', error));
+            // Fechar os fogos após 54 segundos
+            // setTimeout(function () {
+            //     popUp.addClass("ocultar").removeClass('aparecer'); // Oculta o pop-up dos fogos
+            //     somFogos.pause(); // Para o som dos fogos
+            //     // Agora, iniciar a animação do carro com som de ultrapassagem
+            //     //exibirCarroComSom(nome);
+            // }, 54000); // Após 54 segundos
+        }
+
+        function gerarConfetes() {
+            const confettiContainer = document.getElementById('confetti-container');
+            const colors = ['#ff0', '#f00', '#0f0', '#00f', '#ff69b4', '#ff8c00', '#1e90ff', '#32cd32'];
+
+            for (let i = 0; i < 100; i++) {  // Gera 100 confetes
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+
+                // Define uma cor aleatória para cada confete
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.backgroundColor = randomColor;
+
+                // Define uma posição horizontal aleatória (de 0 a 100% da largura da tela)
+                confetti.style.left = Math.random() * 100 + 'vw';
+
+                // Define tamanhos aleatórios para os confetes
+                const randomSize = Math.random() * 10 + 5;  // Entre 5px e 15px
+                confetti.style.width = randomSize + 'px';
+                confetti.style.height = randomSize + 'px';
+
+                // Adiciona a animação com uma duração aleatória
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's'; // Entre 2s e 5s de duração
+
+                confettiContainer.appendChild(confetti);
+            }
+
+            // Remove os confetes após 6 segundos (tempo suficiente para cair)
+            setTimeout(() => {
+                confettiContainer.innerHTML = '';  // Limpa os confetes
+            }, 6000);  // 6 segundos
+        }
+
+        // function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
+        //     $('#rankingModal').removeClass('aparecer').addClass('ocultar');
+        //     const fundoPreto = $("#fundo-preto");
+        //     const imagem = $("#imagem-corretor");
+        //     const vidas = $("#quantidade-vidas");
+        //
+        //     // Definir as informações do corretor e quantidade de vidas
+        //     vidas.text(quantidadeVidas + " Vidas");
+        //     imagem.attr("src", imagemCorretor);
+        //
+        //     // Mostrar o fundo preto com a imagem do corretor e a quantidade de vidas
+        //     fundoPreto.removeClass('ocultar').addClass('aparecer');
+        //
+        //     // Iniciar os confetes
+        //     gerarConfetes();
+        //
+        //     // Função para repetir o áudio de venda até completar 21 segundos
+        //     const somVenda = new Audio('/som_venda.mp3');
+        //
+        //     // Função para tocar o áudio repetidamente até 21 segundos
+        //     let tempoTotal = 0;
+        //     function repetirSom() {
+        //         if (tempoTotal < 21000) {  // 21 segundos = 21000 milissegundos
+        //             somVenda.play();
+        //             somVenda.onended = function() {
+        //                 tempoTotal += somVenda.duration * 1000;  // Adiciona a duração do áudio em milissegundos
+        //                 repetirSom();  // Chama novamente a função para repetir o áudio
+        //             };
+        //         }
+        //     }
+        //
+        //     // Iniciar a reprodução do áudio pela primeira vez
+        //     repetirSom();
+        //
+        //     // Definir um timeout para garantir que o fundo preto suma após 21 segundos
+        //     setTimeout(function() {
+        //         fundoPreto.removeClass('aparecer').addClass('ocultar');
+        //     }, 21000); // 21 segundos = 21000 milissegundos
+        // }
+
+
+
+
+        // function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
+        //     $('#rankingModal').removeClass('aparecer').addClass('ocultar');
+        //     // Elementos que irão aparecer
+        //     const fundoPreto = $("#fundo-preto");
+        //     const imagem = $("#imagem-corretor");
+        //     const vidas = $("#quantidade-vidas");
+        //     const imagem2 = $(".assumir_lider");
+        //     // Definir as informações do corretor e quantidade de vidas
+        //     vidas.text(quantidadeVidas + " Vidas");
+        //     imagem.attr("src", imagemCorretor);
+        //     imagem2.attr("src", imagemCorretor);
+        //
+        //     // Mostrar o fundo preto com a imagem do corretor e a quantidade de vidas
+        //     fundoPreto.removeClass('ocultar').addClass('aparecer');
+        //
+        //     // Iniciar o som da venda (áudio de 6 segundos)
+        //     const somVenda = new Audio('/som_venda.mp3');
+        //     somVenda.play();
+        //
+        //     // Quando o áudio terminar, ocultar a animação
+        //     somVenda.onended = function() {
+        //         fundoPreto.removeClass('aparecer').addClass('ocultar');
+        //     };
+        //     gerarConfetes();
+        //     // Definir um timeout para garantir que o fundo preto suma após 6 segundos (ou caso o áudio não termine corretamente)
+        //     setTimeout(function() {
+        //         fundoPreto.removeClass('aparecer').addClass('ocultar');
+        //     }, 6000); // 6 segundos = 6000 milissegundos
+        //
+        //
+        //     let fogosBg = $("#fogos-bg");
+        //     let fogosContainer = $("#fogos-container");
+        //     fogosBg.removeClass('ocultar').addClass('flex');
+        //
+        //     const somFogos = new Audio('fogos.mp3');
+        //     somFogos.play();
+        //     setTimeout(function() {
+        //         somFogos.pause();
+        //         somFogos.currentTime = 0;
+        //         fogosContainer.fadeOut(300);
+        //         fogosBg.fadeOut(300);
+        //         popUp.fadeOut(300);
+        //
+        //     }, 20000); // Ajuste o tempo de acordo com a duração da animação dos fogos
+        //
+        //
+        // }
+
+        function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
+            $('#rankingModal').removeClass('aparecer').addClass('ocultar');
+            // Elementos que irão aparecer
+            const fundoPreto = $("#fundo-preto");
+            const imagem = $("#imagem-corretor");
+            const vidas = $("#quantidade-vidas");
+            const imagem2 = $(".assumir_lider");
+            // Definir as informações do corretor e quantidade de vidas
+            vidas.text(quantidadeVidas + " Vidas");
+            imagem.attr("src", imagemCorretor);
+            imagem2.attr("src", imagemCorretor);
+            // Mostrar o fundo preto com a imagem do corretor e a quantidade de vidas
+            fundoPreto.removeClass('ocultar').addClass('aparecer');
+            // Iniciar o som da venda (áudio de 6 segundos)
+            const somVenda = new Audio('/som_venda.mp3');
+            somVenda.play();
+            // Quando o áudio terminar, ocultar a animação
+            somVenda.onended = function() {
+                fundoPreto.removeClass('aparecer').addClass('ocultar');
+            };
+            gerarConfetes();
+            // Definir um timeout para garantir que o fundo preto suma após 6 segundos (ou caso o áudio não termine corretamente)
+            setTimeout(function() {
+                fundoPreto.removeClass('aparecer').addClass('ocultar');
+            }, 6000); // 6 segundos = 6000 milissegundos
+
+            // Começar a animação dos fogos e o som após 6 segundos
+            setTimeout(function() {
+                let fogosBg = $("#fogos-bg");
+                let fogosContainer = $("#fogos-container");
+                fogosBg.removeClass('ocultar').addClass('flex');
+                const somFogos = new Audio('fogos.mp3');
+                somFogos.play();
+                // Definir o tempo de duração da animação dos fogos (20 segundos)
+                setTimeout(function() {
+                    somFogos.pause();
+                    somFogos.currentTime = 0;
+                    fogosContainer.fadeOut(300);
+                    fogosBg.fadeOut(300);
+                }, 20000); // 20 segundos
+            }, 6000); // Iniciar os fogos após 6 segundos (tempo da venda)
+        }
+
+
+
+
+
+
+
+        // Função para verificar a troca de liderança
+            function verificarTrocaDeLider(novoRanking,venda) {
+                $('#rankingModal').removeClass('aparecer').addClass('ocultar');
+
+                if (novoRanking && novoRanking.length > 0) {
+                    const novoLider = novoRanking[0]; // O primeiro da lista é o novo líder
+                    // Se o líder atual for diferente do novo líder
+                    if (liderAtual !== novoLider.nome) {
+                        liderAtual = novoLider.nome; // Atualiza o líder atual
+                        $(".assumir_lider").attr("src",novoLider.image);
+                        $(".quantidade_vidas").text(venda.total);
+                        let popUp = $("#popup-primeiro");
+                        let fogosBg = $("#fogos-bg");
+                        let fogosContainer = $("#fogos-container");
+                        fogosBg.removeClass('ocultar').addClass('flex');
+                        const somCarro = new Audio('carro_ultrapassagem.mp3');
+                        somCarro.play();
+                        somCarro.onended = function() {
+                            fogosBg.removeClass('aparecer').addClass('ocultar');
+                            popUp.fadeIn(300);
+                            const somFogos = new Audio('fogos.mp3');
+                            somFogos.play();
+                            setTimeout(function() {
+                                somFogos.pause();
+                                somFogos.currentTime = 0;
+                                fogosContainer.fadeOut(300); // Esconde os fogos
+                                fogosBg.fadeOut(300); // Esconde o fundo preto
+                                popUp.fadeOut(300); // Finalmente esconde o card do 1º lugar
+                            }, 20000); // Ajuste o tempo de acordo com a duração da animação dos fogos
+                        };
+
+                        //verificarTrocaDeLider(novoRanking);
+                        //fecharRankingModal();
+                        //exibirPopUpComFogos(liderAtual, novoLider.image); // Exibe o pop-up e toca os sons
+                    } else {
+                        //console.log("Apenas Uma Venda");
+                        animacaoVenda(venda.nome,venda.image, venda.total);
+                    }
                 }
+            }
+
+            $("body").on('change','#user_id',function(){
+                let user_id = $(this).val();
+                $.ajax({
+                   url:"{{route('ranking.verificar.corretor')}}",
+                   method:"POST",
+                   data: {
+                       user_id
+                   },
+                   success:function(res) {
+                       $("body").find("input[name='vidas_individual']").val(res.individual);
+                       $("body").find("input[name='vidas_coletivo']").val(res.coletivo);
+                       $("body").find("input[name='vidas_empresarial']").val(res.empresarial);
+                   }
+                });
+            });
+
+            //AJAX para atualizar o ranking e verificar troca de liderança
+            $('#rankingForm').on('submit', function (e) {
+                e.preventDefault();
+                //animacaoVenda('Rebeca Vaz', '/users/rebeca_vaz_08cbe841.jpg', 10);
+                //verificarTrocaDeLider();
+                $.ajax({
+                    url: ranking,
+                    method: "POST",
+                    data: $(this).serialize(),
+                    success: function (res) {
+                        if (res && res.ranking && res.ranking.length > 0) {
+                            verificarTrocaDeLider(res.ranking,res.venda);
+                        }
+                    }
+                });
             });
 
 
+            function createSlideShow() {
+                const slides = document.querySelectorAll('.slide'); // Seleciona todos os slides
+                let currentSlide = 0;
 
+                function showSlide(n) {
+                    slides.forEach((slide, index) => {
+                        slide.style.display = index === n ? 'block' : 'none';
+                    });
+                }
 
-            logCorretora(); // Logar a corretora atual
-            activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
-        }
-        // Chamar a função para iniciar com o botão Vivaz e logar "null"
-        changeActiveButton();
-        // Iniciar o intervalo para trocar os botões
-        setInterval(changeActiveButton, 60000);
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    showSlide(currentSlide);
+                }
+
+                showSlide(currentSlide);
+                setInterval(nextSlide, 20000); // Troca de slide a cada 3 segundos
+            }
+
+            createSlideShow();
+            const footerButtons = $('.footer-btn');
+            let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
+            function logCorretora() {
+                const currentButton = footerButtons.eq(activeButtonIndex);
+            }
+
+            // Função para mudar o botão ativo
+            function changeActiveButton() {
+                footerButtons.removeClass('active');
+                footerButtons.eq(activeButtonIndex).addClass('active');
+                let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
+
+                $.ajax({
+                    url: '{{ route('ranking.filtragem') }}',
+                    type: 'GET',
+                    data: {corretora: corretora},
+                    success: function (data) {
+                        $(".stage").html(data.podium);
+                        $("#dados_direito").html(data.ranking);
+                        $(".total_individual").text(data.totals[0].total_individual);
+                        $(".total_coletivo").text(data.totals[0].total_coletivo);
+                        $(".total_empresarial").text(data.totals[0].total_empresarial);
+                        let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
+                        let meta = 0;
+                        if (corretora == "accert") {
+                            meta = 400;
+                            $(".aqui_meta").text(meta);
+                        } else if (corretora == "innove") {
+                            meta = 220;
+                            $(".aqui_meta").text(meta);
+                        } else {
+                            meta = 27;
+                            $(".aqui_meta").text(meta);
+                        }
+                        let porcentagem = (total_vidas / meta) * 100;
+                        $(".total_vidas").text(total_vidas);
+                        $(".total_porcentagem").text(porcentagem.toFixed(2));
+                        createSlideShow();
+                    }
+                });
+                logCorretora(); // Logar a corretora atual
+                activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
+            }
+
+            // Chamar a função para iniciar com o botão Vivaz e logar "null"
+            changeActiveButton();
+            // Iniciar o intervalo para trocar os botões
+            setInterval(changeActiveButton, 20000);
+
 
     });
-
 </script>
+
+<script src="{{asset('js/ranking.js')}}"></script>
+
+
+
 </body>
 </html>

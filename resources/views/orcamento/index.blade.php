@@ -52,6 +52,8 @@
                $("body").on('change touchstart',"input[name='operadoras']",function(e){
                    e.preventDefault();
                    let valor = $(this).val();
+                   let cidade = $("#cidade").val();
+
                    if($("#resultado").is(":visible")){
                        $("input[name='planos-radio']").prop('checked', false);
                        $("#resultado").hide().empty();
@@ -59,7 +61,10 @@
                    $.ajax({
                        url: '{{route('buscar_planos')}}',  // URL da rota que irá processar a requisição
                        type: 'POST',
-                       data: { administradora_id: valor },
+                       data: {
+                           administradora_id: valor,
+                           tabela_origens_id: cidade
+                       },
                        headers: {
                            'X-Requested-With': 'XMLHttpRequest', // Define como uma requisição AJAX
                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Inclui o CSRF token
@@ -318,21 +323,16 @@
                    let load = $(".ajax_load");
                    e.preventDefault();
                    let linkUrl = $(this).attr("href");
-
                    let cidade = "";
                    let plano = "";
                    let operadora = "";
                    let faixas = [];
                    let odonto = "";
-                   //let status_carencia = "";
-
-
-
+                   let status_carencia = $("input[name='status_carencia_ambulatorial']").is(':checked');
+                   let status_desconto = $("input[name='status_desconto_ambulatorial']").is(':checked');
                    cidade = $("#cidade").val();
                    plano = $("input[name='planos-radio']:checked").val();
                    operadora = $("input[name='operadoras']:checked").val();
-                   let status_carencia = $("input[name='status_carencia']").is(':checked');
-
                    // Exibe o valor booleano no console
                    odonto = $(this).attr('data-odonto');
                    faixas = [{
@@ -347,7 +347,6 @@
                        '9' : $("body").find('#input_54_58').val(),
                        '10' : $("body").find('#input_59').val()
                    }];
-
                    $.ajax({
                        url: "{{route('gerar.imagem')}}",
                        method: "POST",
@@ -358,6 +357,7 @@
                            "faixas": faixas,
                            "odonto" : odonto,
                            "status_carencia" : status_carencia,
+                           "status_desconto" : status_desconto,
                            "ambulatorial": 1
                            //"cliente" : cliente,
                            //"_token": "{{ csrf_token() }}"

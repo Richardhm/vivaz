@@ -3,6 +3,10 @@
         <button id="openModalButton" class="open-modal-btn">Abrir Ranking Diário</button>
     </div>
 
+    <script>
+        var ranking = "{{ route('ranking.atualizar') }}";
+    </script>
+
     <h2 class="text-2xl font-bold text-center my-6">Ranking Diário de Vendas</h2>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -37,47 +41,8 @@
             </tbody>
         </table>
     </div>
-
-
     <!-- Modal -->
-    <div id="rankingModal" class="modal hidden">
-        <div class="modal-content">
-            <!-- Botão para fechar a modal -->
-            <span class="close-button" id="closeModalButton">&times;</span>
-
-            <!-- Conteúdo da Modal -->
-            <h2>Ranking Diário</h2>
-            <form id="rankingForm" method="POST">
-
-                <!-- Container para a lista de corretores -->
-                <div class="corretores-list">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Corretor</th>
-                            <th>Vidas Individual</th>
-                            <th>Vidas Coletivo</th>
-                            <th>Vidas Empresarial</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($vendasDiarias as $venda)
-                            <tr>
-                                <td>{{ $venda->nome }}</td>
-                                <td><input type="number" name="vidas_individual[{{ $venda->id }}]" value="{{ $venda->vidas_individual }}" min="0"></td>
-                                <td><input type="number" name="vidas_coletivo[{{ $venda->id }}]" value="{{ $venda->vidas_coletivo }}" min="0"></td>
-                                <td><input type="number" name="vidas_empresarial[{{ $venda->id }}]" value="{{ $venda->vidas_empresarial }}" min="0"></td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <button type="submit">Atualizar Ranking</button>
-            </form>
-        </div>
-    </div>
-
-
+    <x-modal-ranking :vendasDiarias="$vendasDiarias"></x-modal-ranking>
     <div id="popup-primeiro" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden flex items-center justify-center">
         <div class="relative bg-white p-8 rounded-lg text-center">
             <h2 class="text-3xl font-bold text-gray-800 mb-4">Parabéns!</h2>
@@ -87,200 +52,16 @@
             </p>
         </div>
     </div>
-
     <!-- Fundo preto para a animação do carro -->
     <div id="carro-bg" class="fixed inset-0 bg-black opacity-90 hidden"></div>
-
     <!-- Contêiner do carro -->
     <div id="carro-container" class="fixed bottom-10 left-full hidden">
         <img src="{{ asset('carro.gif') }}" alt="Carro" class="w-48 h-auto object-contain" />
         <span id="nome-primeiro-carro" class="absolute text-white font-bold text-xl"></span>
     </div>
-
-
-    @section('scripts')
-        <script>
-            const openModalButton = document.getElementById('openModalButton');
-            const closeModalButton = document.getElementById('closeModalButton');
-            const modal = document.getElementById('rankingModal');
-
-            // Abre a modal ao clicar no botão
-            openModalButton.addEventListener('click', () => {
-                modal.classList.remove('hidden');
-            });
-
-            // Fecha a modal ao clicar no botão de fechar
-            closeModalButton.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
-
-            // Fecha a modal ao clicar fora do conteúdo da modal
-            window.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-
-
-            $(document).ready(function(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                function fecharRankingModal() {
-                    $('#rankingModal').addClass('hidden'); // Fechar a modal de ranking
-                }
-
-                function abrirFogosModal() {
-                    $('#fogosModal').addClass('show'); // Abrir a modal dos fogos
-                }
-
-
-                // Variável global para armazenar o líder atual
-                let liderAtual = null;
-
-                function exibirPopUpComFogos(nome,imagem) {
-
-                    let popUp = $("#popup-primeiro");
-                    let carroContainer = $("#carro-container");
-                    let carroBg = $("#carro-bg");
-                    let nomeContainer = $("#nome-primeiro");
-                    let imagemContainer = $("#imagem-primeiro");
-
-                    // Exibe o pop-up e a animação dos fogos
-                    popUp.removeClass("hidden").addClass("flex");
-                    abrirFogosModal(); // Função para abrir a modal dos fogos de artifício
-
-
-                    nomeContainer.html(nome);
-                    imagemContainer.attr('src',imagem);
-
-
-
-                    // Toca o som dos fogos
-                    const somFogos = new Audio('fogos.mp3');
-                    somFogos.play().catch(error => console.error('Erro ao reproduzir som de fogos:', error));
-
-                    // Fechar os fogos após 54 segundos
-                    setTimeout(function () {
-                        popUp.addClass("hidden"); // Oculta o pop-up dos fogos
-                        somFogos.pause(); // Para o som dos fogos
-
-                        // Agora, iniciar a animação do carro com som de ultrapassagem
-                        exibirCarroComSom(nome);
-
-                    }, 54000); // Após 54 segundos
-                }
-
-                function exibirCarroComSom(nome) {
-                    let carroContainer = $("#carro-container");
-                    let carroBg = $("#carro-bg");
-
-                    // Definir o nome no carro
-                    $("#nome-primeiro-carro").text(nome);
-
-                    // Exibe o fundo preto (background)
-                    carroBg.fadeIn();
-
-                    // Toca o som de ultrapassagem
-                    const somUltrapassagem = new Audio('carro_ultrapassagem.mp3');
-                    somUltrapassagem.play().catch(error => console.error('Erro ao reproduzir som de ultrapassagem:', error));
-
-                    // Iniciar a primeira passagem do carro aos 6 segundos
-                    setTimeout(function () {
-                        carroContainer.css('left', '100%'); // Reposiciona o carro fora da tela à direita
-                        carroContainer.show(); // Exibe o carro
-                        carroContainer.css('animation', 'carro-primeira-passagem 4s linear forwards'); // Animação de 1 segundo
-                    }, 500); // Iniciar aos 6 segundos do som
-
-                    // Segunda passagem do carro, mais rápida, aos 7 segundos
-                    setTimeout(function () {
-                        carroContainer.css('left', '100%'); // Reposiciona o carro fora da tela à direita
-                        carroContainer.css('animation', 'carro-segunda-passagem 0.7s linear forwards'); // Animação de 0.7s, mais rápida
-                    }, 7000); // Iniciar aos 7 segundos do som
-
-                    // Ocultar o fundo e o carro após 9 segundos
-                    setTimeout(function () {
-                        carroContainer.hide();
-                        carroBg.fadeOut();
-                    }, 9000); // Termina após 9 segundos
-                }
-
-
-                // Função para verificar a troca de liderança
-                function verificarTrocaDeLider(novoRanking) {
-                    // Verifica se o array de ranking existe e tem pelo menos um corretor
-                    if (novoRanking && novoRanking.length > 0) {
-                        const novoLider = novoRanking[0]; // O primeiro da lista é o novo líder
-
-
-                        // Se o líder atual for diferente do novo líder
-                        if (liderAtual !== novoLider.nome) {
-                            liderAtual = novoLider.nome; // Atualiza o líder atual
-
-                            fecharRankingModal();
-                            exibirPopUpComFogos(liderAtual,novoLider.image); // Exibe o pop-up e toca os sons
-                        }
-                    } else {
-                        console.error("Ranking vazio ou indefinido");
-                    }
-                }
-
-
-
-// AJAX para atualizar o ranking e verificar troca de liderança
-                $('#rankingForm').on('submit', function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url: "{{ route('ranking.atualizar') }}",
-                        method: "POST",
-                        data: $(this).serialize(),
-                        success: function(res) {
-                            console.log(res);
-                            if (res && res.ranking && res.ranking.length > 0) {
-                                verificarTrocaDeLider(res.ranking);
-
-                                // Atualizar a tabela de ranking
-                                atualizarTabelaRanking(res.ranking);
-                            } else {
-                                console.error("Ranking não retornado corretamente pela resposta AJAX");
-                            }
-                        }
-                    });
-                });
-
-// Função para atualizar a tabela de ranking com jQuery
-                function atualizarTabelaRanking(ranking) {
-                    let tabela = $('#rankingTabela tbody');
-                    tabela.empty(); // Limpa a tabela
-
-                    // Percorre cada corretor no ranking e adiciona as linhas na tabela
-                    $.each(ranking, function(index, corretor) {
-                        tabela.append(`
-            <tr>
-                <td>${index + 1}</td>
-                <td>${corretor.nome}</td>
-                <td>${corretor.vidas_individual}</td>
-                <td>${corretor.vidas_coletivo}</td>
-                <td>${corretor.vidas_empresarial}</td>
-            </tr>
-        `);
-                    });
-                }
-
-            });
-
-
-
-
-        </script>
-    @endsection
-
+    <script src="{{asset('js/ranking.js')}}"></script>
     @section('css')
         <style>
-
             @keyframes carro-primeira-passagem {
                 0% {
                     left: 100%;  /* Começa fora da tela */
@@ -335,7 +116,6 @@
                 background: url({{ asset('fogos2.gif') }}) center center no-repeat, rgba(0, 0, 0, 0.5);
                 background-size: cover;
                 z-index: 50; /* Certifica-se de que o modal fica acima de outros elementos */
-
                 justify-content: center;
                 align-items: center;
                 position: fixed;
@@ -348,10 +128,6 @@
                 padding: 2rem;
                 border-radius: 0.5rem;
             }
-
-
-
-
 
             .modal {
                 position: fixed;

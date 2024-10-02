@@ -16,6 +16,7 @@ use App\Models\Contrato;
 use App\Models\ContratoEmpresarial;
 use App\Models\Dependente;
 use App\Models\MotivoCancelado;
+use App\Models\Odonto;
 use App\Models\Plano;
 use App\Models\TabelaOrigens;
 use App\Models\User;
@@ -33,11 +34,31 @@ class FinanceiroController extends Controller
         //return $this->middleware(["can:configuracoes"]);
     }
 
+    public function storeOdonto(Request $request)
+    {
+        $odonto = new Odonto();
+        $odonto->user_id = $request->user_id;
+        $odonto->nome = $request->nome;
+        $valorFormatado = str_replace(",", ".", str_replace(".", "", $request->valor));
+        $odonto->valor = floatval($valorFormatado);
+        $comissao = ($odonto->valor * 50) / 100;
+        $odonto->comissao = floatval($comissao);
+        $odonto->save();
+        return true;
+    }
+
 
 
     public function index(Request $request)
     {
-        return view('financeiro.index');
+        $users = User::where("corretora_id",auth()->user()->corretora_id)
+            ->where("name" ,"!=",'Administrador')
+            ->whereRaw("name != ''")
+            ->get();
+
+        return view('financeiro.index',[
+            "users" => $users
+        ]);
     }
 
     public function financeiroCorretoraChange()
@@ -333,8 +354,6 @@ class FinanceiroController extends Controller
         FROM tabelas
         WHERE faixa_etaria_id IN($chaves) AND tabela_origens_id =  $cidade AND administradora_id = 4 AND plano_id = 1 AND odonto = $odonto AND coparticipacao = $coparticipacao");
 
-
-
         return view("financeiro.acomodacao",[
             "dados" => $dados,
             "card_inicial" => $dados[0]->card,
@@ -389,7 +408,6 @@ class FinanceiroController extends Controller
                         } else {
                             $cliente->quantidade_vidas = $cells[15]->getValue() + 1;
                         }
-//
                         $cliente->save();
                         $data_vigencia = implode("-", array_reverse(explode("/", $cells[17]->getValue())));
                         $contrato = new Contrato();
@@ -525,10 +543,6 @@ class FinanceiroController extends Controller
                             //}
                             /****FIm SE Comissoes Lancadas */
                         }
-
-
-
-
                     }
 
                     //unlink("public/".$filename);

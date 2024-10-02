@@ -121,6 +121,7 @@ class ImagemController extends Controller
                 'administradora' => $admin_nome,
                 'frase' => $frase,
                 'status_carencia' => $status_carencia,
+                'status_desconto' => $status_desconto,
                 'odonto' => $odonto,
                 'celular' => $celular,
                 'linhas' => $linhas,

@@ -12,11 +12,13 @@
 
         <script src="{{asset('assets/jquery.min.js')}}"></script>
 
+
         <script src="{{asset('js/jquery.mask.min.js')}}"></script>
         <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/datatables.min.css')}}">
 
         <script src="{{asset('js/sweetalert2@11.js')}}"></script>
+
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -288,7 +290,7 @@
                         @php
                             switch(\Illuminate\Support\Facades\Route::currentRouteName()) {
                                 case "financeiro.index":
-                                    echo "<p class='text-white text-lg'>Financeiro</p>";
+                                    echo "<p class='text-white text-lg bg-red-500'>Financeiro</p>";
                                     break;
                                 case "estrela.index":
                                     echo "<p class='text-white text-lg'>Programa Estrela</p>";
@@ -302,7 +304,13 @@
                             }
                         @endphp
                     </div>
-                    <div>
+                    <div class="flex items-center">
+
+                        @if(\Illuminate\Support\Facades\Route::currentRouteName() == "financeiro.index")
+                            <button type="button" class="bg-orange-400 font-bold rounded-lg text-2xl text-white px-5 py-2.5 me-2 mb-2 create_odonto">+</button>
+                        @endif
+
+
                         <img src="{{asset('logo-hapvida.png')}}" alt="Hapvida" class="mobile-icon" style="width:40px;">
                         <img src="{{asset('hapvida-notreDame_baixa_1.png')}}" alt="Hapvida" class="desktop-icon" style="width:200px;">
                     </div>

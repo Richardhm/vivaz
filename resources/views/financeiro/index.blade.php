@@ -17,14 +17,38 @@
             var parcelaSelecionada;
         </script>
             <div style="width:95%;margin:0 auto;">
-        <ul class="list_abas">
-            <li data-id="aba_individual" class="ativo">Individual</li>
-            <li data-id="aba_coletivo">Coletivo</li>
-            <li data-id="aba_empresarial">Empresarial</li>
-        </ul>
+            <ul class="list_abas">
+                <li data-id="aba_individual" class="ativo">Individual</li>
+                <li data-id="aba_coletivo">Coletivo</li>
+                <li data-id="aba_empresarial">Empresarial</li>
+            </ul>
     </div>
     <x-upload-modal></x-upload-modal>
     <x-upload-atualizar></x-upload-atualizar>
+
+
+        <div id="popup-primeiro" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden flex items-center justify-center">
+            <div class="relative bg-white p-8 rounded-lg text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Parabéns!</h2>
+                <p class="text-xl font-medium text-gray-600 flex justify-center flex-wrap">
+                    <img src="" alt="" id="imagem-primeiro" style="width:200px;height:200px;border-radius:50%;">
+                <p class="w-full">O corretor <span id="nome-primeiro"></span> assumiu o 1º lugar!</p>
+                </p>
+            </div>
+        </div>
+
+        <!-- Fundo preto para a animação do carro -->
+        <div id="carro-bg" class="fixed inset-0 bg-black opacity-90 hidden"></div>
+
+        <!-- Contêiner do carro -->
+        <div id="carro-container" class="fixed bottom-10 left-full hidden">
+            <img src="{{ asset('carro.gif') }}" alt="Carro" class="w-48 h-auto object-contain" />
+            <span id="nome-primeiro-carro" class="absolute text-white font-bold text-xl"></span>
+        </div>
+
+
+
+
 
         <!-- O container de loading com 3 pontinhos -->
         <div id="loading-dots-change" class="hidden fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 z-50">
@@ -34,11 +58,6 @@
                 <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce delay-400"></div>
             </div>
         </div>
-
-
-
-
-
         <div id="myModalIndividual" class="fixed inset-0 z-50 flex items-center justify-center hidden">
             <!-- Backdrop -->
             <div class="fixed inset-0 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] z-40"></div>
@@ -77,6 +96,73 @@
             </div>
         </div>
 
+        <div id="myModalCreateOdonto" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+                <!-- Abas para Listar e Cadastrar -->
+                <div class="flex justify-around border-b border-gray-200">
+                    <button id="tabListar" onclick="showTab('listar')" class="py-2 px-4 focus:outline-none text-blue-500 border-b-2 border-blue-500">Listar</button>
+                    <button id="tabCadastrar" onclick="showTab('cadastrar')" class="py-2 px-4 focus:outline-none text-gray-500 hover:text-blue-500">Cadastrar</button>
+                </div>
+
+                <!-- Conteúdo da Aba Listar -->
+                <div id="contentListar" class="p-4">
+                    <table class="min-w-full bg-white border">
+                        <thead>
+                        <tr>
+                            <th class="border px-4 py-2">#</th>
+                            <th class="border px-4 py-2">Nome</th>
+                            <th class="border px-4 py-2">Valor</th>
+                            <th class="border px-4 py-2">Ja Pagou?</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td class="border px-4 py-2">1</td>
+                                <td class="border px-4 py-2">Richard</td>
+                                <td class="border px-4 py-2">200</td>
+                                <td class="border px-4 py-2">Sim</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Conteúdo da Aba Cadastrar -->
+                <div id="contentCadastrar" class="p-4 hidden">
+                    <div class="flex flex-col space-y-4">
+                        <div>
+                            <label for="user_id" class="block mb-2">Corretor</label>
+                            <select name="user_id" id="user_id" class="border rounded px-4 py-2 w-full">
+                                @foreach($users as $u)
+                                    <option value="{{$u->id}}">{{$u->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="nome" class="block mb-2">Nome</label>
+                            <input type="text" name="nome" id="nome" class="border rounded px-4 py-2 w-full">
+                        </div>
+
+
+                        <div>
+                            <label for="valor" class="block mb-2">Valor</label>
+                            <input type="text" name="valor" id="valor" class="border rounded px-4 py-2 w-full">
+                        </div>
+
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full cadastrar_odonto">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
         <div id="myModalEmpresarial" class="fixed inset-0 z-50 flex items-center justify-center hidden">
             <!-- Backdrop -->
             <div class="fixed inset-0 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] z-40"></div>
@@ -105,7 +191,114 @@
 
     <script>
 
+
+
+        const dropdownButton = document.getElementById('dropdownButton');
+        const dropdownOptions = document.getElementById('dropdownOptions');
+        const dropdownButtonText = dropdownButton.querySelector('span'); // Apenas o span de texto
+
+        function showTab(tab) {
+            var contentListar = document.getElementById('contentListar');
+            var contentCadastrar = document.getElementById('contentCadastrar');
+            var tabListar = document.getElementById('tabListar');
+            var tabCadastrar = document.getElementById('tabCadastrar');
+
+            if (tab === 'listar') {
+                contentListar.classList.remove('hidden');
+                contentCadastrar.classList.add('hidden');
+                tabListar.classList.add('border-blue-500', 'text-blue-500');
+                tabCadastrar.classList.remove('border-blue-500', 'text-blue-500');
+            } else {
+                contentListar.classList.add('hidden');
+                contentCadastrar.classList.remove('hidden');
+                tabListar.classList.remove('border-blue-500', 'text-blue-500');
+                tabCadastrar.classList.add('border-blue-500', 'text-blue-500');
+            }
+        }
+
+
+
+
+
+
+
+        dropdownButton.addEventListener('click', () => {
+            dropdownOptions.classList.toggle('hidden');
+        });
+
+        dropdownOptions.addEventListener('click', (event) => {
+            if (event.target.tagName === 'LI') {
+                const selectedOption = event.target.textContent;
+                const value = event.target.getAttribute('data-value');
+                dropdownButtonText.textContent = selectedOption; // Atualiza apenas o texto do span
+                dropdownOptions.classList.add('hidden');
+                inicializarIndividual(value);
+            }
+        });
+
+
         $(document).ready(function(){
+
+            $("body").on('click','.create_odonto',function(){
+
+                $("#myModalCreateOdonto").removeClass('hidden').addClass('flex');
+            });
+
+
+            $("body").on('click', '.cadastrar_odonto', function(e) {
+                e.preventDefault(); // Previne o envio do formulário se houver campos vazios
+
+                // Pegando os valores dos campos
+                let user_id = $("select[id='user_id'] :selected").val();
+                let nome = $("input[id='nome']").val();
+                let valor = $("input[id='valor']").val();
+
+                // Verificar se os campos estão preenchidos
+                if (!user_id || !nome || !valor) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        text: 'Todos os campos são obrigatórios!',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: '#d33'
+                    });
+                    return; // Impede o envio dos dados se houver campos vazios
+                }
+
+                // Se todos os campos estiverem preenchidos, faz a requisição AJAX
+                $.ajax({
+                    url: "{{ route('odonto.create') }}",
+                    method: "POST",
+                    data: {
+                        user_id,
+                        nome,
+                        valor
+                    },
+                    success: function(res) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cadastrado!',
+                            text: 'O cadastro foi realizado com sucesso!',
+                            confirmButtonText: 'Recarregar Página',
+                            confirmButtonColor: '#3085d6'
+                        }).then((result) => {
+                            // Se o usuário clicar no botão de confirmação, recarregar a página
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        // Aqui você pode exibir uma mensagem de erro
+                    }
+                });
+            });
+
+
+
+
+
 
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -200,7 +393,7 @@
                     method:"POST",
                     data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id_cliente,
                     success:function(res) {
-                        console.log(res);
+                        //console.log(res);
                         //table.ajax.reload();
                     }
                 });

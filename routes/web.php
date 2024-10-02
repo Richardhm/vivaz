@@ -23,22 +23,17 @@ Route::post('/dashboard/orcamento',[OrcamentoController::class,'orcamento'])->mi
 Route::post("/pdf",[ImagemController::class,'criarPDF'])->middleware(['auth', 'verified'])->name('gerar.imagem');
 
 Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::class])->group(function () {
-    //Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
     Route::get('/orcamento',[OrcamentoController::class,'index'])->name('orcamento');
-
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/financeiro',[FinanceiroController::class,'index'])->name('financeiro.index');
     Route::get('/contratos/cadastrar/individual',[FinanceiroController::class,'formCreate'])->name('financeiro.formCreate');
     Route::get("/financeiro/individual/em_geral/{mes?}",[FinanceiroController::class,'geralIndividualPendentes'])->name('financeiro.individual.geralIndividualPendentes');
-
     Route::post('/financeiro/change/individual',[FinanceiroController::class,'changeIndividual'])->name('financeiro.changeFinanceiro');
-
     Route::post('/contratos/montarPlanosIndividual',[FinanceiroController::class,'montarPlanosIndividual'])->name('contratos.montarPlanosIndividual');
     Route::post('/contratos/individual',[FinanceiroController::class,'storeIndividual'])->name('individual.store');
-
     Route::get("/estrela",[EstrelaController::class,'index'])->name('estrela.index');
     Route::get('/ranking',[RankingController::class,'index'])->name('ranking.index');
     Route::get('/dashboard/filtragem',[RankingController::class,'filtragem'])->name('ranking.filtragem');
@@ -46,13 +41,10 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     //Route::post('/ranking/cadastrar-concessionaria', [RankingController::class, 'cadastrarConcessionaria'])->name('cadastrar.concessionaria');
     Route::post('/ranking/cadastrar-concessionaria', [RankingController::class, 'cadastrarConcessionaria'])->name('cadastrar.concessionaria');
     Route::post('/financeiro/sincronizar_baixas/ja_existente',[FinanceiroController::class,'sincronizarBaixasJaExiste'])->name('financeiro.sincronizar.baixas.jaexiste');
-
     Route::get('/contratos/cadastrar/coletivo',[FinanceiroController::class,'formCreateColetivo'])->name('contratos.create.coletivo');
     Route::post('/contratos/montarPlanos',[FinanceiroController::class,'montarPlanos'])->name('contratos.montarPlanos');
     Route::post('/contratos',[FinanceiroController::class,'store'])->name('contratos.store');
-
     Route::get('/financeiro/detalhes/coletivo/{id}',[FinanceiroController::class,'detalhesContratoColetivo'])->name('financeiro.detalhes.contrato.coletivo');
-
     Route::post('/financeiro/modal/individual',[FinanceiroController::class,'modalIndividual'])->name('financeiro.modal.contrato.individual');
     Route::post('/financeiro/modal/coletivo',[FinanceiroController::class,'modalColetivo'])->name('financeiro.modal.contrato.coletivo');
     Route::post('/financeiro/modal/empresarial',[FinanceiroController::class,'modalEmpresarial'])->name('financeiro.modal.contrato.empresarial');
@@ -147,17 +139,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
 
     Route::get("/teste",function(){
 
-
-
-
-
-
-
-
-
-
         $hoje = \Carbon\Carbon::today();
-
         $corretores = \App\Models\User::where("corretora_id",1)->where('ativo',1)->get();
         foreach ($corretores as $corretor) {
             // Verifica se há um registro para o corretor na data atual
@@ -196,6 +178,10 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
 
        return view("teste",compact("corretores","vendasDiarias","primeiroColocado"));
     });
+
+    Route::post('/ranking/veriricar/corretor',[RankingController::class,'rankingVerificarCorretor'])->name('ranking.verificar.corretor');
+
+    Route::post("/odonto/create",[FinanceiroController::class,'storeOdonto'])->name('odonto.create');
 
     Route::post('/ranking/diario/atualizar',[RankingController::class,'atualizarRankingDiario'])->name('ranking.atualizar');
     Route::get('/gerente/coletivo/listar/{id}',[GerenteController::class,'coletivoAReceber'])->name('gerente.listagem.coletivo.areceber');

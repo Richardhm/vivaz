@@ -322,6 +322,18 @@
                 <td colspan="2">{{number_format($sem_copar,2,",",".")}}</td>
 
             </tr>
+            @if($status_desconto == 1)
+                <tr>
+                    <td style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">Desc.15% / 3 meses</td>
+                    <td colspan="2" style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">{{ number_format($com_copar * 0.85,2,",",".")  }}</td>
+                    <td colspan="2" style="text-align:center;background: rgb(250,181,25);font-weight:bold;color:white;">{{ number_format($sem_copar * 0.85,2,",",".")  }}</td>
+                </tr>
+            @endif
+
+
+
+
+
             </tfoot>
         </table>
     </div>
