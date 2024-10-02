@@ -53,10 +53,6 @@ class ImagemController extends Controller
             }
         }
 
-
-
-
-
         $admin_nome = Administradora::find($operadora)->nome;
         $odonto_frase = $odonto == 1 ? " c/ Odonto" : " s/ Odonto";
         $frase = $plano_nome.$odonto_frase;
@@ -65,13 +61,11 @@ class ImagemController extends Controller
         if(auth()->user()->image) {
             $image_user = 'data:image/png;base64,'.base64_encode(file_get_contents(public_path(auth()->user()->image)));
         }
-
         $nome = auth()->user()->name;
         $celular = auth()->user()->celular;
         $corretora = auth()->user()->corretora_id;
         $status_carencia = request()->status_carencia == "true" ? 1 : 0;
         $status_desconto = request()->status_desconto == "true" ? 1 : 0;
-
         if($ambulatorial == 0) {
             $dados = Tabela::select('tabelas.*')
                 ->selectRaw("CASE $sql END AS quantidade")

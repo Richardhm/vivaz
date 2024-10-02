@@ -530,7 +530,7 @@
                             <td style="width: 35%; vertical-align: top;text-align:left;">
                                 <p class="section-title">Procedimentos</p>
                                 <div class="section-content" style="text-align:left;">
-                                    @if($pdf->consultas_eletivas)
+                                    @if($pdf->consultas_eletivas_total)
                                         <p>Consultas Eletivas</p>
                                     @endif
                                     @if($pdf->pronto_atendimento)
