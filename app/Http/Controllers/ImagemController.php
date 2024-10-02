@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Administradora;
 use App\Models\Pdf;
+use App\Models\PdfExcecao;
 use App\Models\Plano;
 use App\Models\Tabela;
 use App\Models\TabelaOrigens;
@@ -28,9 +29,34 @@ class ImagemController extends Controller
                 $chaves[] = $k;
             }
         }
+
+
         $linhas = count($chaves);
         $cidade_nome = TabelaOrigens::find($cidade)->nome;
         $plano_nome = Plano::find($plano)->nome;
+
+        $cidade_uf = TabelaOrigens::find($cidade)->uf;
+        $status_excecao = false;
+        if(($cidade_uf == "MT" || $cidade_uf == "MS") && $plano == 3) {
+            $status_excecao = true;
+            $pdf_copar = PdfExcecao::where('plano_id', $plano)->first();
+        } else {
+            $hasTabelaOrigens = Pdf::where('plano_id', $plano)
+                ->where('tabela_origens_id',$cidade)
+                ->exists();
+            if ($hasTabelaOrigens) {
+                $pdf_copar = Pdf::where('plano_id', $plano)
+                    ->where('tabela_origens_id',$cidade)
+                    ->first();
+            } else {
+                $pdf_copar = Pdf::where('plano_id', $plano)->first();
+            }
+        }
+
+
+
+
+
         $admin_nome = Administradora::find($operadora)->nome;
         $odonto_frase = $odonto == 1 ? " c/ Odonto" : " s/ Odonto";
         $frase = $plano_nome.$odonto_frase;
@@ -57,16 +83,7 @@ class ImagemController extends Controller
                 ->where("acomodacao_id","!=",3)
                 ->whereIn('tabelas.faixa_etaria_id', explode(',', $keys))
                 ->get();
-            $hasTabelaOrigens = Pdf::where('plano_id', $plano)
-                ->where('tabela_origens_id',$cidade)
-                ->exists();
-            if ($hasTabelaOrigens) {
-                $pdf_copar = Pdf::where('plano_id', $plano)
-                    ->where('tabela_origens_id',$cidade)
-                    ->first();
-            } else {
-                $pdf_copar = Pdf::where('plano_id', $plano)->first();
-            }
+
             $view = \Illuminate\Support\Facades\View::make("cotacao.cotacao3",[
                 'image' => $image_user,
                 'dados' => $dados,
@@ -80,6 +97,7 @@ class ImagemController extends Controller
                 'status_desconto' => $status_desconto,
                 'odonto' => $odonto,
                 'celular' => $celular,
+                'status_excecao' => $status_excecao,
                 'linhas' => $linhas,
                 'corretora' => $corretora
             ]);

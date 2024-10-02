@@ -375,140 +375,288 @@
     @endphp
 
 
+    @if(!$status_excecao)
+        <table id="valores_coparticipacao" style="{{$status_carencia == 0 ? 'width:50%;' : 'width:100%;' }}border-collapse: collapse;margin:0;padding:0;">
+            <tr>
+                <td style="{{$status_carencia == 0 ? 'width:100%;' : 'width:50%;' }}vertical-align:top;padding:0;margin:0;">
+                    <h3 style="margin: 0;text-align:left;">Coparticipação:</h3>
+
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 35%; vertical-align: top;text-align:left;">
+                                <p class="section-title">Procedimentos</p>
+                                <div class="section-content" style="text-align:left;">
+                                    @if($pdf->consultas_eletivas_total || $pdf->consultas_eletivas_parcial)
+                                        <p>Consultas Eletivas</p>
+                                    @endif
+                                    @if($pdf->consultas_de_urgencia_total || $pdf->consultas_de_urgencia_parcial)
+                                        <p>Consultas de Urgência</p>
+                                    @endif
+                                    @if($pdf->exames_simples_total || $pdf->exames_simples_parcial)
+                                        <p>Exames Simples</p>
+                                    @endif
+                                    @if($pdf->exames_complexos_total || $pdf->exames_complexos_parcial)
+                                        <p>Exames Complexos</p>
+                                    @endif
+                                    @if($pdf->terapias_especiais_total || $pdf->terapias_especiais_parcial)
+                                        <p>Terapias Especiais</p>
+                                    @endif
+                                    @if($pdf->demais_terapias_total || $pdf->demais_terapias_parcial)
+                                        <p>Demais Terapias</p>
+                                    @endif
+                                    @if($pdf->internacoes_total || $pdf->internacoes_parcial)
+                                        <p>Internações</p>
+                                    @endif
+                                    @if($pdf->internacoes_total || $pdf->internacoes_parcial)
+                                        <p>Cirurgia</p>
+                                    @endif
+                                </div>
+                            </td>
+                            <td style="width: 30%; vertical-align: top;text-align:left;">
+                                <p class="section-title">Copart Total</p>
+                                <div class="section-content" style="text-align:left;">
+                                    <p>{{$pdf->consultas_eletivas_total ?? ''}}</p>
+                                    <p>{{$pdf->consultas_de_urgencia_total ?? ''}}</p>
+                                    <p>{{$pdf->exames_simples_total ?? ''}}</p>
+                                    <p>{{$pdf->exames_complexos_total ?? ''}}</p>
+                                    <p>{{$pdf->terapias_especiais_total ?? ''}}</p>
+                                    <p>{{$pdf->demais_terapias_total ?? ''}}</p>
+                                    <p>{{$pdf->internacoes_total ?? ''}}</p>
+                                    <p>{{$pdf->cirurgia_total ?? ''}}</p>
+                                </div>
+                            </td>
+                            <td style="width: 30%; vertical-align: top;text-align:left;">
+                                <p class="section-title">Copart Parcial</p>
+                                <div class="section-content" style="text-align:left;">
+                                    <p>{{$pdf->consultas_eletivas_parcial ?? ''}}</p>
+                                    <p>{{$pdf->consultas_de_urgencia_parcial ?? ''}}</p>
+                                    <p>{{$pdf->exames_simples_parcial ?? ''}}</p>
+                                    <p>{{$pdf->exames_complexos_parcial ?? ''}}</p>
+                                    <p>{{$pdf->terapias_especiais_parcial ?? ''}}</p>
+                                    <p>{{$pdf->demais_terapias_parcial ?? ''}}</p>
+                                    <p>{{$pdf->internacoes_parcial ?? ''}}</p>
+                                    <p>{{$pdf->cirurgia_parcial ?? ''}}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
 
 
 
-    <table id="valores_coparticipacao" style="{{$status_carencia == 0 ? 'width:50%;' : 'width:100%;' }}border-collapse: collapse;margin:0;padding:0;">
-        <tr>
-            <td style="{{$status_carencia == 0 ? 'width:100%;' : 'width:50%;' }}vertical-align:top;padding:0;margin:0;">
-                <h3 style="margin: 0;text-align:left;">Coparticipação:</h3>
 
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                        <td style="width: 35%; vertical-align: top;text-align:left;">
-                            <p class="section-title">Procedimentos</p>
-                            <div class="section-content" style="text-align:left;">
-                                @if($pdf->consultas_eletivas_total || $pdf->consultas_eletivas_parcial)
-                                    <p>Consultas Eletivas</p>
-                                @endif
-                                @if($pdf->consultas_de_urgencia_total || $pdf->consultas_de_urgencia_parcial)
-                                    <p>Consultas de Urgência</p>
-                                @endif
-                                @if($pdf->exames_simples_total || $pdf->exames_simples_parcial)
-                                    <p>Exames Simples</p>
-                                @endif
-                                @if($pdf->exames_complexos_total || $pdf->exames_complexos_parcial)
-                                    <p>Exames Complexos</p>
-                                @endif
-                                @if($pdf->terapias_especiais_total || $pdf->terapias_especiais_parcial)
-                                    <p>Terapias Especiais</p>
-                                @endif
-                                @if($pdf->demais_terapias_total || $pdf->demais_terapias_parcial)
-                                    <p>Demais Terapias</p>
-                                @endif
-                                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
-                                    <p>Internações</p>
-                                @endif
-                                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
-                                    <p>Cirurgia</p>
-                                @endif
-                            </div>
-                        </td>
-                        <td style="width: 30%; vertical-align: top;text-align:left;">
-                            <p class="section-title">Copart Total</p>
-                            <div class="section-content" style="text-align:left;">
-                                <p>{{$pdf->consultas_eletivas_total ?? ''}}</p>
-                                <p>{{$pdf->consultas_de_urgencia_total ?? ''}}</p>
-                                <p>{{$pdf->exames_simples_total ?? ''}}</p>
-                                <p>{{$pdf->exames_complexos_total ?? ''}}</p>
-                                <p>{{$pdf->terapias_especiais_total ?? ''}}</p>
-                                <p>{{$pdf->demais_terapias_total ?? ''}}</p>
-                                <p>{{$pdf->internacoes_total ?? ''}}</p>
-                                <p>{{$pdf->cirurgia_total ?? ''}}</p>
-                            </div>
-                        </td>
-                        <td style="width: 30%; vertical-align: top;text-align:left;">
-                            <p class="section-title">Copart Parcial</p>
-                            <div class="section-content" style="text-align:left;">
-                                <p>{{$pdf->consultas_eletivas_parcial ?? ''}}</p>
-                                <p>{{$pdf->consultas_de_urgencia_parcial ?? ''}}</p>
-                                <p>{{$pdf->exames_simples_parcial ?? ''}}</p>
-                                <p>{{$pdf->exames_complexos_parcial ?? ''}}</p>
-                                <p>{{$pdf->terapias_especiais_parcial ?? ''}}</p>
-                                <p>{{$pdf->demais_terapias_parcial ?? ''}}</p>
-                                <p>{{$pdf->internacoes_parcial ?? ''}}</p>
-                                <p>{{$pdf->cirurgia_parcial ?? ''}}</p>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            @if($status_carencia == 1)
-            <td style="width: 50%; vertical-align: top; padding-left: 2%; margin: 0;color:#366EBF;">
-                <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
-                <table style="width: 100%;border-spacing: 0; padding: 0;">
-                    <tr style="padding: 0;">
-                        <!-- Coluna da Esquerda (70%) -->
-                        <td style="width: 60%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
-                            <p style="margin: 0;padding:0;text-align:left;">
+
+
+                @if($status_carencia == 1)
+                    <td style="width: 50%; vertical-align: top; padding-left: 2%; margin: 0;color:#366EBF;">
+                        <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
+                        <table style="width: 100%;border-spacing: 0; padding: 0;">
+                            <tr style="padding: 0;">
+                                <!-- Coluna da Esquerda (70%) -->
+                                <td style="width: 60%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                                    <p style="margin: 0;padding:0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px;">
                                     24<br />horas
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
                                     Urgência, Emergência e<br />Acidentes Pessoais
                                 </span>
-                            </p>
-                            <p style="margin: 10px 0;text-align:left;">
+                                    </p>
+                                    <p style="margin: 10px 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     30<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
                                     Consultas Médicas,<br />Exames Médicos Simples
                                 </span>
-                            </p>
-                            <p style="margin: 0;text-align:left;">
+                                    </p>
+                                    <p style="margin: 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     90<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                        <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
                                     Exames Cardiológicos, Exames<br /> de Imagem, Oftalmológicos,<br />Otorrino Simples, Raio X,<br />Ultrassonografia
                                 </span>
-                            </p>
-                            <p style="margin:10px 0px 0px 0px;text-align:left;">
+                                    </p>
+                                    <p style="margin:10px 0px 0px 0px;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     180<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                        <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
                                     Cirurgias, Internações, Exames<br />de Alto Custo, Tratamento<br />Psicológico, Terapia Ocupacional,<br />Fisioterapia
                                 </span>
-                            </p>
-                        </td>
-                        <!-- Coluna da Direita (30%) -->
-                        <td style="width: 40%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
-                            <p style="margin: 0;text-align:left;">
+                                    </p>
+                                </td>
+                                <!-- Coluna da Direita (30%) -->
+                                <td style="width: 40%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                                    <p style="margin: 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     300<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
                                     Parto
                                 </span>
-                            </p>
-                            <p style="margin: 10px 0 0 0;text-align:left;">
+                                    </p>
+                                    <p style="margin: 10px 0 0 0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     720<br />dias
                                 </span>
-                                <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;;">
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;;">
                                     Doenças e Lesões<br />Pré-existentes
                                 </span>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            @endif
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                @endif
 
-        </tr>
-    </table>
+            </tr>
+        </table>
+
+
+
+
+
+    @else
+
+        <table id="valores_coparticipacao" style="{{$status_carencia == 0 ? 'width:50%;' : 'width:100%;' }}border-collapse: collapse;margin:0;padding:0;">
+            <tr>
+                <td style="{{$status_carencia == 0 ? 'width:100%;' : 'width:50%;' }}vertical-align:top;padding:0;margin:0;">
+                    <h3 style="margin: 0;text-align:left;">Coparticipação:</h3>
+
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 35%; vertical-align: top;text-align:left;">
+                                <p class="section-title">Procedimentos</p>
+                                <div class="section-content" style="text-align:left;">
+                                    @if($pdf->consultas_eletivas)
+                                        <p>Consultas Eletivas</p>
+                                    @endif
+                                    @if($pdf->pronto_atendimento)
+                                        <p>Pronto Atendimento</p>
+                                    @endif
+                                    @if($pdf->faixa_1)
+                                        <p>Faixa 1</p>
+                                    @endif
+                                    @if($pdf->faixa_2)
+                                         <p>Faixa 2</p>
+                                    @endif
+                                    @if($pdf->faixa_3)
+                                        <p>Faixa 3</p>
+                                    @endif
+                                    @if($pdf->faixa_4)
+                                        <p>Faixa 4</p>
+                                    @endif
+
+
+                                </div>
+                            </td>
+                            <td style="width: 30%; vertical-align: top;text-align:left;">
+                                <p class="section-title">Copart Total</p>
+                                <div class="section-content" style="text-align:left;">
+                                    <p>{{$pdf->consultas_eletivas ?? ''}}</p>
+                                    <p>{{$pdf->pronto_atendimento ?? ''}}</p>
+                                    <p>{{$pdf->faixa_1 ?? ''}}</p>
+                                    <p>{{$pdf->faixa_2 ?? ''}}</p>
+                                    <p>{{$pdf->faixa_3 ?? ''}}</p>
+                                    <p>{{$pdf->faixa_4 ?? ''}}</p>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </table>
+                </td>
+
+
+
+
+
+
+                @if($status_carencia == 1)
+                    <td style="width: 50%; vertical-align: top; padding-left: 2%; margin: 0;color:#366EBF;">
+                        <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
+                        <table style="width: 100%;border-spacing: 0; padding: 0;">
+                            <tr style="padding: 0;">
+                                <!-- Coluna da Esquerda (70%) -->
+                                <td style="width: 60%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                                    <p style="margin: 0;padding:0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px;">
+                                    24<br />horas
+                                </span>
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
+                                    Urgência, Emergência e<br />Acidentes Pessoais
+                                </span>
+                                    </p>
+                                    <p style="margin: 10px 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    30<br />dias
+                                </span>
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
+                                    Consultas Médicas,<br />Exames Médicos Simples
+                                </span>
+                                    </p>
+                                    <p style="margin: 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    90<br />dias
+                                </span>
+                                        <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                    Exames Cardiológicos, Exames<br /> de Imagem, Oftalmológicos,<br />Otorrino Simples, Raio X,<br />Ultrassonografia
+                                </span>
+                                    </p>
+                                    <p style="margin:10px 0px 0px 0px;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    180<br />dias
+                                </span>
+                                        <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                    Cirurgias, Internações, Exames<br />de Alto Custo, Tratamento<br />Psicológico, Terapia Ocupacional,<br />Fisioterapia
+                                </span>
+                                    </p>
+                                </td>
+                                <!-- Coluna da Direita (30%) -->
+                                <td style="width: 40%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                                    <p style="margin: 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    300<br />dias
+                                </span>
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
+                                    Parto
+                                </span>
+                                    </p>
+                                    <p style="margin: 10px 0 0 0;text-align:left;">
+                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                    720<br />dias
+                                </span>
+                                        <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;;">
+                                    Doenças e Lesões<br />Pré-existentes
+                                </span>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                @endif
+
+            </tr>
+        </table>
+
+
+
+
+
+
+
+
+
+    @endif
+
+
+
+
+
+
+
 
     @if($odonto == 1 && $status_carencia == 1)
     <!-- Nova Tabela -->
