@@ -27,9 +27,7 @@ function inicializarEmpresarial(corretora_id = null) {
         },
         ajax: {
             "url":urlGeralEmpresarialPendentes,
-            data: function (d) {
-                d.corretora_id = corretora_id;
-            }
+            "dataSrc": ""
         },
         "lengthMenu": [1000,2000,3000],
         "ordering": false,

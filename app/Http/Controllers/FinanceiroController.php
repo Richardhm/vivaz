@@ -2519,7 +2519,7 @@ class FinanceiroController extends Controller
 
     public function listarContratoEmpresaPendentes(Request $request)
     {
-        $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
+        $corretora_id = 1;
         if ($request->ajax()) {
             $cacheKey = 'listarContratoEmpresaPendentes';
             $tempoDeExpiracao = 60;
@@ -2579,9 +2579,9 @@ class FinanceiroController extends Controller
                     })
                     ->groupBy('comissoes_corretores_lancadas.comissoes_id');
 
-                if ($corretora_id != 0) {
-                    $query->where('contrato_empresarial.codigo_corretora', $corretora_id);
-                }
+                //if ($corretora_id != 0) {
+                    $query->where('contrato_empresarial.corretora_id', $corretora_id);
+                //}
 
                 return $query->get();
             });
