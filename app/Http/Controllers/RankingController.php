@@ -431,6 +431,7 @@ class RankingController extends Controller
                 ROUND(((individual + super_simples + pme + adesao) /
                 (meta_individual + meta_super_simples + meta_pme + meta_adesao)) * 100, 2) AS porcentagem_vendas
                 FROM concessionarias
+                where id != 17
                 ORDER BY total_vidas DESC;
             ");
             $podium = view('ranking.podium-concessionarias',[
