@@ -46,10 +46,6 @@
             <span id="nome-primeiro-carro" class="absolute text-white font-bold text-xl"></span>
         </div>
 
-
-
-
-
         <!-- O container de loading com 3 pontinhos -->
         <div id="loading-dots-change" class="hidden fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 z-50">
             <div class="flex justify-center items-center space-x-1">
@@ -144,7 +140,6 @@
                             <label for="nome" class="block mb-2">Nome</label>
                             <input type="text" name="nome" id="nome" class="border rounded px-4 py-2 w-full">
                         </div>
-
 
                         <div>
                             <label for="valor" class="block mb-2">Valor</label>
@@ -289,7 +284,7 @@
                         });
                     },
                     error: function(err) {
-                        console.log(err);
+                        //console.log(err);
                         // Aqui você pode exibir uma mensagem de erro
                     }
                 });
@@ -334,7 +329,6 @@
             $("body").on('change', '#mudar_corretor_individual', function () {
                 let id_cliente = $("#id_cliente").val();
                 let user_id = $(this).val();
-
                 // Mostrar o loading (remover a classe hidden)
                 $("#loading-dots-change").removeClass('hidden');
 
@@ -404,8 +398,6 @@
                let corretora_id = $(this).val();
                alert(corretora_id);
             });
-
-
 
             $("body").on("change","#select_corretoras_coletivo",function(){
                 let corretora_id = $(this).val();
@@ -559,13 +551,8 @@
             });
 
 
-
-
-
-
             $(document).on('click', '.open-modal', function(e) {
                 e.preventDefault();
-
                 $('#modalLoader').removeClass('hidden');
                 let cliente = $(this).data("cliente");
                 let cpf = $(this).data("cpf");
@@ -618,8 +605,6 @@
                         $(".content-modal-coletivo").html(res);
                    }
                 });
-
-
                 // Exibe a modal
                 $('#myModalColetivo').removeClass('hidden').addClass('flex');
                 $('#modalLoader').removeClass('hidden');
@@ -674,7 +659,6 @@
 
             $("body").on('click', '.button_cancelar', function() {
                 let id = $(this).data('id');
-
                 // Exibe o alerta de confirmação
                 Swal.fire({
                     title: 'Tem certeza que deseja cancelar o contrato?',
@@ -720,11 +704,6 @@
             });
 
 
-
-
-
-
-
             $("body").on('click','.em_analise_empresarial',function(){
                 let id = $(this).data('id');
                 let self = $(this);
@@ -752,9 +731,6 @@
                     }
                 })
             });
-
-
-
 
 
             $("body").on('click','.em_analise',function(){

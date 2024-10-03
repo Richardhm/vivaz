@@ -20,7 +20,7 @@
 
 
             {{--                    <button class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-lg py-1 px-4 rounded w-full text-sm">Arquivos</button>--}}
-            @if(auth()->user()->can('listar_todos'))
+            @i  f(auth()->user()->can('listar_todos'))
                 <select id="select_corretoras"
                         class="
                                 w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
