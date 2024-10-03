@@ -2522,7 +2522,7 @@ class FinanceiroController extends Controller
         $corretora_id = 1;
         if ($request->ajax()) {
             $cacheKey = 'listarContratoEmpresaPendentes';
-            $tempoDeExpiracao = 60;
+            $tempoDeExpiracao = 0;
             $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use($corretora_id) {
                 $query = DB::table('comissoes_corretores_lancadas')
                     ->select(
