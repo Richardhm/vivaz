@@ -561,7 +561,6 @@
                                     <p>{{$pdf->faixa_2 ?? ''}}</p>
                                     <p>{{$pdf->faixa_3 ?? ''}}</p>
                                     <p>{{$pdf->faixa_4 ?? ''}}</p>
-
                                 </div>
                             </td>
 

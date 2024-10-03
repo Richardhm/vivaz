@@ -22,6 +22,22 @@
     }
 }
 
+.slides-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.slide-carrossel {
+    min-width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
 #carro-container {
     position: fixed;
     bottom: 40%;

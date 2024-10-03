@@ -30,45 +30,45 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <div id="concessionariaForm" style="display: none; margin-top: 20px;">
-                <div>
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" style="width: 100%;" class="form-control-sm" required placeholder="Digitar o nome da Concessionaria">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" style="width: 100%;" class="form-control-sm" required placeholder="Digitar o nome da Concessionaria">
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <div style="width: 12%;">
+                    <label for="meta_individual">Meta Individual:</label>
+                    <input type="number" id="meta_individual" name="meta_individual" class="form-control-sm" required placeholder="Meta Individual">
                 </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <div style="width: 12%;">
-                        <label for="meta_individual">Meta Individual:</label>
-                        <input type="number" id="meta_individual" name="meta_individual" class="form-control-sm" required placeholder="Meta Individual">
-                    </div>
-                    <div style="width: 12%;">
-                        <label for="individual">Individual:</label>
-                        <input type="number" id="individual" name="individual" required class="form-control-sm" placeholder="Valor Individual">
-                    </div>
-                    <div style="width: 12%;">
-                        <label for="meta_super_simples">Meta Super Simples:</label>
-                        <input type="number" id="meta_super_simples" name="meta_super_simples" required class="form-control-sm" placeholder="Meta Super Simples">
-                    </div>
-                    <div style="width: 12%;">
-                        <label for="super_simples">Super Simples:</label>
-                        <input type="number" id="super_simples" name="super_simples" required class="form-control-sm" placeholder="Super Simples">
-                    </div>
-                    <div style="width: 12%;">
-                        <label for="meta_pme">Meta PME:</label>
-                        <input type="number" id="meta_pme" name="meta_pme" required class="form-control-sm" placeholder="Meta PME">
-                    </div>
-                    <div style="width: 12%;">
-                        <label for="pme">PME:</label>
-                        <input type="number" id="pme" name="pme" required class="form-control-sm" placeholder="PME">
-                    </div>
-                    <div style="width: 12%;">
-                        <label for="meta_adesao">Meta Adesão:</label>
-                        <input type="number" id="meta_adesao" name="meta_adesao" required class="form-control-sm" placeholder="Meta Adesão">
-                    </div>
-                    <div style="width: 12%;">
-                        <label for="adesao">Adesão:</label>
-                        <input type="number" id="adesao" name="adesao" required class="form-control-sm" placeholder="Adesão">
-                    </div>
+                <div style="width: 12%;">
+                    <label for="individual">Individual:</label>
+                    <input type="number" id="individual" name="individual" required class="form-control-sm" placeholder="Valor Individual">
                 </div>
-                <button type="submit" class="btn-cadastro btn-primary btn mt-2" style="width: 100%;">Cadastrar</button>
+                <div style="width: 12%;">
+                    <label for="meta_super_simples">Meta Super Simples:</label>
+                    <input type="number" id="meta_super_simples" name="meta_super_simples" required class="form-control-sm" placeholder="Meta Super Simples">
+                </div>
+                <div style="width: 12%;">
+                    <label for="super_simples">Super Simples:</label>
+                    <input type="number" id="super_simples" name="super_simples" required class="form-control-sm" placeholder="Super Simples">
+                </div>
+                <div style="width: 12%;">
+                    <label for="meta_pme">Meta PME:</label>
+                    <input type="number" id="meta_pme" name="meta_pme" required class="form-control-sm" placeholder="Meta PME">
+                </div>
+                <div style="width: 12%;">
+                    <label for="pme">PME:</label>
+                    <input type="number" id="pme" name="pme" required class="form-control-sm" placeholder="PME">
+                </div>
+                <div style="width: 12%;">
+                    <label for="meta_adesao">Meta Adesão:</label>
+                    <input type="number" id="meta_adesao" name="meta_adesao" required class="form-control-sm" placeholder="Meta Adesão">
+                </div>
+                <div style="width: 12%;">
+                    <label for="adesao">Adesão:</label>
+                    <input type="number" id="adesao" name="adesao" required class="form-control-sm" placeholder="Adesão">
+                </div>
+            </div>
+            <button type="submit" class="btn-cadastro btn-primary btn mt-2" style="width: 100%;">Cadastrar</button>
         </div>
         <div class="modal-body">
             <table style="width:80%;margin:0 auto;">
@@ -96,32 +96,32 @@
                 </tr>
                 </thead>
                 <tbody>
+                @php
+                    $meta_individual_total = 0;
+                    $meta_individual_vidas_total = 0;
+                    $meta_individual_total_porcentagem = 0;
+                @endphp
+                @foreach($concessionarias as $c)
                     @php
-                        $meta_individual_total = 0;
-                        $meta_individual_vidas_total = 0;
-                        $meta_individual_total_porcentagem = 0;
+                        $meta_individual_total = $c->meta_individual + $c->meta_super_simples + $c->meta_pme + $c->meta_adesao;
+                        $meta_individual_vidas_total = $c->individual + $c->super_simples + $c->pme + $c->adesao;
+                        $meta_individual_total_porcentagem = ($meta_individual_vidas_total != 0 && $meta_individual_total != 0) ? round(($meta_individual_vidas_total / $meta_individual_total) * 100, 2) : 0;
                     @endphp
-                    @foreach($concessionarias as $c)
-                        @php
-                            $meta_individual_total = $c->meta_individual + $c->meta_super_simples + $c->meta_pme + $c->meta_adesao;
-                            $meta_individual_vidas_total = $c->individual + $c->super_simples + $c->pme + $c->adesao;
-                            $meta_individual_total_porcentagem = ($meta_individual_vidas_total != 0 && $meta_individual_total != 0) ? round(($meta_individual_vidas_total / $meta_individual_total) * 100, 2) : 0;
-                        @endphp
-                        <tr data-id="{{$c->id}}">
-                            <td class="bg-gray-700 bg-opacity-20 text-white">{{$c->nome}}</td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][meta_individual]" class="meta_vidas bg-individual" placeholder="Meta" value="{{$c->meta_individual}}"></td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][individual]" class="valor_vidas bg-individual" placeholder="Vidas" value="{{$c->individual}}"></td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][meta_super_simples]" class="meta_vidas bg-super-simples" placeholder="Meta" value="{{$c->meta_super_simples}}"></td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][super_simples]" class="valor_vidas bg-super-simples" placeholder="Vidas" value="{{$c->super_simples}}"></td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][meta_pme]" class="meta_vidas bg-pme" placeholder="Meta" value="{{$c->meta_pme}}"></td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][pme]" class="valor_vidas bg-pme" placeholder="Vidas" value="{{$c->pme}}"></td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][meta_adesao]" class="meta_vidas bg-adesao" placeholder="Meta" value="{{$c->meta_adesao}}"></td>
-                            <td><input type="number" name="concessionarias[{{$c->id}}][adesao]" class="valor_vidas bg-adesao" placeholder="Vidas" value="{{$c->adesao}}"></td>
-                            <td style="padding-left: 30px;color:white;" id="meta_individual_total"><span>{{$meta_individual_total}}</span></td>
-                            <td style="padding-left: 30px;color:white;" id="meta_individual_vidas_total"><span>{{$meta_individual_vidas_total}}</span></td>
-                            <td style="padding-left: 30px;color:white;" id="meta_individual_total_porcentagem"><span>{{$meta_individual_total_porcentagem}}</span></td>
-                        </tr>
-                    @endforeach
+                    <tr data-id="{{$c->id}}">
+                        <td class="bg-gray-700 bg-opacity-20 text-white">{{$c->nome}}</td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_individual]" class="meta_vidas bg-individual" placeholder="Meta" value="{{$c->meta_individual}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][individual]" class="valor_vidas bg-individual" placeholder="Vidas" value="{{$c->individual}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_super_simples]" class="meta_vidas bg-super-simples" placeholder="Meta" value="{{$c->meta_super_simples}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][super_simples]" class="valor_vidas bg-super-simples" placeholder="Vidas" value="{{$c->super_simples}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_pme]" class="meta_vidas bg-pme" placeholder="Meta" value="{{$c->meta_pme}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][pme]" class="valor_vidas bg-pme" placeholder="Vidas" value="{{$c->pme}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_adesao]" class="meta_vidas bg-adesao" placeholder="Meta" value="{{$c->meta_adesao}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][adesao]" class="valor_vidas bg-adesao" placeholder="Vidas" value="{{$c->adesao}}"></td>
+                        <td style="padding-left: 30px;color:white;" id="meta_individual_total"><span>{{$meta_individual_total}}</span></td>
+                        <td style="padding-left: 30px;color:white;" id="meta_individual_vidas_total"><span>{{$meta_individual_vidas_total}}</span></td>
+                        <td style="padding-left: 30px;color:white;" id="meta_individual_total_porcentagem"><span>{{$meta_individual_total_porcentagem}}</span></td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
@@ -151,6 +151,28 @@
     </div>
 </nav>
 <main id="principal" class="d-flex flex-column flex-grow">
+
+{{--    <div id="carrossel-section" class="hidden w-full h-full relative">--}}
+{{--        <div class="slides-container flex transition-transform duration-500 ease-in-out">--}}
+{{--            <div class="slide-carrossel bg-cover bg-center flex items-center justify-center w-full h-full"--}}
+{{--                 style="background-image: url('{{asset('slides/01.jpg')}}');">--}}
+{{--                <span class="text-white text-2xl font-bold">Slide 1</span>--}}
+{{--            </div>--}}
+{{--            <div class="slide-carrossel bg-cover bg-center flex items-center justify-center w-full h-full"--}}
+{{--                 style="background-image: url('{{asset('slides/02.jpg')}}');">--}}
+{{--                <span class="text-white text-2xl font-bold">Slide 2</span>--}}
+{{--            </div>--}}
+{{--            <div class="slide-carrossel bg-cover bg-center flex items-center justify-center w-full h-full"--}}
+{{--                 style="background-image: url('{{asset('slides/03.jpg')}}');">--}}
+{{--                <span class="text-white text-2xl font-bold">Slide 3</span>--}}
+{{--            </div>--}}
+{{--            <!-- Adicione mais slides conforme necessário -->--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+
+
+
     <div class="d-flex" style="min-height:99%;">
         <div style="display: flex;flex-basis:50%;flex-direction:column;">
             @php
@@ -169,36 +191,36 @@
                     </span>
                 </div>
                 @if(isset($totals[0]) && !empty($totals[0]))
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_individual">{{$totals[0]->total_individual}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Coletivo</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Coletivo</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_coletivo">{{$totals[0]->total_coletivo}}</span>
                      </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Empresarial</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Empresarial</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_empresarial">{{$totals[0]->total_empresarial}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_vidas">{{$total_vidas}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_porcentagem">{{ number_format($porcentagem, 2) }}%</span>
                     </span>
-                </div>
+                    </div>
                 @endif
             </div>
             <div id="header_esquerda_concessionaria" style="display:none;background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; align-items:center; justify-content: space-between; height: 70px;">
@@ -206,48 +228,48 @@
                     <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
                 </div>
                 @if(isset($totals_con[0]) && !empty($totals_con[0]))
-                <div class="container-meta">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    <div class="container-meta">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;">{{$totals_con[0]->total_meta}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_individual">{{$totals_con[0]->total_individual}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Super Simples</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Super Simples</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_super_simples">{{$totals_con[0]->total_super_simples}}</span>
                      </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">PME</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">PME</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_pme">{{$totals_con[0]->total_pme}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Adesão</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Adesão</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_adesao">{{$totals_con[0]->total_adesao}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_vidas">{{$totals_con[0]->total_vidas}}</span>
                     </span>
-                </div>
-                <div style="display:flex;flex-direction:column;">
-                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
-                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;">
+                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
+                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_porcentagem">{{ number_format($totals_con[0]->porcentagem_geral, 2) }}%</span>
                     </span>
-                </div>
+                    </div>
                 @endif
             </div>
             <div class="stage">
@@ -342,6 +364,7 @@
         <button class="footer-btn" data-corretora="innove">Equipe Innove</button>
         <button class="footer-btn" data-corretora="concessi">Concessionarias</button>
         <button class="footer-btn" data-corretora="estrela">Estrelas</button>
+{{--        <button class="footer-btn" data-corretora="carrossel">Carrossel</button>--}}
     </div>
     <div class="d-flex justify-content-center" style="background-color:#2e4a7a;">
         <img src="{{asset('hapvida-notreDame.png')}}" alt="Hapvida Logo" class="img-fluid my-auto" style="max-width: 200px;">
@@ -703,148 +726,148 @@
 
 
         // Função para verificar a troca de liderança
-            function verificarTrocaDeLider(novoRanking,venda) {
-                $('#rankingModal').removeClass('aparecer').addClass('ocultar');
+        function verificarTrocaDeLider(novoRanking,venda) {
+            $('#rankingModal').removeClass('aparecer').addClass('ocultar');
 
-                if (novoRanking && novoRanking.length > 0) {
-                    const novoLider = novoRanking[0]; // O primeiro da lista é o novo líder
-                    // Se o líder atual for diferente do novo líder
-                    if (liderAtual !== novoLider.nome) {
-                        liderAtual = novoLider.nome; // Atualiza o líder atual
-                        $(".assumir_lider").attr("src",novoLider.image);
-                        $(".quantidade_vidas").text(venda.total);
-                        let popUp = $("#popup-primeiro");
-                        let fogosBg = $("#fogos-bg");
-                        let fogosContainer = $("#fogos-container");
-                        fogosBg.removeClass('ocultar').addClass('flex');
-                        const somCarro = new Audio('carro_ultrapassagem.mp3');
-                        somCarro.play();
-                        somCarro.onended = function() {
-                            fogosBg.removeClass('aparecer').addClass('ocultar');
-                            popUp.fadeIn(300);
-                            const somFogos = new Audio('fogos.mp3');
-                            somFogos.play();
-                            setTimeout(function() {
-                                somFogos.pause();
-                                somFogos.currentTime = 0;
-                                fogosContainer.fadeOut(300); // Esconde os fogos
-                                fogosBg.fadeOut(300); // Esconde o fundo preto
-                                popUp.fadeOut(300); // Finalmente esconde o card do 1º lugar
-                            }, 20000); // Ajuste o tempo de acordo com a duração da animação dos fogos
-                        };
+            if (novoRanking && novoRanking.length > 0) {
+                const novoLider = novoRanking[0]; // O primeiro da lista é o novo líder
+                // Se o líder atual for diferente do novo líder
+                if (liderAtual !== novoLider.nome) {
+                    liderAtual = novoLider.nome; // Atualiza o líder atual
+                    $(".assumir_lider").attr("src",novoLider.image);
+                    $(".quantidade_vidas").text(venda.total);
+                    let popUp = $("#popup-primeiro");
+                    let fogosBg = $("#fogos-bg");
+                    let fogosContainer = $("#fogos-container");
+                    fogosBg.removeClass('ocultar').addClass('flex');
+                    const somCarro = new Audio('carro_ultrapassagem.mp3');
+                    somCarro.play();
+                    somCarro.onended = function() {
+                        fogosBg.removeClass('aparecer').addClass('ocultar');
+                        popUp.fadeIn(300);
+                        const somFogos = new Audio('fogos.mp3');
+                        somFogos.play();
+                        setTimeout(function() {
+                            somFogos.pause();
+                            somFogos.currentTime = 0;
+                            fogosContainer.fadeOut(300); // Esconde os fogos
+                            fogosBg.fadeOut(300); // Esconde o fundo preto
+                            popUp.fadeOut(300); // Finalmente esconde o card do 1º lugar
+                        }, 20000); // Ajuste o tempo de acordo com a duração da animação dos fogos
+                    };
 
-                        //verificarTrocaDeLider(novoRanking);
-                        //fecharRankingModal();
-                        //exibirPopUpComFogos(liderAtual, novoLider.image); // Exibe o pop-up e toca os sons
-                    } else {
-                        //console.log("Apenas Uma Venda");
-                        animacaoVenda(venda.nome,venda.image, venda.total);
-                    }
+                    //verificarTrocaDeLider(novoRanking);
+                    //fecharRankingModal();
+                    //exibirPopUpComFogos(liderAtual, novoLider.image); // Exibe o pop-up e toca os sons
+                } else {
+                    //console.log("Apenas Uma Venda");
+                    animacaoVenda(venda.nome,venda.image, venda.total);
                 }
             }
+        }
 
-            $("body").on('change','#user_id',function(){
-                let user_id = $(this).val();
-                $.ajax({
-                   url:"{{route('ranking.verificar.corretor')}}",
-                   method:"POST",
-                   data: {
-                       user_id
-                   },
-                   success:function(res) {
-                       $("body").find("input[name='vidas_individual']").val(res.individual);
-                       $("body").find("input[name='vidas_coletivo']").val(res.coletivo);
-                       $("body").find("input[name='vidas_empresarial']").val(res.empresarial);
-                   }
-                });
+        $("body").on('change','#user_id',function(){
+            let user_id = $(this).val();
+            $.ajax({
+                url:"{{route('ranking.verificar.corretor')}}",
+                method:"POST",
+                data: {
+                    user_id
+                },
+                success:function(res) {
+                    $("body").find("input[name='vidas_individual']").val(res.individual);
+                    $("body").find("input[name='vidas_coletivo']").val(res.coletivo);
+                    $("body").find("input[name='vidas_empresarial']").val(res.empresarial);
+                }
             });
+        });
 
-            //AJAX para atualizar o ranking e verificar troca de liderança
-            $('#rankingForm').on('submit', function (e) {
-                e.preventDefault();
-                //animacaoVenda('Rebeca Vaz', '/users/rebeca_vaz_08cbe841.jpg', 10);
-                //verificarTrocaDeLider();
-                $.ajax({
-                    url: ranking,
-                    method: "POST",
-                    data: $(this).serialize(),
-                    success: function (res) {
-                        if (res && res.ranking && res.ranking.length > 0) {
-                            verificarTrocaDeLider(res.ranking,res.venda);
-                        }
+        //AJAX para atualizar o ranking e verificar troca de liderança
+        $('#rankingForm').on('submit', function (e) {
+            e.preventDefault();
+            //animacaoVenda('Rebeca Vaz', '/users/rebeca_vaz_08cbe841.jpg', 10);
+            //verificarTrocaDeLider();
+            $.ajax({
+                url: ranking,
+                method: "POST",
+                data: $(this).serialize(),
+                success: function (res) {
+                    if (res && res.ranking && res.ranking.length > 0) {
+                        verificarTrocaDeLider(res.ranking,res.venda);
                     }
-                });
+                }
             });
+        });
 
 
-            function createSlideShow() {
-                const slides = document.querySelectorAll('.slide'); // Seleciona todos os slides
-                let currentSlide = 0;
+        function createSlideShow() {
+            const slides = document.querySelectorAll('.slide'); // Seleciona todos os slides
+            let currentSlide = 0;
 
-                function showSlide(n) {
-                    slides.forEach((slide, index) => {
-                        slide.style.display = index === n ? 'block' : 'none';
-                    });
-                }
+            function showSlide(n) {
+                slides.forEach((slide, index) => {
+                    slide.style.display = index === n ? 'block' : 'none';
+                });
+            }
 
-                function nextSlide() {
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    showSlide(currentSlide);
-                }
-
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
                 showSlide(currentSlide);
-                setInterval(nextSlide, 20000); // Troca de slide a cada 3 segundos
             }
 
-            createSlideShow();
-            const footerButtons = $('.footer-btn');
-            let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
-            function logCorretora() {
-                const currentButton = footerButtons.eq(activeButtonIndex);
-            }
+            showSlide(currentSlide);
+            setInterval(nextSlide, 20000); // Troca de slide a cada 3 segundos
+        }
 
-            // Função para mudar o botão ativo
-            function changeActiveButton() {
-                footerButtons.removeClass('active');
-                footerButtons.eq(activeButtonIndex).addClass('active');
-                let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
+        createSlideShow();
+        const footerButtons = $('.footer-btn');
+        let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
+        function logCorretora() {
+            const currentButton = footerButtons.eq(activeButtonIndex);
+        }
 
-                $.ajax({
-                    url: '{{ route('ranking.filtragem') }}',
-                    type: 'GET',
-                    data: {corretora: corretora},
-                    success: function (data) {
-                        $(".stage").html(data.podium);
-                        $("#dados_direito").html(data.ranking);
-                        $(".total_individual").text(data.totals[0].total_individual);
-                        $(".total_coletivo").text(data.totals[0].total_coletivo);
-                        $(".total_empresarial").text(data.totals[0].total_empresarial);
-                        let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
-                        let meta = 0;
-                        if (corretora == "accert") {
-                            meta = 400;
-                            $(".aqui_meta").text(meta);
-                        } else if (corretora == "innove") {
-                            meta = 220;
-                            $(".aqui_meta").text(meta);
-                        } else {
-                            meta = 27;
-                            $(".aqui_meta").text(meta);
-                        }
-                        let porcentagem = (total_vidas / meta) * 100;
-                        $(".total_vidas").text(total_vidas);
-                        $(".total_porcentagem").text(porcentagem.toFixed(2));
-                        createSlideShow();
+        // Função para mudar o botão ativo
+        function changeActiveButton() {
+            footerButtons.removeClass('active');
+            footerButtons.eq(activeButtonIndex).addClass('active');
+            let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
+
+            $.ajax({
+                url: '{{ route('ranking.filtragem') }}',
+                type: 'GET',
+                data: {corretora: corretora},
+                success: function (data) {
+                    $(".stage").html(data.podium);
+                    $("#dados_direito").html(data.ranking);
+                    $(".total_individual").text(data.totals[0].total_individual);
+                    $(".total_coletivo").text(data.totals[0].total_coletivo);
+                    $(".total_empresarial").text(data.totals[0].total_empresarial);
+                    let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
+                    let meta = 0;
+                    if (corretora == "accert") {
+                        meta = 400;
+                        $(".aqui_meta").text(meta);
+                    } else if (corretora == "innove") {
+                        meta = 220;
+                        $(".aqui_meta").text(meta);
+                    } else {
+                        meta = 27;
+                        $(".aqui_meta").text(meta);
                     }
-                });
-                logCorretora(); // Logar a corretora atual
-                activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
-            }
+                    let porcentagem = (total_vidas / meta) * 100;
+                    $(".total_vidas").text(total_vidas);
+                    $(".total_porcentagem").text(porcentagem.toFixed(2));
+                    createSlideShow();
+                }
+            });
+            logCorretora(); // Logar a corretora atual
+            activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
+        }
 
-            // Chamar a função para iniciar com o botão Vivaz e logar "null"
-            changeActiveButton();
-            // Iniciar o intervalo para trocar os botões
-            setInterval(changeActiveButton, 20000);
+        // Chamar a função para iniciar com o botão Vivaz e logar "null"
+        changeActiveButton();
+        // Iniciar o intervalo para trocar os botões
+        setInterval(changeActiveButton, 20000);
 
 
     });

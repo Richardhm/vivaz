@@ -246,6 +246,7 @@ class RankingController extends Controller
                 'podium' => $podium,
                 'ranking' => $ranking,
                 'totals' => $totals,
+                'corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
 
@@ -298,6 +299,7 @@ class RankingController extends Controller
                 'podium' => $podium,
                 'ranking' => $ranking,
                 'totals' => $totals,
+                'corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
 
@@ -350,6 +352,7 @@ class RankingController extends Controller
                 'podium' => $podium,
                 'ranking' => $ranking,
                 'totals' => $totals,
+                'corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
 
@@ -413,6 +416,7 @@ class RankingController extends Controller
                 'podium' => $podium,
                 'ranking' => $ranking,
                 'totals' => $totals,
+                'corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
 
@@ -454,7 +458,8 @@ class RankingController extends Controller
                 'meta' => 0,
                 'podium' => $podium,
                 'ranking' => $ranking,
-                'totals_con' => $totals,
+                'totals' => $totals,
+                '$corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
         } else {
@@ -641,7 +646,8 @@ ORDER BY quantidade_vidas DESC;
             'totals' => $totals,
             'concessionarias' => $concessionarias,
             'vendasDiarias' => $vendasDiarias,
-            'meta_ranking_diario' => $meta_ranking_diario
+            'meta_ranking_diario' => $meta_ranking_diario,
+
         ]);
     }
 
