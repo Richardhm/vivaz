@@ -1,6 +1,6 @@
 @foreach($ranking as $i => $r)
         @if ($i % 6 === 0)
-            <div class="slide" style="height:80%;">
+            <div class="slide-corretora" style="height:80%;">
         @endif
             <section style="display:flex;width:99%;justify-content:center;margin:0 0 5px 0;background-color:#2e4a7a;border-radius:10px;padding:3px 0;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->

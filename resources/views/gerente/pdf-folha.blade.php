@@ -95,12 +95,14 @@
             $total_comissao_empresarial = 0;
             $total_desconto_empresarial = 0;
             $total_estorno_calculado = 0;
+            $total_odonto_calculado = 0;
 
             $total_empresarial = 0;
             $i_individual = 0;
             $i_coletivo = 0;
             $i_empresarial = 0;
             $i_estorno = 0;
+            $i_odonto = 0;
         @endphp
 
         @if(count($individual) >= 1 && $boolean_individual)
@@ -372,7 +374,47 @@
             </table>
         @endif
 
+        @if($odonto)
+            <div style="width:95%;border-bottom:1px solid black;margin:0 auto;background-color:rgb(231,230,230);font-weight:bold;padding:5px 0;">Odonto</div>
+            <table style="width:95%;margin:0 auto;">
+                <thead style="border-bottom:1px solid black;">
+                <tr>
+                    <td>#</td>
+                    <td>Cliente</td>
+                    <td>Valor</td>
+                    <td>Comissao</td>
 
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($odonto as $o)
+                    @php
+                        ++$i_odonto;
+                        $total_odonto_calculado += $o->comissao;
+                    @endphp
+                    <tr>
+                        <td>{{$i_odonto}}</td>
+                        <td>{{$o->nome}}</td>
+                        <td>{{number_format($o->valor,2,",",".")}}</td>
+                        <td>{{number_format($o->comissao,2,",",".")}}</td>
+
+                    </tr>
+                @endforeach
+                </tbody>
+                <tfoot style="border-top:1px solid black;">
+                <tr>
+                    <td colspan="3"></td>
+                    <td>
+                        @php
+                            echo number_format($total_odonto_calculado,2,",",".") ?? '';
+                        @endphp
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+
+        @endif
 
 
 

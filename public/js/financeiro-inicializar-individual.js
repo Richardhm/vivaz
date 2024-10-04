@@ -287,9 +287,6 @@ function inicializarIndividual(corretora_id = null) {
     });
 }
 
-
-
-
 $('#tabela_individual').on('click', 'tbody tr', function () {
     table_individual.$('tr').removeClass('textoforte');
     $(this).closest('tr').addClass('textoforte');

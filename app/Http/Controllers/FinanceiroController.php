@@ -31,6 +31,8 @@ class FinanceiroController extends Controller
 {
     public function __construct()
     {
+
+
         //return $this->middleware(["can:configuracoes"]);
     }
 
@@ -46,6 +48,24 @@ class FinanceiroController extends Controller
         $odonto->save();
         return true;
     }
+
+    public function listarOdonto()
+    {
+        $resultado = DB::table('odonto')
+            ->join('users', 'users.id', '=', 'odonto.user_id')
+            ->select(
+                'odonto.created_at',
+                'nome',
+                'valor',
+                'users.name as usuario'
+
+            )->get();
+
+        return $resultado;
+
+        //return response()->json(['data' => $resultado]);
+    }
+
 
 
 
@@ -2373,8 +2393,6 @@ class FinanceiroController extends Controller
             ->first();
         $users = User::where("corretora_id",auth()->user()->corretora_id)->where('ativo',1)->get();
 
-
-
         return view('financeiro.modal-individual',[
             "users" => $users,
             "dados" => $contratos,
@@ -2589,6 +2607,12 @@ class FinanceiroController extends Controller
             return response()->json($resultado);
         }
     }
+
+
+
+
+
+
 
 
 

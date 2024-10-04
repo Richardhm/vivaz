@@ -96,11 +96,13 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 @php
                     $meta_individual_total = 0;
                     $meta_individual_vidas_total = 0;
                     $meta_individual_total_porcentagem = 0;
                 @endphp
+
                 @foreach($concessionarias as $c)
                     @php
                         $meta_individual_total = $c->meta_individual + $c->meta_super_simples + $c->meta_pme + $c->meta_adesao;
@@ -150,30 +152,43 @@
         </div>
     </div>
 </nav>
+
+<div class="carrossel-container ocultar">
+    <div class="slides-container">
+
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/01.jpg')}}" alt="Imagem 1">
+        </div>
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/02.jpg')}}" alt="Imagem 2">
+        </div>
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/03.jpg')}}" alt="Imagem 3">
+        </div>
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/04.jpg')}}" alt="Imagem 4">
+        </div>
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/05.jpg')}}" alt="Imagem 5">
+        </div>
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/06.jpg')}}" alt="Imagem 6">
+        </div>
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/07.jpg')}}" alt="Imagem 7">
+        </div>
+
+    </div>
+</div>
+
+
+
+
 <main id="principal" class="d-flex flex-column flex-grow">
 
-{{--    <div id="carrossel-section" class="hidden w-full h-full relative">--}}
-{{--        <div class="slides-container flex transition-transform duration-500 ease-in-out">--}}
-{{--            <div class="slide-carrossel bg-cover bg-center flex items-center justify-center w-full h-full"--}}
-{{--                 style="background-image: url('{{asset('slides/01.jpg')}}');">--}}
-{{--                <span class="text-white text-2xl font-bold">Slide 1</span>--}}
-{{--            </div>--}}
-{{--            <div class="slide-carrossel bg-cover bg-center flex items-center justify-center w-full h-full"--}}
-{{--                 style="background-image: url('{{asset('slides/02.jpg')}}');">--}}
-{{--                <span class="text-white text-2xl font-bold">Slide 2</span>--}}
-{{--            </div>--}}
-{{--            <div class="slide-carrossel bg-cover bg-center flex items-center justify-center w-full h-full"--}}
-{{--                 style="background-image: url('{{asset('slides/03.jpg')}}');">--}}
-{{--                <span class="text-white text-2xl font-bold">Slide 3</span>--}}
-{{--            </div>--}}
-{{--            <!-- Adicione mais slides conforme necessário -->--}}
-{{--        </div>--}}
-{{--    </div>--}}
 
 
-
-
-    <div class="d-flex" style="min-height:99%;">
+    <div class="d-flex " style="min-height:99%;">
         <div style="display: flex;flex-basis:50%;flex-direction:column;">
             @php
                 $total_vidas = $totals[0]->total_individual + $totals[0]->total_coletivo + $totals[0]->total_empresarial;
@@ -275,7 +290,7 @@
             <div class="stage">
             </div>
         </div>
-        <div id="dados_direito" style="display: flex;flex-basis:50%;flex-direction:column;margin-top:10px;overflow-y: hidden;height:100%;position:relative;">
+        <div id="dados_direito" style="overflow-y: hidden;height:100%;width:48%;">
 
         </div>
         {{-- Fim Direita --}}
@@ -351,11 +366,7 @@
 <!-- Fundo preto para a animação do carro -->
 <div id="carro-bg" class="fixed inset-0 bg-black opacity-90 ocultar"></div>
 
-
-
-
-
-<footer>
+<footer id="footer-aqui">
     <div class="footer-buttons d-flex justify-content-between">
         <button class="footer-btn active" data-corretora="diario">Diario</button>
         <button class="footer-btn" data-corretora="semanal">Semanal</button>
@@ -364,7 +375,7 @@
         <button class="footer-btn" data-corretora="innove">Equipe Innove</button>
         <button class="footer-btn" data-corretora="concessi">Concessionarias</button>
         <button class="footer-btn" data-corretora="estrela">Estrelas</button>
-{{--        <button class="footer-btn" data-corretora="carrossel">Carrossel</button>--}}
+        <button class="footer-btn" data-corretora="carrossel">Carrossel</button>
     </div>
     <div class="d-flex justify-content-center" style="background-color:#2e4a7a;">
         <img src="{{asset('hapvida-notreDame.png')}}" alt="Hapvida Logo" class="img-fluid my-auto" style="max-width: 200px;">
@@ -720,15 +731,9 @@
         }
 
 
-
-
-
-
-
         // Função para verificar a troca de liderança
         function verificarTrocaDeLider(novoRanking,venda) {
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
-
             if (novoRanking && novoRanking.length > 0) {
                 const novoLider = novoRanking[0]; // O primeiro da lista é o novo líder
                 // Se o líder atual for diferente do novo líder
@@ -771,9 +776,7 @@
             $.ajax({
                 url:"{{route('ranking.verificar.corretor')}}",
                 method:"POST",
-                data: {
-                    user_id
-                },
+                data: {user_id},
                 success:function(res) {
                     $("body").find("input[name='vidas_individual']").val(res.individual);
                     $("body").find("input[name='vidas_coletivo']").val(res.coletivo);
@@ -799,9 +802,30 @@
             });
         });
 
-
         function createSlideShow() {
-            const slides = document.querySelectorAll('.slide'); // Seleciona todos os slides
+            const slideGroups = document.querySelectorAll('.slide-group'); // Seleciona todos os grupos de slides
+            let currentGroup = 0;
+
+            function showSlideGroup(n) {
+                slideGroups.forEach((group, index) => {
+                    group.style.display = index === n ? 'flex' : 'none'; // Exibe o grupo atual de slides como flex e oculta os outros
+                });
+            }
+
+            function nextSlideGroup() {
+                currentGroup = (currentGroup + 1) % slideGroups.length; // Muda para o próximo grupo de slides
+                showSlideGroup(currentGroup);
+            }
+
+            showSlideGroup(currentGroup); // Mostra o primeiro grupo de slides
+            setInterval(nextSlideGroup, 20000); // Troca de slide a cada 10 segundos
+        }
+
+        createSlideShow();
+
+
+        function slideCorretoras() {
+            const slides = document.querySelectorAll('.slide-corretora'); // Seleciona todos os slides
             let currentSlide = 0;
 
             function showSlide(n) {
@@ -818,56 +842,137 @@
             showSlide(currentSlide);
             setInterval(nextSlide, 20000); // Troca de slide a cada 3 segundos
         }
+        slideCorretoras();
 
-        createSlideShow();
-        const footerButtons = $('.footer-btn');
-        let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
+
         function logCorretora() {
             const currentButton = footerButtons.eq(activeButtonIndex);
         }
 
+        // let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
+        // const footerButtons = $('.footer-btn');
+        // const carrosselSection = $('#carrossel-section');
+        // const principalSection = $('#principal');
+        // const slidesContainer = $('.slides-container');
+        // const slides = $('.slide-carrossel');
+        // const totalSlides = slides.length;
+        // let currentSlide = 0;
+        // console.log(totalSlides);
+
+        // function showSlide(index) {
+        //     // slides.hide(); // Esconde todas as imagens inicialmente
+        //     // slides.eq(index).show(); // Mostra apenas a imagem atual
+        //     const slideWidth = 100; // Cada slide ocupa 100% da largura
+        //     slidesContainer.css('transform', `translateX(-${index * slideWidth}%)`); // Mover o contêiner dos slides
+        // }
+
         // Função para mudar o botão ativo
+
+
+        let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
+        const footerButtons = $('.footer-btn'); // Botões do rodapé
+        const slidesContainer = $('.slides-container');
+        const totalSlides = $('.slide-carrossel').length; // Total de slides
+        let currentSlide = 0; // Índice do slide atual
+
+        function showSlide(index) {
+            const slideWidth = 100; // Cada slide ocupa 100% da largura
+            slidesContainer.css('transform', `translateX(-${index * slideWidth}%)`); // Mover o contêiner dos slides
+        }
+
+        function startCarousel() {
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
+                showSlide(currentSlide); // Mostra o slide atual
+            }, 10000); // Troca a cada 10 segundos
+        }
+
+
+
+
+
         function changeActiveButton() {
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');
             let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
 
-            $.ajax({
-                url: '{{ route('ranking.filtragem') }}',
-                type: 'GET',
-                data: {corretora: corretora},
-                success: function (data) {
-                    $(".stage").html(data.podium);
-                    $("#dados_direito").html(data.ranking);
-                    $(".total_individual").text(data.totals[0].total_individual);
-                    $(".total_coletivo").text(data.totals[0].total_coletivo);
-                    $(".total_empresarial").text(data.totals[0].total_empresarial);
-                    let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
-                    let meta = 0;
-                    if (corretora == "accert") {
-                        meta = 400;
-                        $(".aqui_meta").text(meta);
-                    } else if (corretora == "innove") {
-                        meta = 220;
-                        $(".aqui_meta").text(meta);
-                    } else {
-                        meta = 27;
-                        $(".aqui_meta").text(meta);
+
+
+            console.log(corretora);
+
+
+            if(corretora != "carrossel") {
+                $(".carrossel-container").addClass("ocultar");
+                $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
+                $("#footer-aqui").removeClass("ocultar");
+                $.ajax({
+                    url: '{{ route('ranking.filtragem') }}',
+                    type: 'GET',
+                    data: {corretora: corretora},
+                    success: function (data) {
+                        $(".stage").html(data.podium);
+                        $("#dados_direito").html(data.ranking);
+                        $(".total_individual").text(data.totals[0].total_individual);
+                        $(".total_coletivo").text(data.totals[0].total_coletivo);
+                        $(".total_empresarial").text(data.totals[0].total_empresarial);
+                        let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
+                        let meta = 0;
+                        if (corretora == "accert") {
+                            meta = 400;
+                            $(".aqui_meta").text(meta);
+                        } else if (corretora == "innove") {
+                            meta = 220;
+                            $(".aqui_meta").text(meta);
+                        } else {
+                            meta = 27;
+                            $(".aqui_meta").text(meta);
+                        }
+                        let porcentagem = (total_vidas / meta) * 100;
+                        $(".total_vidas").text(total_vidas);
+                        $(".total_porcentagem").text(porcentagem.toFixed(2));
+                        if(corretora != "concessi") {
+                            createSlideShow();
+                        } else {
+                            slideCorretoras();
+                        }
+
                     }
-                    let porcentagem = (total_vidas / meta) * 100;
-                    $(".total_vidas").text(total_vidas);
-                    $(".total_porcentagem").text(porcentagem.toFixed(2));
-                    createSlideShow();
-                }
-            });
-            logCorretora(); // Logar a corretora atual
-            activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
+                });
+                logCorretora(); // Logar a corretora atual
+                activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
+            } else {
+                $("#principal").removeClass("d-flex").removeClass('flex-column').removeClass('flex-grow').addClass('ocultar');
+                $(".carrossel-container").removeClass("ocultar");
+                $("#footer-aqui").addClass("ocultar");
+
+                currentSlide = 0;
+                showSlide(currentSlide);
+                startCarousel();
+
+                logCorretora(); // Logar a corretora atual
+                activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
+
+            }
+
         }
 
-        // Chamar a função para iniciar com o botão Vivaz e logar "null"
+        // function startCarousel() {
+        //     setInterval(() => {
+        //         currentSlide = (currentSlide + 1) % totalSlides;
+        //         showSlide(currentSlide);
+        //     }, 50000); // Troca a cada 3 segundos
+        // }
+        //
+        // // Chamar a função para iniciar com o botão Vivaz e logar "null"
         changeActiveButton();
-        // Iniciar o intervalo para trocar os botões
+        // // Iniciar o intervalo para trocar os botões
         setInterval(changeActiveButton, 20000);
+
+
+
+
+
+
 
 
     });

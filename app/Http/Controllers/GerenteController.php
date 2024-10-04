@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contrato;
 
+use App\Models\Odonto;
 use App\Models\TabelaOrigens;
 use App\Models\Administradora as Administradoras;
 use App\Models\ContratoEmpresarial;
@@ -7147,6 +7148,10 @@ AS desconto,
 
         }
 
+
+        $odonto = Odonto::where("user_id",$id)->get();
+
+
         $pdf = PDFFile::loadView('gerente.pdf-folha',[
             "individual" => $individual,
             "coletivo" => $coletivo,
@@ -7166,7 +7171,8 @@ AS desconto,
             "tipo" => $request->tipo,
             "boolean_individual" => $boolean_individual,
             "boolean_coletivo" => $boolean_coletivo,
-            "boolean_empresarial" => $boolean_empresarial
+            "boolean_empresarial" => $boolean_empresarial,
+            "odonto" => $odonto
         ]);
 
 

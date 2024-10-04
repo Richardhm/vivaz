@@ -208,8 +208,6 @@ class RankingController extends Controller
                         ORDER BY quantidade_vidas DESC;
                 "
             );
-
-
             $podium = view('ranking.podium',[
                 'ranking' => $ranking
             ])->render();
@@ -293,7 +291,6 @@ class RankingController extends Controller
                  FROM ranking_diario
                  WHERE DATA = date(NOW())
             ");
-
             return [
                 'meta' => $meta,
                 'podium' => $podium,
@@ -302,7 +299,6 @@ class RankingController extends Controller
                 'corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
-
         } else if($corretora == "estrela") {
             $ranking = DB::select("
                 SELECT users.name as corretor,users.image as imagem,
@@ -357,7 +353,6 @@ class RankingController extends Controller
             ];
 
         } else if($corretora == "semanal") {
-
             $corretora_id = auth()->user()->corretora_id;
             $ranking = DB::select("
                 SELECT
@@ -389,15 +384,12 @@ class RankingController extends Controller
                 GROUP BY ranking_diario.user_id, ranking_diario.data
                 ORDER BY quantidade_vidas DESC
             ", ['corretora_id' => $corretora_id]);
-
             $podium = view('ranking.podium', [
                 'ranking' => $ranking
             ])->render();
-
             $ranking = view('ranking.ranking', [
                 'ranking' => $ranking
             ])->render();
-
             $totals = DB::select("
                 SELECT
                     SUM(vidas_individual) AS total_individual,
@@ -410,7 +402,6 @@ class RankingController extends Controller
                      AND
                      DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) - 4 DAY)
             ");
-
             return [
                 'meta' => $meta,
                 'podium' => $podium,
@@ -419,9 +410,6 @@ class RankingController extends Controller
                 'corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
-
-
-
         } else if($corretora == "concessi") {
 
             $ranking = DB::select("

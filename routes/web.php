@@ -182,6 +182,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::post('/ranking/veriricar/corretor',[RankingController::class,'rankingVerificarCorretor'])->name('ranking.verificar.corretor');
 
     Route::post("/odonto/create",[FinanceiroController::class,'storeOdonto'])->name('odonto.create');
+    Route::get("/odonto/listar",[FinanceiroController::class,'listarOdonto'])->name('odonto.listar');
 
     Route::post('/ranking/diario/atualizar',[RankingController::class,'atualizarRankingDiario'])->name('ranking.atualizar');
     Route::get('/gerente/coletivo/listar/{id}',[GerenteController::class,'coletivoAReceber'])->name('gerente.listagem.coletivo.areceber');
