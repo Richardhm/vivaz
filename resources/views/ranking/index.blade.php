@@ -907,7 +907,7 @@
                     type: 'GET',
                     data: {corretora: corretora},
                     success: function (data) {
-                        console.log(data);
+
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         $(".total_individual").text(data.totals[0].total_individual);
