@@ -891,9 +891,6 @@
         }
 
 
-
-
-
         function changeActiveButton() {
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');

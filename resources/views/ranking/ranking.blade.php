@@ -20,7 +20,7 @@
                                 </div>
 
                                 <!-- 2ª Div: Imagem -->
-                                <div class="me-2">
+                                <div class="me-2" style="background-color: #FFF;">
                                     <img src="{{ asset($r->imagem) }}" style="height: 50px; width: 50px;">
                                 </div>
 
