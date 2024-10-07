@@ -15,7 +15,7 @@
                             <div class="d-flex border text-white rounded align-items-center p-2" style="background-color: #2e4a7a;">
                                 <!-- 1ª Div: Posição -->
                                 <div class="text-center text-white rounded me-2"
-                                style="width:40px;height:100%;display:flex;align-items:center;justify-content:center;padding:5px 10px;font-size:1.5em;font-weight:bold;background:rgba(254, 254, 254, 0.18);backdrop-filter:blur(15px);">
+                                style="width:40px;height:100%;display:flex;align-items:center;justify-content:center;padding:5px 10px;font-size:1em;font-weight:bold;background:rgba(254, 254, 254, 0.18);backdrop-filter:blur(15px);">
                                     {{$loop->iteration}}°
                                 </div>
 

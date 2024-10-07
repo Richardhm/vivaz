@@ -791,6 +791,7 @@
                 url: ranking,
                 method: "POST",
                 data: $(this).serialize(),
+
                 success: function (res) {
 
                     // if (res && res.ranking && res.ranking.length > 0) {
@@ -882,7 +883,7 @@
             setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 8000); // Troca a cada 10 segundos
+            }, 8000); //Troca a cada 10 segundos
         }
 
 
