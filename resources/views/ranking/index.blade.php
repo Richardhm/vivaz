@@ -178,7 +178,10 @@
             <img src="{{asset('slides/07.jpg')}}" alt="Imagem 7">
         </div>
         <div class="slide-carrossel">
-            <img src="{{asset('slides/08.jpg')}}" alt="Imagem 7">
+            <img src="{{asset('slides/08.jpg')}}" alt="Imagem 8">
+        </div>
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/09.jpg')}}" alt="Imagem 9">
         </div>
     </div>
 </div>
@@ -883,7 +886,7 @@
             setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 8000); //Troca a cada 10 segundos
+            }, 6000); //Troca a cada 10 segundos
         }
 
 

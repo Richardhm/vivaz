@@ -82,7 +82,7 @@ class RankingController extends Controller
         $meta = 0;
         if ($corretora == 'accert') {
             $corretora_id = 1;
-            $meta = 400;
+            $meta = 200;
         } elseif ($corretora == 'innove') {
             $corretora_id = 2;
             $meta = 220;

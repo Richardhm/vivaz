@@ -298,24 +298,10 @@
 
             });
 
-
-
-
             $("body").on("change",'#select_corretoras',function(){
                 let corretora_id = $(this).val();
                 inicializarIndividual(corretora_id);
             });
-
-
-
-
-
-
-
-
-
-
-
 
             $("body").on('keydown', '.next', function(e) {
                 e.preventDefault(); // Impede qualquer entrada de texto no campo
