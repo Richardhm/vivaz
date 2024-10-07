@@ -334,11 +334,6 @@
                     alert('Por favor, complete a etapa anterior antes de prosseguir.');
                 }
             });
-
-
-
-
-
         });
     </script>
 

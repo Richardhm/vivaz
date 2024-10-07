@@ -369,7 +369,7 @@ $("body").on('click', '.cadastrar_odonto', function(e) {
 
 $("body").on('change','.next',function(){
     let proximaLinha = $(this).closest("tr").next();
-    // Verifica se existe uma próxima linha
+
     if (proximaLinha.length) {
         // Verifica se a próxima linha tem a classe 'cursor-not-allowed'
         if (proximaLinha.hasClass('disabled-button')) {
