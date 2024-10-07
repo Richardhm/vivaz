@@ -19,6 +19,7 @@
             var coletivoFinanceiroInicializar = "{{route('financeiro.modal.contrato.coletivo')}}";
             var empresarialFinanceiroInicializar = "{{route('financeiro.modal.contrato.empresarial')}}";
             var urlBaixaColetivo = "{{route('financeiro.baixa.data')}}";
+            var desfazerColetivo = "{{route('desfazer.tarefa.coletivo')}}";
 
             var cadastrarOdonto = "{{ route('odonto.create') }}";
 

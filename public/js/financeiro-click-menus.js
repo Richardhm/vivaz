@@ -579,7 +579,7 @@ $("body").on('click', '[id^="desfazer_"]', function(){
 
 
     $.ajax({
-        url:"{{route('desfazer.tarefa.coletivo')}}",
+        url:desfazerColetivo,
         method:"POST",
         data: {
             contrato_id,
