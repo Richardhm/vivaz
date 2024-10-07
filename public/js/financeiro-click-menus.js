@@ -455,7 +455,7 @@ $("body").on('click','.em_analise',function(){
 
 
     $.ajax({
-        url:"{{route('financeiro.analise.coletivo')}}",
+        url:emAnaliseAjax,
         method:"POST",
         data: {
             id
@@ -504,7 +504,7 @@ $("body").on('click','.emissao_boleto',function(event){
     let id = $(this).data('id');
     let self = $(this);
     $.ajax({
-        url:"{{route('financeiro.analise.boleto')}}",
+        url:emissaoBoleto,
         method:"POST",
         data: {
             id

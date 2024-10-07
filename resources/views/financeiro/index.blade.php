@@ -22,6 +22,8 @@
             var desfazerColetivo = "{{route('desfazer.tarefa.coletivo')}}";
 
             var cadastrarOdonto = "{{ route('odonto.create') }}";
+            var emAnaliseAjax = "{{route('financeiro.analise.coletivo')}}";
+            var emissaoBoleto = "{{route('financeiro.analise.boleto')}}";
 
             var table;
             var table_individual;
