@@ -883,6 +883,7 @@
         }
 
         function startCarousel() {
+            currentSlide = 0; // Sempre começa do primeiro slide
             setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
@@ -906,6 +907,7 @@
                     type: 'GET',
                     data: {corretora: corretora},
                     success: function (data) {
+                        console.log(data);
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         $(".total_individual").text(data.totals[0].total_individual);

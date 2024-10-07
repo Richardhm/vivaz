@@ -4,7 +4,7 @@
         @endif
             <section style="display:flex;width:99%;justify-content:center;margin:0 0 5px 0;background-color:#2e4a7a;border-radius:10px;padding:3px 0;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->
-                <div style="background-color:#5d859e;margin-left:0.3%;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1.2em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
+                <div style="background-color:#5d859e;margin-left:0.3%;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
                     {{$loop->iteration}}°
                 </div>
 

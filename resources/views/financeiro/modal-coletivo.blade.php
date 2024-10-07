@@ -274,7 +274,7 @@
                         @break;
                     @endswitch
 
-                    <tr class="@if($fase >= $dados->financeiro_id) disabled-button @endif">
+                    <tr class="">
                         <td class="" style="font-size:0.875em;">
                             {{$title}}
                         </td>
@@ -303,7 +303,7 @@
                         <td class="acao_aqui">
                             @if($cr->status_financeiro == 0)
                                 <input type="date" data-id="{{$id}}" min="{{date('Y-m-d', strtotime('1900-01-01'))}}"
-                                       max="{{date('Y-m-d')}}" @if($fase >= $dados->financeiro_id) disabled-button @endif class="bg-gray-100  text-gray-800 p-1 text-sm rounded-md next date-picker">
+                                       max="{{date('Y-m-d')}}"  class="bg-gray-100  text-gray-800 p-1 text-sm rounded-md next date-picker">
 
 
 
