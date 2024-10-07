@@ -177,7 +177,9 @@
         <div class="slide-carrossel">
             <img src="{{asset('slides/07.jpg')}}" alt="Imagem 7">
         </div>
-
+        <div class="slide-carrossel">
+            <img src="{{asset('slides/08.jpg')}}" alt="Imagem 7">
+        </div>
     </div>
 </div>
 
@@ -814,7 +816,7 @@
             }
 
             showSlideGroup(currentGroup); // Mostra o primeiro grupo de slides
-            setInterval(nextSlideGroup, 20000); // Troca de slide a cada 10 segundos
+            setInterval(nextSlideGroup, 60000); // Troca de slide a cada 10 segundos
         }
 
         createSlideShow();
@@ -880,7 +882,7 @@
             setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 10000); // Troca a cada 10 segundos
+            }, 8000); // Troca a cada 10 segundos
         }
 
 
@@ -900,13 +902,17 @@
                     type: 'GET',
                     data: {corretora: corretora},
                     success: function (data) {
-                        console.log(data);
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         $(".total_individual").text(data.totals[0].total_individual);
                         $(".total_coletivo").text(data.totals[0].total_coletivo);
                         $(".total_empresarial").text(data.totals[0].total_empresarial);
-                        let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
+                        let total_vidas =
+                            parseInt(data.totals[0].total_individual)
+                            +
+                            parseInt(data.totals[0].total_coletivo)
+                            +
+                            parseInt(data.totals[0].total_empresarial);
                         let meta = 0;
                         if (corretora == "accert") {
                             meta = 400;
@@ -960,7 +966,7 @@
         // // Chamar a função para iniciar com o botão Vivaz e logar "null"
         changeActiveButton();
         // // Iniciar o intervalo para trocar os botões
-        setInterval(changeActiveButton, 20000);
+        setInterval(changeActiveButton, 60000);
 
 
 

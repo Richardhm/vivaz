@@ -6906,8 +6906,6 @@ AS desconto,
         $total = $dados->valor_total;
         $desconto = $dados->valor_desconto;
 
-
-
         $logo = "";
         if(Corretora::first()->logo) {
             $img_logo = Corretora::first()->logo;
@@ -7111,45 +7109,54 @@ AS desconto,
 
         $total_desconto = $total_coletivo_desconto + $total_individual_desconto + $total_empresarial_desconto;
 
+        $odonto = Odonto::where('user_id', $id)
+            ->whereNull('pagou')
+            ->sum('comissao');
+
+        $odonto_list = Odonto::where('user_id', $id)
+            ->whereNull('pagou')
+            ->get();
+
+
+
+
+
         if($boolean_individual && $boolean_coletivo && $boolean_empresarial) {
             $comissao = $dados->valor_comissao;
-            $total = $dados->valor_total;
+            $total = $dados->valor_total + floatval($odonto);
             $desconto = $dados->valor_desconto;
         } elseif($boolean_individual && !$boolean_coletivo && !$boolean_empresarial) {
-            $comissao = floatval($total_individual);
+            $comissao = floatval($total_individual)  + floatval($odonto);
             $desconto = 0;
             $total = $comissao - $desconto;
         } elseif($boolean_individual && $boolean_coletivo && !$boolean_empresarial) {
-            $comissao = floatval($total_individual) + floatval($total_coletivo);
+            $comissao = floatval($total_individual) + floatval($total_coletivo)  + floatval($odonto);
             $desconto = floatval($total_coletivo_desconto) + floatval($total_individual_desconto);
             $total = $comissao - $desconto;
         } elseif($boolean_individual && !$boolean_coletivo && $boolean_empresarial) {
-            $comissao = floatval($total_individual) + floatval($total_empresarial);
+            $comissao = floatval($total_individual) + floatval($total_empresarial)  + floatval($odonto);
             $desconto = floatval($total_individual_desconto) + floatval($total_empresarial_desconto);
             $total = $comissao - $desconto;
         } elseif(!$boolean_individual && $boolean_coletivo && !$boolean_empresarial) {
-            $comissao = floatval($total_coletivo);
+            $comissao = floatval($total_coletivo)  + floatval($odonto);
             $desconto = floatval($total_coletivo_desconto);
             $total = $comissao - $desconto;
         } elseif(!$boolean_individual && $boolean_coletivo && $boolean_empresarial) {
-            $comissao = floatval($total_coletivo) + floatval($total_empresarial);
+            $comissao = floatval($total_coletivo) + floatval($total_empresarial)  + floatval($odonto);
             $desconto = floatval($total_coletivo_desconto) + floatval($total_empresarial_desconto);
             $total = $comissao - $desconto;
         } elseif($boolean_individual && $boolean_coletivo && !$boolean_empresarial) {
-            $comissao = floatval($total_coletivo) + floatval($total_individual);
+            $comissao = floatval($total_coletivo) + floatval($total_individual)  + floatval($odonto);
             $desconto = floatval($total_individual_desconto) + floatval($total_coletivo_desconto);
             $total = $comissao - $desconto;
         } elseif(!$boolean_individual && !$boolean_coletivo && $boolean_empresarial) {
-            $comissao = floatval($total_empresarial);
+            $comissao = floatval($total_empresarial)  + floatval($odonto);
             $desconto = floatval($total_empresarial_desconto);
             $total = $comissao - $desconto;
-
         } else {
 
         }
 
-
-        $odonto = Odonto::where("user_id",$id)->get();
 
 
         $pdf = PDFFile::loadView('gerente.pdf-folha',[
@@ -7172,7 +7179,8 @@ AS desconto,
             "boolean_individual" => $boolean_individual,
             "boolean_coletivo" => $boolean_coletivo,
             "boolean_empresarial" => $boolean_empresarial,
-            "odonto" => $odonto
+            "odonto" => $odonto,
+            "odonto_list" => $odonto_list
         ]);
 
 

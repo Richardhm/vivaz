@@ -32,7 +32,9 @@
                 <li data-id="aba_individual" class="ativo">Individual</li>
                 <li data-id="aba_coletivo">Coletivo</li>
                 <li data-id="aba_empresarial">Empresarial</li>
-                <li data-id="aba_odonto">Odonto</li>
+                @if(auth()->user()->corretora_id == 1)
+                    <li data-id="aba_odonto">Odonto</li>
+                @endif
             </ul>
     </div>
     <x-upload-modal></x-upload-modal>
@@ -133,13 +135,13 @@
                 </div>
             </div>
         </div>
-
-
         <section class="conteudo_abas mt-2" style="width:95%;margin:0 auto;">
         <x-aba-individual></x-aba-individual>
         <x-aba-coletivo></x-aba-coletivo>
         <x-aba-empresarial></x-aba-empresarial>
-        <x-aba-odonto></x-aba-odonto>
+        @if(auth()->user()->corretora_id == 1)
+            <x-aba-odonto></x-aba-odonto>
+        @endif
         </section>
 
     <script>
@@ -168,17 +170,9 @@
                 tabCadastrar.classList.add('border-blue-500', 'text-blue-500');
             }
         }
-
-
-
-
-
-
-
         dropdownButton.addEventListener('click', () => {
             dropdownOptions.classList.toggle('hidden');
         });
-
         dropdownOptions.addEventListener('click', (event) => {
             if (event.target.tagName === 'LI') {
                 const selectedOption = event.target.textContent;

@@ -8,7 +8,7 @@
     </head>
     <body>
        <div style="width:95%;margin:0 auto;padding:5px 0;">
-            <p style="font-size:0.75em;">ACCERT CORRETORA</p>
+            <p style="font-size:0.75em;">Vivaz CORRETORA</p>
        </div>
 
        <div style="border-top:1px solid black;display:block;width:95%;left:20px;position:absolute;height:70px;padding:10px 0;">
@@ -46,7 +46,6 @@
 
                     <div style="width:75%;float:right;text-align:right;">{{number_format($comissao,2,",",".")}}</div>
                 </div>
-
             </div>
             <div style="clear: both;"></div>
             <div>
@@ -56,7 +55,6 @@
                 </div>
             </div>
             <div style="clear: both;"></div>
-
            <div>
                <span style="width:89%;left:0;float:left;">1 Desconto</span>
                <span style="width:11%;right:0;top:0;float:right;text-align:right;">{{number_format($desconto,2,",",".")}}</span>
@@ -66,12 +64,16 @@
                <span style="width:89%;left:0;float:left;">1 Estorno</span>
                <span style="width:11%;right:0;top:0;float:right;text-align:right;">{{number_format($estorno,2,",",".")}}</span>
            </div>
-
            <div style="clear: both;"></div>
-            <div>
+           <div>
+               <span style="width:89%;left:0;float:left;">1 Odonto</span>
+               <span style="width:11%;right:0;top:0;float:right;text-align:right;">{{number_format($odonto,2,",",".")}}</span>
+           </div>
+           <div style="clear: both;"></div>
+           <div>
                 <span style="width:50%;left:0;float:left;">Total Geral</span>
                 <span style="width:40%;right:0;top:0;float:right;text-align:right;">{{number_format($total,2,",",".")}}</span>
-            </div>
+           </div>
         </div>
 
         <div style="clear: both;"></div>
@@ -374,7 +376,7 @@
             </table>
         @endif
 
-        @if($odonto)
+        @if($odonto_list)
             <div style="width:95%;border-bottom:1px solid black;margin:0 auto;background-color:rgb(231,230,230);font-weight:bold;padding:5px 0;">Odonto</div>
             <table style="width:95%;margin:0 auto;">
                 <thead style="border-bottom:1px solid black;">
@@ -387,7 +389,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($odonto as $o)
+                @foreach($odonto_list as $o)
                     @php
                         ++$i_odonto;
                         $total_odonto_calculado += $o->comissao;
