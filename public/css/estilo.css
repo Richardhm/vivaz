@@ -22,7 +22,7 @@ nav.navbar {flex-shrink: 0;}
 .position-1 {
     order: 2;
     flex-basis: 33%;
-    bottom:15%;
+    bottom:35%;
     /*transform: scale(1);*/
     /*left: 45%;*/
     /*top: -120px;*/

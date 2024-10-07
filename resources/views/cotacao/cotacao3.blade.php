@@ -256,10 +256,57 @@
                 </tr>
                 <tr>
                     <td class="faixa-etaria">Faixa Etária</td>
-                    <td class="apart-enfer apart">Apart</td>
-                    <td class="apart-enfer apart">Enfer</td>
-                    <td class="apart-enfer copart-parcial">Apart</td>
-                    <td class="apart-enfer copart-parcial">Enfer</td>
+                    <td class="apart-enfer apart">
+                        Apart
+                        @if($odonto_frase == " c/ Odonto" && $plano_nome == "Individual")
+                            11820
+                        @elseif($odonto_frase == " c/ Odonto" && $plano_nome == "Super Simples")
+                            11170
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Individual")
+                            11173
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Super Simples")
+                            11170
+                        @endif
+                    </td>
+                    <td class="apart-enfer apart">
+                        Enfer
+                        @if($odonto_frase == " c/ Odonto" && $plano_nome == "Individual")
+                            11819
+                        @elseif($odonto_frase == " c/ Odonto" && $plano_nome == "Super Simples")
+                            11162
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Individual")
+                            11165
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Super Simples")
+                            11162
+                        @endif
+
+
+                    </td>
+                    <td class="apart-enfer copart-parcial">
+                        Apart
+                        @if($odonto_frase == " c/ Odonto" && $plano_nome == "Individual")
+                            21070
+                        @elseif($odonto_frase == " c/ Odonto" && $plano_nome == "Super Simples")
+                            21224
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Individual")
+                            21071
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Super Simples")
+                            21224
+                        @endif
+
+                    </td>
+                    <td class="apart-enfer copart-parcial">
+                        Enfer
+                        @if($odonto_frase == " c/ Odonto" && $plano_nome == "Individual")
+                            21068
+                        @elseif($odonto_frase == " c/ Odonto" && $plano_nome == "Super Simples")
+                            21223
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Individual")
+                            21069
+                        @elseif($odonto_frase == " s/ Odonto" && $plano_nome == "Super Simples")
+                            21223
+                        @endif
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -442,11 +489,6 @@
                     </table>
                 </td>
 
-
-
-
-
-
                 @if($status_carencia == 1)
                     <td style="width: 50%; vertical-align: top; padding-left: 2%; margin: 0;color:#366EBF;">
                         <h3 style="margin: 0;text-align:left;color:#366EBF;">Carências de Saúde:</h3>
@@ -513,11 +555,6 @@
 
             </tr>
         </table>
-
-
-
-
-
     @else
 
         <table id="valores_coparticipacao" style="{{$status_carencia == 0 ? 'width:50%;' : 'width:100%;' }}border-collapse: collapse;margin:0;padding:0;">

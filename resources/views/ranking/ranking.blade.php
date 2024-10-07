@@ -15,9 +15,7 @@
                             <div class="d-flex border text-white rounded align-items-center p-2" style="background-color: #2e4a7a;">
                                 <!-- 1ª Div: Posição -->
                                 <div class="text-center text-white rounded me-2"
-                                     style="min-width: 40px; height: 100%; display: flex; align-items: center; justify-content: center;
-                     padding: 5px 10px; font-size: 2em; font-weight: bold;
-                     background: rgba(254, 254, 254, 0.18); backdrop-filter: blur(15px);">
+                                style="width:40px;height:100%;display:flex;align-items:center;justify-content:center;padding:5px 10px;font-size:1.5em;font-weight:bold;background:rgba(254, 254, 254, 0.18);backdrop-filter:blur(15px);">
                                     {{$loop->iteration}}°
                                 </div>
 
@@ -32,10 +30,16 @@
                                         $nome_corretor = implode(' ', array_slice(explode(' ', $r->corretor), 0, 2)); // Limita a 2 palavras
                                     @endphp
                                     <p class="fw-bold mb-0" style="font-size: 1.2em; color: #ffdd57;">{{$nome_corretor}}</p>
-                                    <p class="small mb-0" style="font-size: 0.8em;">
+                                    <p class="small mb-0" style="font-size: 0.7em;">
                                         Individual: {{$r->quantidade_individual}} | Coletivo: {{$r->quantidade_coletivo}} | Empresarial: {{$r->quantidade_empresarial}}
                                     </p>
                                 </div>
+
+                                <div style="display:flex;flex-direction:column;justify-content:center;">
+                                    <span class="text-center">{{$r->quantidade_vidas}}</span>
+                                    <span>Vidas</span>
+                                </div>
+
                             </div>
                         </div>
 

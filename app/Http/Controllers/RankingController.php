@@ -94,7 +94,7 @@ class RankingController extends Controller
             $corretora_id = null;
         }
         $corretoraFilter = $corretora_id ? " AND comissoes.corretora_id = {$corretora_id}" : "";
-        if($corretora != "estrela" && $corretora != "concessi" && $corretora != "diario") {
+        if($corretora != "estrela" && $corretora != "concessi" && $corretora != "diario" && $corretora != "semanal") {
 
             $ranking = DB::select(
                 "

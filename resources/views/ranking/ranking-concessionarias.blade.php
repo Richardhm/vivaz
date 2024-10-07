@@ -10,7 +10,7 @@
 
                 <!-- 2º Div: Imagem centralizada no eixo Y com border-radius, próxima da 1ª div -->
                 <div style="flex: 0 1 auto; display:flex;align-items:center;margin-left: 8px;">
-                    <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;background-color: #5c636a;" />
+                    <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;" />
                 </div>
 
                 <!-- 3º Div: Próxima da 2ª div -->

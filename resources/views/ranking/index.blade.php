@@ -181,15 +181,10 @@
     </div>
 </div>
 
-
-
-
 <main id="principal" class="d-flex flex-column flex-grow">
 
-
-
-    <div class="d-flex " style="min-height:99%;">
-        <div style="display: flex;flex-basis:50%;flex-direction:column;">
+    <div class="d-flex" style="min-height:99%;">
+        <div style="display:flex;flex-basis:50%;flex-direction:column;">
             @php
                 $total_vidas = $totals[0]->total_individual + $totals[0]->total_coletivo + $totals[0]->total_empresarial;
                 $meta = 27;
@@ -276,13 +271,13 @@
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_vidas">{{$totals_con[0]->total_vidas}}</span>
+                        <span style="color:#6a1a21;" class="total_vidas">Eita</span>
                     </span>
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_porcentagem">{{ number_format($totals_con[0]->porcentagem_geral, 2) }}%</span>
+                        <span style="color:#6a1a21;" class="total_porcentagem">Oa%</span>
                     </span>
                     </div>
                 @endif
@@ -290,7 +285,7 @@
             <div class="stage">
             </div>
         </div>
-        <div id="dados_direito" style="overflow-y: hidden;height:100%;width:48%;">
+        <div id="dados_direito" style="overflow-y:hidden;height:100%;width:49%;">
 
         </div>
         {{-- Fim Direita --}}
@@ -375,7 +370,7 @@
         <button class="footer-btn" data-corretora="innove">Equipe Innove</button>
         <button class="footer-btn" data-corretora="concessi">Concessionarias</button>
         <button class="footer-btn" data-corretora="estrela">Estrelas</button>
-        <button class="footer-btn" data-corretora="carrossel">Carrossel</button>
+        <button class="footer-btn" data-corretora="carrossel">Campanhas</button>
     </div>
     <div class="d-flex justify-content-center" style="background-color:#2e4a7a;">
         <img src="{{asset('hapvida-notreDame.png')}}" alt="Hapvida Logo" class="img-fluid my-auto" style="max-width: 200px;">
@@ -795,9 +790,10 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (res) {
-                    if (res && res.ranking && res.ranking.length > 0) {
-                        verificarTrocaDeLider(res.ranking,res.venda);
-                    }
+
+                    // if (res && res.ranking && res.ranking.length > 0) {
+                    //     verificarTrocaDeLider(res.ranking,res.venda);
+                    // }
                 }
             });
         });
@@ -895,12 +891,6 @@
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');
             let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
-
-
-
-            console.log(corretora);
-
-
             if(corretora != "carrossel") {
                 $(".carrossel-container").addClass("ocultar");
                 $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
@@ -910,6 +900,7 @@
                     type: 'GET',
                     data: {corretora: corretora},
                     success: function (data) {
+                        console.log(data);
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         $(".total_individual").text(data.totals[0].total_individual);
@@ -927,13 +918,16 @@
                             meta = 27;
                             $(".aqui_meta").text(meta);
                         }
-                        let porcentagem = (total_vidas / meta) * 100;
-                        $(".total_vidas").text(total_vidas);
-                        $(".total_porcentagem").text(porcentagem.toFixed(2));
+
                         if(corretora != "concessi") {
                             createSlideShow();
+                            let porcentagem = (total_vidas / meta) * 100;
+                            $(".total_vidas").text(total_vidas);
+                            $(".total_porcentagem").text(porcentagem.toFixed(2));
                         } else {
                             slideCorretoras();
+                            $(".total_vidas").text(data.total_vidas);
+                            $(".total_porcentagem").text(data.porcentagem_geral);
                         }
 
                     }
