@@ -192,7 +192,7 @@
         <div style="display:flex;flex-basis:50%;flex-direction:column;">
             @php
                 $total_vidas = $totals[0]->total_individual + $totals[0]->total_coletivo + $totals[0]->total_empresarial;
-                $meta = 27;
+                $meta = 10;
                 $porcentagem = ($total_vidas / $meta) * 100;
             @endphp
             <div id="header_esquerda" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
@@ -202,7 +202,7 @@
                 <div class="container-meta">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="aqui_meta">{{$totals[0]->meta}}</span>
+                        <span style="color:#6a1a21;" class="aqui_meta">10</span>
                     </span>
                 </div>
                 @if(isset($totals[0]) && !empty($totals[0]))
@@ -882,9 +882,14 @@
             slidesContainer.css('transform', `translateX(-${index * slideWidth}%)`); // Mover o contêiner dos slides
         }
 
+        let carouselInterval;
+
         function startCarousel() {
             currentSlide = 0; // Sempre começa do primeiro slide
-            setInterval(() => {
+            if(carouselInterval) {
+                clearInterval(carouselInterval);
+            }
+            carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
             }, 4000); //Troca a cada 10 segundos
@@ -904,24 +909,28 @@
                     type: 'GET',
                     data: {corretora: corretora},
                     success: function (data) {
-
+                        console.log(data);
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         $(".total_individual").text(data.totals[0].total_individual);
                         $(".total_coletivo").text(data.totals[0].total_coletivo);
                         $(".total_empresarial").text(data.totals[0].total_empresarial);
-                        let total_vidas =
-                            parseInt(data.totals[0].total_individual)
-                            +
-                            parseInt(data.totals[0].total_coletivo)
-                            +
-                            parseInt(data.totals[0].total_empresarial);
+                        let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
                         let meta = 0;
                         if (corretora == "accert") {
-                            meta = 400;
+                            meta = 276;
                             $(".aqui_meta").text(meta);
                         } else if (corretora == "innove") {
-                            meta = 220;
+                            meta = 276;
+                            $(".aqui_meta").text(meta);
+                        } else if(corretora == "diario") {
+                            meta = 26;
+                            $(".aqui_meta").text(meta);
+                        } else if(corretora == "semanal") {
+                            meta = 65;
+                            $(".aqui_meta").text(meta);
+                        } else if(corretora == "concessi") {
+                            meta = 3629;
                             $(".aqui_meta").text(meta);
                         } else {
                             meta = 27;
