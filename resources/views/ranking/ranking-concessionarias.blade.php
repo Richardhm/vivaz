@@ -2,14 +2,15 @@
         @if ($i % 6 === 0)
             <div class="slide-corretora" style="height:80%;">
         @endif
-            <section style="display:flex;width:99%;justify-content:center;margin:0 0 5px 0;background-color:#2e4a7a;border-radius:10px;padding:3px 0;">
+            <section style="display:flex;width:99%;justify-content:center;margin:0 0 5px 0;background-color:#2e4a7a;border-radius:10px;padding:3px 0;align-items: center;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->
-                <div style="background-color:#5d859e;margin-left:0.3%;font-weight:bold;color:#FFF;padding:5px 35px;font-size:1em;display: flex;align-items: center;justify-content: center;border-radius:5px;">
+                <div class="text-center text-white rounded me-2"
+                     style="width:40px;height:100%;display:flex;align-items:center;justify-content:center;padding:5px 10px;font-size:1em;font-weight:bold;background:rgba(254, 254, 254, 0.18);backdrop-filter:blur(15px);">
                     {{$loop->iteration}}°
                 </div>
 
                 <!-- 2º Div: Imagem centralizada no eixo Y com border-radius, próxima da 1ª div -->
-                <div style="flex: 0 1 auto; display:flex;align-items:center;margin-left: 8px;">
+                <div class="me-2" style="flex:0 1 auto;display:flex;align-items:center;margin-left:8px;background-color: #6495ED;justify-content: center;justify-items: center;">
                     <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;" />
                 </div>
 
@@ -21,7 +22,6 @@
                         <p style="margin:0;padding:0;">Total: {{$r->total_vidas}} Vidas</p>
                     </div>
                     <div style="display:flex;align-items:center;">
-                        <!-- Barra de Progresso -->
                         <div class="progress" style="flex-grow: 1; margin-right: 10px; position: relative; background-color: #e0e0e0; height: 20px; border-radius: 10px;">
                             @php
                                 if(200 >= 1 && $r->total_vidas >= 1) {
@@ -44,8 +44,7 @@
                 <!-- 4º Div: Encostado do lado direito -->
                 <div style="flex: 3;text-align: right;padding:2px;color:#FFF;font-size:0.875em;">
                     <p style="margin:0;padding:0;">Individual: 0 vidas</p>
-                    <p style="margin:0;padding:0;">Coletivo: 0 vidas</p>
-                    <p style="margin:0;padding:0;">Empresarial: 0 vidas</p>
+                    <p style="margin:0;padding:0;">Super Simples: 0 vidas</p>
                     <p style="margin:0;padding:0;">Total: 0 vidas</p>
                 </div>
             </section>

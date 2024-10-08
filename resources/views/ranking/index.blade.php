@@ -180,9 +180,7 @@
         <div class="slide-carrossel">
             <img src="{{asset('slides/08.jpg')}}" alt="Imagem 8">
         </div>
-        <div class="slide-carrossel">
-            <img src="{{asset('slides/09.jpg')}}" alt="Imagem 9">
-        </div>
+
     </div>
 </div>
 
@@ -929,7 +927,10 @@
                         } else if(corretora == "semanal") {
                             meta = 65;
                             $(".aqui_meta").text(meta);
-                        } else if(corretora == "concessi") {
+                        } else if(corretora == "estrela") {
+                            meta = 150;
+                            $(".aqui_meta").text(meta);
+                        }  else if(corretora == "concessi") {
                             meta = 3629;
                             $(".aqui_meta").text(meta);
                         } else {

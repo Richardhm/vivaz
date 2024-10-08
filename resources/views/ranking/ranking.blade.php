@@ -20,8 +20,8 @@
                                 </div>
 
                                 <!-- 2ª Div: Imagem -->
-                                <div class="me-2" style="background-color: #6495ED;">
-                                    <img src="{{ asset($r->imagem) }}" style="height: 50px; width: 50px;">
+                                <div class="me-2" style="flex:0 1 auto;display:flex;align-items:center;margin-left:8px;background-color: #6495ED;">
+                                    <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;">
                                 </div>
 
                                 <!-- 3ª Div: Nome e descrição -->
