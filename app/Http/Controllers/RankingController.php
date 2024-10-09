@@ -281,7 +281,8 @@ class RankingController extends Controller
                 'ranking' => $ranking
             ])->render();
             $ranking = view('ranking.ranking',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $totals = DB::select("
                 SELECT
