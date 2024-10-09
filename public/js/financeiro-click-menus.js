@@ -302,7 +302,7 @@ $("body").on('click','.em_analise_empresarial',function(){
     let id = $(this).data('id');
     let self = $(this);
     $.ajax({
-        url:"{{route('financeiro.analise.empresarial')}}",
+        url:empresarialEmAnalise,
         method:"POST",
         data: {
             id
@@ -533,7 +533,7 @@ $("body").on('change','.next_empresarial',function(){
     let data_baixa = $(this).val();
     let self = $(this);
     $.ajax({
-        url:"{{route('financeiro.baixa.data.empresarial')}}",
+        url:empresarialDataBaixa,
         method:"POST",
         data: {
             id,data_baixa

@@ -24,6 +24,10 @@
             var cadastrarOdonto = "{{ route('odonto.create') }}";
             var emAnaliseAjax = "{{route('financeiro.analise.coletivo')}}";
             var emissaoBoleto = "{{route('financeiro.analise.boleto')}}";
+            var empresarialEmAnalise = "{{route('financeiro.analise.empresarial')}}";
+            var empresarialDataBaixa = "{{route('financeiro.baixa.data.empresarial')}}";
+
+
 
             var table;
             var table_individual;
