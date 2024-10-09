@@ -2578,9 +2578,10 @@
                            if(res == "sem_mes") {
 
                            } else {
-                               $("#list_user").html('');
-                               $('#mes_folha').removeAttr('disabled');
-                               $('#mes_folha option').removeAttr('selected');
+                               window.location.reload();
+                               // $("#list_user").html('');
+                               // $('#mes_folha').removeAttr('disabled');
+                               // $('#mes_folha option').removeAttr('selected');
                            }
                        }
                     });

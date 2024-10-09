@@ -176,6 +176,7 @@ class GerenteController extends Controller
             ->selectRaw("(select name from users where users.id = valores_corretores_lancados.user_id) as user,valor_comissao,valor_salario,valor_premiacao")
             ->selectRaw("valor_total as total")
             ->whereMonth("data",$mes)
+            ->where("corretora_id",auth()->user()->corretora_id)
             ->get();
         return view('gerente.table-modal',[
             "dados" => $users
@@ -6646,16 +6647,17 @@ AS desconto,
     {
         $ano = $request->ano;
         $mes = $request->mes;
-        $mes = FolhaMes::whereMonth("mes",$mes)->whereYear("mes",$ano)->where("status",0);
+        $mes = FolhaMes::whereMonth("mes",$mes)->whereYear("mes",$ano)->where('corretora_id',auth()->user()->corretora_id)->where("status",0);
         if($mes->count() == 1) {
             $alt = $mes->first();
             $alt->status = 1;
             $alt->save();
             $dados = DB::table("comissoes_corretores_lancadas")
+                ->join('comissoes','comissoes.id',"=","comissoes_corretores_lancadas.comissoes_id")
                 ->where('status_financeiro', 1)
                 ->where('status_apto_pagar',1)
                 ->where('status_comissao',1)
-                //->get();
+                ->where('comissoes.corretora_id',auth()->user()->corretora_id)
                 ->update(['finalizado' => 1]);
             return true;
         } else {
