@@ -89,7 +89,7 @@ class RankingController extends Controller
         } elseif($corretora == 'vivaz') {
             $corretora_id = null;
             $meta = 472;
-        } elseif ($corretora == 'estrela' || $corretora == "concessi") {
+        } elseif ($corretora == 'estrela' || $corretora == "concessi" || $corretora == "diario") {
             // Não filtrar, traz todos os dados
             $corretora_id = null;
         }
@@ -281,8 +281,7 @@ class RankingController extends Controller
                 'ranking' => $ranking
             ])->render();
             $ranking = view('ranking.ranking',[
-                'ranking' => $ranking,
-                'corretora' => $corretora
+                'ranking' => $ranking
             ])->render();
             $totals = DB::select("
                 SELECT
@@ -298,7 +297,6 @@ class RankingController extends Controller
                 'podium' => $podium,
                 'ranking' => $ranking,
                 'totals' => $totals,
-                'corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
         } else if($corretora == "estrela") {
@@ -506,118 +504,33 @@ class RankingController extends Controller
 
 
 
-        $ranking = DB::select(
-            "
-                    SELECT
-                        users.name as corretor,
-                        users.image as imagem,
-
-                    -- Verifica se o corretor é Parceiro ou CLT
+        $ranking = DB::select("
+                SELECT
+                    users.name AS corretor,
+                    users.image AS imagem,
                     IF(EXISTS(
-                        SELECT 1
-                        FROM comissoes_corretores_configuracoes
-                        WHERE comissoes_corretores_configuracoes.user_id = users.id
-                    ), 'Parceiro', 'CLT') as tipo_contratacao,
+                      SELECT 1
+                      FROM comissoes_corretores_configuracoes
+                      WHERE comissoes_corretores_configuracoes.user_id = users.id
+                   ), 'Parceiro', 'CLT') as tipo_contratacao,
+                   SUM(vidas_individual) AS quantidade_individual,
+                   SUM(vidas_coletivo) AS quantidade_coletivo,
+                   SUM(vidas_empresarial) AS quantidade_empresarial,
+                   0 as valor_total,
+                   1 as total_meta,
+                   SUM(vidas_individual + vidas_coletivo + vidas_empresarial) AS quantidade_vidas,
+                   corretoras.nome as corretora
 
-                    -- Quantidade individual
-                    SUM(CASE
-                            WHEN comissoes.plano_id = 1 AND comissoes.empresarial = 0
-                                THEN (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0)
-                                      FROM clientes
-                                               INNER JOIN contratos ON contratos.cliente_id = clientes.id
-                                      WHERE contratos.id = comissoes.contrato_id
-                                        AND contratos.plano_id = 1
-                                        AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
-                                        AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE()))
-                            ELSE 0
-                        END) as quantidade_individual,
+                FROM ranking_diario
+                INNER JOIN users ON users.id = ranking_diario.user_id
+                INNER JOIN corretoras ON corretoras.id = ranking_diario.corretora_id
+                    where ranking_diario.corretora_id = 1
+                    AND ranking_diario.data = DATE(NOW())
+                GROUP BY ranking_diario.user_id,ranking_diario.data
+                ORDER BY quantidade_vidas DESC
+            ");
 
-                    -- Quantidade coletivo
-                    SUM(CASE
-                            WHEN comissoes.plano_id = 3 AND comissoes.empresarial = 0
-                                THEN (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0)
-                                      FROM clientes
-                                               INNER JOIN contratos ON contratos.cliente_id = clientes.id
-                                      WHERE contratos.id = comissoes.contrato_id
-                                        AND contratos.plano_id = 3
-                                        AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
-                                        AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE()))
-                            ELSE 0
-                        END) as quantidade_coletivo,
 
-                -- Quantidade empresarial
-                SUM(CASE
-                        WHEN comissoes.plano_id = 5 AND comissoes.empresarial = 1
-                            THEN (SELECT IFNULL(SUM(contrato_empresarial.quantidade_vidas), 0)
-                                  FROM contrato_empresarial
-                                  WHERE contrato_empresarial.id = comissoes.contrato_empresarial_id
-                                    AND contrato_empresarial.plano_id = 5
-                                    AND MONTH(contrato_empresarial.created_at) = MONTH(CURRENT_DATE())
-                                    AND YEAR(contrato_empresarial.created_at) = YEAR(CURRENT_DATE()))
-                        ELSE 0
-                    END) as quantidade_empresarial,
-
-                -- Valor total
-                SUM(CASE
-                        WHEN comissoes.plano_id = 1 AND comissoes.empresarial = 0
-                            THEN contratos.valor_plano
-                        WHEN comissoes.plano_id = 3 AND comissoes.empresarial = 0
-                            THEN contratos.valor_plano
-                        WHEN comissoes.plano_id = 5 AND comissoes.empresarial = 1
-                            THEN contrato_empresarial.valor_plano
-                        ELSE 0
-                    END) as valor_total,
-
-                    -- Quantidade total de vidas (soma das 3 colunas anteriores)
-                    SUM(CASE
-                            WHEN comissoes.plano_id = 1 AND comissoes.empresarial = 0
-                                THEN (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0)
-                                      FROM clientes
-                                               INNER JOIN contratos ON contratos.cliente_id = clientes.id
-                                      WHERE contratos.id = comissoes.contrato_id
-                                        AND contratos.plano_id = 1
-                                        AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
-                                        AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE()))
-                            WHEN comissoes.plano_id = 3 AND comissoes.empresarial = 0
-                                THEN (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0)
-                                      FROM clientes
-                                               INNER JOIN contratos ON contratos.cliente_id = clientes.id
-                                      WHERE contratos.id = comissoes.contrato_id
-                                        AND contratos.plano_id = 3
-                                        AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
-                                        AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE()))
-                            WHEN comissoes.plano_id = 5 AND comissoes.empresarial = 1
-                                THEN (SELECT IFNULL(SUM(contrato_empresarial.quantidade_vidas), 0)
-                                      FROM contrato_empresarial
-                                      WHERE contrato_empresarial.id = comissoes.contrato_empresarial_id
-                                        AND contrato_empresarial.plano_id = 5
-                                        AND MONTH(contrato_empresarial.created_at) = MONTH(CURRENT_DATE())
-                                        AND YEAR(contrato_empresarial.created_at) = YEAR(CURRENT_DATE()))
-                            ELSE 0
-                        END) as quantidade_vidas,
-
-                        corretoras.nome as corretora,
-
-    -- Metas do corretor
-    COALESCE(metas.individual, 0) + COALESCE(metas.coletivo, 0) + COALESCE(metas.super_simples, 0) as total_meta
-
-FROM comissoes
-         INNER JOIN users ON users.id = comissoes.user_id
-         INNER JOIN corretoras ON users.corretora_id = corretoras.id
-         LEFT JOIN contratos ON contratos.id = comissoes.contrato_id
-         LEFT JOIN contrato_empresarial ON contrato_empresarial.id = comissoes.contrato_empresarial_id
-         LEFT JOIN clientes ON clientes.id = contratos.cliente_id
-
--- Junção com a tabela metas para pegar as metas do corretor
-         LEFT JOIN metas ON metas.user_id = users.id
-
--- Filtro para corretora específica
-WHERE comissoes.plano_id IN (1, 3, 5) AND (comissoes.user_id != 198 AND comissoes.user_id != 269)
-
-GROUP BY comissoes.user_id
-ORDER BY quantidade_vidas DESC;
-                "
-        );
 
 
         $totals = DB::select("
