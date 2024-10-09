@@ -898,6 +898,10 @@
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');
             let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
+
+            console.log(corretora);
+
+
             if(corretora != "carrossel") {
                 $(".carrossel-container").addClass("ocultar");
                 $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');

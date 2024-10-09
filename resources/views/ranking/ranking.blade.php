@@ -31,7 +31,11 @@
                                     @endphp
                                     <p class="fw-bold mb-0" style="font-size: 1.2em; color: #ffdd57;">{{$nome_corretor}}</p>
                                     <p class="small mb-0" style="font-size: 0.7em;">
-                                        Individual: {{$r->quantidade_individual}} | Coletivo: {{$r->quantidade_coletivo}} | Empresarial: {{$r->quantidade_empresarial}}
+                                        @if($corretora != "estrela")
+                                            Individual: {{$r->quantidade_individual}} | Coletivo: {{$r->quantidade_coletivo}} | Empresarial: {{$r->quantidade_empresarial}}
+                                        @else
+                                            Individual: {{$r->quantidade_individual}} | Super Simples: {{$r->quantidade_empresarial}}
+                                        @endif
                                     </p>
                                 </div>
 

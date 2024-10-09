@@ -212,7 +212,8 @@ class RankingController extends Controller
                 'ranking' => $ranking
             ])->render();
             $ranking = view('ranking.ranking',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $totals = DB::select("SELECT
                 SUM(
@@ -280,7 +281,8 @@ class RankingController extends Controller
                 'ranking' => $ranking
             ])->render();
             $ranking = view('ranking.ranking',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $totals = DB::select("
                 SELECT
@@ -330,7 +332,8 @@ class RankingController extends Controller
                 'ranking' => $ranking
             ])->render();
             $ranking = view('ranking.ranking',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $totals = DB::select("SELECT
                 SUM(CASE WHEN comissoes.plano_id = 1 AND comissoes.empresarial = 0 THEN (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0) FROM clientes INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = 1) ELSE 0 END) as total_individual,
@@ -388,7 +391,8 @@ class RankingController extends Controller
                 'ranking' => $ranking
             ])->render();
             $ranking = view('ranking.ranking', [
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $totals = DB::select("
                 SELECT
@@ -416,6 +420,10 @@ class RankingController extends Controller
                 SELECT id,nome,imagem,
                 meta_individual + meta_super_simples + meta_pme + meta_adesao AS meta_total,
                 individual + super_simples + pme + adesao AS total_vidas,
+                individual as individual,
+                super_simples as super_simples,
+                pme as pme,
+                adesao as adesao,
                 ROUND(((individual + super_simples + pme + adesao) /
                 (meta_individual + meta_super_simples + meta_pme + meta_adesao)) * 100, 2) AS porcentagem_vendas
                 FROM concessionarias
@@ -426,7 +434,8 @@ class RankingController extends Controller
                 'ranking' => $ranking
             ])->render();
             $ranking = view('ranking.ranking-concessionarias',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
 
             $totals = DB::select("

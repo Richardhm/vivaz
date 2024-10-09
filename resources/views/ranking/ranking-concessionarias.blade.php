@@ -43,9 +43,11 @@
 
                 <!-- 4º Div: Encostado do lado direito -->
                 <div style="flex: 3;text-align: right;padding:2px;color:#FFF;font-size:0.875em;">
-                    <p style="margin:0;padding:0;">Individual: 0 vidas</p>
-                    <p style="margin:0;padding:0;">Super Simples: 0 vidas</p>
-                    <p style="margin:0;padding:0;">Total: 0 vidas</p>
+                    <p style="margin:0;padding:0;">Individual:  <span class="individual_concessionaria_ranking"> {{$r->individual}}</span> vidas</p>
+                    <p style="margin:0;padding:0;">Super Simples: <span class="supersimples_concessionaria_ranking"> {{$r->super_simples}}</span> vidas</p>
+                    <p style="margin:0;padding:0;">PME: <span class="pme_concessionaria_ranking">{{$r->pme}}</span> vidas</p>
+                    <p style="margin:0;padding:0;">Adesao: <span class="adesao_concessionaria_ranking">{{$r->adesao}}</span> vidas</p>
+                    <p style="margin:0;padding:0;">Total: <span class="total_concessionaria_ranking">{{$r->total_vidas}}</span> vidas</p>
                 </div>
             </section>
                 @if (($i + 1) % 6 === 0)
