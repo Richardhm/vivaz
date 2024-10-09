@@ -460,8 +460,6 @@ class RankingController extends Controller
                 '$corretora' => $corretora,
                 'concessionarias' => $concessionarias
             ];
-        } else {
-
         }
     }
 
