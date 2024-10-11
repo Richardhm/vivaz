@@ -3339,7 +3339,20 @@
 
 
             var listaraptosapagar = $(".listaraptosapagar").DataTable({
-                dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>><t><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
+                //dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>><Bt><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
+                //dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>>B<"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
+                dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>><"btns"B><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Exportar para Excel',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            //columns: ':visible' // ou selecione as colunas específicas
+                            columns: [3,5,9,13,14]
+                        }
+                    }
+                ],
                 language: {
                     "search": "Pesquisar",
                     "paginate": {
@@ -3435,7 +3448,9 @@
 
 
                         }
-                    }
+                    },
+                    {data:"plano_nome",name:"plano_nome",visible:false},
+                    {data:"corretor",name:"corretor",visible:false}
                 ],
                 "drawCallback":function(settings) {
                     if(settings.aoData.length >= 1) {

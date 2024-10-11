@@ -9,15 +9,23 @@
         <link rel="icon" type="image/png" sizes="75x76" href="{{ asset('icons/icone_bmsys.png') }}">
         <link rel="manifest" href="{{ asset('manifest.json') }}">
         <script src="{{asset('assets/jquery.min.js')}}"></script>
+        <script src="{{asset('assets/datatables.min.js')}}"></script>
         <script src="{{asset('js/jquery.mask.min.js')}}"></script>
         <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/datatables.min.css')}}">
+
+        <script src="{{asset('js/jszip.min.js')}}"></script>
+        <script src="{{asset('js/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('js/buttons.html5.min.js')}}"></script>
+
+        <script src="{{asset('js/jquery-deparam.min.js')}}"></script>
+
         <script src="{{asset('js/sweetalert2@11.js')}}"></script>
+        <link rel="stylesheet" href="{{asset('assets/datatables.min.css')}}">
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="{{asset('js/select2.min.js')}}"></script>
         @yield('css')
-        <script src="{{asset('assets/datatables.min.js')}}"></script>
+
 
         <style>
 
@@ -234,10 +242,6 @@
                 .desktop-icon {
                     display: none;
                 }
-
-
-
-
             }
 
             @media (min-width: 769px) {

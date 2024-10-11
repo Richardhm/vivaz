@@ -5126,11 +5126,11 @@ and comissoes_corretores_lancadas.data_baixa_estorno IS NULL
         $mes = $request->mes;
         $ano = $request->ano;
         $plano = $request->plano;
-
         if($plano != 0) {
             $dados = DB::select("
 SELECT
     (SELECT nome FROM administradoras WHERE administradoras.id = comissoes.administradora_id) AS administradora,
+    (select name from users where users.id = comissoes.user_id) as corretor,
     DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as created_at,
     contratos.codigo_externo as codigo,
     (SELECT nome FROM clientes WHERE id = ((SELECT cliente_id FROM contratos WHERE contratos.id = comissoes.contrato_id))) as cliente,
@@ -5160,6 +5160,7 @@ SELECT
         ) AS porcentagem,
 
     comissoes_corretores_lancadas.valor AS valor,
+    (select nome from planos where planos.id = comissoes.plano_id) as plano_nome,
 
     (comissoes.plano_id) AS plano,
     (SELECT if(quantidade_vidas >=1,quantidade_vidas,0) FROM clientes WHERE clientes.id = contratos.cliente_id) AS quantidade_vidas,
