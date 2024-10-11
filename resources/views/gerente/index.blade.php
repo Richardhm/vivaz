@@ -3349,7 +3349,7 @@
                         className: 'btn btn-primary',
                         exportOptions: {
                             //columns: ':visible' // ou selecione as colunas específicas
-                            columns: [3,5,9,13,14]
+                            columns: [0,3,5,9,13,14,15,16]
                         }
                     }
                 ],
@@ -3450,7 +3450,10 @@
                         }
                     },
                     {data:"plano_nome",name:"plano_nome",visible:false},
-                    {data:"corretor",name:"corretor",visible:false}
+                    {data:"corretor",name:"corretor",visible:false},
+                    {data:"quantidade_vidas",name:"quantidade",visible:false},
+                    {data:"parcela",name:"parcela"},
+
                 ],
                 "drawCallback":function(settings) {
                     if(settings.aoData.length >= 1) {
