@@ -5183,6 +5183,7 @@ FROM comissoes_corretores_lancadas
          INNER JOIN comissoes ON comissoes.id = comissoes_corretores_lancadas.comissoes_id
          INNER JOIN contratos ON comissoes.contrato_id = contratos.id
 WHERE
+        comissoes.corretora_id = 1 AND
         comissoes_corretores_lancadas.status_financeiro = 1 AND comissoes_corretores_lancadas.status_apto_pagar = 1 AND
         MONTH(data_baixa_finalizado) = {$mes} AND YEAR(data_baixa_finalizado) = {$ano} AND comissoes.plano_id = {$plano}
 ORDER BY comissoes.administradora_id
