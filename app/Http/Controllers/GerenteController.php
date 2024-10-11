@@ -5194,7 +5194,7 @@ ORDER BY comissoes.administradora_id
         DATE_FORMAT(contrato_empresarial.created_at,'%d/%m/%Y') as created_at,
         contrato_empresarial.codigo_externo as codigo,
         (contrato_empresarial.razao_social) as cliente,
-        (select name from users where users.id = comissoes.user_id) as corretor,
+        (select name from users where users.id = contrato_empresarial.user_id) as corretor,
         (select nome from planos where contrato_empresarial.plano_id = planos.id) as plano_nome,
         comissoes_corretores_lancadas.parcela,
         (contrato_empresarial.valor_plano) as valor_plano,
@@ -5236,7 +5236,9 @@ ORDER BY comissoes.administradora_id
         INNER JOIN contrato_empresarial ON comissoes.contrato_empresarial_id = contrato_empresarial.id
         WHERE
         comissoes_corretores_lancadas.status_financeiro = 1 AND comissoes_corretores_lancadas.status_apto_pagar = 1
-        AND month(data_baixa_finalizado) = {$mes} AND YEAR(data_baixa_finalizado) = {$ano} AND valor != 0 AND comissoes.plano_id != 1 AND comissoes.plano_id != 3 ORDER BY comissoes.administradora_id
+        AND
+        contrato_empresarial.corretora_id = 1 AND
+        month(data_baixa_finalizado) = {$mes} AND YEAR(data_baixa_finalizado) = {$ano} AND valor != 0 AND comissoes.plano_id != 1 AND comissoes.plano_id != 3 ORDER BY comissoes.administradora_id
         ");
         }
 
