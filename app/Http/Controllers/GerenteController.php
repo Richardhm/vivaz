@@ -5208,7 +5208,7 @@ ORDER BY comissoes.administradora_id
         (select name from users where users.id = contrato_empresarial.user_id) as corretor,
         (select nome from planos where contrato_empresarial.plano_id = planos.id) as plano_nome,
         comissoes_corretores_lancadas.parcela,
-        contrato_empresarial.cnpj as cnpj,
+        contrato_empresarial.cnpj as codigo_externo,
         (contrato_empresarial.valor_plano) as valor_plano,
         DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') AS vencimento,
         DATE_FORMAT(comissoes_corretores_lancadas.data_baixa,'%d/%m/%Y') as data_baixa,

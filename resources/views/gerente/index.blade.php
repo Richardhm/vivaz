@@ -3349,7 +3349,7 @@
                         className: 'btn btn-primary',
                         exportOptions: {
                             //columns: ':visible' // ou selecione as colunas específicas
-                            columns: [0,3,5,9,13,14,15,16]
+                            columns: [0,1,3,5,9,13,14,15,16,17]
                         }
                     }
                 ],
@@ -3453,6 +3453,8 @@
                     {data:"corretor",name:"corretor",visible:false},
                     {data:"quantidade_vidas",name:"quantidade",visible:false},
                     {data:"parcela",name:"parcela"},
+
+                    {data:"codigo_externo",name:"codigo_externo"},
 
                 ],
                 "drawCallback":function(settings) {
