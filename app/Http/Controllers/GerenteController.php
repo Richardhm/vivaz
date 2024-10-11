@@ -5141,8 +5141,11 @@ SELECT
     DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as created_at,
     contratos.codigo_externo as codigo,
     (SELECT nome FROM clientes WHERE id = ((SELECT cliente_id FROM contratos WHERE contratos.id = comissoes.contrato_id))) as cliente,
+
     comissoes_corretores_lancadas.parcela,
     (SELECT valor_plano FROM contratos WHERE contratos.id = comissoes.contrato_id) as valor_plano,
+    (SELECT codigo_externo FROM contratos WHERE contratos.id = comissoes.contrato_id) as codigo_externo,
+
     DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') AS vencimento,
     DATE_FORMAT(comissoes_corretores_lancadas.data_baixa,'%d/%m/%Y') as data_baixa,
     if(
@@ -5205,6 +5208,7 @@ ORDER BY comissoes.administradora_id
         (select name from users where users.id = contrato_empresarial.user_id) as corretor,
         (select nome from planos where contrato_empresarial.plano_id = planos.id) as plano_nome,
         comissoes_corretores_lancadas.parcela,
+        contrato_empresarial.cnpj as cnpj,
         (contrato_empresarial.valor_plano) as valor_plano,
         DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') AS vencimento,
         DATE_FORMAT(comissoes_corretores_lancadas.data_baixa,'%d/%m/%Y') as data_baixa,
