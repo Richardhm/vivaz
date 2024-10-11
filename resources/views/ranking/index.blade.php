@@ -898,12 +898,7 @@
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');
             let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
-
-            console.log("Olaaaaaa  ",corretora);
-
-
             if(corretora != "carrossel") {
-                console.log("Olaaaaaaa");
                 $(".carrossel-container").addClass("ocultar");
                 $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
                 $("#footer-aqui").removeClass("ocultar");
@@ -912,7 +907,6 @@
                     type: 'GET',
                     data: {corretora: corretora},
                     success: function (data) {
-                        console.log(data);
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         $(".total_individual").text(data.totals[0].total_individual);
@@ -927,7 +921,7 @@
                             meta = 276;
                             $(".aqui_meta").text(meta);
                         } else if(corretora == "diario") {
-                            meta = 26;
+                            meta = 13;
                             $(".aqui_meta").text(meta);
                         } else if(corretora == "semanal") {
                             meta = 65;

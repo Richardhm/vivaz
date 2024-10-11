@@ -5117,21 +5117,8 @@ and comissoes_corretores_lancadas.data_baixa_estorno IS NULL
     where contrato_empresarial.financeiro_id = 12 and contrato_empresarial.user_id = {$id} and cancelados = 0 and valor != 0 and comissoes_corretores_lancadas.estorno = 0;
 
         ");
-
-
-
-
         return response()->json($contratos);
     }
-
-
-
-
-
-
-
-
-
 
 
     public function comissaoListagemConfirmadasMesFechado(Request $request)
@@ -5168,7 +5155,7 @@ SELECT
                 (SELECT valor FROM comissoes_corretores_default WHERE
                         comissoes_corretores_default.plano_id = comissoes.plano_id AND
                         comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
-
+                        comissoes_corretores_default.corretora_id = comissoes.corretora_id AND
                         comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela)
         ) AS porcentagem,
 
@@ -5227,7 +5214,7 @@ ORDER BY comissoes.administradora_id
                 (SELECT valor FROM comissoes_corretores_default WHERE
                         comissoes_corretores_default.plano_id = comissoes.plano_id AND
                         comissoes_corretores_default.administradora_id = comissoes.administradora_id AND
-
+                        comissoes_corretores_default.corretora_id = comissoes.corretora_id AND
                         comissoes_corretores_default.parcela = comissoes_corretores_lancadas.parcela)
         ) AS porcentagem,
     if(comissoes_corretores_lancadas.valor_pago,comissoes_corretores_lancadas.valor_pago,comissoes_corretores_lancadas.valor) AS valor,
@@ -6667,7 +6654,6 @@ AS desconto,
 
     public function criarPDFUserHistorico(Request $request)
     {
-
         $mes = $request->mes;
         $ano = $request->ano;
         $id = $request->user_id;

@@ -813,9 +813,6 @@ $("#list_empresarial_begin").on('click',function(){
     //tableempresarial.ajax.url('{{route("contratos.listarEmpresarial.listarContratoEmpresaPendentes")}}').load();
 });
 
-
-
-
 $("ul#listar li.coletivo").on('click',function(){
     let id_lista = $(this).attr('id');
     if(id_lista == "em_analise_coletivo") {
