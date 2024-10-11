@@ -209,6 +209,9 @@ class GerenteController extends Controller
             $mes_aberto = $folha_aberto->first()->mes;
 
             $mes = date('m', strtotime($mes_aberto));
+
+
+
             $ano = date('Y', strtotime($mes_aberto));
 
 
@@ -221,6 +224,7 @@ class GerenteController extends Controller
                 ->selectRaw("SUM(valor_total) as total_mes")
                 ->whereMonth("data", $mes)
                 ->whereYear("data",$ano)
+                ->where("corretora_id",auth()->user()->corretora_id)
                 ->first();
 
 
@@ -241,8 +245,9 @@ class GerenteController extends Controller
                 ->whereMonth("data_baixa_finalizado",$mes)
                 ->whereYear("data_baixa_finalizado",$ano)
                 ->whereHas('comissao',function($query){
-                    $query->where("plano_id","!=",1);
-                    $query->where("plano_id","!=",3);
+                    $query->where("plano_id",5);
+                    //$query->where("plano_id",3);
+                    $query->where("corretora_id",auth()->user()->corretora_id);
                 })->count();
 
             $total_empresarial = DB::select("
@@ -274,6 +279,8 @@ class GerenteController extends Controller
                     $query->where("plano_id",1);
                     $query->where("corretora_id",auth()->user()->corretora_id);
                 })->count();
+
+
 
 
             $total_coletivo_quantidade = ComissoesCorretoresLancadas
