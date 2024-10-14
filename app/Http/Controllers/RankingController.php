@@ -437,6 +437,7 @@ class RankingController extends Controller
 
             $totals = DB::select("
                 SELECT
+                    3096 as meta_total,
                     SUM(individual) AS total_individual,
                     SUM(super_simples) AS total_super_simples,
                     SUM(pme) AS total_pme,
@@ -497,11 +498,6 @@ class RankingController extends Controller
             ->sortByDesc(function($venda) {
                 return $venda->vidas_individual + $venda->vidas_coletivo + $venda->vidas_empresarial;
             });
-
-
-
-
-
 
         $ranking = DB::select("
                 SELECT

@@ -202,7 +202,7 @@
                 $meta = 10;
                 $porcentagem = ($total_vidas / $meta) * 100;
             @endphp
-            <div id="header_esquerda" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
+            <div id="header_esquerda" style="display:none;background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
                 <div style="background-color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:3%;">
                     <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
                 </div>
@@ -245,54 +245,56 @@
                     </div>
                 @endif
             </div>
-            <div id="header_esquerda_concessionaria" style="display:none;background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; align-items:center; justify-content: space-between; height: 70px;">
+
+
+
+
+            <div id="header_esquerda_concessionaria" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
                 <div style="background-color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:3%;">
                     <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
                 </div>
-                @if(isset($totals_con[0]) && !empty($totals_con[0]))
+
                     <div class="container-meta">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;">{{$totals_con[0]->total_meta}}</span>
-                    </span>
+                        <span style="color:#6a1a21;" class="total_concessioanaria_meta">3096</span>
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_individual">{{$totals_con[0]->total_individual}}</span>
-                    </span>
+                        <span style="color:#6a1a21;" class="total_individual_concessionaria">12</span>
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Super Simples</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_super_simples">{{$totals_con[0]->total_super_simples}}</span>
-                     </span>
+                        <span style="color:#6a1a21;" class="total_super_simples_concessionaria">13</span>
+
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">PME</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_pme">{{$totals_con[0]->total_pme}}</span>
-                    </span>
+                        <span style="color:#6a1a21;" class="total_pme_concessionaria">15</span>
+
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Adesão</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_adesao">{{$totals_con[0]->total_adesao}}</span>
-                    </span>
+                        <span style="color:#6a1a21;" class="total_adesao_concessionaria">18</span>
+
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_vidas">Eita</span>
-                    </span>
+                        <span style="color:#6a1a21;" class="total_vidas_concessionaria">20</span>
+
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_porcentagem">Oa%</span>
-                    </span>
+                        <span style="color:#6a1a21;" class="total_porcentagem">O%</span>
+
                     </div>
-                @endif
+
             </div>
             <div class="stage">
             </div>
@@ -925,6 +927,7 @@
                     type: 'GET',
                     data: {corretora: corretora},
                     success: function (data) {
+                        console.log(data);
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         $(".total_individual").text(data.totals[0].total_individual);
@@ -963,10 +966,34 @@
                             let porcentagem = (total_vidas / meta) * 100;
                             $(".total_vidas").text(total_vidas);
                             $(".total_porcentagem").text(porcentagem.toFixed(2));
+                            $("#header_esquerda_concessionaria").hide();
+                            $("#header_esquerda").show();
+
+
+
+
+
+
                         } else {
+
+                            $("#header_esquerda_concessionaria").show();
+                            $("#header_esquerda").hide();
+
                             slideCorretoras();
                             $(".total_vidas").text(data.total_vidas);
                             $(".total_porcentagem").text(data.porcentagem_geral);
+                            $(".total_concessioanaria_meta").text(totals.meta_total);
+                            $(".total_individual_concessionaria").text(totals.total_individual);
+                            $(".total_super_simples_concessionaria").text(totals.total_super_simples);
+                            $(".total_pme_concessionaria").text(totals.total_pme);
+                            $(".total_adesao_concessionaria").text(totals.total_adesao);
+                            $(".total_vidas_concessionaria").text(totals.total_vidas);
+                            $(".total_porcentagem").text();
+
+
+
+
+
                         }
 
                     }
