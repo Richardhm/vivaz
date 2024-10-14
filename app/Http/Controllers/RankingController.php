@@ -315,8 +315,6 @@ class RankingController extends Controller
                         AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
                         AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE())
                         )
-
-
                 ) as quantidade_vidas,
                 (corretoras.nome) as corretora,
                 COALESCE(SUM((SELECT IFNULL(SUM(clientes.quantidade_vidas), 0) FROM clientes INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = comissoes.plano_id AND contratos.plano_id IN (1))), 0) as total_meta
@@ -330,7 +328,7 @@ class RankingController extends Controller
             $podium = view('ranking.podium',[
                 'ranking' => $ranking
             ])->render();
-            $ranking = view('ranking.ranking',[
+            $ranking = view('ranking.ranking-estrela',[
                 'ranking' => $ranking,
                 'corretora' => $corretora
             ])->render();

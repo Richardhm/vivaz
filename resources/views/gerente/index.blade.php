@@ -3444,16 +3444,12 @@
                                 </div>
                             `);
                             }
-
-
-
                         }
                     },
                     {data:"plano_nome",name:"plano_nome",visible:false},
                     {data:"corretor",name:"corretor",visible:false},
                     {data:"quantidade_vidas",name:"quantidade",visible:false},
                     {data:"parcela",name:"parcela"},
-
                     {data:"codigo_externo",name:"codigo_externo"},
 
                 ],

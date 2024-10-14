@@ -23,6 +23,15 @@
 </head>
 <body>
 
+<div id="overlay"></div>
+
+<div id="loading">
+    <span style="font-size:1.3em;">.</span>
+    <span style="font-size:1.3em;">.</span>
+    <span style="font-size:1.3em;">.</span>
+</div>
+
+
 <x-modal-ranking :vendasDiarias="$vendasDiarias"></x-modal-ranking>
 
 <!-- Modal -->
@@ -771,6 +780,10 @@
 
         $("body").on('change','#user_id',function(){
             let user_id = $(this).val();
+
+            $("#overlay").show();
+            $("#loading").show();
+
             $.ajax({
                 url:"{{route('ranking.verificar.corretor')}}",
                 method:"POST",
@@ -779,6 +792,11 @@
                     $("body").find("input[name='vidas_individual']").val(res.individual);
                     $("body").find("input[name='vidas_coletivo']").val(res.coletivo);
                     $("body").find("input[name='vidas_empresarial']").val(res.empresarial);
+                },
+                complete: function() {
+                    // Ocultar o loading quando a requisição AJAX for concluída
+                    $("#overlay").hide();
+                    $("#loading").hide();
                 }
             });
         });
@@ -818,7 +836,7 @@
             }
 
             showSlideGroup(currentGroup); // Mostra o primeiro grupo de slides
-            setInterval(nextSlideGroup, 60000); // Troca de slide a cada 10 segundos
+            setInterval(nextSlideGroup, 20000); // Troca de slide a cada 10 segundos
         }
 
         createSlideShow();
@@ -840,7 +858,7 @@
             }
 
             showSlide(currentSlide);
-            setInterval(nextSlide, 20000); // Troca de slide a cada 3 segundos
+            setInterval(nextSlide, 10000); // Troca de slide a cada 3 segundos
         }
         slideCorretoras();
 
@@ -915,10 +933,10 @@
                         let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
                         let meta = 0;
                         if (corretora == "accert") {
-                            meta = 276;
+                            meta = 236;
                             $(".aqui_meta").text(meta);
                         } else if (corretora == "innove") {
-                            meta = 276;
+                            meta = 236;
                             $(".aqui_meta").text(meta);
                         } else if(corretora == "diario") {
                             meta = 13;
@@ -932,7 +950,10 @@
                         }  else if(corretora == "concessi") {
                             meta = 3629;
                             $(".aqui_meta").text(meta);
-                        } else {
+                        } else if(corretora == "vivaz") {
+                            meta = 472;
+                            $(".aqui_meta").text(meta);
+                        }  else {
                             meta = 27;
                             $(".aqui_meta").text(meta);
                         }
@@ -978,7 +999,7 @@
         // // Chamar a função para iniciar com o botão Vivaz e logar "null"
         changeActiveButton();
         // // Iniciar o intervalo para trocar os botões
-        setInterval(changeActiveButton, 60000);
+        setInterval(changeActiveButton, 10000);
 
 
 

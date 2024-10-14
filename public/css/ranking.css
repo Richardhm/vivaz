@@ -195,7 +195,7 @@
 
     justify-content: center; /* Centraliza horizontalmente */
     align-items: center; /* Centraliza verticalmente */
-    z-index: 9999;
+    z-index: 9998;
 }
 
 /* Esconder a modal por padrão */
@@ -271,4 +271,55 @@
 
 .corretores-list::-webkit-scrollbar-track {
     background: #f1f1f1;
+}
+
+/* O overlay que bloqueia as ações */
+#overlay {
+    display: none;  /* Inicialmente oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);  /* Fundo semi-transparente para destacar o loading */
+    z-index: 9998;  /* Logo abaixo do loading */
+}
+
+/* O loading com fundo branco */
+#loading {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999;  /* Em frente ao overlay */
+}
+
+#loading span {
+    display: inline-block;
+    animation: bounce 1s infinite;
+}
+
+#loading span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+#loading span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
 }
