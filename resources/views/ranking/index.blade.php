@@ -858,7 +858,7 @@
             }
 
             showSlide(currentSlide);
-            setInterval(nextSlide, 10000); // Troca de slide a cada 3 segundos
+            setInterval(nextSlide, 60000); // Troca de slide a cada 3 segundos
         }
         slideCorretoras();
 
@@ -908,7 +908,7 @@
             carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 4000); //Troca a cada 10 segundos
+            }, 3000); //Troca a cada 10 segundos
         }
 
 
@@ -999,7 +999,7 @@
         // // Chamar a função para iniciar com o botão Vivaz e logar "null"
         changeActiveButton();
         // // Iniciar o intervalo para trocar os botões
-        setInterval(changeActiveButton, 10000);
+        setInterval(changeActiveButton, 60000);
 
 
 
