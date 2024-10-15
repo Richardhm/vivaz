@@ -171,6 +171,9 @@
 }
 
 .ocultar {display:none !important;}
+.show {
+    display:flex !important;
+}
 .aparecer {
     display:flex;
     justify-content: center;

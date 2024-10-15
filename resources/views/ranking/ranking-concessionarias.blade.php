@@ -18,7 +18,7 @@
                 <div style="display:flex;flex-direction: column;margin-left: 8px;color:#FFF;font-size:0.875em;min-width:50%">
                     <p style="margin:0;padding:0;">{{$r->nome}}</p>
                     <div style="display:flex;margin:0;padding:0;justify-content:space-between;">
-                        <p style="margin:0;padding:0;">Meta: 200 Vidas</p>
+                        <p style="margin:0;padding:0;">Meta: {{$r->meta_total}} Vidas</p>
                         <p style="margin:0;padding:0;">Total: {{$r->total_vidas}} Vidas</p>
                     </div>
                     <div style="display:flex;align-items:center;">

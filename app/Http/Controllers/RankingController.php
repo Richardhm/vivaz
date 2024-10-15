@@ -78,6 +78,8 @@ class RankingController extends Controller
         $concessionarias = Concessionaria::all();
         $corretora = $request->input('corretora');
 
+
+
         $corretora_id = null;
         $meta = 0;
         if ($corretora == 'accert') {
@@ -209,7 +211,8 @@ class RankingController extends Controller
                 "
             );
             $podium = view('ranking.podium',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $ranking = view('ranking.ranking',[
                 'ranking' => $ranking,
@@ -275,10 +278,12 @@ class RankingController extends Controller
                     where ranking_diario.corretora_id = 1
                     AND ranking_diario.data = DATE(NOW())
                 GROUP BY ranking_diario.user_id,ranking_diario.data
+
                 ORDER BY quantidade_vidas DESC
             ");
             $podium = view('ranking.podium',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $ranking = view('ranking.ranking',[
                 'ranking' => $ranking,
@@ -302,31 +307,40 @@ class RankingController extends Controller
             ];
         } else if($corretora == "estrela") {
             $ranking = DB::select("
-                SELECT users.name as corretor,users.image as imagem,
-                SUM(CASE WHEN comissoes.plano_id = 1 AND comissoes.empresarial = 0 THEN (SELECT IFNULL(SUM(clientes.quantidade_vidas), 0) FROM clientes INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = 1) ELSE 0 END) as quantidade_individual,
-                0 as quantidade_coletivo,
-                0 quantidade_empresarial,
-                SUM(CASE WHEN comissoes.plano_id = 1 AND comissoes.empresarial = 0 THEN (SELECT IFNULL(SUM(contratos.valor_plano), 0) FROM contratos WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = 1) ELSE 0 END) as valor_total,
-                SUM(
-                    (
-                        SELECT IFNULL(SUM(clientes.quantidade_vidas), 0) FROM clientes
-                        INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = comissoes.plano_id
-                        AND contratos.plano_id IN (1)
-                        AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
-                        AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE())
-                        )
-                ) as quantidade_vidas,
-                (corretoras.nome) as corretora,
-                COALESCE(SUM((SELECT IFNULL(SUM(clientes.quantidade_vidas), 0) FROM clientes INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = comissoes.plano_id AND contratos.plano_id IN (1))), 0) as total_meta
-                FROM comissoes
-                INNER JOIN users ON users.id = comissoes.user_id
-                INNER JOIN corretoras ON users.corretora_id = corretoras.id
-                WHERE (comissoes.user_id != 198 AND comissoes.user_id != 269) AND comissoes.plano_id IN (1) " . ($corretora_id ? " AND comissoes.corretora_id = {$corretora_id}" : "") . "
-                GROUP BY comissoes.user_id
-                ORDER BY quantidade_vidas DESC;
+                SELECT
+            users.name AS corretor,
+            users.image AS imagem,
+            COALESCE(SUM(IF(MONTH(contratos.created_at) = 7, clientes.quantidade_vidas, 0)), 0) AS julho,
+            COALESCE(SUM(IF(MONTH(contratos.created_at) = 8, clientes.quantidade_vidas, 0)), 0) AS agosto,
+            COALESCE(SUM(IF(MONTH(contratos.created_at) = 9, clientes.quantidade_vidas, 0)), 0) AS setembro,
+            COALESCE(SUM(IF(MONTH(contratos.created_at) = 10, clientes.quantidade_vidas, 0)), 0) AS outubro,
+            COALESCE(SUM(IF(MONTH(contratos.created_at) = 11, clientes.quantidade_vidas, 0)), 0) AS novembro,
+            COALESCE(SUM(IF(MONTH(contratos.created_at) = 12, clientes.quantidade_vidas, 0)), 0) AS dezembro,
+            COALESCE(SUM(clientes.quantidade_vidas), 0) AS quantidade_vidas,
+            COALESCE(SUM(contratos.valor_adesao), 0) AS valor,
+            CASE
+                WHEN SUM(clientes.quantidade_vidas) >= 150 AND SUM(clientes.quantidade_vidas) <= 190 THEN 'tres_estrelas'
+                WHEN SUM(clientes.quantidade_vidas) >= 191 AND SUM(clientes.quantidade_vidas) <= 250 THEN 'quatro_estrelas'
+                WHEN SUM(clientes.quantidade_vidas) > 250 THEN 'cinco_estrelas'
+                ELSE 'nao_classificado'
+            END AS status,
+            CASE
+                WHEN SUM(clientes.quantidade_vidas) >= 150 AND SUM(clientes.quantidade_vidas) <= 190 THEN 191 - SUM(clientes.quantidade_vidas)
+                WHEN SUM(clientes.quantidade_vidas) >= 191 AND SUM(clientes.quantidade_vidas) <= 250 THEN 251 - SUM(clientes.quantidade_vidas)
+                WHEN SUM(clientes.quantidade_vidas) > 250 THEN 'Atingiu a meta'
+                ELSE 150 - SUM(clientes.quantidade_vidas)
+            END AS falta
+        FROM comissoes
+        INNER JOIN users ON users.id = comissoes.user_id
+        INNER JOIN contratos ON contratos.id = comissoes.contrato_id
+        INNER JOIN clientes ON clientes.id = contratos.cliente_id
+        WHERE contratos.created_at BETWEEN '2024-07-01' AND '2024-12-31' AND contratos.plano_id = 1
+        GROUP BY comissoes.user_id, users.name, users.image
+        ORDER BY quantidade_vidas DESC
             ");
             $podium = view('ranking.podium',[
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => "Estrela"
             ])->render();
             $ranking = view('ranking.ranking-estrela',[
                 'ranking' => $ranking,
@@ -381,11 +395,13 @@ class RankingController extends Controller
                         AND
                         -- Última data da semana (sexta-feira)
                         DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) - 4 DAY)
-                GROUP BY ranking_diario.user_id, ranking_diario.data
+                GROUP BY ranking_diario.user_id
+
                 ORDER BY quantidade_vidas DESC
             ", ['corretora_id' => $corretora_id]);
             $podium = view('ranking.podium', [
-                'ranking' => $ranking
+                'ranking' => $ranking,
+                'corretora' => $corretora
             ])->render();
             $ranking = view('ranking.ranking', [
                 'ranking' => $ranking,

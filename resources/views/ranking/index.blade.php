@@ -198,11 +198,11 @@
     <div class="d-flex" style="min-height:99%;">
         <div style="display:flex;flex-basis:50%;flex-direction:column;">
             @php
-                $total_vidas = $totals[0]->total_individual + $totals[0]->total_coletivo + $totals[0]->total_empresarial;
-                $meta = 10;
-                $porcentagem = ($total_vidas / $meta) * 100;
+                $total_vidas=$totals[0]->total_individual + $totals[0]->total_coletivo + $totals[0]->total_empresarial;
+                $meta=10;
+                $porcentagem=($total_vidas / $meta) * 100;
             @endphp
-            <div id="header_esquerda" style="display:none;background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
+            <div id="header_esquerda" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
                 <div style="background-color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:3%;">
                     <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
                 </div>
@@ -246,14 +246,10 @@
                 @endif
             </div>
 
-
-
-
-            <div id="header_esquerda_concessionaria" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
+            <div id="header_esquerda_concessionaria" class="ocultar" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-between; height: 70px;">
                 <div style="background-color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:3%;">
                     <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
                 </div>
-
                     <div class="container-meta">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
@@ -286,15 +282,74 @@
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_vidas_concessionaria">20</span>
-
                     </div>
                     <div style="display:flex;flex-direction:column;">
                         <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
                         <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_porcentagem">O%</span>
-
                     </div>
 
+            </div>
+
+            <div id="header_esquerda_estrela" class="ocultar" style="background-color:#2e4a7a; width:95%; border-radius:8px; margin:10px auto; padding:10px; display:flex; align-items:center; justify-content: space-around; height: 70px;">
+                <div style="background-color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:3%;">
+                    <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">3 Estrelas</span>
+                    <div class="d-flex justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                    </div>
+                    <span style="color:#FFF;">150 a 190 vidas</span>
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">4 Estrelas</span>
+                    <div class="d-flex justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+
+                    </div>
+                    <span style="color:#FFF;">151 a 250 vidas</span>
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">5 Estrelas</span>
+                    <div class="d-flex justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                    </div>
+                    <span style="color:#FFF;">Apartir de 251 vidas</span>
+                </div>
             </div>
             <div class="stage">
             </div>
@@ -918,6 +973,11 @@
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');
             let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
+            console.log(corretora);
+
+
+
+
             if(corretora != "carrossel") {
                 $(".carrossel-container").addClass("ocultar");
                 $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
@@ -938,57 +998,79 @@
                         if (corretora == "accert") {
                             meta = 236;
                             $(".aqui_meta").text(meta);
-                        } else if (corretora == "innove") {
-                            meta = 236;
-                            $(".aqui_meta").text(meta);
-                        } else if(corretora == "diario") {
-                            meta = 13;
-                            $(".aqui_meta").text(meta);
-                        } else if(corretora == "semanal") {
-                            meta = 65;
-                            $(".aqui_meta").text(meta);
-                        } else if(corretora == "estrela") {
-                            meta = 150;
-                            $(".aqui_meta").text(meta);
-                        }  else if(corretora == "concessi") {
-                            meta = 3629;
-                            $(".aqui_meta").text(meta);
-                        } else if(corretora == "vivaz") {
-                            meta = 472;
-                            $(".aqui_meta").text(meta);
-                        }  else {
-                            meta = 27;
-                            $(".aqui_meta").text(meta);
-                        }
-
-                        if(corretora != "concessi") {
                             createSlideShow();
                             let porcentagem = (total_vidas / meta) * 100;
                             $(".total_vidas").text(total_vidas);
                             $(".total_porcentagem").text(porcentagem.toFixed(2));
-                            $("#header_esquerda_concessionaria").hide();
-                            $("#header_esquerda").show();
+                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                        } else if (corretora == "innove") {
+                            meta = 236;
+                            $(".aqui_meta").text(meta);
+                            createSlideShow();
+                            let porcentagem = (total_vidas / meta) * 100;
+                            $(".total_vidas").text(total_vidas);
+                            $(".total_porcentagem").text(porcentagem.toFixed(2));
+                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                        } else if(corretora == "diario") {
+                            meta = 13;
+                            $(".aqui_meta").text(meta);
+                            createSlideShow();
+                            let porcentagem = (total_vidas / meta) * 100;
+                            $(".total_vidas").text(total_vidas);
+                            $(".total_porcentagem").text(porcentagem.toFixed(2));
+                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                        } else if(corretora == "semanal") {
+                            meta = 65;
+                            $(".aqui_meta").text(meta);
+                            createSlideShow();
+                            let porcentagem = (total_vidas / meta) * 100;
+                            $(".total_vidas").text(total_vidas);
+                            $(".total_porcentagem").text(porcentagem.toFixed(2));
+                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                        } else if(corretora == "estrela") {
+                            meta = 150;
+                            $(".aqui_meta").text(meta);
+                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda_estrela").removeClass('ocultar').addClass('aparecer');
+                        }  else if(corretora == "concessi") {
+                            meta = 3629;
+                            $(".aqui_meta").text(meta);
+
+                            $("#header_esquerda_concessionaria").removeClass('ocultar').addClass('aparecer');
+                            $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
 
 
 
 
 
-
-                        } else {
-
-                            $("#header_esquerda_concessionaria").show();
-                            $("#header_esquerda").hide();
 
                             slideCorretoras();
-                            $(".total_vidas").text(data.total_vidas);
-                            $(".total_porcentagem").text(data.porcentagem_geral);
-                            $(".total_concessioanaria_meta").text(totals.meta_total);
-                            $(".total_individual_concessionaria").text(totals.total_individual);
-                            $(".total_super_simples_concessionaria").text(totals.total_super_simples);
-                            $(".total_pme_concessionaria").text(totals.total_pme);
-                            $(".total_adesao_concessionaria").text(totals.total_adesao);
-                            $(".total_vidas_concessionaria").text(totals.total_vidas);
-                            $(".total_porcentagem").text();
+
+
+
+
+
+                        } else if(corretora == "vivaz") {
+                            meta = 472;
+                            $(".aqui_meta").text(meta);
+                            $(".total_vidas").text(total_vidas);
+                            $(".total_porcentagem").text(porcentagem.toFixed(2));
+                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                        }  else {
+                            meta = 27;
+                            $(".aqui_meta").text(meta);
 
 
 
@@ -996,7 +1078,13 @@
 
                         }
 
-                    }
+
+
+
+
+
+                        }
+
                 });
                 logCorretora(); // Logar a corretora atual
                 activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
@@ -1004,11 +1092,9 @@
                 $("#principal").removeClass("d-flex").removeClass('flex-column').removeClass('flex-grow').addClass('ocultar');
                 $(".carrossel-container").removeClass("ocultar");
                 $("#footer-aqui").addClass("ocultar");
-
                 currentSlide = 0;
                 showSlide(currentSlide);
                 startCarousel();
-
                 logCorretora(); // Logar a corretora atual
                 activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
 

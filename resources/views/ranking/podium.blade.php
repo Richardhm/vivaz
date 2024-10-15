@@ -68,7 +68,7 @@
                 <img src="{{$medalSVG}}" {!! $style !!}  />
 
                 <text text-anchor="middle" fill="#00008B" {!! $container_nome !!} style="fill:#00008B;">
-                    {{ $rr->corretora }}
+                    Accert
                 </text>
 
 

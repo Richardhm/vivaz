@@ -126,14 +126,8 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/gerente/comissao/empresarial/confirmadas/{id}/{mes?}/{ano?}',[GerenteController::class,'comissaoListagemConfirmadasEmpresarial'])->name('gerente.listagem.empresarial.confirmadas');
     Route::get('/gerente/listagem/empresarial/recebidas/{id}',[GerenteController::class,'recebidoEmpresarial'])->name('gerente.listagem.empresarial.recebidas');
     Route::get('/gerente/listagem/comissao_mes_diferente/{id}',[GerenteController::class,'comissaoMesDiferente'])->name('gerente.listagem.comissao_mes_diferente');
-
-
     Route::post('/financeiro/corretora/change',[FinanceiroController::class,'financeiroCorretoraChange'])->name('change.corretora.select');
-
-
-
     Route::get("/teste",function(){
-
         $hoje = \Carbon\Carbon::today();
         $corretores = \App\Models\User::where("corretora_id",1)->where('ativo',1)->get();
         foreach ($corretores as $corretor) {

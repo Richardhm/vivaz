@@ -32,14 +32,14 @@
                                     <p class="fw-bold mb-0" style="font-size: 1.2em; color: #ffdd57;">{{$nome_corretor}}</p>
                                     <div class="d-flex">
                                         <div class="d-flex flex-column" style="margin-right:8px;">
-                                            <span class="d-flex justify-content-between">Jul: 0</span>
-                                            <span class="d-flex justify-content-between">Ago: 0</span>
-                                            <span class="d-flex justify-content-between">Set: 0</span>
+                                            <span class="d-flex justify-content-between">Jul: {{$r->julho}}</span>
+                                            <span class="d-flex justify-content-between">Ago: {{$r->agosto}}</span>
+                                            <span class="d-flex justify-content-between">Set: {{$r->setembro}}</span>
                                         </div>
                                         <div class="d-flex flex-column">
-                                            <span class="d-flex justify-content-between">Out: 0</span>
-                                            <span class="d-flex justify-content-between">Nov: 0</span>
-                                            <span class="d-flex justify-content-between">Dez: 0</span>
+                                            <span class="d-flex justify-content-between">Out: {{$r->outubro}}</span>
+                                            <span class="d-flex justify-content-between">Nov: {{$r->novembro}}</span>
+                                            <span class="d-flex justify-content-between">Dez: {{$r->dezembro}}</span>
                                         </div>
                                     </div>
 
