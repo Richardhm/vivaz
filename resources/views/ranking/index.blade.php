@@ -1050,7 +1050,12 @@
                             $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
 
 
-
+                            $(".total_individual_concessionaria").text(data.totals[0].total_individual);
+                            $(".total_super_simples_concessionaria").text(data.totals[0].total_super_simples);
+                            $(".total_pme_concessionaria").text(data.totals[0].total_pme);
+                            $(".total_adesao_concessionaria").text(data.totals[0].total_adesao);
+                            $(".total_vidas_concessionaria").text(data.totals[0].total_vidas);
+                            $(".total_porcentagem").text(data.totals[0].porcentagem_geral);
 
 
 
