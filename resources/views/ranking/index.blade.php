@@ -657,7 +657,7 @@
             // Remove os confetes após 6 segundos (tempo suficiente para cair)
             setTimeout(() => {
                 confettiContainer.innerHTML = '';  // Limpa os confetes
-            }, 6000);  // 6 segundos
+            }, 1000);  // 6 segundos
         }
 
         // function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
@@ -965,7 +965,7 @@
             carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 2000); //Troca a cada 10 segundos
+            }, 1000); //Troca a cada 10 segundos
         }
 
         function numberFormat(number, decimals = 2, decPoint = '.', thousandsSep = ',') {
