@@ -968,16 +968,31 @@
             }, 2000); //Troca a cada 10 segundos
         }
 
+        function numberFormat(number, decimals = 2, decPoint = '.', thousandsSep = ',') {
+            // Define o número de decimais
+            const fixedNumber = number.toFixed(decimals);
+
+            // Separa a parte inteira da parte decimal
+            let [integerPart, decimalPart] = fixedNumber.split('.');
+
+            // Adiciona separadores de milhares
+            integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSep);
+
+            // Junta a parte inteira e decimal com o separador decimal
+            return decimalPart ? integerPart + decPoint + decimalPart : integerPart;
+        }
+
+
+
+
+
+
+
 
         function changeActiveButton() {
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');
             let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
-            console.log(corretora);
-
-
-
-
             if(corretora != "carrossel") {
                 $(".carrossel-container").addClass("ocultar");
                 $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
@@ -1044,27 +1059,16 @@
                         }  else if(corretora == "concessi") {
                             meta = 3629;
                             $(".aqui_meta").text(meta);
-
                             $("#header_esquerda_concessionaria").removeClass('ocultar').addClass('aparecer');
                             $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
-
-
                             $(".total_individual_concessionaria").text(data.totals[0].total_individual);
                             $(".total_super_simples_concessionaria").text(data.totals[0].total_super_simples);
                             $(".total_pme_concessionaria").text(data.totals[0].total_pme);
                             $(".total_adesao_concessionaria").text(data.totals[0].total_adesao);
                             $(".total_vidas_concessionaria").text(data.totals[0].total_vidas);
-                            $(".total_porcentagem").text(data.totals[0].porcentagem_geral);
-
-
-
+                            $(".total_porcentagem").text(numberFormat(data.totals[0].porcentagem_geral));
                             slideCorretoras();
-
-
-
-
-
                         } else if(corretora == "vivaz") {
                             meta = 472;
                             $(".aqui_meta").text(meta);

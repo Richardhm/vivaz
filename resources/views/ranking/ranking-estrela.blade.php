@@ -1,11 +1,11 @@
 <div style="display: flex; flex-wrap: wrap; margin: 12px 0 0 0; padding: 0; background: rgba(254, 254, 254, 0.18);backdrop-filter: blur(15px); border-radius: 10px;">
     @foreach($ranking as $i => $r)
-        @if ($i % 12 === 0)
+        @if ($i % 10 === 0)
             <!-- Início de um novo grupo de 14 itens -->
             <div class="slide-group" style="width: 100%; margin: 0; padding: 0; display: {{ $i === 0 ? 'flex' : 'none' }}; flex-wrap: wrap;">
                 @endif
 
-                @if ($i % 6 === 0)
+                @if ($i % 5 === 0)
                     <!-- Início de uma nova coluna a cada 7 itens -->
                     <div class="slid" style="flex-basis: 50%; padding: 5px; box-sizing: border-box;">
                         @endif
@@ -53,12 +53,12 @@
                             </div>
                         </div>
 
-                        @if ($i % 6 === 5 || $loop->last)
+                        @if ($i % 5 === 4 || $loop->last)
                             <!-- Fecha a div da coluna após 7 itens -->
                     </div>
                 @endif
 
-                @if (($i + 1) % 12 === 0 || $loop->last)
+                @if (($i + 1) % 10 === 0 || $loop->last)
                     <!-- Fecha a div do grupo após 14 itens -->
             </div>
         @endif

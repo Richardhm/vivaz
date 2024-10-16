@@ -1,6 +1,6 @@
 @foreach($ranking as $i => $r)
         @if ($i % 6 === 0)
-            <div class="slide-corretora" style="height:80%;">
+            <div class="slide-corretora" style="height:80%;display: {{ $i === 0 ? 'block' : 'none' }}">
         @endif
             <section style="display:flex;width:99%;justify-content:center;margin:0 0 5px 0;background-color:#2e4a7a;border-radius:10px;padding:3px 0;align-items: center;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->
@@ -24,8 +24,8 @@
                     <div style="display:flex;align-items:center;">
                         <div class="progress" style="flex-grow: 1; margin-right: 10px; position: relative; background-color: #e0e0e0; height: 20px; border-radius: 10px;">
                             @php
-                                if(200 >= 1 && $r->total_vidas >= 1) {
-                                    $porcentagem = ($r->total_vidas / 200) * 100;
+                                if($r->meta_total >= 1 && $r->total_vidas >= 1) {
+                                    $porcentagem = ($r->total_vidas / $r->meta_total) * 100;
                                 } else {
                                     $porcentagem = 0;
                                 }
@@ -34,10 +34,10 @@
                             </div>
                         </div>
                         <!-- Percentual ao lado direito -->
-                        <span style="color: #FFF; font-weight: bold; margin-left: 10px;">{{$porcentagem}}%</span>
+                        <span style="color: #FFF; font-weight: bold; margin-left: 10px;">{{number_format($porcentagem,2)}}%</span>
                     </div>
                     <div style="margin:0;padding:0;">
-                        <p style="margin:0;padding:0;">Faltam: {{200 - $r->total_vidas}} Vidas</p>
+                        <p style="margin:0;padding:0;">Faltam: {{$r->meta_total - $r->total_vidas}} Vidas</p>
                     </div>
                 </div>
 
