@@ -965,7 +965,7 @@
             carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 3000); //Troca a cada 10 segundos
+            }, 2000); //Troca a cada 10 segundos
         }
 
 
