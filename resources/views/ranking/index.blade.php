@@ -965,7 +965,7 @@
             carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 1000); //Troca a cada 10 segundos
+            }, 3000); //Troca a cada 10 segundos
         }
 
         function numberFormat(number, decimals = 2, decPoint = '.', thousandsSep = ',') {
