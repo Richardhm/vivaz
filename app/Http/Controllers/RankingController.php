@@ -279,7 +279,7 @@ WHERE ranking_diario.corretora_id = 1
 AND ranking_diario.data = DATE(NOW())
 AND (
     (users.ativo = 1)
-    OR (users.ativo = 2 AND (vidas_individual + vidas_coletivo + vidas_empresarial) > 1)
+    OR (users.ativo = 2 AND (vidas_individual + vidas_coletivo + vidas_empresarial) >= 1)
 )
 GROUP BY ranking_diario.user_id, ranking_diario.data
 ORDER BY quantidade_vidas DESC;
@@ -400,7 +400,7 @@ ORDER BY quantidade_vidas DESC;
                         DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) - 4 DAY)
                         AND (
                             (users.ativo = 1)
-                            OR (users.ativo = 2 AND (vidas_individual + vidas_coletivo + vidas_empresarial) > 1)
+                            OR (users.ativo = 2 AND (vidas_individual + vidas_coletivo + vidas_empresarial) >= 1)
                         )
                 GROUP BY ranking_diario.user_id
 
@@ -425,6 +425,7 @@ ORDER BY quantidade_vidas DESC;
                      DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)
                      AND
                      DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) - 4 DAY)
+
             ");
             return [
                 'meta' => $meta,
