@@ -31,20 +31,10 @@
                                     @endphp
                                     <p class="fw-bold mb-0" style="font-size: 1.2em; color: #ffdd57;">{{$nome_corretor}}</p>
                                     <div class="d-flex flex-column" style="justify-content: flex-start;">
-
                                         <span>Restam: {{$r->falta}}</span>
 
-                                        @if($r->status == "nao_classificado")
-                                            <span>{{number_format(($r->quantidade_vidas / 150) * 100,0)}}%</span>
-                                        @elseif($r->status == "tres_estrelas")
-                                            <span>{{number_format((($r->quantidade_vidas - 150) / (190 - 150)) * 100, 0)}}%</span>
-                                        @elseif($r->status == "quatro_estrelas")
-                                            <span>{{number_format((($r->quantidade_vidas - 191) / (250 - 191)) * 100, 0)}}%</span>
-                                        @else
-                                            100
-                                        @endif
                                     </div>
-                                    <span style="color:red;font-weight: bold;">Não Classificado</span>
+                                    <span style="font-weight: bold;">***Não Classificado***</span>
                                 </div>
 
 
