@@ -6,7 +6,9 @@
         <div class="flex flex-col text-white basis-[16%] rounded-lg">
 
             @if(auth()->user()->can('listar_todos'))
-                <select id="select_corretoras_coletivo"
+                <select
+                    style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                    id="select_corretoras_coletivo"
                         class="
                                 w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
                                 active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
@@ -38,13 +40,17 @@
 
                 <div class="flex w-full justify-around">
                     <div class="flex-1 flex basis-[49%] mr-1">
-                        <select id="mudar_ano_table_coletivo" class="flex w-full py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+                        <select id="mudar_ano_table_coletivo"
+                            style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                            class="flex w-full py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                             <option value="todos" class="text-center">-Anos-</option>
-                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
                         </select>
                     </div>
                     <div class="flex-1 flex basis-[49%]">
-                        <select id="mudar_mes_table_coletivo" class="flex w-full py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
+                        <select id="mudar_mes_table_coletivo"
+                            style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                            class="flex w-full py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">
                             <option value="00" class="text-center">-Mês-</option>
                             <option value="01">Janeiro</option>
                             <option value="02">Fevereiro</option>
@@ -63,22 +69,24 @@
 
                 </div>
 
-                <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none text-white active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-center focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario">
+                <select
+                    style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                    class="flex w-full py-2 text-lg focus:outline-none text-white active:outline-none hover:bg-gray-800 py-2 text-center focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario">
                     <option value="todos" class="text-center">---Escolher Corretor---</option>
                 </select>
 
 
-                <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-white focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_coletivo_administradoras">
+                <select
+                    style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                    class="flex w-full py-2 text-lg focus:outline-none active:outline-none hover:bg-gray-800 py-2 text-white focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_coletivo_administradoras">
                     <option value="todos" class="text-center">---Administradora---</option>
                 </select>
 
 
                 <ul class="list-none m-0" id="list_coletivo_begin">
-                    <li style="height:30px;line-height: 30px;" class="flex justify-between mb-1 coletivo">
-                        <span class="flex basis-[50%] text-sm items-center my-auto">Contratos:</span>
-                        <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right pr-1 w-[30%] bg-transparent text-sm  flex basis-[50%] justify-end text-sm total_por_orcamento_coletivo">
-                            <span class="my-auto flex items-center align-middle self-center bg-orange-400 h-100">0</span>
-                        </div>
+                    <li style="height:30px;line-height: 30px;" class="flex justify-between coletivo space-y-1 my-auto">
+                        <span class="text-sm my-auto">Contratos:</span>
+                        <span class="text-sm text-right rounded w-[49%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento_coletivo">0</span>
                     </li>
                     <li style="height:30px;line-height: 30px;" class="flex justify-between mb-1 coletivo">
                         <span class="flex basis-[50%] text-sm">Vidas:</span>

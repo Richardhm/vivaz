@@ -257,29 +257,32 @@ class RankingController extends Controller
             $corretora_id = auth()->user()->corretora_id;
             $ranking = DB::select("
                 SELECT
-                    users.name AS corretor,
-                    users.image AS imagem,
-                    IF(EXISTS(
-                      SELECT 1
-                      FROM comissoes_corretores_configuracoes
-                      WHERE comissoes_corretores_configuracoes.user_id = users.id
-                   ), 'Parceiro', 'CLT') as tipo_contratacao,
-                   SUM(vidas_individual) AS quantidade_individual,
-                   SUM(vidas_coletivo) AS quantidade_coletivo,
-                   SUM(vidas_empresarial) AS quantidade_empresarial,
-                   0 as valor_total,
-                   1 as total_meta,
-                   SUM(vidas_individual + vidas_coletivo + vidas_empresarial) AS quantidade_vidas,
-                   corretoras.nome as corretora
+    users.name AS corretor,
+    users.image AS imagem,
+    IF(EXISTS(
+        SELECT 1
+        FROM comissoes_corretores_configuracoes
+        WHERE comissoes_corretores_configuracoes.user_id = users.id
+    ), 'Parceiro', 'CLT') AS tipo_contratacao,
+    SUM(vidas_individual) AS quantidade_individual,
+    SUM(vidas_coletivo) AS quantidade_coletivo,
+    SUM(vidas_empresarial) AS quantidade_empresarial,
+    0 AS valor_total,
+    1 AS total_meta,
+    SUM(vidas_individual + vidas_coletivo + vidas_empresarial) AS quantidade_vidas,
+    corretoras.nome AS corretora
 
-                FROM ranking_diario
-                INNER JOIN users ON users.id = ranking_diario.user_id
-                INNER JOIN corretoras ON corretoras.id = ranking_diario.corretora_id
-                    where ranking_diario.corretora_id = 1
-                    AND ranking_diario.data = DATE(NOW())
-                GROUP BY ranking_diario.user_id,ranking_diario.data
-
-                ORDER BY quantidade_vidas DESC
+FROM ranking_diario
+INNER JOIN users ON users.id = ranking_diario.user_id
+INNER JOIN corretoras ON corretoras.id = ranking_diario.corretora_id
+WHERE ranking_diario.corretora_id = 1
+AND ranking_diario.data = DATE(NOW())
+AND (
+    (users.ativo = 1)
+    OR (users.ativo = 2 AND (vidas_individual + vidas_coletivo + vidas_empresarial) > 1)
+)
+GROUP BY ranking_diario.user_id, ranking_diario.data
+ORDER BY quantidade_vidas DESC;
             ");
             $podium = view('ranking.podium',[
                 'ranking' => $ranking,

@@ -4,7 +4,9 @@
         <div class="flex flex-col text-white ml-1" style="flex-basis:16%;border-radius:5px;">
 
             @if(auth()->user()->can('listar_todos'))
-                <select id="select_corretoras_empresarial"
+                <select
+                        style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                        id="select_corretoras_empresarial"
                         class="
                                 w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
                                 active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
@@ -31,7 +33,9 @@
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] p-1" id="content_list_empresarial_begin">
                 <div class="flex flex-wrap w-full mb-1">
                     <div class="flex flex-wrap justify-around mb-0 w-full">
-                        <select id="mudar_ano_table_empresarial" class="
+                        <select id="mudar_ano_table_empresarial"
+                                style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                                class="
 
                             flex basis-[48%] py-2 text-lg justify-center
 							text-white bg-[rgba(254,254,254,0.18)] focus:outline-none
@@ -42,11 +46,13 @@
 
                             ">
                             <option value="" class="text-center">-Anos-</option>
-                            <option value="2022">2022</option>
-                            <option value="2023" selected>2023</option>
+
+                            <option value="2024" selected>2024</option>
                         </select>
 
-                        <select id="mudar_mes_table_empresarial" class="
+                        <select
+                            style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                            id="mudar_mes_table_empresarial" class="
 
                             flex basis-[48%] py-2 text-lg justify-center
 							text-white bg-[rgba(254,254,254,0.18)] focus:outline-none
@@ -73,7 +79,7 @@
 
                     </div>
 
-                    <select style="flex-basis:99%;" name="mudar_user_empresarial" id="mudar_user_empresarial" class="
+                    <select style="flex-basis:99%;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);" name="mudar_user_empresarial" id="mudar_user_empresarial" class="
                         w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
                             active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
                             px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
@@ -82,12 +88,12 @@
 
                     </select>
 
-                    <select style="flex-basis:99%;" name="mudar_planos_empresarial" id="mudar_planos_empresarial"
+                    <select style="flex-basis:99%;background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                            name="mudar_planos_empresarial" id="mudar_planos_empresarial"
                             class="
-
-                            w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
-                            active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
-                            px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                                w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                                active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                                px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
                             "
                     >
                         <option value="todos" class="text-center" data-id="0">---Escolher Planos---</option>

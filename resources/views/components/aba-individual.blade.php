@@ -21,21 +21,19 @@
 
             {{--                    <button class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-lg py-1 px-4 rounded w-full text-sm">Arquivos</button>--}}
             @if (auth()->user()->can('listar_todos'))
-{{--                <select id="select_corretoras"--}}
-{{--                        class="--}}
-{{--                                w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]--}}
-{{--                            py-2 mr-1 focus:bg-[rgba(254,254,254,0.18)] w-full text-xs--}}
-{{--                            px-1 mb-2 text-sm font-medium rounded-lg hover:border-none focus:border-none--}}
-{{--                                "--}}
-{{--                        style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"--}}
-{{--                >--}}
+                <select id="select_corretoras"
+                        class="w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            py-2 mr-1 focus:bg-[rgba(254,254,254,0.18)] w-full text-xs px-1 mb-2 text-sm font-medium rounded-lg hover:border-none focus:border-none
+                                "
+                        style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                >
 
-{{--                        <option value="1" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black">Equipe Accert</option>--}}
-{{--                        <option value="2" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black">Equipe Innove</option>--}}
-{{--                        <option value="0" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black">Corretora Vivaz</option>--}}
+                        <option value="1" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black">Equipe Accert</option>
+                        <option value="2" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black">Equipe Innove</option>
+                        <option value="0" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black">Corretora Vivaz</option>
 
 
-{{--                </select>--}}
+                </select>
             @endif
 
 
@@ -48,25 +46,32 @@
             {{--                    <a href="{{route('financeiro.formCreate')}}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[80px] text-white text-lg mb-1 py-1 rounded w-full text-center text-sm">Cadastrar</a>--}}
 
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] p-1 rounded" id="content_list_individual_begin">
-{{--                <div class="flex flex-wrap justify-around mb-0 w-full">--}}
+                <div class="flex flex-wrap justify-around mb-0 w-full">
 
-{{--                    <select id="select_usuario_individual"--}}
-{{--                            class="--}}
-{{--                            w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]--}}
-{{--                            active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs--}}
-{{--                            px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent--}}
-{{--                            "--}}
-{{--                            tabindex="-1" aria-hidden="true"></select>--}}
-{{--                    <div class="flex w-full justify-center mt-2">--}}
-{{--                        <select id="mudar_ano_table" class="flex basis-[49%] mr-1 py-2 text-lg justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">--}}
-{{--                            <option>--Ano--</option>--}}
-{{--                        </select>--}}
-{{--                        <select id="mudar_mes_table" class="flex basis-[49%] py-2 text-lg text-center justify-center text-white bg-[rgba(254,254,254,0.18)] focus:outline-none active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-black focus:bg-gray-800 w-full text-xs px-1 mb-2 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent">--}}
-{{--                            <option>--Mês--</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
+                    <select id="select_usuario_individual"
+                            class="
+                            w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            py-2 mr-1 focus:bg-[rgba(254,254,254,0.18)] w-full text-xs px-1 mb-2 text-sm font-medium rounded-lg hover:border-none focus:border-none
+                            "
+                            tabindex="-1" aria-hidden="true" style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"></select>
+                    <div class="flex w-full justify-center mt-2">
+                        <select id="mudar_ano_table"
+                                class="flex basis-[49%]
+                                mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            py-2 mr-1 focus:bg-[rgba(254,254,254,0.18)] w-full text-xs px-1 mb-2 text-sm font-medium rounded-lg hover:border-none focus:border-none
+                                " style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);">
+                            <option>--Ano--</option>
+                        </select>
+                        <select id="mudar_mes_table" class="flex basis-[49%]
+                        mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                            py-2 mr-1 focus:bg-[rgba(254,254,254,0.18)] w-full text-xs px-1 mb-2 text-sm font-medium rounded-lg hover:border-none focus:border-none
+                        "
+                                style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);" >
+                            <option>--Mês--</option>
+                        </select>
+                    </div>
 
-{{--                </div>--}}
+                </div>
 
                 <ul class="list-none rounded p-1" id="list_individual_begin">
                     <li style="height:30px;line-height: 30px;" class="flex justify-between my-auto individual space-y-1">

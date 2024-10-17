@@ -11,29 +11,19 @@
         .stage {width: 95%;flex-grow: 1;background-image: url('{{ asset('podium2.png') }}');background-size: cover;background-repeat: no-repeat;background-position: center;display: flex;justify-content: space-around;align-items: flex-end;margin: 0 auto;}
     </style>
     <script src="{{asset('assets/jquery.min.js')}}"></script>
-
-
     <link rel="stylesheet" href="{{asset('css/ranking.css')}}">
-
     <script>
         var ranking = "{{ route('ranking.atualizar') }}";
     </script>
-
-
 </head>
 <body>
-
 <div id="overlay"></div>
-
 <div id="loading">
     <span style="font-size:1.3em;">.</span>
     <span style="font-size:1.3em;">.</span>
     <span style="font-size:1.3em;">.</span>
 </div>
-
-
 <x-modal-ranking :vendasDiarias="$vendasDiarias"></x-modal-ranking>
-
 <!-- Modal -->
 <div id="planilhaModal" class="modal">
     <div class="modal-content">
@@ -556,7 +546,6 @@
                     adesao: adesao
                 });
             });
-
             $.ajax({
                 url: '{{route('cadastrar.concessionaria')}}',  // Define a rota para o update
                 method: 'POST',

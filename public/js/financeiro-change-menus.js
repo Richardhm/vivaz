@@ -218,7 +218,8 @@ function realizarContagem()
     // Obter os filtros selecionados
     let mes = $("#mudar_mes_table").val();
     let ano = $("#mudar_ano_table").val();
-    let usuarioId = $("#select_usuario_individual").find('option:selected').data('id');
+    let usuarioId = $("#select_usuario_individual").find('option:selected').val();
+
 
     // Aplicar filtros baseados no mês, ano e usuário
     table_individual.column(0).search(mes).draw(); // Supondo que a coluna 0 é o mês
