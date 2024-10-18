@@ -68,12 +68,8 @@ class RankingController extends Controller
 
     public function filtragem(Request $request)
     {
-
         $concessionarias = Concessionaria::all();
         $corretora = $request->input('corretora');
-
-
-
         $corretora_id = null;
         $meta = 0;
         if ($corretora == 'accert') {
@@ -337,25 +333,23 @@ class RankingController extends Controller
                                         AND YEAR(contrato_empresarial.created_at) = YEAR(CURRENT_DATE()))
                             ELSE 0
                         END) as quantidade_vidas,
-
                         corretoras.nome as corretora,
-
                         -- Metas do corretor
                         COALESCE(metas.individual, 0) + COALESCE(metas.coletivo, 0) + COALESCE(metas.super_simples, 0) as total_meta
-
                         FROM comissoes
                                  INNER JOIN users ON users.id = comissoes.user_id
                                  INNER JOIN corretoras ON users.corretora_id = corretoras.id
                                  LEFT JOIN contratos ON contratos.id = comissoes.contrato_id
                                  LEFT JOIN contrato_empresarial ON contrato_empresarial.id = comissoes.contrato_empresarial_id
                                  LEFT JOIN clientes ON clientes.id = contratos.cliente_id
-
                         -- Junção com a tabela metas para pegar as metas do corretor
                                  LEFT JOIN metas ON metas.user_id = users.id
-
                         -- Filtro para corretora específica
                         WHERE comissoes.plano_id IN (1, 3, 5) AND (comissoes.user_id != 198 AND comissoes.user_id != 269)
-
+                        AND (
+                            (users.ativo = 1)
+                            OR (users.ativo = 2 AND quantidade_vidas >= 1)
+                        )
                         GROUP BY comissoes.user_id
                         ORDER BY quantidade_vidas DESC;
                 "
@@ -413,32 +407,32 @@ class RankingController extends Controller
             $corretora_id = auth()->user()->corretora_id;
             $ranking = DB::select("
                 SELECT
-    users.name AS corretor,
-    users.image AS imagem,
-    IF(EXISTS(
-        SELECT 1
-        FROM comissoes_corretores_configuracoes
-        WHERE comissoes_corretores_configuracoes.user_id = users.id
-    ), 'Parceiro', 'CLT') AS tipo_contratacao,
-    SUM(vidas_individual) AS quantidade_individual,
-    SUM(vidas_coletivo) AS quantidade_coletivo,
-    SUM(vidas_empresarial) AS quantidade_empresarial,
-    0 AS valor_total,
-    1 AS total_meta,
-    SUM(vidas_individual + vidas_coletivo + vidas_empresarial) AS quantidade_vidas,
-    corretoras.nome AS corretora
+                    users.name AS corretor,
+                    users.image AS imagem,
+                    IF(EXISTS(
+                        SELECT 1
+                        FROM comissoes_corretores_configuracoes
+                        WHERE comissoes_corretores_configuracoes.user_id = users.id
+                    ), 'Parceiro', 'CLT') AS tipo_contratacao,
+                    SUM(vidas_individual) AS quantidade_individual,
+                    SUM(vidas_coletivo) AS quantidade_coletivo,
+                    SUM(vidas_empresarial) AS quantidade_empresarial,
+                    0 AS valor_total,
+                    1 AS total_meta,
+                    SUM(vidas_individual + vidas_coletivo + vidas_empresarial) AS quantidade_vidas,
+                    corretoras.nome AS corretora
 
-FROM ranking_diario
-INNER JOIN users ON users.id = ranking_diario.user_id
-INNER JOIN corretoras ON corretoras.id = ranking_diario.corretora_id
-WHERE ranking_diario.corretora_id = 1
-AND ranking_diario.data = DATE(NOW())
-AND (
-    (users.ativo = 1)
-    OR (users.ativo = 2 AND (vidas_individual + vidas_coletivo + vidas_empresarial) >= 1)
-)
-GROUP BY ranking_diario.user_id, ranking_diario.data
-ORDER BY quantidade_vidas DESC;
+                        FROM ranking_diario
+                        INNER JOIN users ON users.id = ranking_diario.user_id
+                        INNER JOIN corretoras ON corretoras.id = ranking_diario.corretora_id
+                        WHERE ranking_diario.corretora_id = 1
+                        AND ranking_diario.data = DATE(NOW())
+                        AND (
+                            (users.ativo = 1)
+                            OR (users.ativo = 2 AND (vidas_individual + vidas_coletivo + vidas_empresarial) >= 1)
+                        )
+                        GROUP BY ranking_diario.user_id, ranking_diario.data
+                        ORDER BY quantidade_vidas DESC;
             ");
             $podium = view('ranking.podium',[
                 'ranking' => $ranking,
@@ -467,16 +461,16 @@ ORDER BY quantidade_vidas DESC;
         } else if($corretora == "estrela") {
             $ranking = DB::select("
                 SELECT
-            users.name AS corretor,
-            users.image AS imagem,
-            COALESCE(SUM(IF(MONTH(contratos.created_at) = 7, clientes.quantidade_vidas, 0)), 0) AS julho,
-            COALESCE(SUM(IF(MONTH(contratos.created_at) = 8, clientes.quantidade_vidas, 0)), 0) AS agosto,
-            COALESCE(SUM(IF(MONTH(contratos.created_at) = 9, clientes.quantidade_vidas, 0)), 0) AS setembro,
-            COALESCE(SUM(IF(MONTH(contratos.created_at) = 10, clientes.quantidade_vidas, 0)), 0) AS outubro,
-            COALESCE(SUM(IF(MONTH(contratos.created_at) = 11, clientes.quantidade_vidas, 0)), 0) AS novembro,
-            COALESCE(SUM(IF(MONTH(contratos.created_at) = 12, clientes.quantidade_vidas, 0)), 0) AS dezembro,
-            COALESCE(SUM(clientes.quantidade_vidas), 0) AS quantidade_vidas,
-            COALESCE(SUM(contratos.valor_adesao), 0) AS valor,
+                    users.name AS corretor,
+                    users.image AS imagem,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 7, clientes.quantidade_vidas, 0)),0) AS julho,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 8, clientes.quantidade_vidas, 0)),0) AS agosto,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 9, clientes.quantidade_vidas, 0)),0) AS setembro,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 10, clientes.quantidade_vidas, 0)),0) AS outubro,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 11, clientes.quantidade_vidas, 0)),0) AS novembro,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 12, clientes.quantidade_vidas, 0)),0) AS dezembro,
+                    COALESCE(SUM(clientes.quantidade_vidas), 0) AS quantidade_vidas,
+                    COALESCE(SUM(contratos.valor_adesao), 0) AS valor,
             CASE
                 WHEN SUM(clientes.quantidade_vidas) >= 150 AND SUM(clientes.quantidade_vidas) <= 190 THEN 'tres_estrelas'
                 WHEN SUM(clientes.quantidade_vidas) >= 191 AND SUM(clientes.quantidade_vidas) <= 250 THEN 'quatro_estrelas'

@@ -20,8 +20,8 @@
                                 </div>
 
                                 <!-- 2ª Div: Imagem -->
-                                <div class="me-2" style="flex:0 1 auto;display:flex;align-items:center;margin-left:8px;background-color: #FFF;">
-                                    <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;">
+                                <div class="me-2" style="flex:0 1 auto;display:flex;align-items:center;margin-left:8px;background-color: #FFF;height:60px;width:60px;">
+                                    <img src="{{ asset($r->imagem) }}" class="rounded" style="width:100%;border-radius:50%;">
                                 </div>
 
                                 <!-- 3ª Div: Nome e descrição -->
@@ -31,7 +31,7 @@
                                     @endphp
                                     <p class="fw-bold mb-0" style="font-size: 1.2em; color: #ffdd57;">{{$nome_corretor}}</p>
                                     <div class="d-flex flex-column" style="justify-content: flex-start;">
-                                        <span>Restam: {{$r->falta}}</span>
+                                        <span>Faltam: {{$r->falta}} vidas</span>
                                     </div>
                                     <span style="font-weight: bold;">***Não Classificado***</span>
                                 </div>

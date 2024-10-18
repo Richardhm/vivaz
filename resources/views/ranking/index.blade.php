@@ -512,7 +512,6 @@
             const now = new Date();
             const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
             const daysRemaining = Math.ceil((endOfMonth - now) / (1000 * 60 * 60 * 24));
-
             document.getElementById('quantidade_dias').textContent = daysRemaining;
         }
         setInterval(updateDateTime, 1000);
@@ -867,6 +866,7 @@
         });
 
         function createSlideShow() {
+
             const slideGroups = document.querySelectorAll('.slide-group'); // Seleciona todos os grupos de slides
             let currentGroup = 0;
 
@@ -882,7 +882,7 @@
             }
 
             showSlideGroup(currentGroup); // Mostra o primeiro grupo de slides
-            setInterval(nextSlideGroup, 20000); // Troca de slide a cada 10 segundos
+            setInterval(nextSlideGroup, 12500); // Troca de slide a cada 10 segundos
         }
 
         createSlideShow();
@@ -904,7 +904,7 @@
             }
 
             showSlide(currentSlide);
-            setInterval(nextSlide, 60000); // Troca de slide a cada 3 segundos
+            setInterval(nextSlide, 10000); // Troca de slide a cada 3 segundos
         }
         slideCorretoras();
 
@@ -971,13 +971,6 @@
             return decimalPart ? integerPart + decPoint + decimalPart : integerPart;
         }
 
-
-
-
-
-
-
-
         function changeActiveButton() {
             footerButtons.removeClass('active');
             footerButtons.eq(activeButtonIndex).addClass('active');
@@ -1002,23 +995,25 @@
                         if (corretora == "accert") {
                             meta = 236;
                             $(".aqui_meta").text(meta);
-                            createSlideShow();
+
                             let porcentagem = (total_vidas / meta) * 100;
                             $(".total_vidas").text(total_vidas);
                             $(".total_porcentagem").text(porcentagem.toFixed(2));
                             $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                            createSlideShow();
                         } else if (corretora == "innove") {
                             meta = 236;
                             $(".aqui_meta").text(meta);
-                            createSlideShow();
+
                             let porcentagem = (total_vidas / meta) * 100;
                             $(".total_vidas").text(total_vidas);
                             $(".total_porcentagem").text(porcentagem.toFixed(2));
                             $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                            createSlideShow();
                         } else if(corretora == "diario") {
                             meta = 13;
                             $(".aqui_meta").text(meta);
@@ -1045,6 +1040,7 @@
                             $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda_estrela").removeClass('ocultar').addClass('aparecer');
+                            createSlideShow();
                         }  else if(corretora == "concessi") {
                             meta = 3629;
                             $(".aqui_meta").text(meta);
@@ -1056,33 +1052,25 @@
                             $(".total_pme_concessionaria").text(data.totals[0].total_pme);
                             $(".total_adesao_concessionaria").text(data.totals[0].total_adesao);
                             $(".total_vidas_concessionaria").text(data.totals[0].total_vidas);
-                            $(".total_porcentagem").text(numberFormat(data.totals[0].porcentagem_geral));
+                            $(".total_porcentagem").text(data.totals[0].porcentagem_geral);
+                            //$(".total_porcentagem").text(numberFormat(data.totals[0].porcentagem_geral));
                             slideCorretoras();
                         } else if(corretora == "vivaz") {
+
                             meta = 472;
+                            let porcentagem = (total_vidas / meta) * 100;
                             $(".aqui_meta").text(meta);
                             $(".total_vidas").text(total_vidas);
                             $(".total_porcentagem").text(porcentagem.toFixed(2));
                             $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
                             $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                            createSlideShow();
                         }  else {
                             meta = 27;
                             $(".aqui_meta").text(meta);
-
-
-
-
-
                         }
-
-
-
-
-
-
-                        }
-
+                    }
                 });
                 logCorretora(); // Logar a corretora atual
                 activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
@@ -1110,7 +1098,7 @@
         // // Chamar a função para iniciar com o botão Vivaz e logar "null"
         changeActiveButton();
         // // Iniciar o intervalo para trocar os botões
-        setInterval(changeActiveButton, 60000);
+        setInterval(changeActiveButton, 25000);
 
 
 

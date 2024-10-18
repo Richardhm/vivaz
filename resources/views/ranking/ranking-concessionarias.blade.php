@@ -4,14 +4,13 @@
         @endif
             <section style="display:flex;width:99%;justify-content:center;margin:0 0 5px 0;background-color:#2e4a7a;border-radius:10px;padding:3px 0;align-items: center;">
                 <!-- 1º Div: Posição ocupa toda a altura da section -->
-                <div class="text-center text-white rounded me-2"
-                     style="width:40px;height:100%;display:flex;align-items:center;justify-content:center;padding:5px 10px;font-size:1em;font-weight:bold;background:rgba(254, 254, 254, 0.18);backdrop-filter:blur(15px);">
+                <div class="text-center text-white rounded me-2" style="margin-left:5px;width:40px;height:100%;display:flex;align-items:center;justify-content:center;padding:5px 10px;font-size:1em;font-weight:bold;background:rgba(254, 254, 254, 0.18);backdrop-filter:blur(15px);">
                     {{$loop->iteration}}°
                 </div>
 
                 <!-- 2º Div: Imagem centralizada no eixo Y com border-radius, próxima da 1ª div -->
-                <div style="flex:0 1 auto;display:flex;align-items:center;margin-left:8px;background-color: #FFF;justify-content: center;justify-items: center;">
-                    <img src="{{ asset($r->imagem) }}" class="rounded" style="height:60px;width:60px;border-radius:50%;" />
+                <div style="flex:0 1 auto;display:flex;align-items:center;margin-left:8px;background-color: #FFF;justify-content: center;justify-items: center;height:60px;width:60px;">
+                    <img src="{{ asset($r->imagem) }}" class="rounded" style="border-radius:50%;width:100%;" />
                 </div>
 
                 <!-- 3º Div: Próxima da 2ª div -->
