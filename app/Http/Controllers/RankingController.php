@@ -86,7 +86,7 @@ class RankingController extends Controller
             $corretora_id = null;
         }
         $corretoraFilter = $corretora_id ? " AND comissoes.corretora_id = {$corretora_id}" : "";
-        if($corretora != "estrela" && $corretora != "concessi" && $corretora != "diario" && $corretora != "semanal") {
+        if($corretora != "estrela" && $corretora != "concessi" && $corretora != "diario" && $corretora != "semanal" && $corretora != "vivaz") {
 
             $ranking = DB::select(
                 "
@@ -195,7 +195,14 @@ class RankingController extends Controller
 
                         -- Filtro para corretora específica
                         WHERE comissoes.plano_id IN (1, 3, 5) AND (comissoes.user_id != 198 AND comissoes.user_id != 269)
-                        {$corretoraFilter}
+                        AND (
+                              (users.ativo = 1)
+                              OR (users.ativo = 2 AND (
+                                  (comissoes.plano_id IN (1, 3) AND clientes.quantidade_vidas >= 1) -- para planos individuais e coletivos
+                                  OR (comissoes.plano_id = 5 AND contrato_empresarial.quantidade_vidas >= 1) -- para planos empresariais
+                              ))
+                          )
+                         {$corretoraFilter}
                         GROUP BY comissoes.user_id
                         ORDER BY quantidade_vidas DESC;
                 "
@@ -349,9 +356,12 @@ class RankingController extends Controller
                         -- Filtro para corretora específica
                         WHERE comissoes.plano_id IN (1, 3, 5) AND (comissoes.user_id != 198 AND comissoes.user_id != 269)
                         AND (
-                            (users.ativo = 1)
-                            OR (users.ativo = 2 AND quantidade_vidas >= 1)
-                        )
+                              (users.ativo = 1)
+                              OR (users.ativo = 2 AND (
+                                  (comissoes.plano_id IN (1, 3) AND clientes.quantidade_vidas >= 1) -- para planos individuais e coletivos
+                                  OR (comissoes.plano_id = 5 AND contrato_empresarial.quantidade_vidas >= 1) -- para planos empresariais
+                              ))
+                          )
                         GROUP BY comissoes.user_id
                         ORDER BY quantidade_vidas DESC;
                 "
@@ -378,7 +388,6 @@ class RankingController extends Controller
                         FROM clientes INNER JOIN contratos ON contratos.cliente_id = clientes.id WHERE contratos.id = comissoes.contrato_id AND contratos.plano_id = 3
                         AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
                         AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE())
-
                         ) ELSE 0 END) as total_coletivo,
                 SUM( CASE WHEN comissoes.plano_id = 5 AND comissoes.empresarial = 1 THEN(SELECT IFNULL(SUM(contrato_empresarial.quantidade_vidas), 0)
                                  FROM contrato_empresarial WHERE contrato_empresarial.id = comissoes.contrato_empresarial_id AND contrato_empresarial.plano_id = 5
