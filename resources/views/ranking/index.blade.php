@@ -158,7 +158,7 @@
                 <span>Faltam <span style="color:#F8DA22;font-weight:bold;" id="quantidade_dias">21</span> dias</span>
                 <span>fim do mês</span>
             </div>
-            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" onclick="enviarMensagem()">Teste Enviar</button>
+
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_concessionarias">Concessionarias</button>
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_ranking_diario">Ranking</button>
             <div class="d-flex flex-column text-center" style="font-size: 0.875em;">

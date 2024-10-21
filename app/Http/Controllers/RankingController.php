@@ -198,10 +198,18 @@ class RankingController extends Controller
                         AND (
                               (users.ativo = 1)
                               OR (users.ativo = 2 AND (
-                                  (comissoes.plano_id IN (1, 3) AND clientes.quantidade_vidas >= 1) -- para planos individuais e coletivos
-                                  OR (comissoes.plano_id = 5 AND contrato_empresarial.quantidade_vidas >= 1) -- para planos empresariais
-                              ))
-                          )
+                                  (comissoes.plano_id IN (1, 3) AND clientes.quantidade_vidas >= 1
+                                      AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
+                                      AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE()))
+
+                                  )
+                                  OR (
+                                    comissoes.plano_id = 5 AND contrato_empresarial.quantidade_vidas >= 1
+                                    AND MONTH(contrato_empresarial.created_at) = MONTH(CURRENT_DATE())
+                                    AND YEAR(contrato_empresarial.created_at) = YEAR(CURRENT_DATE()))
+                                  )
+
+                              )
                          {$corretoraFilter}
                         GROUP BY comissoes.user_id
                         ORDER BY quantidade_vidas DESC;
@@ -358,10 +366,19 @@ class RankingController extends Controller
                         AND (
                               (users.ativo = 1)
                               OR (users.ativo = 2 AND (
-                                  (comissoes.plano_id IN (1, 3) AND clientes.quantidade_vidas >= 1) -- para planos individuais e coletivos
-                                  OR (comissoes.plano_id = 5 AND contrato_empresarial.quantidade_vidas >= 1) -- para planos empresariais
-                              ))
-                          )
+                                  (comissoes.plano_id IN (1, 3) AND clientes.quantidade_vidas >= 1
+                                      AND MONTH(contratos.created_at) = MONTH(CURRENT_DATE())
+                                      AND YEAR(contratos.created_at) = YEAR(CURRENT_DATE()))
+
+                                  )
+                                  OR (
+                                    comissoes.plano_id = 5 AND contrato_empresarial.quantidade_vidas >= 1
+                                    AND MONTH(contrato_empresarial.created_at) = MONTH(CURRENT_DATE())
+                                    AND YEAR(contrato_empresarial.created_at) = YEAR(CURRENT_DATE()))
+                                  )
+
+                              )
+
                         GROUP BY comissoes.user_id
                         ORDER BY quantidade_vidas DESC;
                 "
@@ -498,7 +515,7 @@ class RankingController extends Controller
         INNER JOIN users ON users.id = comissoes.user_id
         INNER JOIN contratos ON contratos.id = comissoes.contrato_id
         INNER JOIN clientes ON clientes.id = contratos.cliente_id
-        WHERE contratos.created_at BETWEEN '2024-07-01' AND '2024-12-31' AND contratos.plano_id = 1
+        WHERE contratos.created_at BETWEEN '2024-07-01' AND '2024-12-31' AND contratos.plano_id = 1 AND users.ativo != 2
         GROUP BY comissoes.user_id, users.name, users.image
         ORDER BY quantidade_vidas DESC
             ");
@@ -681,6 +698,8 @@ class RankingController extends Controller
             ->sortByDesc(function($venda) {
                 return $venda->vidas_individual + $venda->vidas_coletivo + $venda->vidas_empresarial;
             });
+
+
 
         $ranking = DB::select("
                 SELECT
