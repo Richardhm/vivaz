@@ -12,6 +12,22 @@
     </style>
     <script src="{{asset('assets/jquery.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/ranking.css')}}">
+
+{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
+
+{{--    <script type="module">--}}
+{{--        Echo.private("App.Models.User.183").notification((e) => {--}}
+{{--            console.log("Oaaaapppppppppppppppssssssssssssss");--}}
+{{--            console.log(e);--}}
+{{--            // if(e.type === "App\\Notifications\\MessageTestNotification") {--}}
+{{--            //--}}
+{{--            //     toastr[e.status](e.body);--}}
+{{--            // }--}}
+{{--        });--}}
+{{--    </script>--}}
+
+
+
     <script>
         var ranking = "{{ route('ranking.atualizar') }}";
     </script>
@@ -142,6 +158,7 @@
                 <span>Faltam <span style="color:#F8DA22;font-weight:bold;" id="quantidade_dias">21</span> dias</span>
                 <span>fim do mês</span>
             </div>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" onclick="enviarMensagem()">Teste Enviar</button>
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_concessionarias">Concessionarias</button>
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_ranking_diario">Ranking</button>
             <div class="d-flex flex-column text-center" style="font-size: 0.875em;">
@@ -645,7 +662,7 @@
             // Remove os confetes após 6 segundos (tempo suficiente para cair)
             setTimeout(() => {
                 confettiContainer.innerHTML = '';  // Limpa os confetes
-            }, 1000);  // 6 segundos
+            }, 6000);  // 6 segundos
         }
 
         // function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
@@ -740,12 +757,20 @@
         // }
 
         function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
+
+
+
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
             // Elementos que irão aparecer
             const fundoPreto = $("#fundo-preto");
             const imagem = $("#imagem-corretor");
             const vidas = $("#quantidade-vidas");
             const imagem2 = $(".assumir_lider");
+
+
+            console.log("Vidasssssss ",vidas);
+
+
             // Definir as informações do corretor e quantidade de vidas
             vidas.text(quantidadeVidas + " Vidas");
             imagem.attr("src", imagemCorretor);
@@ -817,6 +842,7 @@
                     //fecharRankingModal();
                     //exibirPopUpComFogos(liderAtual, novoLider.image); // Exibe o pop-up e toca os sons
                 } else {
+                    console.log(venda.total);
                     //console.log("Apenas Uma Venda");
                     animacaoVenda(venda.nome,venda.image, venda.total);
                 }
@@ -935,12 +961,11 @@
                             $(".total_porcentagem_concessionaria").text(data.totals[0].porcentagem_geral);
 
                             numGroups = document.querySelectorAll('.slide-corretora').length;
-                            createSlideShowCorretora(numGroups)
+                            createSlideShowCorretora(numGroups);
                         } else {
                             $(".total_individual").text(data.totals[0].total_individual);
                             $(".total_coletivo").text(data.totals[0].total_coletivo);
                             $(".total_empresarial").text(data.totals[0].total_empresarial);
-                            console.log("Contando .slide-group para outras corretoras");
                             numGroups = document.querySelectorAll('.slide-group').length;
                             createSlideShow(numGroups);
                         }
@@ -977,7 +1002,7 @@
                     // Após 25 segundos, muda para a próxima aba
                     activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length; // Muda para a próxima aba
                     changeActiveButton(); // Chama a função para mudar para a próxima aba
-                }, 25000); // 25 segundos para o carrossel
+                }, 45000); // 45 segundos para o carrossel
                 startCarousel(); // Inicia o carrossel
             }
         }
@@ -1033,7 +1058,7 @@
         }
 
 
-// Função para atualizar o header de acordo com a corretora
+        // Função para atualizar o header de acordo com a corretora
         function updateHeader(corretora) {
             // Lógica de atualização de header conforme a corretora
             if (corretora === 'concessi') {
@@ -1066,7 +1091,7 @@
             carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 3000); // Troca a cada 3 segundos
+            }, 5000); // Troca a cada 3 segundos
         }
 
         changeActiveButton(); // Inicia o processo

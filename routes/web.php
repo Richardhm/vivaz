@@ -14,6 +14,20 @@ use App\Http\Controllers\GerenteController;
 use App\Http\Middleware\RedirectForMobile;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
+
+ Route::get('send-notification',function(){
+     $message['status'] = request()->query('status','success');
+     $message['body'] = 'Messagem padrão notificação..........';
+
+     $u = \App\Models\User::first();
+     $u->notify(new \App\Notifications\MessageTestNotification($message));
+
+
+     return "Notificação Enviada..";
+
+ });
+
+
 //Route::get('/', function () {
 //    return view('welcome');
 //});
