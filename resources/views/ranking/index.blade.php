@@ -1002,7 +1002,7 @@
                     // Após 25 segundos, muda para a próxima aba
                     activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length; // Muda para a próxima aba
                     changeActiveButton(); // Chama a função para mudar para a próxima aba
-                }, 45000); // 45 segundos para o carrossel
+                }, 63000); // 45 segundos para o carrossel
                 startCarousel(); // Inicia o carrossel
             }
         }
@@ -1091,7 +1091,7 @@
             carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 5000); // Troca a cada 3 segundos
+            }, 7000); // Troca a cada 3 segundos
         }
 
         changeActiveButton(); // Inicia o processo
