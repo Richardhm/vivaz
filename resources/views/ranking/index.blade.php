@@ -240,44 +240,44 @@
                 <div style="background-color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:3%;">
                     <img src="{{asset('foguete.png')}}" alt="Hapvida" style="width:80%;height:auto;">
                 </div>
-                    <div class="container-meta">
-                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
-                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                <div class="container-meta">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Meta</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_concessioanaria_meta">3096</span>
-                    </div>
-                    <div style="display:flex;flex-direction:column;">
-                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
-                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_individual_concessionaria">12</span>
-                    </div>
-                    <div style="display:flex;flex-direction:column;">
-                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Super Simples</span>
-                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Super Simples</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_super_simples_concessionaria">13</span>
 
-                    </div>
-                    <div style="display:flex;flex-direction:column;">
-                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">PME</span>
-                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">PME</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_pme_concessionaria">15</span>
 
-                    </div>
-                    <div style="display:flex;flex-direction:column;">
-                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Adesão</span>
-                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Adesão</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_adesao_concessionaria">18</span>
 
-                    </div>
-                    <div style="display:flex;flex-direction:column;">
-                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
-                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
                         <span style="color:#6a1a21;" class="total_vidas_concessionaria">20</span>
-                    </div>
-                    <div style="display:flex;flex-direction:column;">
-                        <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
-                        <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_porcentagem">O%</span>
-                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
+                    <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
+                        <span style="color:#6a1a21;" class="total_porcentagem_concessionaria">O%</span>
+                </div>
 
             </div>
 
@@ -865,79 +865,191 @@
             });
         });
 
-        function createSlideShow() {
-
-            const slideGroups = document.querySelectorAll('.slide-group'); // Seleciona todos os grupos de slides
-            let currentGroup = 0;
-
-            function showSlideGroup(n) {
-                slideGroups.forEach((group, index) => {
-                    group.style.display = index === n ? 'flex' : 'none'; // Exibe o grupo atual de slides como flex e oculta os outros
-                });
-            }
-
-            function nextSlideGroup() {
-                currentGroup = (currentGroup + 1) % slideGroups.length; // Muda para o próximo grupo de slides
-                showSlideGroup(currentGroup);
-            }
-
-            showSlideGroup(currentGroup); // Mostra o primeiro grupo de slides
-            setInterval(nextSlideGroup, 12500); // Troca de slide a cada 10 segundos
-        }
-
-        createSlideShow();
-
-
-        function slideCorretoras() {
-            const slides = document.querySelectorAll('.slide-corretora'); // Seleciona todos os slides
-            let currentSlide = 0;
-
-            function showSlide(n) {
-                slides.forEach((slide, index) => {
-                    slide.style.display = index === n ? 'block' : 'none';
-                });
-            }
-
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            }
-
-            showSlide(currentSlide);
-            setInterval(nextSlide, 10000); // Troca de slide a cada 3 segundos
-        }
-        slideCorretoras();
-
-
-        function logCorretora() {
-            const currentButton = footerButtons.eq(activeButtonIndex);
-        }
-
-        // let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
-        // const footerButtons = $('.footer-btn');
-        // const carrosselSection = $('#carrossel-section');
-        // const principalSection = $('#principal');
-        // const slidesContainer = $('.slides-container');
-        // const slides = $('.slide-carrossel');
-        // const totalSlides = slides.length;
-        // let currentSlide = 0;
-        // console.log(totalSlides);
-
-        // function showSlide(index) {
-        //     // slides.hide(); // Esconde todas as imagens inicialmente
-        //     // slides.eq(index).show(); // Mostra apenas a imagem atual
-        //     const slideWidth = 100; // Cada slide ocupa 100% da largura
-        //     slidesContainer.css('transform', `translateX(-${index * slideWidth}%)`); // Mover o contêiner dos slides
-        // }
-
-        // Função para mudar o botão ativo
-
-
         let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
         const footerButtons = $('.footer-btn'); // Botões do rodapé
         const slidesContainer = $('.slides-container');
         const totalSlides = $('.slide-carrossel').length; // Total de slides
         let currentSlide = 0; // Índice do slide atual
+
+        function changeActiveButton() {
+            footerButtons.removeClass('active');
+            footerButtons.eq(activeButtonIndex).addClass('active');
+
+            let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
+
+            if (corretora != "carrossel") {
+                $(".carrossel-container").addClass("ocultar");
+                $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
+                $("#footer-aqui").removeClass("ocultar");
+
+                // Faz a requisição AJAX para atualizar a aba com os dados corretos
+                $.ajax({
+                    url: '{{ route('ranking.filtragem') }}',
+                    type: 'GET',
+                    data: { corretora: corretora },
+                    success: function (data) {
+                        // Atualiza o conteúdo do ranking e os valores do lado direito
+                        $(".stage").html(data.podium);
+                        $("#dados_direito").html(data.ranking);
+
+
+                        let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
+                        let meta = 0;
+
+                        // Define metas específicas por aba
+                        switch (corretora) {
+                            case 'accert':
+                            case 'innove':
+                                meta = 236;
+                                break;
+                            case 'diario':
+                                meta = 13;
+                                break;
+                            case 'semanal':
+                                meta = 65;
+                                break;
+                            case 'estrela':
+                                meta = 150;
+                                break;
+                            case 'concessi':
+                                meta = 3629;
+                                break;
+                            case 'vivaz':
+                                meta = 472;
+                                break;
+                        }
+
+                        let numGroups; // Define numGroups fora do if
+
+                        // Verifica se a corretora é "concessi" para contar os slides específicos
+                        if (corretora === "concessi") {
+                            console.log("Contando .slide-corretora para concessi");
+
+                            $(".total_concessioanaria_meta").text(data.totals[0].meta_total);
+                            $(".total_individual_concessionaria").text(data.totals[0].total_individual);
+                            $(".total_super_simples_concessionaria").text(data.totals[0].total_super_simples);
+
+                            $(".total_pme_concessionaria").text(data.totals[0].total_pme);
+                            $(".total_adesao_concessionaria").text(data.totals[0].total_adesao);
+                            $(".total_vidas_concessionaria").text(data.totals[0].total_vidas);
+                            $(".total_porcentagem_concessionaria").text(data.totals[0].porcentagem_geral);
+
+                            numGroups = document.querySelectorAll('.slide-corretora').length;
+                            createSlideShowCorretora(numGroups)
+                        } else {
+                            $(".total_individual").text(data.totals[0].total_individual);
+                            $(".total_coletivo").text(data.totals[0].total_coletivo);
+                            $(".total_empresarial").text(data.totals[0].total_empresarial);
+                            console.log("Contando .slide-group para outras corretoras");
+                            numGroups = document.querySelectorAll('.slide-group').length;
+                            createSlideShow(numGroups);
+                        }
+
+                        let porcentagem = (total_vidas / meta) * 100;
+                        $(".total_vidas").text(total_vidas);
+                        $(".total_porcentagem").text(porcentagem.toFixed(2));
+
+                        // Chama a função para criar o slide show com o número correto de grupos
+
+
+                        // Atualiza o header de acordo com a corretora
+                        updateHeader(corretora);
+
+                        // Calcula o tempo de exibição da aba atual (mínimo de 15 segundos por grupo)
+                        let abaTime = Math.max(15, numGroups * 15);
+                        setTimeout(() => {
+                            activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length; // Muda para a próxima aba
+                            changeActiveButton(); // Chama a função para mudar para a próxima aba
+                        }, abaTime * 1000); // Tempo total da aba em milissegundos
+                    }
+                });
+
+            } else {
+                // Lógica para exibir o carrossel
+                $("#principal").removeClass("d-flex").removeClass('flex-column').removeClass('flex-grow').addClass('ocultar');
+                $(".carrossel-container").removeClass("ocultar");
+                $("#footer-aqui").addClass("ocultar");
+
+                // Reinicia o carrossel e define um tempo fixo de 25 segundos
+                currentSlide = 0;
+                showSlide(currentSlide);
+                setTimeout(() => {
+                    // Após 25 segundos, muda para a próxima aba
+                    activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length; // Muda para a próxima aba
+                    changeActiveButton(); // Chama a função para mudar para a próxima aba
+                }, 25000); // 25 segundos para o carrossel
+                startCarousel(); // Inicia o carrossel
+            }
+        }
+
+
+        function createSlideShow(numGroups) {
+            const slideGroups = document.querySelectorAll('.slide-group');
+            let currentGroup = 0;
+
+            function showSlideGroup(n) {
+                slideGroups.forEach((group, index) => {
+                    group.style.display = index === n ? 'flex' : 'none';
+                });
+            }
+
+            function nextSlideGroup() {
+                currentGroup = (currentGroup + 1) % slideGroups.length;
+                showSlideGroup(currentGroup);
+            }
+
+            // Exibe o primeiro grupo de slides
+            showSlideGroup(currentGroup);
+
+            // Tempo de exibição de cada grupo (mínimo de 15 segundos)
+            let groupTime = Math.max(15, 15);
+
+            setInterval(nextSlideGroup, groupTime * 1000);
+        }
+
+
+        function createSlideShowCorretora(numGroups) {
+            const slideGroups = document.querySelectorAll('.slide-corretora');
+            let currentGroup = 0;
+
+            function showSlideGroup(n) {
+                slideGroups.forEach((group, index) => {
+                    group.style.display = index === n ? 'block' : 'none';
+                });
+            }
+
+            function nextSlideGroup() {
+                currentGroup = (currentGroup + 1) % slideGroups.length;
+                showSlideGroup(currentGroup);
+            }
+
+            // Exibe o primeiro grupo de slides
+            showSlideGroup(currentGroup);
+
+            // Tempo de exibição de cada grupo (mínimo de 15 segundos)
+            let groupTime = Math.max(15, 15);
+
+            setInterval(nextSlideGroup, groupTime * 1000);
+        }
+
+
+// Função para atualizar o header de acordo com a corretora
+        function updateHeader(corretora) {
+            // Lógica de atualização de header conforme a corretora
+            if (corretora === 'concessi') {
+                $("#header_esquerda_concessionaria").removeClass('ocultar').addClass('aparecer');
+                $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
+                $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+            } else if (corretora === 'estrela') {
+                $("#header_esquerda_estrela").removeClass('ocultar').addClass('aparecer');
+                $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
+            } else {
+                $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+            }
+        }
 
         function showSlide(index) {
             const slideWidth = 100; // Cada slide ocupa 100% da largura
@@ -948,14 +1060,22 @@
 
         function startCarousel() {
             currentSlide = 0; // Sempre começa do primeiro slide
-            if(carouselInterval) {
+            if (carouselInterval) {
                 clearInterval(carouselInterval);
             }
             carouselInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
                 showSlide(currentSlide); // Mostra o slide atual
-            }, 3000); //Troca a cada 10 segundos
+            }, 3000); // Troca a cada 3 segundos
         }
+
+        changeActiveButton(); // Inicia o processo
+
+
+        function logCorretora() {
+            const currentButton = footerButtons.eq(activeButtonIndex);
+        }
+
 
         function numberFormat(number, decimals = 2, decPoint = '.', thousandsSep = ',') {
             // Define o número de decimais
@@ -970,141 +1090,6 @@
             // Junta a parte inteira e decimal com o separador decimal
             return decimalPart ? integerPart + decPoint + decimalPart : integerPart;
         }
-
-        function changeActiveButton() {
-            footerButtons.removeClass('active');
-            footerButtons.eq(activeButtonIndex).addClass('active');
-            let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
-            if(corretora != "carrossel") {
-                $(".carrossel-container").addClass("ocultar");
-                $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
-                $("#footer-aqui").removeClass("ocultar");
-                $.ajax({
-                    url: '{{ route('ranking.filtragem') }}',
-                    type: 'GET',
-                    data: {corretora: corretora},
-                    success: function (data) {
-                        console.log(data);
-                        $(".stage").html(data.podium);
-                        $("#dados_direito").html(data.ranking);
-                        $(".total_individual").text(data.totals[0].total_individual);
-                        $(".total_coletivo").text(data.totals[0].total_coletivo);
-                        $(".total_empresarial").text(data.totals[0].total_empresarial);
-                        let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
-                        let meta = 0;
-                        if (corretora == "accert") {
-                            meta = 236;
-                            $(".aqui_meta").text(meta);
-
-                            let porcentagem = (total_vidas / meta) * 100;
-                            $(".total_vidas").text(total_vidas);
-                            $(".total_porcentagem").text(porcentagem.toFixed(2));
-                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
-                            createSlideShow();
-                        } else if (corretora == "innove") {
-                            meta = 236;
-                            $(".aqui_meta").text(meta);
-
-                            let porcentagem = (total_vidas / meta) * 100;
-                            $(".total_vidas").text(total_vidas);
-                            $(".total_porcentagem").text(porcentagem.toFixed(2));
-                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
-                            createSlideShow();
-                        } else if(corretora == "diario") {
-                            meta = 13;
-                            $(".aqui_meta").text(meta);
-                            createSlideShow();
-                            let porcentagem = (total_vidas / meta) * 100;
-                            $(".total_vidas").text(total_vidas);
-                            $(".total_porcentagem").text(porcentagem.toFixed(2));
-                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
-                        } else if(corretora == "semanal") {
-                            meta = 65;
-                            $(".aqui_meta").text(meta);
-                            createSlideShow();
-                            let porcentagem = (total_vidas / meta) * 100;
-                            $(".total_vidas").text(total_vidas);
-                            $(".total_porcentagem").text(porcentagem.toFixed(2));
-                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
-                        } else if(corretora == "estrela") {
-                            meta = 150;
-                            $(".aqui_meta").text(meta);
-                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda_estrela").removeClass('ocultar').addClass('aparecer');
-                            createSlideShow();
-                        }  else if(corretora == "concessi") {
-                            meta = 3629;
-                            $(".aqui_meta").text(meta);
-                            $("#header_esquerda_concessionaria").removeClass('ocultar').addClass('aparecer');
-                            $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
-                            $(".total_individual_concessionaria").text(data.totals[0].total_individual);
-                            $(".total_super_simples_concessionaria").text(data.totals[0].total_super_simples);
-                            $(".total_pme_concessionaria").text(data.totals[0].total_pme);
-                            $(".total_adesao_concessionaria").text(data.totals[0].total_adesao);
-                            $(".total_vidas_concessionaria").text(data.totals[0].total_vidas);
-                            $(".total_porcentagem").text(data.totals[0].porcentagem_geral);
-                            //$(".total_porcentagem").text(numberFormat(data.totals[0].porcentagem_geral));
-                            slideCorretoras();
-                        } else if(corretora == "vivaz") {
-
-                            meta = 472;
-                            let porcentagem = (total_vidas / meta) * 100;
-                            $(".aqui_meta").text(meta);
-                            $(".total_vidas").text(total_vidas);
-                            $(".total_porcentagem").text(porcentagem.toFixed(2));
-                            $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
-                            $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
-                            createSlideShow();
-                        }  else {
-                            meta = 27;
-                            $(".aqui_meta").text(meta);
-                        }
-                    }
-                });
-                logCorretora(); // Logar a corretora atual
-                activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
-            } else {
-                $("#principal").removeClass("d-flex").removeClass('flex-column').removeClass('flex-grow').addClass('ocultar');
-                $(".carrossel-container").removeClass("ocultar");
-                $("#footer-aqui").addClass("ocultar");
-                currentSlide = 0;
-                showSlide(currentSlide);
-                startCarousel();
-                logCorretora(); // Logar a corretora atual
-                activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
-
-            }
-
-        }
-
-        // function startCarousel() {
-        //     setInterval(() => {
-        //         currentSlide = (currentSlide + 1) % totalSlides;
-        //         showSlide(currentSlide);
-        //     }, 50000); // Troca a cada 3 segundos
-        // }
-        //
-        // // Chamar a função para iniciar com o botão Vivaz e logar "null"
-        changeActiveButton();
-        // // Iniciar o intervalo para trocar os botões
-        setInterval(changeActiveButton, 25000);
-
-
-
-
-
-
 
 
     });

@@ -334,7 +334,9 @@ class RankingController extends Controller
                             ELSE 0
                         END) as quantidade_vidas,
                         corretoras.nome as corretora,
-                        -- Metas do corretor
+                        -- Metas do corretor porque
+                        -- não esta dando certo quando for 2 tem quantidade_vidas tem que ser maior ou igual a 1
+
                         COALESCE(metas.individual, 0) + COALESCE(metas.coletivo, 0) + COALESCE(metas.super_simples, 0) as total_meta
                         FROM comissoes
                                  INNER JOIN users ON users.id = comissoes.user_id
