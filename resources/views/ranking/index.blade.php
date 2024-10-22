@@ -152,7 +152,7 @@
                 <h5 class="my-auto font-italic" style="font-style: italic;">Ranking de Vendas</h5>
             </div>
             <div>
-                <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.5em;color:#335B99;" id="mes_ano">Goiania - Agosto/2024</span>
+                <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.2em;color:#335B99;" id="mes_ano">Goiania - Agosto/2024</span>
             </div>
         </div>
         <div style="width:36%;text-align: center;">
@@ -165,8 +165,8 @@
                 <span style="width:100%;margin:0;padding:0;">fim do mês</span>
             </div>
 
-            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_concessionarias">Concessionarias</button>
-            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_ranking_diario">Ranking</button>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" id="modal_concessionarias">Concessionarias</button>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;margin:0 15px 0 5px;display:flex;align-items:center;align-self: center;" id="modal_ranking_diario">Ranking</button>
             <div class="d-flex flex-column text-center" style="font-size: 1.5em;">
                 <span id="aqui_data">09/08/2024</span>
                 <span id="aqui_hora">12:40</span>
