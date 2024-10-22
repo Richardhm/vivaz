@@ -146,12 +146,17 @@
 </div>
 <nav class="navbar navbar-expand-md navbar-light shadow-lg py-2 text-sm" style="background-color:#006EB6;">
     <div class="container-fluid text-white">
-        <div style="width:25%;display:flex;align-items: center;align-content: center;">
-            <img src="{{asset('trofeu.png')}}" alt="Trofeu" style="width:25px;">
-            <h5 class="my-auto font-italic" style="font-style: italic;">Ranking de Vendas</h5>
+        <div style="width:30%;display:flex;align-items: center;align-content: center;justify-content: space-between;">
+            <div style="display:flex;">
+                <img src="{{asset('trofeu.png')}}" alt="Trofeu" style="width:25px;">
+                <h5 class="my-auto font-italic" style="font-style: italic;">Ranking de Vendas</h5>
+            </div>
+            <div>
+                <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.1em;color:#335B99;" id="mes_ano">Goiania - Agosto/2024</span>
+            </div>
         </div>
-        <div style="width:41%;text-align: center;color:black;">
-            <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.1em;color:#335B99;" id="mes_ano">Goiania - Agosto/2024</span>
+        <div style="width:36%;text-align: center;">
+            <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 2.5em;color:#335B99;" id="titulo_ranking">Ranking - Diario</span>
         </div>
         <div class="d-flex justify-content-between" style="width:33%;font-size: 0.875em;">
             <div class="d-flex flex-column text-center">
@@ -923,25 +928,35 @@
                         let meta = 0;
 
                         // Define metas específicas por aba
+
                         switch (corretora) {
                             case 'accert':
+                                meta = 236;
+                                $("#titulo_ranking").text("Ranking - Accert");
+                                break;
                             case 'innove':
                                 meta = 236;
+                                $("#titulo_ranking").text("Ranking - Innove");
                                 break;
                             case 'diario':
                                 meta = 13;
+                                $("#titulo_ranking").text("Ranking - Diario");
                                 break;
                             case 'semanal':
                                 meta = 65;
+                                $("#titulo_ranking").text("Ranking - Semanal");
                                 break;
                             case 'estrela':
                                 meta = 150;
+                                $("#titulo_ranking").text("Ranking - Estrela");
                                 break;
                             case 'concessi':
                                 meta = 3629;
+                                $("#titulo_ranking").text("Ranking - Concessionária");
                                 break;
                             case 'vivaz':
                                 meta = 472;
+                                $("#titulo_ranking").text("Ranking - Vivaz");
                                 break;
                         }
 
