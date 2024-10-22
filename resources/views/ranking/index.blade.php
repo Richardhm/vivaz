@@ -152,21 +152,22 @@
                 <h5 class="my-auto font-italic" style="font-style: italic;">Ranking de Vendas</h5>
             </div>
             <div>
-                <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.1em;color:#335B99;" id="mes_ano">Goiania - Agosto/2024</span>
+                <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.5em;color:#335B99;" id="mes_ano">Goiania - Agosto/2024</span>
             </div>
         </div>
         <div style="width:36%;text-align: center;">
             <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 2.5em;color:#335B99;" id="titulo_ranking">Ranking - Diario</span>
         </div>
-        <div class="d-flex justify-content-between" style="width:33%;font-size: 0.875em;">
-            <div class="d-flex flex-column text-center">
-                <span>Faltam <span style="color:#F8DA22;font-weight:bold;" id="quantidade_dias">21</span> dias</span>
-                <span>fim do mês</span>
+        <div class="d-flex justify-content-between items-center" style="width:33%;font-size: 1em;">
+            <div class="d-flex text-center flex-wrap">
+                <span style="width:100%;margin:0;padding:0;">Faltam <span style="color:#F8DA22;font-weight:bold;" id="quantidade_dias">21</span> dias</span>
+                <span style="width:100%;">para o</span>
+                <span style="width:100%;margin:0;padding:0;">fim do mês</span>
             </div>
 
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_concessionarias">Concessionarias</button>
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;padding:0 10px;font-size:1.1em;" id="modal_ranking_diario">Ranking</button>
-            <div class="d-flex flex-column text-center" style="font-size: 0.875em;">
+            <div class="d-flex flex-column text-center" style="font-size: 1.5em;">
                 <span id="aqui_data">09/08/2024</span>
                 <span id="aqui_hora">12:40</span>
             </div>
