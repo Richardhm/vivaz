@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-
+        dd("Olaaa");
         $mesAtualN = date('n');
         $mes_atual = date("m");
         $ano_atual = date("Y");
