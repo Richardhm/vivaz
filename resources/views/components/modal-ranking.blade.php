@@ -21,10 +21,10 @@
                     <tbody>
                         <tr>
                                 <td>
-                                    <select name="user_id" id="user_id">
+                                    <select class="text-black" name="user_id" id="user_id">
                                         <option value="">--Escolher Corretor--</option>
                                         @foreach($vendasDiarias as $venda)
-                                            <option value="{{$venda->user_id}}">{{$venda->nome}}</option>
+                                            <option style="color:black;" value="{{$venda->user_id}}">{{$venda->nome}}</option>
                                         @endforeach
                                     </select>
                                 </td>

@@ -105,15 +105,15 @@
                 <ul id="list_empresarial_begin" class="list-none m-0">
                     <li style="height:30px;line-height: 30px;" class="flex mb-1 justify-between empresarial">
                         <span class="flex basis-[50%] text-sm items-center my-auto">Contratos:</span>
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right pr-1 w-[30%] bg-transparent text-sm  flex basis-[50%] justify-end text-sm total_por_orcamento_empresarial" style="text-align:right;">0</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[49%] bg-transparent text-sm pr-1 flex justify-end text-sm total_por_orcamento_empresarial">0</span>
                     </li>
                     <li style="height:30px;line-height: 30px;" class="flex mb-1 justify-between empresarial">
                         <span class="flex basis-[50%] text-sm items-center my-auto">Vidas:</span>
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[49%] bg-transparent text-sm total_por_vida_empresarial pr-1" style="text-align:right;">0</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[49%] bg-transparent flex justify-end text-sm pr-1 total_por_vida_empresarial">0</span>
                     </li>
                     <li style="height:30px;line-height: 30px;" class="flex mb-1 justify-between empresarial">
                         <span class="flex basis-[50%] text-sm items-center my-auto">Valor:</span>
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[49%] bg-transparent text-sm total_por_page_empresarial pr-1" style="text-align:right;">0</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right w-[49%] bg-transparent flex justify-end text-sm pr-1 total_por_page_empresarial">0</span>
                     </li>
                 </ul>
             </div>

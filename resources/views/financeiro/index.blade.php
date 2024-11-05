@@ -18,17 +18,15 @@
             var individualFinanceiroInicializar = "{{route('financeiro.modal.contrato.individual')}}";
             var coletivoFinanceiroInicializar = "{{route('financeiro.modal.contrato.coletivo')}}";
             var empresarialFinanceiroInicializar = "{{route('financeiro.modal.contrato.empresarial')}}";
-            var urlBaixaColetivo = "{{route('financeiro.baixa.data')}}";
-            var desfazerColetivo = "{{route('desfazer.tarefa.coletivo')}}";
+            var urlBaixaColetivo        = "{{route('financeiro.baixa.data')}}";
+            var desfazerColetivo        = "{{route('desfazer.tarefa.coletivo')}}";
 
-            var cadastrarOdonto = "{{ route('odonto.create') }}";
-            var emAnaliseAjax = "{{route('financeiro.analise.coletivo')}}";
-            var emissaoBoleto = "{{route('financeiro.analise.boleto')}}";
-            var empresarialEmAnalise = "{{route('financeiro.analise.empresarial')}}";
-            var empresarialDataBaixa = "{{route('financeiro.baixa.data.empresarial')}}";
-
-
-
+            var cadastrarOdonto         = "{{ route('odonto.create') }}";
+            var emAnaliseAjax           = "{{route('financeiro.analise.coletivo')}}";
+            var emissaoBoleto           = "{{route('financeiro.analise.boleto')}}";
+            var empresarialEmAnalise    = "{{route('financeiro.analise.empresarial')}}";
+            var empresarialDataBaixa    = "{{route('financeiro.baixa.data.empresarial')}}";
+            var changecorretor          = "{{route('financeiro.changeFinanceiro')}}"
             var table;
             var table_individual;
             var parcelaSelecionada;
@@ -43,6 +41,7 @@
                 @if(auth()->user()->corretora_id == 1)
                     <li data-id="aba_odonto">Odonto</li>
                 @endif
+
             </ul>
     </div>
     <x-upload-modal></x-upload-modal>
@@ -94,8 +93,13 @@
             </div>
         </div>
 
-        <div id="myModalCreateOdonto" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+        <div id="myModalCreateOdonto" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" onclick="closeModalOnClickOutside(event)">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+                <!-- Botão para fechar a modal -->
+                <button onclick="closeModalOdonto()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">
+                    &times;
+                </button>
+
                 <!-- Conteúdo da Aba Cadastrar -->
                 <div id="contentCadastrar" class="p-4">
                     <div class="flex flex-col space-y-4">
@@ -143,6 +147,7 @@
                 </div>
             </div>
         </div>
+
         <section class="conteudo_abas mt-2" style="width:95%;margin:0 auto;">
         <x-aba-individual></x-aba-individual>
         <x-aba-coletivo></x-aba-coletivo>
@@ -150,15 +155,29 @@
         @if(auth()->user()->corretora_id == 1)
             <x-aba-odonto></x-aba-odonto>
         @endif
+
         </section>
 
     <script>
 
 
+        function closeModalOdonto() {
+            document.getElementById('myModalCreateOdonto').classList.add('hidden');
+        }
+
+        function closeModalOnClickOutside(event) {
+            const modal = document.getElementById('myModalCreateOdonto');
+            if (event.target === modal) {
+                closeModalOdonto();
+            }
+        }
+
+
+
 
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownOptions = document.getElementById('dropdownOptions');
-        const dropdownButtonText = dropdownButton.querySelector('span'); // Apenas o span de texto
+        //const dropdownButtonText = dropdownButton.querySelector('span'); // Apenas o span de texto
 
         function showTab(tab) {
             var contentListar = document.getElementById('contentListar');
@@ -178,21 +197,24 @@
                 tabCadastrar.classList.add('border-blue-500', 'text-blue-500');
             }
         }
-        dropdownButton.addEventListener('click', () => {
-            dropdownOptions.classList.toggle('hidden');
-        });
-        dropdownOptions.addEventListener('click', (event) => {
-            if (event.target.tagName === 'LI') {
-                const selectedOption = event.target.textContent;
-                const value = event.target.getAttribute('data-value');
-                dropdownButtonText.textContent = selectedOption; // Atualiza apenas o texto do span
-                dropdownOptions.classList.add('hidden');
-                inicializarIndividual(value);
-            }
-        });
+        // dropdownButton.addEventListener('click', () => {
+        //     dropdownOptions.classList.toggle('hidden');
+        // });
+
+        // dropdownOptions.addEventListener('click', (event) => {
+        //     if (event.target.tagName === 'LI') {
+        //         const selectedOption = event.target.textContent;
+        //         const value = event.target.getAttribute('data-value');
+        //         //dropdownButtonText.textContent = selectedOption; // Atualiza apenas o texto do span
+        //         dropdownOptions.classList.add('hidden');
+        //         inicializarIndividual(value);
+        //     }
+        // });
 
 
         $(document).ready(function(){
+
+            $('#valor').mask('#.##0,00', {reverse: true});
 
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -216,97 +238,19 @@
                 }
             });
 
-            $("body").on('click','.editar_individual_select',function(){
-                let select = $(this).closest("div").find('select');
-                if(select.prop('disabled')) {
-                    select.prop('disabled',false);
-                } else {
-                    select.prop('disabled',true);
-                }
-            });
-
-            $("body").on('change', '#mudar_corretor_individual', function () {
-                let id_cliente = $("#id_cliente").val();
-                let user_id = $(this).val();
-                // Mostrar o loading (remover a classe hidden)
-                $("#loading-dots-change").removeClass('hidden');
-
-                $.ajax({
-                    url: "{{route('financeiro.changeFinanceiro')}}",
-                    method: "POST",
-                    data: {
-                        id_cliente,
-                        user_id
-                    },
-                    success: function (res) {
-                        // Esconder o loading (adicionar a classe hidden novamente)
-                        $("#loading-dots-change").addClass('hidden');
-
-                        // Exibir mensagem de sucesso (SweetAlert)
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Troca realizada com sucesso!',
-                            text: 'O cliente foi transferido para o novo vendedor.',
-                            confirmButtonText: 'OK'
-                        });
-                    },
-                    error: function (err) {
-                        // Esconder o loading (adicionar a classe hidden novamente)
-                        $("#loading-dots-change").addClass('hidden');
-
-                        // Exibir mensagem de erro (SweetAlert)
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erro ao trocar vendedor',
-                            text: 'Ocorreu um erro ao tentar transferir o cliente. Por favor, tente novamente.',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
 
 
-            $("body").on('click','.editar_individual',function(){
-                let input = $(this).closest("div").find("input");
 
-                if (input.prop('readonly')) {
-                    input.prop('readonly', false); // Remove a propriedade readonly
-                } else {
-                    input.prop('readonly', true); // Adiciona a propriedade readonly
-                }
-            });
 
-            $("body").on('change','.editar_campo_individual',function(){
-                let alvo = $(this).attr('id');
-                let valor = $("#"+alvo).val();
-                let id_cliente = $("#id_cliente").val();
 
-                $.ajax({
-                    url:"{{route('financeiro.editar.campoIndividualmente')}}",
-                    method:"POST",
-                    data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id_cliente,
-                    success:function(res) {
-                        //console.log(res);
-                        //table.ajax.reload();
-                    }
-                });
-            });
+
+
+
 
 
             $("body").on("change",'#select_corretoras_empresarial',function(){
                let corretora_id = $(this).val();
                alert(corretora_id);
-            });
-
-            $("body").on("change","#select_corretoras_coletivo",function(){
-                let corretora_id = $(this).val();
-                inicializarColetivo(corretora_id);
-
-            });
-
-            $("body").on("change",'#select_corretoras',function(){
-                let corretora_id = $(this).val();
-                inicializarIndividual(corretora_id);
             });
 
             $("body").on('keydown', '.next', function(e) {
@@ -343,6 +287,7 @@
     </script>
 
         @section('scripts')
+
             <script src="{{asset('js/financeiro-arquivo.js')}}"></script>
             <script src="{{asset('js/financeiro-inicializar-individual.js')}}"></script>
             <script src="{{asset('js/financeiro-inicializar-coletivo.js')}}"></script>

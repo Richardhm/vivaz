@@ -6,6 +6,7 @@ use App\Models\Acomodacao;
 use App\Models\Administradora;
 use App\Models\cidadeCodigoVendedor;
 use App\Models\Cliente;
+use App\Models\ClienteEstagiario;
 use App\Models\Comissoes;
 use App\Models\ComissoesCorretoraConfiguracoes;
 use App\Models\ComissoesCorretoraLancadas;
@@ -54,7 +55,7 @@ class FinanceiroController extends Controller
         $resultado = DB::table('odonto')
             ->join('users', 'users.id', '=', 'odonto.user_id')
             ->select(
-                'odonto.created_at',
+                DB::raw("DATE_FORMAT(odonto.created_at, '%d/%m/%Y') as created_at"),
                 'nome',
                 'valor',
                 'users.name as usuario'
@@ -71,7 +72,8 @@ class FinanceiroController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::where("corretora_id",auth()->user()->corretora_id)
+        $corretora_id = auth()->user()->corretora_id;
+        $users = User::where("corretora_id",$corretora_id)
             ->where("name" ,"!=",'Administrador')
             ->whereRaw("name != ''")
             ->get();
@@ -89,9 +91,9 @@ class FinanceiroController extends Controller
 
 
 
-
     public function geralIndividualPendentes(Request $request)
     {
+
         $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
         $mes = $request->mes != '00' && isset($request->mes) ? $request->mes : null;
 
@@ -99,8 +101,12 @@ class FinanceiroController extends Controller
         $cacheKey = 'geralIndividualPendentes_' . $corretora_id . '_' . ($mes ?? 'todos_meses');
         $tempoDeExpiracao = 900; // Cache por 15 minutos
 
+        if($request->has('refresh') && $request->refresh == 1) {
+            Cache::forget($cacheKey); // Limpar o cache para esta chave
+        }
+
         // Verificar se o resultado já está no cache ou executar a consulta
-        $resultado = Cache::remember($cacheKey, $tempoDeExpiracao, function () use ($corretora_id, $mes) {
+        $resultado = Cache::remember($cacheKey,$tempoDeExpiracao,function() use ($corretora_id, $mes) {
             // Consulta base
             $query = DB::table('comissoes_corretores_lancadas')
                 ->join('comissoes', 'comissoes.id', '=', 'comissoes_corretores_lancadas.comissoes_id')
@@ -108,6 +114,10 @@ class FinanceiroController extends Controller
                 ->join('clientes', 'clientes.id', '=', 'contratos.cliente_id')
                 ->join('users', 'users.id', '=', 'clientes.user_id')
                 ->join('estagio_financeiros', 'estagio_financeiros.id', '=', 'contratos.financeiro_id')
+
+                ->leftJoin('cliente_estagiario', 'cliente_estagiario.cliente_id', '=', 'clientes.id')
+                ->leftJoin('users as estagiarios', 'estagiarios.id', '=', 'cliente_estagiario.user_id')
+
                 ->select(
                     DB::raw("DATE_FORMAT(contratos.created_at, '%d/%m/%Y') as data"),
                     'contratos.codigo_externo as orcamento',
@@ -128,6 +138,7 @@ class FinanceiroController extends Controller
                     'estagio_financeiros.nome as parcelas',
                     DB::raw("(SELECT DATE_FORMAT(data, '%d/%m/%Y') FROM comissoes_corretores_lancadas WHERE comissoes_id = comissoes.id AND status_financeiro = 0 ORDER BY data ASC LIMIT 1) as vencimento"),
                     DB::raw("DATE_FORMAT(clientes.data_nascimento, '%d/%m/%Y') as data_nascimento"),
+                    DB::raw("COALESCE(estagiarios.name, users.name) as estagiario"),
                     'clientes.celular as fone',
                     'clientes.email as email',
                     'clientes.cidade as cidade',
@@ -146,7 +157,6 @@ class FinanceiroController extends Controller
                     THEN 'Atrasado'
                     ELSE 'Aprovado'
                  END AS status
-
                     ")
                 );
 
@@ -166,7 +176,7 @@ class FinanceiroController extends Controller
         });
 
         // Retornar o resultado como JSON
-        return response()->json(['data' => $resultado]);
+        return response()->json(['data' => $resultado,'refresh' => $request->refresh]);
     }
 
 
@@ -2239,11 +2249,6 @@ class FinanceiroController extends Controller
             ->first();
 
 
-
-
-
-
-
         $vendedor = $request->input('vendedor');
         $plano = $request->input('plano');
         $origens = $request->input('origens');
@@ -2328,53 +2333,85 @@ class FinanceiroController extends Controller
 
     public function changeIndividual()
     {
+
         $contrato_id = request()->id_cliente;
         $user_id = request()->user_id;
+
+        $estagiario = User::where("id",$user_id)->first()->estagiario;
 
         $contrato = Contrato::find($contrato_id);
         $cliente = Cliente::where("id",$contrato->cliente_id)->first();
         $comissao = Comissoes::where('contrato_id',$contrato->id)->first();
-        ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->update(["valor" => 0]);
+
+        $corretora_id = User::find($user_id)->corretora_id;
 
 
+        if($estagiario == 0) {
 
-        $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
-            ::where("plano_id", 1)
-            ->where("administradora_id", 4)
-            ->where("user_id", $user_id)
-            //->where("tabela_origens_id", 2)
-            ->get();
-        $par = 0;
-        if (count($comissoes_configuradas_corretor) >= 1) {
-            foreach ($comissoes_configuradas_corretor as $c) {
-                $par++;
-                $valor_comissao = $contrato->valor_adesao;
-                $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
-                $comissaoVendedor->valor = ($valor_comissao * $c->valor) / 100;
-                $comissaoVendedor->save();
-            }
-        } else {
-            $dados = ComissoesCorretoresDefault
+
+            ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->update(["valor" => 0]);
+            $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
                 ::where("plano_id", 1)
                 ->where("administradora_id", 4)
-                ->where("corretora_id",$cliente->corretora_id)
+                ->where("user_id", $user_id)
+                //->where("tabela_origens_id", 2)
                 ->get();
-            foreach ($dados as $c) {
-                $par++;
-                $valor_comissao_default = $contrato->valor_adesao;
-                $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
-                $comissaoVendedor->valor = ($valor_comissao_default * $c->valor) / 100;
-                $comissaoVendedor->save();
+
+
+
+
+
+            $par = 0;
+            if (count($comissoes_configuradas_corretor) >= 1) {
+                foreach ($comissoes_configuradas_corretor as $c) {
+                    $par++;
+                    $valor_comissao = $contrato->valor_adesao;
+                    $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                    $comissaoVendedor->valor = ($valor_comissao * $c->valor) / 100;
+                    $comissaoVendedor->save();
+                }
+            } else {
+                $dados = ComissoesCorretoresDefault
+                    ::where("plano_id", 1)
+                    ->where("administradora_id", 4)
+                    ->where("corretora_id",$cliente->corretora_id)
+                    ->get();
+                foreach ($dados as $c) {
+                    $par++;
+                    $valor_comissao_default = $contrato->valor_adesao;
+                    $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                    $comissaoVendedor->valor = ($valor_comissao_default * $c->valor) / 100;
+                    $comissaoVendedor->save();
+                }
+                //}
+//                /****FIm SE Comissoes Lancadas */
             }
-            //}
-            /****FIm SE Comissoes Lancadas */
+
+            $cliente->user_id = $user_id;
+            $cliente->save();
+
+            $comissao->user_id = $user_id;
+            $comissao->save();
+
+        } else {
+
+            ClienteEstagiario::updateOrCreate(
+                [
+                    'cliente_id' => $cliente->id, // Condição de busca
+                ],
+                [
+                    'user_id' => $user_id,       // Dados para atualizar ou criar
+                    'data' => now(),
+                ]
+            );
+
+
+
         }
 
-        $cliente->user_id = $user_id;
-        $cliente->save();
 
-        $comissao->user_id = $user_id;
-        $comissao->save();
+        return $corretora_id;
+
 
 
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RankingUpdated;
 use App\Models\RankingDiario;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
@@ -56,7 +57,7 @@ class RankingController extends Controller
             ->whereRaw("DATE(ranking_diario.data) = CURDATE()")
             ->first();
 
-
+        broadcast(new RankingUpdated($ranking, $user));
 
         return response()->json([
             'ranking' => $ranking,

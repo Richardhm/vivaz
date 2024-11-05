@@ -24,4 +24,8 @@ class Cliente extends Model
         return $this->hasOne(Contrato::class);
     }
 
+    public function contratos()
+    {
+        return $this->hasMany(Contrato::class);
+    }
 }

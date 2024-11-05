@@ -22,10 +22,6 @@
                 </select>
             @endif
 
-
-
-
-
             <div class="flex mb-1 justify-between">
             <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-sm py-2 text-center rounded basis-[49%]">
                 <a class="text-center text-white" href="{{route('contratos.create.coletivo')}}">Cadastrar</a>
@@ -84,17 +80,23 @@
 
 
                 <ul class="list-none m-0" id="list_coletivo_begin">
-                    <li style="height:30px;line-height: 30px;" class="flex justify-between coletivo space-y-1 my-auto">
+                    <li style="height:30px;line-height: 30px;" class="flex justify-between coletivo my-auto">
                         <span class="text-sm my-auto">Contratos:</span>
-                        <span class="text-sm text-right rounded w-[49%] text-black bg-transparent backdrop-blur-[80px] text-white pr-1 total_por_orcamento_coletivo">0</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right pr-1 w-[30%] bg-transparent text-sm flex basis-[50%] justify-end text-sm items-center total_por_orcamento_coletivo">
+                            0
+                        </span>
                     </li>
-                    <li style="height:30px;line-height: 30px;" class="flex justify-between mb-1 coletivo">
+                    <li style="height:30px;line-height: 30px;" class="flex justify-between mb-1 space-y-1 coletivo">
                         <span class="flex basis-[50%] text-sm">Vidas:</span>
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right pr-1 w-[30%] bg-transparent text-sm total_por_vida_coletivo flex basis-[50%] justify-end text-sm items-center">0</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right pr-1 w-[30%] bg-transparent text-sm flex basis-[50%] justify-end text-sm items-center total_por_vida_coletivo">
+                            0
+                        </span>
                     </li>
                     <li style="height:30px;line-height: 30px;" class="flex justify-between coletivo">
                         <span class="flex basis-[50%] text-sm">Valor:</span>
-                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right pr-1 w-[30%] bg-transparent text-sm total_por_page_coletivo flex basis-[50%] justify-end text-sm">0</span>
+                        <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded text-right pr-1 w-[30%] bg-transparent text-sm flex basis-[50%] justify-end text-sm items-center total_por_page_coletivo">
+                            0
+                        </span>
                     </li>
                 </ul>
             </div>

@@ -7,6 +7,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FinanceiroController;
 use App\Http\Controllers\ImagemController;
 use App\Http\Controllers\OrcamentoController;
+use App\Http\Controllers\TabelaController;
+
+
+
 use App\Http\Controllers\EstrelaController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\HomeController;
@@ -34,9 +38,43 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 
 Route::post('/buscar_planos',[OrcamentoController::class,'buscar_planos'])->middleware(['auth', 'verified'])->name('buscar_planos');
 Route::post('/dashboard/orcamento',[OrcamentoController::class,'orcamento'])->middleware(['auth', 'verified'])->name('orcamento.montarOrcamento');
+Route::post('/dashboard/tabela/orcamento',[TabelaController::class,'orcamento'])->middleware(['auth', 'verified'])->name('orcamento.tabela.montarOrcamento');
 Route::post("/pdf",[ImagemController::class,'criarPDF'])->middleware(['auth', 'verified'])->name('gerar.imagem');
 
 Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::class])->group(function () {
+
+    /***Tabela Full***/
+    Route::get('/tabela_completa',[TabelaController::class,'index'])->name('tabela_completa.index');
+
+    Route::get('/tabela',[TabelaController::class,'tabela_preco'])->name('tabela.config');
+
+
+    Route::post('/corretora/select/planos/administradoras',[TabelaController::class,'planosAdministradoraSelect'])->name('planos.administradora.select');
+
+
+    Route::post('/corretora/mudar/valor/tabela',[TabelaController::class,'mudarValorTabela'])->name('corretora.mudar.valor.tabela');
+
+    Route::post("/tabela/verificar/valores",[TabelaController::class,'verificarValoresTabela'])->name("verificar.valores.tabela");
+
+    Route::post("/tabela/cadastrar/valores",[TabelaController::class,'cadastrarValoresTabela'])->name("cadastrar.valores.tabela");
+    Route::post("/coparticipacao/cadastrar/valores",[TabelaController::class,'cadastrarCoparticipacao'])->name("cadastrar.coparticipacao.tabela");
+    Route::post("/coparticipacao/existe/valores",[TabelaController::class,'coparticipacaoJaExiste'])->name("coparticipacao.ja.existe");
+
+
+
+
+    /***Fim Tabela Full***/
+
+    /*******Corretores*********/
+    Route::get('/corretores',[ProfileController::class,'listar'])->name('corretores.listar');
+    Route::get('/list/corretores',[ProfileController::class,'listUser'])->name('corretores.list');
+    Route::post("/store/corretores",[ProfileController::class,'storeUser'])->name('corretores.store');
+    Route::post("/destroy/corretore",[ProfileController::class,'destroyUser'])->name('destroy.corretor');
+
+
+    /*******Corretores*********/
+
+
 
     Route::get('/orcamento',[OrcamentoController::class,'index'])->name('orcamento');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -75,12 +113,15 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::post('/financeiro/desfazer/coletivo',[FinanceiroController::class,'desfazerColetivo'])->name('desfazer.tarefa.coletivo');
 
 
+
     Route::post('/financeiro/sincronizar',[FinanceiroController::class,'sincronizarDados'])->name('financeiro.sincronizar');
     Route::get('/financeiro/detalhes/{id}',[FinanceiroController::class,'detalhesContrato'])->name('financeiro.detalhes.contrato');
 
     Route::post('/financeiro/analise/coletivo',[FinanceiroController::class,'emAnaliseColetivo'])->name('financeiro.analise.coletivo');
     Route::post('/financeiro/analise/empresarial',[FinanceiroController::class,'emAnaliseEmpresarial'])->name('financeiro.analise.empresarial');
     Route::post('/financeiro/boleto/coletivo',[FinanceiroController::class,'emissaoColetivo'])->name('financeiro.analise.boleto');
+
+
 
     Route::get('/financeiro/zerar/tabela',[FinanceiroController::class,'zerarTabelaFinanceiro'])->name('financeiro.zerar.financeiro');
     Route::get('/financeiro/coletivo/em_geral',[FinanceiroController::class,'coletivoEmGeral'])->name('financeiro.coletivo.em_geral');

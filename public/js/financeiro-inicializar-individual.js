@@ -1,4 +1,4 @@
-function inicializarIndividual(corretora_id = null) {
+function inicializarIndividual(corretora_id = null,refresh = null) {
     if($.fn.DataTable.isDataTable('.listarindividual')) {
         $('.listarindividual').DataTable().destroy();
     }
@@ -28,7 +28,8 @@ function inicializarIndividual(corretora_id = null) {
             "url":urlGeralIndividualPendentes,
 
             data: function (d) {
-                d.corretora_id = corretora_id;
+                d.corretora_id = corretora_id,
+                d.refresh = refresh
             }
         },
         "lengthMenu": [100,200,250,300,400],
@@ -57,7 +58,20 @@ function inicializarIndividual(corretora_id = null) {
             {data:"parcelas",name:"parcelas"},
             {data:"id",name:"ver"},
             {data:"status",name:"status"},
+            {data:"estagiario",name:"estagiario"}
 
+        ],
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'vivaz',
+                text: 'Exportar',
+                className: 'btn-exportar', // Classe personalizada para estilo
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5,6] // Define as colunas a serem exportadas (ajuste conforme necessário)
+                },
+                filename: 'vivaz'
+            }
         ],
         "columnDefs": [
             {"targets": 0,"width":"8%"},//data
@@ -65,13 +79,28 @@ function inicializarIndividual(corretora_id = null) {
             {"targets": 2,"width":"14%",
                 "createdCell":function(td, cellData, rowData, row, col) {
                     let words = cellData.split(" ");
+                    let corretor = "";
 
                     // Limita para as duas primeiras palavras
                     if (words.length > 2) {
-                        $(td).html(words.slice(0, 2).join(" ") + "...");
+                        corretor = words.slice(0, 2).join(" ");
                     } else {
-                        $(td).html(cellData);  // Se for menos de 2 palavras, mostra tudo
+                        corretor = cellData;
                     }
+
+                    if(rowData.estagiario != cellData) {
+                        const estagiarioWords = rowData.estagiario.split(" ");
+                        let estagiarioFormatted;
+                        if (estagiarioWords.length > 1) {
+                            estagiarioFormatted = `${estagiarioWords[0]} ${estagiarioWords[1].substring(0, 3)}`;
+                        } else {
+                            estagiarioFormatted = estagiarioWords[0]; // Usar o nome original se tiver apenas uma palavra
+                        }
+                        $(td).html(corretor + " (" + estagiarioFormatted + ")");
+                    } else {
+                        $(td).html(corretor);
+                    }
+
                 }
             },//Corretor
             {"targets": 3,"width":"22%"},//cliente
@@ -159,9 +188,17 @@ function inicializarIndividual(corretora_id = null) {
                     }
                 }
             },
-            {"targets": 11,"width":"3%","visible": false}
+            {"targets": 11,"width":"3%","visible": false},
+            {"targets": 12,"visible": false},
         ],
         "initComplete": function( settings, json ) {
+            $('.btn-exportar').css({
+                'background-color': '#4CAF50',
+                'color': '#FFF',
+                'border': 'none',
+                'padding': '8px 16px',
+                'border-radius': '4px'
+            });
             let countPagamento1 = this.api().column(9).data().filter((value, index) => value === 'Pag. 1º Parcela').length;
             let countPagamento2 = this.api().column(9).data().filter((value, index) => value === 'Pag. 2º Parcela').length;
             let countPagamento3 = this.api().column(9).data().filter((value, index) =>  value === 'Pag. 3º Parcela').length;
@@ -182,7 +219,7 @@ function inicializarIndividual(corretora_id = null) {
             $(".individual_quantidade_6_parcela").text(finalizado);
             $(".individual_quantidade_cancelado").text(countCancelados);
             $(".individual_quantidade_atrasado").text(countAtrasadoTeste);
-            let corretores = this.api().column(2).data().unique(); // Coluna 2 tem os corretores
+            let corretores = this.api().column(12).data().unique(); // Coluna 2 tem os corretores
             let selectUsuarioIndividual = $('#select_usuario_individual');
             selectUsuarioIndividual.empty(); // Limpa o select
             selectUsuarioIndividual.append('<option value="">-- Todos os Corretores --</option>'); // Adiciona uma opção para todos
@@ -192,7 +229,6 @@ function inicializarIndividual(corretora_id = null) {
 
             let selectAno = $('#mudar_ano_table');
             let selectMes = $('#mudar_mes_table');
-
 
             const nomesMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
                 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];

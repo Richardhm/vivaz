@@ -370,6 +370,11 @@
                                         <th>Desc.</th>
                                         <th>Remover(?)</th>
                                         <th>Ver</th>
+                                        <th>Plano</th>
+                                        <th>Corretor</th>
+                                        <th>Vidas</th>
+                                        <th>Parcela</th>
+                                        <th>Cod.Externo</th>
                                     </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -3339,17 +3344,17 @@
 
 
             var listaraptosapagar = $(".listaraptosapagar").DataTable({
-                //dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>><Bt><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
-                //dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>>B<"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
-                dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>><"btns"B><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
+                //dom: '<"flex justify-between"<"#title_individual_confirmados"><"estilizar_search"f>><"btns"B><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
+                dom: '<"flex justify-between items-center"<"#title_individual_confirmados"><"btns"B><"estilizar_search"f>>' +
+                    't' +
+                    '<"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
                 buttons: [
                     {
                         extend: 'excelHtml5',
                         text: 'Exportar para Excel',
-                        className: 'btn btn-primary',
+                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200',
                         exportOptions: {
-                            //columns: ':visible' // ou selecione as colunas específicas
-                            columns: [0,1,3,5,9,13,14,15,16,17]
+                            columns: [0, 1, 3, 5, 9, 13, 14, 15, 16, 17]
                         }
                     }
                 ],
@@ -3439,7 +3444,10 @@
                             } else {
                                 $(td).html(`<div class='text-center text-white'>
                                     <a href="/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
-                                        <i class='fas fa-eye'></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
                                     </a>
                                 </div>
                             `);
@@ -3449,8 +3457,8 @@
                     {data:"plano_nome",name:"plano_nome",visible:false},
                     {data:"corretor",name:"corretor",visible:false},
                     {data:"quantidade_vidas",name:"quantidade",visible:false},
-                    {data:"parcela",name:"parcela"},
-                    {data:"codigo_externo",name:"codigo_externo"},
+                    {data:"parcela",name:"parcela",visible:false},
+                    {data:"codigo_externo",name:"codigo_externo",visible:false},
 
                 ],
                 "drawCallback":function(settings) {

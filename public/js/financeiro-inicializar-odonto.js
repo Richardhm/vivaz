@@ -42,11 +42,46 @@ function inicializarOdonto() {
             {data:"valor",name:"valor_plano",render: $.fn.dataTable.render.number('.', ',', 2, 'R$ ')},
         ],
         "columnDefs": [],
-        "initComplete": function( settings, json ) {},
+        "initComplete": function( settings, json ) {
+            let uniqueUsers = [];
+            json.forEach(row => {
+                if (!uniqueUsers.includes(row.usuario)) {
+                    uniqueUsers.push(row.usuario);
+                }
+            });
+
+            // Construir opções como uma string e adicionar ao select
+            let optionsHtml = '<option value="todos" class="text-center">---Escolher Corretor---</option>';
+
+
+
+
+
+            uniqueUsers.forEach(user => {
+                optionsHtml += `<option value="${user}">${user}</option>`;
+            });
+
+            console.log(optionsHtml);
+
+
+            $('#select_usuario_odonto').html(optionsHtml);
+
+        },
         "drawCallback":function(settings) {},
         footerCallback: function (row, data, start, end, display) {}
     });
 }
+
+$('#select_usuario_odonto').on('change', function() {
+    let selectedUser = $(this).val();
+    if (selectedUser === "todos") {
+        tableodonto.column(2).search("").draw(); // Limpar filtro
+    } else {
+        tableodonto.column(2).search('^' + selectedUser + '$', true, false).draw(); // Filtro exato
+    }
+});
+
+
 
 $('#tabela_odonto').on('click', 'tbody tr', function () {
     tableodonto.$('tr').removeClass('textoforte');

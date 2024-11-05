@@ -51,6 +51,11 @@ class Contrato extends Model
             ->groupBy("cotacao_faixa_etarias.contrato_id");
     }
 
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
 
 
 

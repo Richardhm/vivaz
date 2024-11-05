@@ -33,6 +33,67 @@ $('#uploadModal .close, #uploadModal').on('click', function() {
     $('#uploadModal').removeClass('show');
 });
 
+$("body").on('click','.vincular_estagiario',function(){
+    console.log("Olaaaaaaaaaaaaaa");
+    $('#myModalVincularEstagiario').removeClass('hidden').addClass('flex');
+});
+
+$(document).on('click', function(event) {
+    if ($(event.target).is('#myModalVincularEstagiario')) {
+        $('#myModalVincularEstagiario').removeClass('flex').addClass('hidden');
+    }
+});
+
+$(document).on('keydown', function(event) {
+    if (event.key === "Escape") {
+        $('#myModalVincularEstagiario').removeClass('flex').addClass('hidden');
+    }
+});
+
+
+$("body").on('click','.editar_individual_select',function(){
+
+    let select = $(this).closest("div").find('select');
+    if(select.prop('disabled')) {
+        select.prop('disabled',false);
+    } else {
+        select.prop('disabled',true);
+    }
+});
+
+$("body").on('click','.editar_individual',function(){
+    let input = $(this).closest("div").find("input");
+
+    if (input.prop('readonly')) {
+        input.prop('readonly', false); // Remove a propriedade readonly
+    } else {
+        input.prop('readonly', true); // Adiciona a propriedade readonly
+    }
+});
+
+
+$('body').on('click','#btnVincular',function(){
+   let usuarioSelect = $("#usuarioSelect").val();
+   let clienteSelect = $("#clienteSelect").val();
+   $.ajax({
+       url:vincular_estagiario,
+       data: {
+           cliente_id:clienteSelect,
+           user_id:usuarioSelect
+       },
+       method:"POST",
+       success:function(res) {
+           console.log(res);
+       }
+   })
+
+});
+
+
+
+
+
+
 
 $(".list_abas li").on('click',function(){
     $('li').removeClass('ativo');
@@ -327,6 +388,7 @@ $("body").on('click','.em_analise_empresarial',function(){
 });
 
 $("body").on('click', '.cadastrar_odonto', function(e) {
+
     e.preventDefault(); // Previne o envio do formulário se houver campos vazios
 
     // Pegando os valores dos campos
@@ -358,7 +420,6 @@ $("body").on('click', '.cadastrar_odonto', function(e) {
         success: function(res) {
             inicializarOdonto();
             $("#myModalCreateOdonto").removeClass('flex').addClass('hidden');
-
         },
         error: function(err) {
             //console.log(err);
@@ -366,6 +427,11 @@ $("body").on('click', '.cadastrar_odonto', function(e) {
         }
     });
 });
+
+
+
+
+
 
 $("body").on('change','.next',function(){
     let proximaLinha = $(this).closest("tr").next();

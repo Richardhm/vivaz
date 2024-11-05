@@ -113,6 +113,23 @@
     inset: 0;
 }
 
+
+#fundo-preto-fogos {
+    z-index: 90; /* Fundo preto para os fogos */
+    background: url('/fogos2.gif') center center no-repeat, rgba(0, 0, 0, 0.5);
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    inset: 0;
+}
+
+
+
+
+
+
+
 #fundo-preto {
     z-index: 90; /* Fundo preto para os fogos */
 

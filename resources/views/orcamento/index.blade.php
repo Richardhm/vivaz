@@ -40,20 +40,16 @@
                    scrollToBottom();
                }
 
-
-
                $.ajaxSetup({
                    headers: {
                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                    }
                });
 
-
                $("body").on('change touchstart',"input[name='operadoras']",function(e){
                    e.preventDefault();
                    let valor = $(this).val();
                    let cidade = $("#cidade").val();
-
                    if($("#resultado").is(":visible")){
                        $("input[name='planos-radio']").prop('checked', false);
                        $("#resultado").hide().empty();
@@ -114,21 +110,14 @@
                }
 
                $('input[type="text"]').on('input', checkFields);
-
-
                $('#cidade').on('change', checkFields);
-
                /*****************verificar se cidade e minus estão preenchidos para aparecer administradoras*******/
-
-
-
 
                /***********Incrementar valores aos input*****************************/
                let counterInput = $("input[type='text']");
                let incrementButton = $("button:contains('+')");
                let decrementButton = $("button:contains('-')");
                incrementButton.click(function() {
-                   console.log("Olaaaaaaa");
                    let inputField = $(this).siblings("input[type='text']");
                    let currentValue = parseInt(inputField.val()) || 0;
                    if (getTotal() < 8) {

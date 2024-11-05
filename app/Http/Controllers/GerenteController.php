@@ -207,14 +207,8 @@ class GerenteController extends Controller
         if($folha_aberto->count() == 1) {
 
             $mes_aberto = $folha_aberto->first()->mes;
-
             $mes = date('m', strtotime($mes_aberto));
-
-
-
             $ano = date('Y', strtotime($mes_aberto));
-
-
             $dados_totais = DB::table('valores_corretores_lancados')
                 ->selectRaw("SUM(valor_comissao) as total_comissao")
                 ->selectRaw("SUM(valor_salario) as total_salario")
@@ -5039,13 +5033,6 @@ class GerenteController extends Controller
 
 
 
-
-
-
-
-
-
-
         return [
             "valor_individual_a_receber" => $valor_individual_a_receber,
             "valor_coletivo_a_receber" => $valor_coletivo_a_receber,
@@ -5276,6 +5263,7 @@ SELECT
     (SELECT nome FROM administradoras WHERE administradoras.id = comissoes.administradora_id) AS administradora,
     DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as created_at,
     contratos.codigo_externo as codigo,
+    contratos.codigo_externo as codigo_externo,
     (SELECT nome FROM clientes WHERE id = ((SELECT cliente_id FROM contratos WHERE contratos.id = comissoes.contrato_id))) as cliente,
     comissoes_corretores_lancadas.parcela,
     (SELECT valor_plano FROM contratos WHERE contratos.id = comissoes.contrato_id) as valor_plano,
@@ -5314,7 +5302,9 @@ SELECT
                     END AS porcentagem,
     /*if(comissoes_corretores_lancadas.valor_pago,comissoes_corretores_lancadas.valor_pago,comissoes_corretores_lancadas.valor) AS valor,*/
         (comissoes_corretores_lancadas.valor) as valor,
-    (comissoes.plano_id) AS plano,
+        (comissoes.plano_id) AS plano,
+         (SELECT nome FROM planos where comissoes.plano_id = planos.id) as plano_nome,
+         (SELECT name FROM users WHERE users.id = comissoes.user_id) as corretor,
     (SELECT if(quantidade_vidas >=1,quantidade_vidas,0) FROM clientes WHERE clientes.id = contratos.cliente_id) AS quantidade_vidas,
     CASE
         WHEN contratos.desconto_corretor IS NOT NULL THEN contratos.desconto_corretor
@@ -5455,7 +5445,10 @@ SELECT
             (SELECT nome FROM planos WHERE planos.id = comissoes.plano_id) AS administradora,
     DATE_FORMAT(contrato_empresarial.created_at,'%d/%m/%Y') as created_at,
     contrato_empresarial.codigo_externo as codigo,
+    contrato_empresarial.codigo_externo as codigo_externo,
     (contrato_empresarial.razao_social) as cliente,
+    (SELECT nome FROM planos WHERE comissoes.plano_id = planos.id) as plano_nome,
+    (SELECT name FROM users WHERE contrato_empresarial.user_id = users.id) as corretor,
     comissoes_corretores_lancadas.parcela,
     (contrato_empresarial.valor_plano) as valor_plano,
     DATE_FORMAT(comissoes_corretores_lancadas.data,'%d/%m/%Y') AS vencimento,
@@ -5761,6 +5754,7 @@ where comissoes_corretores_lancadas.status_financeiro = 1 AND comissoes_corretor
     (SELECT nome FROM administradoras WHERE administradoras.id = comissoes.administradora_id) AS administradora,
     DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as created_at,
     contratos.codigo_externo as codigo,
+    contratos.codigo_externo as codigo_externo,
     (SELECT nome FROM clientes WHERE id = ((SELECT cliente_id FROM contratos WHERE contratos.id = comissoes.contrato_id))) as cliente,
     comissoes_corretores_lancadas.parcela,
     (SELECT valor_plano FROM contratos WHERE contratos.id = comissoes.contrato_id) as valor_plano,
@@ -5801,6 +5795,8 @@ where comissoes_corretores_lancadas.status_financeiro = 1 AND comissoes_corretor
     comissoes_corretores_lancadas.valor AS valor,
 
     (comissoes.plano_id) AS plano,
+    (SELECT nome FROM planos WHERE planos.id = comissoes.plano_id) as plano_nome,
+    (SELECT name FROM users WHERE users.id = comissoes.user_id) as corretor,
     (SELECT if(quantidade_vidas >=1,quantidade_vidas,0) FROM clientes WHERE clientes.id = contratos.cliente_id) AS quantidade_vidas,
     COALESCE((SELECT FORMAT(desconto_corretor, 2) FROM contratos WHERE contratos.id = comissoes.contrato_id AND comissoes_corretores_lancadas.id = (
 		SELECT cc.id
@@ -6663,6 +6659,12 @@ AS desconto,
                 ->where('status_comissao',1)
                 ->where('comissoes.corretora_id',auth()->user()->corretora_id)
                 ->update(['finalizado' => 1]);
+
+                DB::table('odonto')
+                ->whereMonth('created_at','=',$request->mes)
+                ->whereYear('created_at','=',$ano)
+                ->update(['pagou' => 1]);
+
             return true;
         } else {
             return "sem_mes";

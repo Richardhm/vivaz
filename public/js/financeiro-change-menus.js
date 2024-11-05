@@ -16,7 +16,7 @@ $("#select_usuario_individual").on('change',function(){
     //$('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
     if(valorSelecionado != "todos") {
         table_individual.column(9).search('').draw();
-        table_individual.column(2).search(valorSelecionado).draw();
+        table_individual.column(12).search(valorSelecionado).draw();
         let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
         let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
         let primeiraParcelaIndividual = 0;
@@ -50,7 +50,7 @@ $("#select_usuario_individual").on('change',function(){
         $(".individual_quantidade_atrasado").text(atrasadoIndividual);
     } else {
         table_individual.column(9).search('').draw();
-        table_individual.column(2).search('').draw();
+        table_individual.column(12).search('').draw();
         //$('#tabela_individual').DataTable().column(2).search(valorSelecionado).draw();
         let dadosColuna9 = table_individual.column(9,{search: 'applied'}).data();
         let dadosColuna11 = table_individual.column(11,{search: 'applied'}).data();
@@ -85,6 +85,74 @@ $("#select_usuario_individual").on('change',function(){
         $(".individual_quantidade_cancelado").text(canceladosIndividual);
         $(".individual_quantidade_atrasado").text(atrasadoIndividual);
     }
+});
+
+$("body").on("change",'#select_corretoras',function(){
+    let corretora_id = $(this).val();
+    inicializarIndividual(corretora_id);
+});
+
+$("body").on("change","#select_corretoras_coletivo",function(){
+    let corretora_id = $(this).val();
+    inicializarColetivo(corretora_id);
+
+});
+
+$("body").on('change','.editar_campo_individual',function(){
+    let alvo = $(this).attr('id');
+    let valor = $("#"+alvo).val();
+    let id_cliente = $("#id_cliente").val();
+
+    $.ajax({
+        url:"{{route('financeiro.editar.campoIndividualmente')}}",
+        method:"POST",
+        data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id_cliente,
+        success:function(res) {
+            //console.log(res);
+            //table.ajax.reload();
+        }
+    });
+});
+
+$("body").on('change', '#mudar_corretor_individual', function () {
+    let id_cliente = $("#id_cliente").val();
+    let user_id = $(this).val();
+    // Mostrar o loading (remover a classe hidden)
+    $("#loading-dots-change").removeClass('hidden');
+
+    $.ajax({
+        url: changecorretor,
+        method: "POST",
+        data: {
+            id_cliente,
+            user_id
+        },
+        success: function (res) {
+            // Esconder o loading (adicionar a classe hidden novamente)
+            $("#loading-dots-change").addClass('hidden');
+
+            // Exibir mensagem de sucesso (SweetAlert)
+            Swal.fire({
+                icon: 'success',
+                title: 'Troca realizada com sucesso!',
+                text: 'O cliente foi transferido para o novo vendedor.',
+                confirmButtonText: 'OK'
+            });
+            inicializarIndividual(res,1);
+        },
+        error: function (err) {
+            // Esconder o loading (adicionar a classe hidden novamente)
+            $("#loading-dots-change").addClass('hidden');
+
+            // Exibir mensagem de erro (SweetAlert)
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao trocar vendedor',
+                text: 'Ocorreu um erro ao tentar transferir o cliente. Por favor, tente novamente.',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
 });
 
 
