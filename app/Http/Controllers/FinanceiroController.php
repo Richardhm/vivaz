@@ -1555,15 +1555,15 @@ class FinanceiroController extends Controller
         $id_contrato = $request->id;
         $comissao_id = Comissoes::where("contrato_id",$id_contrato)->first()->id;
         $vencimento = ComissoesCorretoresLancadas::where("comissoes_id",$comissao_id)->where("status_financeiro",0)->where("status_gerente",0)->first()->data;
-        $request->validate([
-            'valor' => [
-                'required',
-                'date',
-                'before_or_equal:' . $vencimento, // Garante que a data não seja maior que a de vencimento
-                'after:1900-01-01', // Evita datas no passado distante como 0002
-                'regex:/^\d{4}-\d{2}-\d{2}$/', // Formato correto (YYYY-MM-DD)
-            ],
-        ]);
+//        $request->validate([
+//            'valor' => [
+//                'required',
+//                'date',
+//                'before_or_equal:' . $vencimento, // Garante que a data não seja maior que a de vencimento
+//                'after:1900-01-01', // Evita datas no passado distante como 0002
+//                'regex:/^\d{4}-\d{2}-\d{2}$/', // Formato correto (YYYY-MM-DD)
+//            ],
+//        ]);
 
 
 
