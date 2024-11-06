@@ -248,7 +248,7 @@
             <div style="display: flex; justify-content: space-between;">
                 <div style="width: 12%;">
                     <label for="meta_individual">Meta Individual:</label>
-                    <input type="number" id="meta_individual" name="meta_individual" class="form-control-sm text-black" required placeholder="Meta Individual">
+                    <input type="number" id="meta_individual" name="meta_individual" class="form-control-sm text-black" required placeholder="Meta Individual" >
                 </div>
                 <div style="width: 12%;">
                     <label for="individual">Individual:</label>
@@ -322,14 +322,14 @@
                     @endphp
                     <tr data-id="{{$c->id}}">
                         <td class="bg-gray-700 bg-opacity-20 text-white">{{$c->nome}}</td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_individual]" class="meta_vidas bg-individual" placeholder="Meta" value="{{$c->meta_individual}}"></td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][individual]" class="valor_vidas bg-individual" placeholder="Vidas" value="{{$c->individual}}"></td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_super_simples]" class="meta_vidas bg-super-simples" placeholder="Meta" value="{{$c->meta_super_simples}}"></td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][super_simples]" class="valor_vidas bg-super-simples" placeholder="Vidas" value="{{$c->super_simples}}"></td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_pme]" class="meta_vidas bg-pme" placeholder="Meta" value="{{$c->meta_pme}}"></td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][pme]" class="valor_vidas bg-pme" placeholder="Vidas" value="{{$c->pme}}"></td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_adesao]" class="meta_vidas bg-adesao" placeholder="Meta" value="{{$c->meta_adesao}}"></td>
-                        <td><input type="number" name="concessionarias[{{$c->id}}][adesao]" class="valor_vidas bg-adesao" placeholder="Vidas" value="{{$c->adesao}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_individual]" class="meta_vidas bg-individual text-black" placeholder="Meta" value="{{$c->meta_individual}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][individual]" class="valor_vidas bg-individual text-black" placeholder="Vidas" value="{{$c->individual}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_super_simples]" class="meta_vidas bg-super-simples text-black" placeholder="Meta" value="{{$c->meta_super_simples}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][super_simples]" class="valor_vidas bg-super-simples text-black" placeholder="Vidas" value="{{$c->super_simples}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_pme]" class="meta_vidas bg-pme text-black" placeholder="Meta" value="{{$c->meta_pme}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][pme]" class="valor_vidas bg-pme text-black" placeholder="Vidas" value="{{$c->pme}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][meta_adesao]" class="meta_vidas bg-adesao text-black" placeholder="Meta" value="{{$c->meta_adesao}}"></td>
+                        <td><input type="number" name="concessionarias[{{$c->id}}][adesao]" class="valor_vidas bg-adesao text-black" placeholder="Vidas" value="{{$c->adesao}}"></td>
                         <td style="padding-left: 30px;color:white;" id="meta_individual_total"><span>{{$meta_individual_total}}</span></td>
                         <td style="padding-left: 30px;color:white;" id="meta_individual_vidas_total"><span>{{$meta_individual_vidas_total}}</span></td>
                         <td style="padding-left: 30px;color:white;" id="meta_individual_total_porcentagem"><span>{{$meta_individual_total_porcentagem}}</span></td>
