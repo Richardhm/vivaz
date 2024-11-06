@@ -504,43 +504,39 @@
                            },
                            success:function(res) {
 
-                               console.log(res);
+                               if(res != "nada") {
+
+                                    $("#linha01").val(res.linha01)
+                                    $("#linha02").val(res.linha02)
+                                    $("#linha03").val(res.linha03)
+                                   //
+                                   $("#consultas_eletiva_total").val(res.consultas_eletivas_total);
+                                   $("#consultas_eletiva_parcial").val(res.consultas_eletivas_parcial);
+
+                                   $("#consultas_urgencia_total").val(res.consultas_de_urgencia_total);
+                                   $("#consultas_urgencia_parcial").val(res.consultas_de_urgencia_parcial);
+
+                                   $("#exames_simples_total").val(res.exames_simples_total);
+                                   $("#exames_simples_parcial").val(res.exames_simples_parcial);
+
+                                   $("#exames_complexos_total").val(res.exames_complexos_total);
+                                   $("#exames_complexos_parcial").val(res.exames_complexos_parcial);
+
+                                   $("#terapias_especiais_total").val(res.terapias_especiais_total);
+                                   $("#terapias_especiais_parcial").val(res.terapias_especiais_parcial);
+
+                                   $("#demais_terapias_total").val(res.demais_terapias_total);
+                                   $("#demais_terapias_parcial").val(res.demais_terapias_parcial);
+
+                                   $("#internacoes_total").val(res.internacoes_total);
+                                   $("#internacoes_parcial").val(res.internacoes_parcial);
+
+                                   $("#cirurgia_total").val(res.cirurgia_total);
+                                   $("#cirurgia_parcial").val(res.cirurgia_parcial);
 
 
 
-                               // if(res != "nada") {
-                               //
-                               //      $("#linha01").val(res.linha01)
-                               //      $("#linha02").val(res.linha02)
-                               //      $("#linha03").val(res.linha03)
-                               //     //
-                               //     $("#consultas_eletiva_total").val(res.consultas_eletivas_total);
-                               //     $("#consultas_eletiva_parcial").val(res.consultas_eletivas_parcial);
-                               //
-                               //     $("#consultas_urgencia_total").val(res.consultas_de_urgencia_total);
-                               //     $("#consultas_urgencia_parcial").val(res.consultas_de_urgencia_parcial);
-                               //
-                               //     $("#exames_simples_total").val(res.exames_simples_total);
-                               //     $("#exames_simples_parcial").val(res.exames_simples_parcial);
-                               //
-                               //     $("#exames_complexos_total").val(res.exames_complexos_total);
-                               //     $("#exames_complexos_parcial").val(res.exames_complexos_parcial);
-                               //
-                               //     $("#terapias_especiais_total").val(res.terapias_especiais_total);
-                               //     $("#terapias_especiais_parcial").val(res.terapias_especiais_parcial);
-                               //
-                               //     $("#demais_terapias_total").val(res.demais_terapias_total);
-                               //     $("#demais_terapias_parcial").val(res.demais_terapias_parcial);
-                               //
-                               //     $("#internacoes_total").val(res.internacoes_total);
-                               //     $("#internacoes_parcial").val(res.internacoes_parcial);
-                               //
-                               //     $("#cirurgia_total").val(res.cirurgia_total);
-                               //     $("#cirurgia_parcial").val(res.cirurgia_parcial);
-                               //
-                               //
-                               //
-                               //  }
+                                }
                            }
                         });
 
