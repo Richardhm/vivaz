@@ -59,6 +59,17 @@
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
         function desbloquearAudio() {
             somCarro.muted = true;
             somCarro.play().then(() => {
@@ -951,7 +962,7 @@
 
         //AJAX para atualizar o ranking e verificar troca de liderança
         $('#rankingForm').on('submit', function (e) {
-                e.preventDefault();
+            e.preventDefault();
 
             $.ajax({
                 url: ranking,
@@ -965,31 +976,26 @@
             });
         });
 
-
-        /************Troca de Aba************/
-
         let activeButtonIndex = 0; // Começamos com o índice 0 (Vivaz)
         const footerButtons = $('.footer-btn'); // Botões do rodapé
         const slidesContainer = $('.slides-container');
         const totalSlides = $('.slide-carrossel').length; // Total de slides
         let currentSlide = 0; // Índice do slide atual
 
-        $(footerButtons).on('click', function () {
-            activeButtonIndex = footerButtons.index(this); // Atualiza o índice do botão ativo
-            trocaDeAba(); // Chama trocaDeAba com o novo índice
-        });
+        function changeActiveButton() {
 
-        function trocaDeAba() {
-            footerButtons.removeClass('active'); // Remove a classe 'active' de todos os botões
-            footerButtons.eq(activeButtonIndex).addClass('active'); // Adiciona 'active' ao botão atual
+            if (!audioDesbloqueado) {
+                desbloquearAudio(); // Tenta desbloquear o áudio
+            } else {
 
-            let corretora = footerButtons.eq(activeButtonIndex).data('corretora'); // Define a corretora pelo índice ativo
-
-            if (corretora !== "carrossel") {
+            }
+            footerButtons.removeClass('active');
+            footerButtons.eq(activeButtonIndex).addClass('active');
+            let corretora = footerButtons.eq(activeButtonIndex).data('corretora');
+            if (corretora != "carrossel") {
                 $(".carrossel-container").addClass("ocultar");
-                $("#principal").addClass("d-flex flex-column flex-grow").removeClass('ocultar');
+                $("#principal").addClass("d-flex").addClass('flex-column').addClass('flex-grow').removeClass('ocultar');
                 $("#footer-aqui").removeClass("ocultar");
-
                 $.ajax({
                     url: '{{ route('ranking.filtragem') }}',
                     type: 'GET',
@@ -999,71 +1005,183 @@
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
                         let total_vidas = parseInt(data.totals[0].total_individual) + parseInt(data.totals[0].total_coletivo) + parseInt(data.totals[0].total_empresarial);
-                        let meta = defineMetaPorCorretora(corretora);
+                        let meta = 0;
+                        switch (corretora) {
+                            case 'accert':
+                                meta = 236;
+                                $("#titulo_ranking").text("Ranking - Accert");
+                                break;
+                            case 'innove':
+                                meta = 236;
+                                $("#titulo_ranking").text("Ranking - Innove");
+                                break;
+                            case 'diario':
+                                meta = 13;
+                                $("#titulo_ranking").text("Ranking - Diario");
+                                break;
+                            case 'semanal':
+                                meta = 65;
+                                $("#titulo_ranking").text("Ranking - Semanal");
+                                break;
+                            case 'estrela':
+                                meta = 150;
+                                $("#titulo_ranking").text("Ranking - Estrela");
+                                break;
+                            case 'concessi':
+                                meta = 3629;
+                                $("#titulo_ranking").text("Ranking - Concessionária");
+                                break;
+                            case 'vivaz':
+                                meta = 472;
+                                $("#titulo_ranking").text("Ranking - Vivaz");
+                                break;
+                        }
 
                         $(".aqui_meta").text(meta);
-                        $(".total_vidas").text(total_vidas);
-                        $(".total_porcentagem").text(((total_vidas / meta) * 100).toFixed(2));
-
-                        updateHeader(corretora);
-
-                        let numGroups = corretora === "concessi" ? $('.slide-corretora').length : $('.slide-group').length;
+                        let numGroups; // Define numGroups fora do if
+                        // Verifica se a corretora é "concessi" para contar os slides específicos
                         if (corretora === "concessi") {
+                            //console.log("Contando .slide-corretora para concessi");
+                            $(".total_concessioanaria_meta").text(data.totals[0].meta_total);
+                            $(".total_individual_concessionaria").text(data.totals[0].total_individual);
+                            $(".total_super_simples_concessionaria").text(data.totals[0].total_super_simples);
+
+                            $(".total_pme_concessionaria").text(data.totals[0].total_pme);
+                            $(".total_adesao_concessionaria").text(data.totals[0].total_adesao);
+                            $(".total_vidas_concessionaria").text(data.totals[0].total_vidas);
+                            $(".total_porcentagem_concessionaria").text(data.totals[0].porcentagem_geral);
+
+                            numGroups = document.querySelectorAll('.slide-corretora').length;
                             createSlideShowCorretora(numGroups);
                         } else {
+                            $(".total_individual").text(data.totals[0].total_individual);
+                            $(".total_coletivo").text(data.totals[0].total_coletivo);
+                            $(".total_empresarial").text(data.totals[0].total_empresarial);
+                            numGroups = document.querySelectorAll('.slide-group').length;
                             createSlideShow(numGroups);
                         }
 
+                        let porcentagem = (total_vidas / meta) * 100;
+                        $(".total_vidas").text(total_vidas);
+                        $(".total_porcentagem").text(porcentagem.toFixed(2));
+
+                        // Chama a função para criar o slide show com o número correto de grupos
+
+
+                        // Atualiza o header de acordo com a corretora
+                        updateHeader(corretora);
+
+                        // Calcula o tempo de exibição da aba atual (mínimo de 15 segundos por grupo)
+                        let abaTime = Math.max(15, numGroups * 15);
                         setTimeout(() => {
-                            activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
-                            changeActiveButton(); // Troca para o próximo botão após o tempo
-                        }, numGroups * 15000);
+                            activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length; // Muda para a próxima aba
+                            changeActiveButton(); // Chama a função para mudar para a próxima aba
+                        }, abaTime * 1000); // Tempo total da aba em milissegundos
                     }
                 });
+
             } else {
-                iniciarCarrossel();
+                // Lógica para exibir o carrossel
+                $("#principal").removeClass("d-flex").removeClass('flex-column').removeClass('flex-grow').addClass('ocultar');
+                $(".carrossel-container").removeClass("ocultar");
+                $("#footer-aqui").addClass("ocultar");
+
+                // Reinicia o carrossel e define um tempo fixo de 25 segundos
+                currentSlide = 0;
+                showSlide(currentSlide);
+                setTimeout(() => {
+                    // Após 25 segundos, muda para a próxima aba
+                    activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length; // Muda para a próxima aba
+                    changeActiveButton(); // Chama a função para mudar para a próxima aba
+                }, 63000); // 45 segundos para o carrossel
+                startCarousel(); // Inicia o carrossel
             }
         }
 
-        function defineMetaPorCorretora(corretora) {
-            switch (corretora) {
-                case 'accert': return 236;
-                case 'innove': return 236;
-                case 'diario': return 13;
-                case 'semanal': return 65;
-                case 'estrela': return 150;
-                case 'concessi': return 3629;
-                case 'vivaz': return 472;
-                default: return 0;
+
+        function createSlideShow(numGroups) {
+            const slideGroups = document.querySelectorAll('.slide-group');
+            let currentGroup = 0;
+            function showSlideGroup(n) {
+                slideGroups.forEach((group, index) => {
+                    group.style.display = index === n ? 'flex' : 'none';
+                });
+            }
+            function nextSlideGroup() {
+                currentGroup = (currentGroup + 1) % slideGroups.length;
+                showSlideGroup(currentGroup);
+            }
+            // Exibe o primeiro grupo de slides
+            showSlideGroup(currentGroup);
+            // Tempo de exibição de cada grupo (mínimo de 15 segundos)
+            let groupTime = Math.max(15, 15);
+            setInterval(nextSlideGroup, groupTime * 1000);
+        }
+
+
+        function createSlideShowCorretora(numGroups) {
+            const slideGroups = document.querySelectorAll('.slide-corretora');
+            let currentGroup = 0;
+
+            function showSlideGroup(n) {
+                slideGroups.forEach((group, index) => {
+                    group.style.display = index === n ? 'block' : 'none';
+                });
+            }
+
+            function nextSlideGroup() {
+                currentGroup = (currentGroup + 1) % slideGroups.length;
+                showSlideGroup(currentGroup);
+            }
+
+            // Exibe o primeiro grupo de slides
+            showSlideGroup(currentGroup);
+
+            // Tempo de exibição de cada grupo (mínimo de 15 segundos)
+            let groupTime = Math.max(15, 15);
+
+            setInterval(nextSlideGroup, groupTime * 1000);
+        }
+
+
+        // Função para atualizar o header de acordo com a corretora
+        function updateHeader(corretora) {
+            // Lógica de atualização de header conforme a corretora
+            if (corretora === 'concessi') {
+                $("#header_esquerda_concessionaria").removeClass('ocultar').addClass('aparecer');
+                $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
+                $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+            } else if (corretora === 'estrela') {
+                $("#header_esquerda_estrela").removeClass('ocultar').addClass('aparecer');
+                $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
+            } else {
+                $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
+                $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
+                $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
             }
         }
 
-        function iniciarCarrossel() {
-            $("#principal").addClass('ocultar');
-            $(".carrossel-container").removeClass("ocultar");
-            $("#footer-aqui").addClass("ocultar");
-
-            currentSlide = 0;
-            showSlide(currentSlide);
-            startCarousel();
-            setTimeout(() => {
-                activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
-                changeActiveButton();
-            }, 63000); // 63 segundos para o carrossel
+        function showSlide(index) {
+            const slideWidth = 100; // Cada slide ocupa 100% da largura
+            slidesContainer.css('transform', `translateX(-${index * slideWidth}%)`); // Mover o contêiner dos slides
         }
 
-        function changeActiveButton() {
-            trocaDeAba(); // Chama a troca de aba para o próximo botão
+        let carouselInterval;
+
+        function startCarousel() {
+            currentSlide = 0; // Sempre começa do primeiro slide
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+            }
+            carouselInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides; // Avança para o próximo slide, volta ao primeiro se chegar ao final
+                showSlide(currentSlide); // Mostra o slide atual
+            }, 7000); // Troca a cada 3 segundos
         }
 
-// Funções auxiliares para slides e cabeçalho omitidas para brevidade, mas mantidas iguais
+        changeActiveButton(); // Inicia o processo
 
-
-
-
-
-
-        /****Fim da troca de Aba*****/
 
         function logCorretora() {
             const currentButton = footerButtons.eq(activeButtonIndex);
