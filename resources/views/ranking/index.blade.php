@@ -248,35 +248,35 @@
             <div style="display: flex; justify-content: space-between;">
                 <div style="width: 12%;">
                     <label for="meta_individual">Meta Individual:</label>
-                    <input type="number" id="meta_individual" name="meta_individual" class="form-control-sm" required placeholder="Meta Individual">
+                    <input type="number" id="meta_individual" name="meta_individual" class="form-control-sm text-black" required placeholder="Meta Individual">
                 </div>
                 <div style="width: 12%;">
                     <label for="individual">Individual:</label>
-                    <input type="number" id="individual" name="individual" required class="form-control-sm" placeholder="Valor Individual">
+                    <input type="number" id="individual" name="individual" required class="form-control-sm text-black" placeholder="Valor Individual">
                 </div>
                 <div style="width: 12%;">
                     <label for="meta_super_simples">Meta Super Simples:</label>
-                    <input type="number" id="meta_super_simples" name="meta_super_simples" required class="form-control-sm" placeholder="Meta Super Simples">
+                    <input type="number" id="meta_super_simples" name="meta_super_simples" required class="form-control-sm text-black" placeholder="Meta Super Simples">
                 </div>
                 <div style="width: 12%;">
                     <label for="super_simples">Super Simples:</label>
-                    <input type="number" id="super_simples" name="super_simples" required class="form-control-sm" placeholder="Super Simples">
+                    <input type="number" id="super_simples" name="super_simples" required class="form-control-sm text-black" placeholder="Super Simples">
                 </div>
                 <div style="width: 12%;">
                     <label for="meta_pme">Meta PME:</label>
-                    <input type="number" id="meta_pme" name="meta_pme" required class="form-control-sm" placeholder="Meta PME">
+                    <input type="number" id="meta_pme" name="meta_pme" required class="form-control-sm text-black" placeholder="Meta PME">
                 </div>
                 <div style="width: 12%;">
                     <label for="pme">PME:</label>
-                    <input type="number" id="pme" name="pme" required class="form-control-sm" placeholder="PME">
+                    <input type="number" id="pme" name="pme" required class="form-control-sm text-black" placeholder="PME">
                 </div>
                 <div style="width: 12%;">
                     <label for="meta_adesao">Meta Adesão:</label>
-                    <input type="number" id="meta_adesao" name="meta_adesao" required class="form-control-sm" placeholder="Meta Adesão">
+                    <input type="number" id="meta_adesao" name="meta_adesao" required class="form-control-sm text-black" placeholder="Meta Adesão">
                 </div>
                 <div style="width: 12%;">
                     <label for="adesao">Adesão:</label>
-                    <input type="number" id="adesao" name="adesao" required class="form-control-sm" placeholder="Adesão">
+                    <input type="number" id="adesao" name="adesao" required class="form-control-sm text-black" placeholder="Adesão">
                 </div>
             </div>
             <button type="submit" class="btn-cadastro btn-primary btn mt-2" style="width: 100%;">Cadastrar</button>
