@@ -212,15 +212,11 @@
 
     </script>
 
-
     <script type="module">
-        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-            verificarTrocaDeLider(event.novoRanking, event.venda);
-        });
+        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+        //     verificarTrocaDeLider(event.novoRanking, event.venda);
+        // });
     </script>
-
-
-
 
 
     <script>
@@ -349,7 +345,7 @@
                 <h5 class="my-auto font-italic" style="font-style: italic;">Ranking de Vendas</h5>
             </div>
             <div>
-                <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.2em;color:#335B99;" id="mes_ano">Goiania - Agosto/2024</span>
+                <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.2em;color:#335B99;" id="mes_ano">Goiania - Novembro/2024</span>
             </div>
         </div>
         <div style="width:36%;text-align: center;">
