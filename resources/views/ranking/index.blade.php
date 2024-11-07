@@ -59,17 +59,6 @@
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
         function desbloquearAudio() {
             somCarro.muted = true;
             somCarro.play().then(() => {
@@ -151,21 +140,8 @@
 
             if (novoRanking && novoRanking.length > 0) {
                 const novoLider = novoRanking[0];
-                console.log("Novo Lider Nome:", novoLider.nome);
-
-                console.log("liderAtual?.trim()",liderAtual?.trim())
-                console.log("venda.name?.trim()",venda.name?.trim())
-
-
-
-
                 if (novoLider.nome != liderAtual?.trim()) {
-
-
-
                     liderAtual = novoLider.nome.trim();
-                    console.log("Troca de líder detectada. Novo líder:", liderAtual);
-
                     $(".assumir_lider").attr("src", venda.image);
                     $(".quantidade_vidas").text(venda.total);
                     let popUp = $("#popup-primeiro");
@@ -465,30 +441,30 @@
                 <div style="display:flex;flex-direction:column;">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Individual</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_individual_concessionaria">12</span>
+                        <span style="color:#6a1a21;" class="total_individual_concessionaria">0</span>
                 </div>
                 <div style="display:flex;flex-direction:column;">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Super Simples</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_super_simples_concessionaria">13</span>
+                        <span style="color:#6a1a21;" class="total_super_simples_concessionaria">0</span>
 
                 </div>
                 <div style="display:flex;flex-direction:column;">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">PME</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_pme_concessionaria">15</span>
+                        <span style="color:#6a1a21;" class="total_pme_concessionaria">0</span>
 
                 </div>
                 <div style="display:flex;flex-direction:column;">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Adesão</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_adesao_concessionaria">18</span>
+                        <span style="color:#6a1a21;" class="total_adesao_concessionaria">0</span>
 
                 </div>
                 <div style="display:flex;flex-direction:column;">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">Total</span>
                     <span style="background-color:rgba(255, 255, 255, 0.8);padding:5px 15px;display:flex;justify-content:center;border-radius:10px;font-weight:bold;width:80px;border:2px solid yellow;">
-                        <span style="color:#6a1a21;" class="total_vidas_concessionaria">20</span>
+                        <span style="color:#6a1a21;" class="total_vidas_concessionaria">0</span>
                 </div>
                 <div style="display:flex;flex-direction:column;">
                     <span style="color:#FFF;font-weight:bold;display:flex;justify-content:center;">%</span>
@@ -1022,6 +998,7 @@
                     type: 'GET',
                     data: { corretora: corretora },
                     success: function (data) {
+                        console.log(data);
                         // Atualiza o conteúdo do ranking e os valores do lado direito
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
@@ -1032,7 +1009,7 @@
                         $(".total_vidas").text(total_vidas);
                         $(".total_porcentagem").text(((total_vidas / meta) * 100).toFixed(2));
 
-                        updateHeader(corretora);
+                        updateHeader(corretora,data.totals[0]);
 
                         let numGroups = corretora === "concessi" ? $('.slide-corretora').length : $('.slide-group').length;
                         if (corretora === "concessi") {
@@ -1091,12 +1068,26 @@
 
         trocaDeAba()
 
-        function updateHeader(corretora) {
+        function updateHeader(corretora,totais) {
+
+            console.log(corretora);
+
+
             // Lógica de atualização de header conforme a corretora
             if (corretora === 'concessi') {
                 $("#header_esquerda_concessionaria").removeClass('ocultar').addClass('aparecer');
                 $("#header_esquerda").removeClass('aparecer').addClass('ocultar');
                 $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+
+                $(".total_individual_concessionaria").text(totais.total_individual);
+                $(".total_super_simples_concessionaria").text(totais.total_super_simples);
+                $(".total_pme_concessionaria").text(totais.total_pme);
+                $(".total_adesao_concessionaria").text(totais.total_adesao);
+                $(".total_vidas_concessionaria").text(totais.total_vidas);
+                $(".total_porcentagem_concessionaria").text(totais.porcentagem_geral);
+
+
+
             } else if (corretora === 'estrela') {
                 $("#header_esquerda_estrela").removeClass('ocultar').addClass('aparecer');
                 $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
@@ -1105,6 +1096,14 @@
                 $("#header_esquerda").removeClass('ocultar').addClass('aparecer');
                 $("#header_esquerda_concessionaria").removeClass('aparecer').addClass('ocultar');
                 $("#header_esquerda_estrela").removeClass('aparecer').addClass('ocultar');
+
+                $(".total_individual").text(totais.total_individual);
+                $(".total_coletivo").text(totais.total_coletivo);
+                $(".total_empresarial").text(totais.total_empresarial);
+
+
+
+
             }
         }
 
