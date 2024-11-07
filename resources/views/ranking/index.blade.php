@@ -998,7 +998,7 @@
                     type: 'GET',
                     data: { corretora: corretora },
                     success: function (data) {
-                        console.log(data);
+
                         // Atualiza o conteúdo do ranking e os valores do lado direito
                         $(".stage").html(data.podium);
                         $("#dados_direito").html(data.ranking);
@@ -1012,6 +1012,11 @@
                         updateHeader(corretora,data.totals[0]);
 
                         let numGroups = corretora === "concessi" ? $('.slide-corretora').length : $('.slide-group').length;
+
+                        console.log("Numero de Grupo ",numGroups);
+                        console.log("Corretora ",corretora);
+
+
                         if (corretora === "concessi") {
                             createSlideShowCorretora(numGroups);
                         } else {
@@ -1070,7 +1075,7 @@
 
         function updateHeader(corretora,totais) {
 
-            console.log(corretora);
+
 
 
             // Lógica de atualização de header conforme a corretora
