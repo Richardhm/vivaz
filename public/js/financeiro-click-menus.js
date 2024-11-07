@@ -282,7 +282,7 @@ $("body").on('click', '.button_excluir', function() {
         if (result.isConfirmed) {
             // Se o usuário confirmar a exclusão, realiza o AJAX
             $.ajax({
-                url: "{{route('financeiro.excluir.cliente')}}",
+                url: excluirColetivo,
                 method: "POST",
                 data: {
                     id
@@ -328,7 +328,7 @@ $("body").on('click', '.button_cancelar', function() {
         if (result.isConfirmed) {
             // Se o usuário confirmar o cancelamento, realiza o AJAX
             $.ajax({
-                url: "{{route('financeiro.contrato.cancelados')}}",
+                url: financeiroCanceladoColetivo,
                 method: "POST",
                 data: {
                     comissao_id_cancelado: id

@@ -27,6 +27,8 @@
             var empresarialEmAnalise    = "{{route('financeiro.analise.empresarial')}}";
             var empresarialDataBaixa    = "{{route('financeiro.baixa.data.empresarial')}}";
             var changecorretor          = "{{route('financeiro.changeFinanceiro')}}"
+            var financeiroCanceladoColetivo      = "{{route('financeiro.contrato.cancelados')}}";
+            var excluirColetivo = "{{route('financeiro.excluir.cliente')}}";
             var table;
             var table_individual;
             var parcelaSelecionada;
