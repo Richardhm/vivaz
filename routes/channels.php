@@ -10,7 +10,7 @@ Broadcast::channel('jetete',function(){
     return true;
 });
 
-//Broadcast::channel('ranking-channel',function(){
-//   return true;
-//});
+Broadcast::channel('ranking-channel',function(){
+   return true;
+});
 
