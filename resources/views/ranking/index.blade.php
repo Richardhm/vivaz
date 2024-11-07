@@ -213,9 +213,9 @@
     </script>
 
     <script type="module">
-        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-            verificarTrocaDeLider(event.novoRanking, event.venda);
-        });
+        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+        //     verificarTrocaDeLider(event.novoRanking, event.venda);
+        // });
     </script>
 
 
