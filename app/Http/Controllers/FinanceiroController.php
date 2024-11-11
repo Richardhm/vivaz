@@ -78,6 +78,9 @@ class FinanceiroController extends Controller
             ->whereRaw("name != ''")
             ->get();
 
+
+
+
         return view('financeiro.index',[
             "users" => $users
         ]);
@@ -222,10 +225,22 @@ class FinanceiroController extends Controller
         $dados['valor_boleto'] = str_replace([".", ","], ["", "."], $request->valor_boleto);
         $dados['data_boleto'] = date('Y-m-d', strtotime($request->data_boleto));
         $dados['corretora_id'] = $corretora_id;
+
+
+
         $dados['created_at'] = $request->created_at;
         $dados['financeiro_id'] = 1;
-        $dados['desconto_operadora'] = 15;
-        $dados['quantidade_parcelas'] = 3;
+
+        $dados['desconto_operadora'] = 0;
+        $dados['quantidade_parcelas'] = 0;
+
+
+        if($request->desconto_operadora && $request->quantidade_parcelas) {
+            $dados['desconto_operadora'] = $request->desconto_operadora;
+            $dados['quantidade_parcelas'] = $request->quantidade_parcelas;
+        }
+
+
         $valor = $dados['valor_plano'];
 
 
