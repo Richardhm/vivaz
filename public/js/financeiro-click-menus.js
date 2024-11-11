@@ -71,6 +71,19 @@ $("body").on('click','.editar_individual',function(){
     }
 });
 
+$("body").on('click','.editar_coletivo',function(){
+
+    let input = $(this).closest("div").find("input");
+
+    if (input.prop('readonly')) {
+        input.prop('readonly', false); // Remove a propriedade readonly
+    } else {
+        input.prop('readonly', true); // Adiciona a propriedade readonly
+    }
+});
+
+
+
 
 $('body').on('click','#btnVincular',function(){
    let usuarioSelect = $("#usuarioSelect").val();
@@ -204,6 +217,8 @@ $(document).on('click', '.open-modal', function(e) {
     e.preventDefault();
     $('#modalLoader').removeClass('hidden');
     let cliente = $(this).data("cliente");
+    let contrato = $(this).data("contrato");
+    console.log(contrato);
     let cpf = $(this).data("cpf");
     let codigo_externo = $(this).data("codigo");
     let rua = $(this).data("rua");
@@ -246,6 +261,7 @@ $(document).on('click', '.open-modal', function(e) {
             id,
             financeiro,
             administradora,
+            contrato,
             fone
         },
         success:function(res){

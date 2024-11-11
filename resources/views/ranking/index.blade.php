@@ -915,10 +915,8 @@
         // Função para verificar a troca de liderança
         $("body").on('change','#user_id',function(){
             let user_id = $(this).val();
-
             $("#overlay").show();
             $("#loading").show();
-
             $.ajax({
                 url:"{{route('ranking.verificar.corretor')}}",
                 method:"POST",
@@ -939,7 +937,6 @@
         //AJAX para atualizar o ranking e verificar troca de liderança
         $('#rankingForm').on('submit', function (e) {
             e.preventDefault();
-
             $.ajax({
                 url: ranking,
                 method: "POST",
@@ -1008,21 +1005,13 @@
                         $(".aqui_meta").text(meta);
                         $(".total_vidas").text(total_vidas);
                         $(".total_porcentagem").text(((total_vidas / meta) * 100).toFixed(2));
-
                         updateHeader(corretora,data.totals[0]);
-
                         let numGroups = corretora === "concessi" ? $('.slide-corretora').length : $('.slide-group').length;
-
-                        console.log("Numero de Grupo ",numGroups);
-                        console.log("Corretora ",corretora);
-
-
                         if (corretora === "concessi") {
                             createSlideShowCorretora(numGroups);
                         } else {
                             createSlideShow(numGroups);
                         }
-
                         setTimeout(() => {
                             activeButtonIndex = (activeButtonIndex + 1) % footerButtons.length;
                             changeActiveButton(); // Troca para o próximo botão após o tempo
@@ -1066,18 +1055,9 @@
         }
 
         // Funções auxiliares para slides e cabeçalho omitidas para brevidade, mas mantidas iguais
-
-
-
-
-
         trocaDeAba()
 
         function updateHeader(corretora,totais) {
-
-
-
-
             // Lógica de atualização de header conforme a corretora
             if (corretora === 'concessi') {
                 $("#header_esquerda_concessionaria").removeClass('ocultar').addClass('aparecer');

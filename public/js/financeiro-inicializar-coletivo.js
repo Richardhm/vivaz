@@ -83,9 +83,10 @@ function inicializarColetivo(corretora_id = null) {
                     let financeiro_id = rowData['financeiro_id'];
                     let administradora = rowData['administradora'];
                     let fone = rowData['fone'];
+                    let data_contrato = rowData['data_contrato'];
                     $(td).html(
                         `<div class='text-center text-white'>
-                            <a href="#" class="text-white open-modal" data-fone="${fone}" data-administradora="${administradora}" data-financeiro="${financeiro_id}" data-status="${status}" data-valorplano="${valor_plano}" data-adesao="${valor_adesao}" data-descontocorretora="${desconto_corretora}" data-descontocorretor="${desconto_corretor}" data-uf="${uf}" data-nascimento="${data_nascimento}" data-corretor="${corretor}" data-rua="${rua}" data-cidade="${cidade}" data-cep="${cep}" data-codigo="${codigo_externo}" data-id="${id}" data-cliente="${cliente}" data-cpf="${cpf}" data-email="${email}" data-nascimento="${nascimento}" data-bairro="${bairro}">
+                            <a href="#" class="text-white open-modal" data-contrato="${data_contrato}" data-fone="${fone}" data-administradora="${administradora}" data-financeiro="${financeiro_id}" data-status="${status}" data-valorplano="${valor_plano}" data-adesao="${valor_adesao}" data-descontocorretora="${desconto_corretora}" data-descontocorretor="${desconto_corretor}" data-uf="${uf}" data-nascimento="${data_nascimento}" data-corretor="${corretor}" data-rua="${rua}" data-cidade="${cidade}" data-cep="${cep}" data-codigo="${codigo_externo}" data-id="${id}" data-cliente="${cliente}" data-cpf="${cpf}" data-email="${email}" data-nascimento="${nascimento}" data-bairro="${bairro}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />

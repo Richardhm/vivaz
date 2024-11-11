@@ -114,6 +114,57 @@ $("body").on('change','.editar_campo_individual',function(){
     });
 });
 
+$("body").on('change','.editar_campo_individual',function(){
+    let alvo = $(this).attr('id');
+    let valor = $("#"+alvo).val();
+    let id_cliente = $("#id_cliente").val();
+
+    $.ajax({
+        url:mudarCampoIndividual,
+        method:"POST",
+        data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id_cliente,
+        success:function(res) {
+            //console.log(res);
+            //table.ajax.reload();
+        }
+    });
+});
+
+
+
+
+
+$("body").on('change','.mudar_coletivo',function(){
+    let alvo = $(this).attr('id');
+    $("#valor_contrato").mask('#.##0,00', {reverse: true});
+    $("#valor_adesao").mask('#.##0,00', {reverse: true});
+    $("#desconto_corretora").mask('#.##0,00', {reverse: true});
+    $("#desconto_corretor").mask('#.##0,00', {reverse: true});
+
+
+    let valor = $("#"+alvo).val();
+    let id_cliente = $("#id_cliente").val();
+
+    $.ajax({
+        url:editarCampoColetivo,
+        method:"POST",
+        data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id_cliente,
+        success:function(res) {
+            console.log(res);
+            //table.ajax.reload();
+        }
+    });
+
+
+
+});
+
+
+
+
+
+
+
 $("body").on('change', '#mudar_corretor_individual', function () {
     let id_cliente = $("#id_cliente").val();
     let user_id = $(this).val();

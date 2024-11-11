@@ -16,118 +16,229 @@
     <div class="flex basis-[48%] pr-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] py-1 shadow-lg rounded-lg border mr-1">
         <form>
             <!-- 1ª Linha (Corretor) -->
+            <input type="hidden" id="id_cliente" value="{{$id}}">
 
             <div class="grid grid-cols-4 gap-4 mb-2">
                 <div>
-                    <label for="administradora" class="block text-white text-sm">Administradora</label>
-                    <input type="text" id="administradora" value="{{$administradora}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="administradora" class="block text-white text-sm flex justify-between">
+                        <span>Administradora</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="administradora" value="{{$administradora}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
                 </div>
                 <div class="col-span-2">
-                    <label for="corretor" class="block text-white text-sm">Corretor</label>
-                    <input type="text" id="corretor" value="{{$corretor}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="corretor" class="block text-white text-sm flex justify-between">
+                        <span>Corretor</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="corretor" value="{{$corretor}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
                 </div>
                 <div>
-                    <label for="status" class="block text-white text-sm">Status</label>
-                    <input type="text" value="{{$status}}" id="status" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="status" class="block text-white text-sm flex justify-between">
+                        <span>Status</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" value="{{$status}}" id="status" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
                 </div>
             </div>
 
             <!-- 2ª Linha (Cliente, CPF, Data Nascimento) -->
             <div class="grid grid-cols-4 gap-4 mb-2">
                 <div class="col-span-2">
-                    <label for="cliente" class="block text-white text-sm">Cliente</label>
-                    <input type="text" id="cliente" value="{{$cliente}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="cliente" class="block text-white text-sm flex justify-between">
+                        <span>Cliente</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="cliente" value="{{$cliente}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md mudar_coletivo" readonly>
                 </div>
                 <div>
-                    <label for="cpf" class="block text-white text-sm">CPF</label>
-                    <input type="text" id="cpf" value="{{$cpf}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="cpf" class="block text-white text-sm flex justify-between">
+                        <span>CPF</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="cpf" value="{{$cpf}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md mudar_coletivo" readonly>
                 </div>
                 <div>
-                    <label for="data_nascimento" class="block text-white text-sm">Data Nascimento</label>
-                    <input type="date" id="data_nascimento" value="{{$nascimento}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="data_nascimento" class="block text-white text-sm flex justify-between">
+                        <span>Data Nascimento</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="date" id="data_nascimento" value="{{$nascimento}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
             </div>
 
             <!-- 3ª Linha (Código Externo e Email) -->
             <div class="grid grid-cols-4 gap-4 mb-2">
                 <div>
-                    <label for="codigo_externo" class="block text-white text-sm">Código Externo</label>
-                    <input type="text" id="codigo_externo" value="{{$codigo_externo}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="codigo_externo" class="block text-white text-sm flex justify-between">
+                        <span>Código Externo</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="codigo_externo" value="{{$codigo_externo}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
                 <div>
-                    <label for="fone" class="block text-white text-sm">Celular</label>
-                    <input type="text" id="fone" value="{{$fone}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="fone" class="block text-white text-sm flex justify-between">
+                        <span>Celular</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="fone" value="{{$fone}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
                 <div class="col-span-2">
-                    <label for="email" class="block text-white text-sm">Email</label>
-                    <input type="email" id="email" value="{{$email}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="email" class="block text-white text-sm flex justify-between">
+                        <span>Email</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="email" id="email" value="{{$email}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
             </div>
 
             <!-- 4ª Linha (CEP, Cidade, UF, Bairro) -->
             <div class="grid grid-cols-4 gap-4 mb-2">
                 <div>
-                    <label for="cep" class="block text-white text-sm">CEP</label>
-                    <input type="text" id="cep" value="{{$cep}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="cep" class="block text-white text-sm flex justify-between">
+                        <span>CEP</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="cep" value="{{$cep}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
                 <div>
-                    <label for="cidade" class="block text-white text-sm">Cidade</label>
-                    <input type="text" id="cidade" value="{{$cidade}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="cidade" class="block text-white text-sm flex justify-between">
+                        <span>Cidade</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="cidade" value="{{$cidade}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
                 <div>
-                    <label for="uf" class="block text-white text-sm">UF</label>
-                    <input type="text" id="uf" value="{{$uf}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="uf" class="block text-white text-sm flex justify-between">
+                        <span>UF</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="uf" value="{{$uf}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
                 <div>
-                    <label for="bairro" class="block text-white text-sm">Bairro</label>
-                    <input type="text" id="bairro" value="{{$bairro}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="bairro" class="block text-white text-sm flex justify-between">
+                        <span>Bairro</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="bairro" value="{{$bairro}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
             </div>
 
             <!-- 5ª Linha (Rua, Complemento) -->
             <div class="grid grid-cols-2 gap-4 mb-2">
                 <div>
-                    <label for="rua" class="block text-white text-sm">Rua</label>
-                    <input type="text" id="rua" value="{{$rua}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="rua" class="block text-white text-sm flex justify-between">
+                        <span>Rua</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="rua" value="{{$rua}}" class="w-full bg-gray-100 text-gray-800 p-1 mudar_coletivo rounded-md" readonly>
                 </div>
                 <div>
-                    <label for="complemento" class="block text-white text-sm">Complemento</label>
-                    <input type="text" id="complemento" value="{{$complemento}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="complemento" class="block text-white text-sm flex justify-between">
+                        <span>Complemento</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="complemento" value="{{$complemento}} - {{$contrato}}" class="w-full bg-gray-100 text-gray-800 mudar_coletivo p-1 rounded-md" readonly>
                 </div>
             </div>
 
             <!-- 6ª Linha (Data Contrato, Valores, Descontos) -->
             <div class="grid grid-cols-5 gap-4 mb-2">
                 <div>
-                    <label for="data_contrato" class="block text-white text-sm">Data Contrato</label>
-                    <input type="date" id="data_contrato" class="w-full bg-gray-100 text-gray-800 p-1 text-sm  rounded-md">
+                    <label for="data_contrato" class="block text-white text-sm flex justify-between">
+                        <span>Data Contrato</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="date" id="data_contrato"  value="{{$contrato}}" class="w-full bg-gray-100 text-gray-800 p-1 text-sm mudar_coletivo rounded-md" readonly>
                 </div>
                 <div>
-                    <label for="valor_contrato" class="block text-white text-sm">Valor Contrato</label>
-                    <input type="text" id="valor_contrato" value="{{number_format($valor_plano,2,",",".")}}" class="w-full bg-gray-100 text-gray-800 p-1 text-sm  rounded-md">
+                    <label for="valor_contrato" class="block text-white text-sm flex justify-between">
+                        <span>Valor Contrato</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="valor_contrato" readonly value="{{number_format($valor_plano,2,",",".")}}" class="w-full mudar_coletivo bg-gray-100 text-gray-800 p-1 text-sm rounded-md">
                 </div>
                 <div>
-                    <label for="valor_adesao" class="block text-white text-sm">Valor Adesão</label>
-                    <input type="text" id="valor_adesao" value="{{number_format($valor_adesao,2,",",".")}}" class="w-full bg-gray-100 text-gray-800 p-1 text-sm rounded-md">
+                    <label for="valor_adesao" class="block text-white text-sm flex justify-between">
+                        <span>Valor Adesão</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="valor_adesao" value="{{number_format($valor_adesao,2,",",".")}}" readonly class="w-full mudar_coletivo bg-gray-100 text-gray-800 p-1 text-sm rounded-md">
                 </div>
                 <div>
-                    <label for="desconto_corretora" class="block text-white text-sm">Desc. Corretora</label>
-                    <input type="text" id="desconto_corretora" value="{{number_format($desconto_corretora,2,",",".") ?? ''}}" class="w-full text-sm  bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="desconto_corretora" class="block text-white text-sm flex justify-between">
+                        <span>Desc. Corretora</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="desconto_corretora" readonly value="{{number_format($desconto_corretora,2,",",".") ?? ''}}" class="w-full text-sm mudar_coletivo bg-gray-100 text-gray-800 p-1 rounded-md">
                 </div>
                 <div>
-                    <label for="desconto_corretor" class="block text-white text-sm">Desc. Corretor</label>
-                    <input type="text" id="desconto_corretor" value="{{number_format($desconto_corretor,2,",",".") ?? ''}}" class="w-full text-sm  bg-gray-100 text-gray-800 p-1 rounded-md">
+                    <label for="desconto_corretor" class="block text-white text-sm flex justify-between">
+                        <span>Desc. Corretor</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="desconto_corretor" readonly value="{{number_format($desconto_corretor,2,",",".") ?? ''}}" class="w-full text-sm mudar_coletivo bg-gray-100 text-gray-800 p-1 rounded-md">
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 mb-2">
                 <div>
-                    <label for="nome_responsavel" class="block text-white text-sm">Nome Responsavel</label>
-                    <input type="text" id="nome_responsavel" value="" class="w-full bg-gray-100 text-sm  text-gray-800 p-1 rounded-md">
+                    <label for="nome_responsavel" class="block text-white text-sm flex justify-between">
+                        <span>Nome Responsavel</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="nome_responsavel" readonly value="" class="w-full bg-gray-100 text-sm mudar_coletivo text-gray-800 p-1 rounded-md">
                 </div>
                 <div>
-                    <label for="cpf_responsavel" class="block text-white text-sm">CPF Responsavel</label>
-                    <input type="text" id="cpf_responsavel" value="" class="w-full bg-gray-100 text-sm  text-gray-800 p-1 rounded-md">
+                    <label for="cpf_responsavel" class="block text-white text-sm flex justify-between">
+                        <span>CPF Responsavel</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+                    </label>
+                    <input type="text" id="cpf_responsavel" readonly value="" class="w-full bg-gray-100 text-sm mudar_coletivo text-gray-800 p-1 rounded-md">
                 </div>
             </div>
 
@@ -337,3 +448,12 @@
 
     </div>
 </div>
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $("body").find("#valor_contrato").mask('#.##0,00', {reverse: true});
+        });
+
+
+    </script>
+@endsection

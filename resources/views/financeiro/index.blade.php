@@ -29,6 +29,8 @@
             var changecorretor          = "{{route('financeiro.changeFinanceiro')}}"
             var financeiroCanceladoColetivo      = "{{route('financeiro.contrato.cancelados')}}";
             var excluirColetivo = "{{route('financeiro.excluir.cliente')}}";
+            var mudarCampoIndividual = "{{route('financeiro.editar.campoIndividualmente')}}";
+            var editarCampoColetivo = "{{route('financeiro.editar.campoColetvivo')}}";
             var table;
             var table_individual;
             var parcelaSelecionada;
@@ -217,6 +219,14 @@
         $(document).ready(function(){
 
             $('#valor').mask('#.##0,00', {reverse: true});
+
+
+
+
+            // $('#valor_contrato').mask('#.##0,00', {reverse: true});
+            // $('#valor_adesao').mask('#.##0,00', {reverse: true});
+            // $('#desconto_corretor').mask('#.##0,00', {reverse: true});
+            // $('#desconto_corretora').mask('#.##0,00', {reverse: true});
 
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');

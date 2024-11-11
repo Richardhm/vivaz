@@ -384,12 +384,7 @@
                                 @if($pdf->demais_terapias_total || $pdf->demais_terapias_parcial)
                                     <p>Demais Terapias</p>
                                 @endif
-                                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
-                                    <p>Internações</p>
-                                @endif
-                                @if($pdf->internacoes_total || $pdf->internacoes_parcial)
-                                    <p>Cirurgia</p>
-                                @endif
+
                             </div>
                         </td>
                         <td style="width: 30%; vertical-align: top;text-align:left;">
@@ -401,8 +396,7 @@
                                 <p>{{$pdf->exames_complexos_total ?? ''}}</p>
                                 <p>{{$pdf->terapias_especiais_total ?? ''}}</p>
                                 <p>{{$pdf->demais_terapias_total ?? ''}}</p>
-                                <p>{{$pdf->internacoes_total ?? ''}}</p>
-                                <p>{{$pdf->cirurgia_total ?? ''}}</p>
+
                             </div>
                         </td>
                         <td style="width: 30%; vertical-align: top;text-align:left;">
@@ -414,8 +408,7 @@
                                 <p>{{$pdf->exames_complexos_parcial ?? ''}}</p>
                                 <p>{{$pdf->terapias_especiais_parcial ?? ''}}</p>
                                 <p>{{$pdf->demais_terapias_parcial ?? ''}}</p>
-                                <p>{{$pdf->internacoes_parcial ?? ''}}</p>
-                                <p>{{$pdf->cirurgia_parcial ?? ''}}</p>
+
                             </div>
                         </td>
                     </tr>
@@ -427,7 +420,7 @@
                     <table style="width: 100%;border-spacing: 0; padding: 0;">
                         <tr style="padding: 0;">
                             <!-- Coluna da Esquerda (70%) -->
-                            <td style="width: 60%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                            <td style="width: 50%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
                                 <p style="margin: 0;padding:0;text-align:left;">
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px;">
                                     24<br />horas
@@ -440,7 +433,7 @@
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     30<br />dias
                                 </span>
-                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;">
+                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.65em;">
                                     Consultas Médicas,<br />Exames Médicos Simples
                                 </span>
                                 </p>
@@ -448,36 +441,20 @@
                                 <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
                                     90<br />dias
                                 </span>
-                                    <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                    <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.6em;">
                                     Exames Cardiológicos, Exames<br /> de Imagem, Oftalmológicos,<br />Otorrino Simples, Raio X,<br />Ultrassonografia
                                 </span>
                                 </p>
-                                <p style="margin:10px 0px 0px 0px;text-align:left;">
-                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
-                                    180<br />dias
-                                </span>
-                                    <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
-                                    Cirurgias, Internações, Exames<br />de Alto Custo, Tratamento<br />Psicológico, Terapia Ocupacional,<br />Fisioterapia
-                                </span>
-                                </p>
+
                             </td>
-                            <!-- Coluna da Direita (30%) -->
-                            <td style="width: 40%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
-                                <p style="margin: 0;text-align:left;">
-                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
-                                    300<br />dias
-                                </span>
-                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.8em;">
-                                    Parto
-                                </span>
-                                </p>
-                                <p style="margin: 10px 0 0 0;text-align:left;">
-                                <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
-                                    720<br />dias
-                                </span>
-                                    <span style="display: inline-block; vertical-align: middle; margin: 0;font-size:0.7em;;">
-                                    Doenças e Lesões<br />Pré-existentes
-                                </span>
+                            <td style="width: 50%; vertical-align: top; padding: 0; margin: 0;text-align:left;">
+                                <p style="margin:0px 0px 0px 0px;text-align:left;">
+                                    <span style="border: 4px solid #366EBF;font-size:0.8em;border-radius:5px; display: inline-block; vertical-align: top; margin: 0;text-align:center;padding:5px 12px;">
+                                        180<br />dias
+                                    </span>
+                                    <span style="display: inline-block; vertical-align: top; margin: 0;font-size:0.7em;">
+                                        Terapias, Exames<br />de Alto Custo<br />
+                                    </span>
                                 </p>
                             </td>
                         </tr>
