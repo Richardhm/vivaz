@@ -2751,7 +2751,7 @@ class FinanceiroController extends Controller
 
     public function listarContratoEmpresaPendentes(Request $request)
     {
-        $corretora_id = 1;
+        $corretora_id = auth()->user()->corretora_id;
         if ($request->ajax()) {
             $cacheKey = 'listarContratoEmpresaPendentes';
             $tempoDeExpiracao = 0;
