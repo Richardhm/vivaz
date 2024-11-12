@@ -942,9 +942,9 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (res) {
-                    // if (res && res.ranking && res.ranking.length > 0) {
-                    //     verificarTrocaDeLider(res.ranking,res.venda);
-                    // }
+                    if (res && res.ranking && res.ranking.length > 0) {
+                        verificarTrocaDeLider(res.ranking,res.venda);
+                    }
                 }
             });
         });

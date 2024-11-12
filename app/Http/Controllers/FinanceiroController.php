@@ -72,6 +72,7 @@ class FinanceiroController extends Controller
 
     public function index(Request $request)
     {
+
         $corretora_id = auth()->user()->corretora_id;
         $users = User::where("corretora_id",$corretora_id)
             ->where("name" ,"!=",'Administrador')
@@ -225,12 +226,8 @@ class FinanceiroController extends Controller
         $dados['valor_boleto'] = str_replace([".", ","], ["", "."], $request->valor_boleto);
         $dados['data_boleto'] = date('Y-m-d', strtotime($request->data_boleto));
         $dados['corretora_id'] = $corretora_id;
-
-
-
         $dados['created_at'] = $request->created_at;
         $dados['financeiro_id'] = 1;
-
         $dados['desconto_operadora'] = 0;
         $dados['quantidade_parcelas'] = 0;
 
@@ -239,11 +236,7 @@ class FinanceiroController extends Controller
             $dados['desconto_operadora'] = $request->desconto_operadora;
             $dados['quantidade_parcelas'] = $request->quantidade_parcelas;
         }
-
-
         $valor = $dados['valor_plano'];
-
-
         $contrato = ContratoEmpresarial::create($dados);
         $comissao = new Comissoes();
         $comissao->contrato_empresarial_id = $contrato->id;
@@ -257,20 +250,14 @@ class FinanceiroController extends Controller
         $comissao->data = date('Y-m-d');
         $comissao->empresarial = 1;
         $comissao->save();
-
-
         $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
             ::where("plano_id", $request->plano_id)
             ->where("administradora_id", 4)
             ->where("user_id", $request->user_id)
             ->get();
-
-
         $date = new \DateTime(now());
         $date->add(new \DateInterval('PT1M'));
         $data = $date->format('Y-m-d H:i:s');
-
-
         $comissao_corretor_contagem = 0;
         $valorComDesconto = 0;
         $comissao_corretor_default = 0;
@@ -305,7 +292,6 @@ class FinanceiroController extends Controller
             $dado = ComissoesCorretoresDefault
                 ::where("plano_id", $request->plano_id)
                 ->where("administradora_id", 4)
-
                 ->where('corretora_id',$corretora_id)
                 ->get();
             foreach ($dado as $c) {
@@ -329,14 +315,8 @@ class FinanceiroController extends Controller
                     }
                 } else {
                     $valorComDesconto = ($valor * $c->valor) / 100;
-
                 }
                 $comissaoVendedor->valor = $valorComDesconto;
-
-
-
-
-
                 $comissaoVendedor->save();
                 $comissao_corretor_default++;
             }
@@ -2525,6 +2505,99 @@ class FinanceiroController extends Controller
         ));
     }
 
+    public function changeColetivo()
+    {
+        $contrato_id = request()->id_contrato;
+        $user_id = request()->user_id;
+        $estagiario = User::where("id",$user_id)->first()->estagiario;
+        $contrato = Contrato::find($contrato_id);
+        $cliente = Cliente::where("id",$contrato->cliente_id)->first();
+        $comissao = Comissoes::where('contrato_id',$contrato->id)->first();
+        $corretora_id = User::find($user_id)->corretora_id;
+
+        if($estagiario == 0) {
+
+
+            ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->update(["valor" => 0]);
+            $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
+                ::where("plano_id", $contrato->plano_id)
+                ->where("administradora_id", $contrato->administradora_id)
+                ->where("user_id", $user_id)
+                ->get();
+            $par = 0;
+            if (count($comissoes_configuradas_corretor) >= 1) {
+                foreach($comissoes_configuradas_corretor as $c) {
+                    $par++;
+                    $valor_comissao = $contrato->valor_adesao;
+                    $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                    $comissaoVendedor->valor = ($valor_comissao * $c->valor) / 100;
+                    $comissaoVendedor->save();
+                }
+            } else {
+                $dados = ComissoesCorretoresDefault
+                    ::where("plano_id", $contrato->plano_id)
+                    ->where("administradora_id", $contrato->administradora_id)
+                    ->where("corretora_id",$cliente->corretora_id)
+                    ->get();
+                foreach ($dados as $c) {
+                    $par++;
+                    $valor_comissao_default = $contrato->valor_adesao;
+                    $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                    $comissaoVendedor->valor = ($valor_comissao_default * $c->valor) / 100;
+                    $comissaoVendedor->save();
+                }
+                //}
+//                /****FIm SE Comissoes Lancadas */
+            }
+
+            $cliente->user_id = $user_id;
+            $cliente->save();
+
+            $comissao->user_id = $user_id;
+            $comissao->save();
+
+        } else {
+
+            ClienteEstagiario::updateOrCreate(
+                [
+                    'cliente_id' => $cliente->id, // Condição de busca
+                ],
+                [
+                    'user_id' => $user_id,       // Dados para atualizar ou criar
+                    'data' => now(),
+                ]
+            );
+
+
+
+        }
+
+
+        return $corretora_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
     public function changeIndividual()
     {
 
@@ -2646,11 +2719,29 @@ class FinanceiroController extends Controller
             "data_boleto" => request()->data_boleto,
             "user_id" => request()->user_id
         ]);
-
-
-
-
     }
+
+    public function changeAdministradora()
+    {
+        $administradora_id = request()->administradora_id;
+        $contrato_id = request()->id_cliente;
+
+        $contrato = Contrato::find($contrato_id);
+        $contrato->administradora_id = $administradora_id;
+        $contrato->save();
+
+        $comissao = Comissoes::where("contrato_id",$contrato->id)->first();
+        $comissao->administradora_id = $administradora_id;
+        $comissao->save();
+
+
+        return "Olaaaaaa";
+    }
+
+
+
+
+
 
 
 
@@ -2659,14 +2750,24 @@ class FinanceiroController extends Controller
     {
 
         $id = request()->id;
+
         $contratos = Contrato
             ::where("id",$id)
             ->with(['administradora','financeiro','cidade','comissao','acomodacao','plano','comissao.comissaoAtualFinanceiro','comissao.comissoesLancadas','clientes','clientes.user','clientes.dependentes'])
             ->orderBy("id","desc")
             ->first();
 
+        $users = User
+            ::where("corretora_id",auth()->user()->corretora_id)
+            ->get();
+
+        $administradoras = Administradora::where("id","!=",4)->get();
+
         return view('financeiro.modal-coletivo',[
+            "administradoras" => $administradoras,
+            "administradora_id" => $contratos->administradora->id,
             "financeiro" => request()->financeiro,
+            "users" => $users,
             "status" => request()->status,
             "contrato" => request()->contrato,
             "administradora" => request()->administradora,
@@ -2689,17 +2790,29 @@ class FinanceiroController extends Controller
             "desconto_corretora" => request()->desconto_corretora,
             "desconto_corretor" => request()->desconto_corretor,
             "id" => request()->id,
-            "fone" => request()->fone
+            "fone" => request()->fone,
+            "cliente_id" => $contratos->clientes->user->id,
+            "dependente_nome" => $contratos->clientes->dependentes->nome ?? '',
+            "dependente_cpf" => $contratos->clientes->dependentes->cpf ?? ''
         ]);
     }
 
     public function coletivoEmGeral(Request $request)
     {
-        $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
 
         if ($request->ajax()) {
+            $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
             $cacheKey = "geralColetivoGeral_" . now()->format('YmdHis');
             $tempoDeExpiracao = 60;
+
+            if($request->has('refresh') && $request->refresh == 1) {
+                Cache::forget($cacheKey);
+            }
+
+
+
+
+
 
             $dados = Cache::remember($cacheKey, $tempoDeExpiracao, function () use($corretora_id) {
                 $query = DB::table('comissoes_corretores_lancadas')

@@ -61,6 +61,30 @@ $("body").on('click','.editar_individual_select',function(){
     }
 });
 
+
+$("body").on('click','.editar_coletivo_select',function(){
+    let select = $(this).closest("div").find('select');
+    if(select.prop('disabled')) {
+        select.prop('disabled',false);
+    } else {
+        select.prop('disabled',true);
+    }
+});
+
+$("body").on('click','.editar_coletivo_administradora',function(){
+    let select = $(this).closest("div").find('select');
+    if(select.prop('disabled')) {
+        select.prop('disabled',false);
+    } else {
+        select.prop('disabled',true);
+    }
+});
+
+
+
+
+
+
 $("body").on('click','.editar_individual',function(){
     let input = $(this).closest("div").find("input");
 
@@ -218,7 +242,6 @@ $(document).on('click', '.open-modal', function(e) {
     $('#modalLoader').removeClass('hidden');
     let cliente = $(this).data("cliente");
     let contrato = $(this).data("contrato");
-    console.log(contrato);
     let cpf = $(this).data("cpf");
     let codigo_externo = $(this).data("codigo");
     let rua = $(this).data("rua");

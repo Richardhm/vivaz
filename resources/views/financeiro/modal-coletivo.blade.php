@@ -22,20 +22,37 @@
                 <div>
                     <label for="administradora" class="block text-white text-sm flex justify-between">
                         <span>Administradora</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo_administradora">
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="administradora" value="{{$administradora}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
+
+
+                    <select disabled name="change_administradora_coletivo" id="change_administradora_coletivo" style="color:black;" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
+                        <option value="">--Escolher Administradora--</option>
+                        @foreach($administradoras as $ad)
+                            <option value="{{$ad->id}}" {{$ad->id == $administradora_id ? "selected" : ""}} style="color:black;">{{$ad->nome}}</option>
+                        @endforeach
+                    </select>
+
+
+
+
                 </div>
                 <div class="col-span-2">
                     <label for="corretor" class="block text-white text-sm flex justify-between">
                         <span>Corretor</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_coletivo_select">
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="corretor" value="{{$corretor}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
+                    <select disabled name="change_corretor_coletivo" id="change_corretor_coletivo" style="color:black;" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
+                        <option value="">--Escolher Corretor--</option>
+                        @foreach($users as $us)
+                            <option value="{{$us->id}}" {{$us->id == $cliente_id ? "selected" : ""}} style="color:black;">{{$us->name}}</option>
+                        @endforeach
+                    </select>
+
                 </div>
                 <div>
                     <label for="status" class="block text-white text-sm flex justify-between">
@@ -168,7 +185,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="complemento" value="{{$complemento}} - {{$contrato}}" class="w-full bg-gray-100 text-gray-800 mudar_coletivo p-1 rounded-md" readonly>
+                    <input type="text" id="complemento" value="{{$complemento}}" class="w-full bg-gray-100 text-gray-800 mudar_coletivo p-1 rounded-md" readonly>
                 </div>
             </div>
 
@@ -229,7 +246,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="nome_responsavel" readonly value="" class="w-full bg-gray-100 text-sm mudar_coletivo text-gray-800 p-1 rounded-md">
+                    <input type="text" id="nome_responsavel" value="{{$dependente_nome}}" readonly value="" class="w-full bg-gray-100 text-sm mudar_coletivo text-gray-800 p-1 rounded-md">
                 </div>
                 <div>
                     <label for="cpf_responsavel" class="block text-white text-sm flex justify-between">
@@ -238,7 +255,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="cpf_responsavel" readonly value="" class="w-full bg-gray-100 text-sm mudar_coletivo text-gray-800 p-1 rounded-md">
+                    <input type="text" id="cpf_responsavel" value="{{$dependente_cpf}}" readonly value="" class="w-full bg-gray-100 text-sm mudar_coletivo text-gray-800 p-1 rounded-md">
                 </div>
             </div>
 
@@ -298,7 +315,7 @@
                         @if($dados->data_analise == "")
                             <button type="button" data-id="{{$id}}" class="em_analise text-white flex self-center justify-center mx-auto mt-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">Conferido</button>
                         @else
-                            <button type="button" class="text-center text-white flex my-auto justify-center cursor-not-allowed bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">
+                            <button type="button" class="text-center text-white flex my-auto justify-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">
                                 <svg class="w-6 h-6 text-white dark:text-white text-center mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clip-rule="evenodd"/>
                                 </svg>
@@ -312,7 +329,7 @@
                     </td>
                 </tr>
 
-                <tr class="@if($dados->financeiro_id < 2) disabled-button @endif">
+                <tr>
                     <td style="font-size:0.875em;">Emissão Boleto</td>
                     <td style="font-size:0.875em;">{{$codigo_externo}}</td>
                     <td style="font-size:0.875em;">-</td>
@@ -323,7 +340,7 @@
                         @if($dados->data_emissao == "")
 
 
-                            <button type="button" data-id="{{$id}}"   class="flex self-center justify-center mx-auto mt-2 emissao_boleto @if($dados->financeiro_id < 2) pointer-events-none cursor-not-allowed @endif focus:outline-none text-white bg-purple-700 hover:bg-purple-800 font-medium rounded-lg text-sm px-3 py-1 mb-2 w-11/12">Emitido</button>
+                            <button type="button" data-id="{{$id}}"   class="flex self-center justify-center mx-auto mt-2 emissao_boleto focus:outline-none text-white bg-purple-700 hover:bg-purple-800 font-medium rounded-lg text-sm px-3 py-1 mb-2 w-11/12">Emitido</button>
                         @else
                             <button type="button" class="text-center text-white flex justify-center mt-2 cursor-not-allowed bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">
                                 <svg class="w-6 h-6 text-white dark:text-white text-center mx-auto" data-fase="2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

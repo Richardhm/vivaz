@@ -8,6 +8,11 @@
         <script>
             var urlGeralIndividualPendentes = "{{ route('financeiro.individual.geralIndividualPendentes') }}";
             var urlGeralColetivoPendentes = "{{ route('financeiro.coletivo.em_geral') }}";
+            var editarAdministradoraChange = "{{route('financeiro.administradora.change')}}"
+
+
+
+
             var urlGeralEmpresarialPendentes = "{{ route('contratos.listarEmpresarial.listarContratoEmpresaPendentes') }}";
             var listarOdonto = "{{ route('odonto.listar') }}";
 
@@ -26,8 +31,9 @@
             var emissaoBoleto           = "{{route('financeiro.analise.boleto')}}";
             var empresarialEmAnalise    = "{{route('financeiro.analise.empresarial')}}";
             var empresarialDataBaixa    = "{{route('financeiro.baixa.data.empresarial')}}";
-            var changecorretor          = "{{route('financeiro.changeFinanceiro')}}"
-            var financeiroCanceladoColetivo      = "{{route('financeiro.contrato.cancelados')}}";
+            var changecorretor          = "{{route('financeiro.changeFinanceiro')}}";
+            var changecorretorColetivo  = "{{route('financeiro.changeFinanceiroColetivo')}}";
+            var financeiroCanceladoColetivo = "{{route('financeiro.contrato.cancelados')}}";
             var excluirColetivo = "{{route('financeiro.excluir.cliente')}}";
             var mudarCampoIndividual = "{{route('financeiro.editar.campoIndividualmente')}}";
             var editarCampoColetivo = "{{route('financeiro.editar.campoColetvivo')}}";
@@ -52,11 +58,11 @@
     <x-upload-atualizar></x-upload-atualizar>
 
         <!-- O container de loading com 3 pontinhos -->
-        <div id="loading-dots-change" class="hidden fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 z-50">
-            <div class="flex justify-center items-center space-x-1">
-                <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce"></div>
-                <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce delay-200"></div>
-                <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce delay-400"></div>
+        <div id="loading-dots-change" class="hidden fixed inset-0 text-2xl flex items-center justify-center bg-opacity-50 bg-gray-800" style="z-index: 100000000000000000">
+            <div class="flex justify-center items-center space-x-1 text-2xl">
+                <div class="dot bg-black w-12 h-12 rounded-full animate-bounce text-2xl"></div>
+                <div class="dot bg-black w-12 h-12 rounded-full animate-bounce delay-200 text-2xl"></div>
+                <div class="dot bg-black w-12 h-12 rounded-full animate-bounce delay-400 text-2xl"></div>
             </div>
         </div>
         <div id="myModalIndividual" class="fixed inset-0 z-50 flex items-center justify-center hidden">

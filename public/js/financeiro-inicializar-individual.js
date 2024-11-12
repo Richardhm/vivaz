@@ -26,7 +26,6 @@ function inicializarIndividual(corretora_id = null,refresh = null) {
         processing: true,
         ajax: {
             "url":urlGeralIndividualPendentes,
-
             data: function (d) {
                 d.corretora_id = corretora_id,
                 d.refresh = refresh

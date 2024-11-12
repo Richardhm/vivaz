@@ -16,7 +16,7 @@ class Cliente extends Model
     public function dependentes()
     {
 
-        return $this->hasMany(Dependente::class);
+        return $this->hasOne(Dependente::class);
     }
 
     public function contrato()

@@ -154,12 +154,84 @@ $("body").on('change','.mudar_coletivo',function(){
             //table.ajax.reload();
         }
     });
+});
+
+$("body").on("change","#change_administradora_coletivo",function(){
+   let id = $(this).val();
+   let id_cliente = $("#id_cliente").val();
+
+   console.log("id ",id);
+   console.log("id_cliente ",id_cliente);
+
+    $.ajax({
+        url:editarAdministradoraChange,
+        method:"POST",
+        data:"administradora_id="+id+"&id_cliente="+id_cliente,
+        success:function(res) {
+            console.log(res);
+            //table.ajax.reload();
+        }
+    });
+
 
 
 
 });
 
 
+
+
+
+
+$("body").on('change','#change_corretor_coletivo',function(){
+    let id_contrato = $("#id_cliente").val();
+    let user_id     = $(this).val();
+
+    $("#loading-dots-change").removeClass('hidden');
+
+    $.ajax({
+        url: changecorretorColetivo,
+        method: "POST",
+        data: {
+            id_contrato,
+            user_id
+        },
+        success: function (res) {
+
+            // Esconder o loading (adicionar a classe hidden novamente)
+            $("#loading-dots-change").addClass('hidden');
+            //
+            // // Exibir mensagem de sucesso (SweetAlert)
+            Swal.fire({
+                icon: 'success',
+                title: 'Troca realizada com sucesso!',
+                text: 'O cliente foi transferido para o novo vendedor.',
+                confirmButtonText: 'OK'
+            });
+            //inicializarIndividual(res,1);
+        },
+        error: function (err) {
+            // Esconder o loading (adicionar a classe hidden novamente)
+            $("#loading-dots-change").addClass('hidden');
+
+            // Exibir mensagem de erro (SweetAlert)
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao trocar vendedor',
+                text: 'Ocorreu um erro ao tentar transferir o cliente. Por favor, tente novamente.',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+
+
+
+
+
+
+
+
+});
 
 
 
