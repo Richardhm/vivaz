@@ -83,13 +83,9 @@
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
             // Elementos que irão aparecer
             const fundoPreto = $("#fundo-preto");
-            const imagem = $("#imagem-corretor");
-            const vidas = $("#quantidade-vidas");
-            const imagem2 = $(".assumir_lider");
-            //
-            //
-            // console.log("Vidasssssss ",vidas);
-
+            const imagem     = $("#imagem-corretor");
+            const vidas      = $("#quantidade-vidas");
+            const imagem2    = $(".assumir_lider");
 
             // Definir as informações do corretor e quantidade de vidas
             vidas.text(quantidadeVidas + " Vidas");
@@ -103,18 +99,20 @@
             // Quando o áudio terminar, ocultar a animação
             somVenda.onended = function() {
                 fundoPreto.removeClass('aparecer').addClass('ocultar');
-                isAnimating = false;
+                //isAnimating = false;
             };
             gerarConfetes();
             setTimeout(() => {
                 fundoPreto.removeClass('aparecer').addClass('ocultar');
-                isAnimating = false;
+                //isAnimating = false;
             }, 6000);
             // Começar a animação dos fogos e o som após 6 segundos
             setTimeout(function() {
-                let fogosBg = $("#fogos-bg");
+                let fogosBg = $("#fundo-preto-fogos");
+                fogosBg.find("#quantidade-vidas-fogos").text(quantidadeVidas + " Vidas");
+                $("#imagem-corretor-fogos").attr('src',imagemCorretor);
                 let fogosContainer = $("#fogos-container");
-                fogosBg.removeClass('aparecer').addClass('ocultar');
+                fogosBg.removeClass('ocultar').addClass('aparecer');
                 const somFogos = new Audio('fogos.mp3');
                 somFogos.play();
                 // Definir o tempo de duração da animação dos fogos (20 segundos)
@@ -122,7 +120,7 @@
                     somFogos.pause();
                     somFogos.currentTime = 0;
                     fogosContainer.fadeOut(300);
-                    fogosBg.fadeOut(300);
+                    fogosBg.removeClass('aparecer').addClass('ocultar');
                 }, 20000); // 20 segundos
             }, 6000); // Iniciar os fogos após 6 segundos (tempo da venda)
 
@@ -131,12 +129,12 @@
         }
 
         function verificarTrocaDeLider(novoRanking, venda) {
-            if (isAnimating) return; // Impede execuções simultâneas da função
-            console.log("Verificar Lider Atual:", liderAtual);
-            console.log("Venda:", venda);
-
-            somCarro.muted = false;
-            somFogos.muted = false;
+            //if (isAnimating) return; // Impede execuções simultâneas da função
+            // console.log("Verificar Lider Atual:", liderAtual);
+            // console.log("Venda:", venda);
+            //
+            // somCarro.muted = false;
+            // somFogos.muted = false;
 
             if (novoRanking && novoRanking.length > 0) {
                 const novoLider = novoRanking[0];
@@ -148,8 +146,8 @@
                     let fogosBg = $("#fogos-bg");
                     let fogosContainer = $("#fogos-container");
 
-                    fogosBg.removeClass('ocultar').addClass('block');
-                    fogosBg.fadeIn();
+                    fogosBg.removeClass('ocultar').addClass('aparecer');
+                    //fogosBg.fadeIn();
 
                     if (abaEstaVisivel() && usuarioInteragiu) {
                         isAnimating = true;
@@ -604,7 +602,7 @@
 
 <div id="fundo-preto-fogos" class="ocultar" style="display:flex;background-color: black;z-index: 50;inset: 0;position: fixed;align-items: center;justify-content: center; --tw-bg-opacity: 0.8;">
     <div class="text-center">
-        <p id="quantidade-vidas-fogos" style="font-size: 2.5em; color: white; font-weight: bold;">10 Vidas</p>
+        <p id="quantidade-vidas-fogos" style="font-size: 2.5em; color: white; font-weight: bold;"></p>
         <img id="imagem-corretor-fogos" src="" alt="Corretor" style="width: 550px; height: 550px; border-radius: 50%; margin-top: 20px;">
     </div>
 </div>
@@ -942,9 +940,9 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (res) {
-                    // if (res && res.ranking && rgit es.ranking.length > 0) {
-                    //     verificarTrocaDeLider(res.ranking,res.venda);
-                    // }
+                    if (res && res.ranking && res.ranking.length > 0) {
+                        verificarTrocaDeLider(res.ranking,res.venda);
+                    }
                 }
             });
         });
