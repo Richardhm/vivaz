@@ -77,8 +77,8 @@
         }
 
         function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
-            if (isAnimating) return; // Impede animações duplicadas
-            isAnimating = true;
+            //if (isAnimating) return; // Impede animações duplicadas
+            // isAnimating = true;
 
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
             // Elementos que irão aparecer
@@ -86,9 +86,9 @@
             const imagem = $("#imagem-corretor");
             const vidas = $("#quantidade-vidas");
             const imagem2 = $(".assumir_lider");
-
-
-            console.log("Vidasssssss ",vidas);
+            //
+            //
+            // console.log("Vidasssssss ",vidas);
 
 
             // Definir as informações do corretor e quantidade de vidas
@@ -114,7 +114,7 @@
             setTimeout(function() {
                 let fogosBg = $("#fogos-bg");
                 let fogosContainer = $("#fogos-container");
-                fogosBg.removeClass('ocultar').addClass('flex');
+                fogosBg.removeClass('aparecer').addClass('ocultar');
                 const somFogos = new Audio('fogos.mp3');
                 somFogos.play();
                 // Definir o tempo de duração da animação dos fogos (20 segundos)
@@ -171,7 +171,7 @@
                     }
 
                 } else {
-                    console.log("Apenas Mais 1 venda");
+                    //console.log("Apenas Mais 1 venda");
                     // console.log("Venda feita pelo líder atual, sem troca de líder.");
                     animacaoVenda(venda.nome, venda.image, venda.total);
                 }
@@ -942,9 +942,9 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (res) {
-                    if (res && res.ranking && res.ranking.length > 0) {
-                        verificarTrocaDeLider(res.ranking,res.venda);
-                    }
+                    // if (res && res.ranking && rgit es.ranking.length > 0) {
+                    //     verificarTrocaDeLider(res.ranking,res.venda);
+                    // }
                 }
             });
         });
