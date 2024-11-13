@@ -335,7 +335,7 @@
                 <span style="width:100%;margin:0;padding:0;">fim do mês</span>
             </div>
 
-            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" onclick="enviarMensagem()">Teste</button>
+{{--            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" onclick="enviarMensagem()">Teste</button>--}}
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" id="modal_concessionarias">Concessionarias</button>
             <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;margin:0 15px 0 5px;display:flex;align-items:center;align-self: center;" id="modal_ranking_diario">Ranking</button>
             <div class="d-flex flex-column text-center" style="font-size: 1.5em;">
