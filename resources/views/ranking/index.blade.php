@@ -137,6 +137,9 @@
             // somFogos.muted = false;
 
             if (novoRanking && novoRanking.length > 0) {
+
+                $('#rankingModal').removeClass('aparecer').addClass('ocultar');
+
                 const novoLider = novoRanking[0];
                 if (novoLider.nome != liderAtual?.trim()) {
                     liderAtual = novoLider.nome.trim();
