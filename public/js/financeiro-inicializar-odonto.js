@@ -94,7 +94,6 @@ $('#select_usuario_odonto').on('change', function() {
 });
 
 
-
 $('#tabela_odonto').on('click', 'tbody tr', function () {
     tableodonto.$('tr').removeClass('textoforte');
     $(this).closest('tr').addClass('textoforte');

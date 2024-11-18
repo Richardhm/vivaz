@@ -125,8 +125,6 @@
                             @endforeach
                         </div>
 
-
-
                         <div class="border-r border-gray-300 pr-4">
                             <h6 class="font-semibold underline text-white">Enfermaria</h6>
                             @foreach($faixas as $k => $f)
@@ -167,9 +165,7 @@
             </div>
         </div>
 
-
         <div id="aba_coparticipacao" class="ocultar">
-
             <div class="flex justify-between bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] p-7 mt-2">
 
                 <select name="plano_coparticipacao" id="plano_coparticipacao" class="w-[49%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5">
@@ -217,8 +213,6 @@
 
                 <div class="flex flex-wrap">
                     <h3 class="w-full text-white text-center">Coparticipação</h3>
-
-
                     <div class="relative overflow-x-auto w-full">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -229,9 +223,7 @@
                                 <th scope="col" class="">
                                     Total
                                 </th>
-                                <th scope="col" class="rounded-e-lg">
-                                    Parcial
-                                </th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -242,20 +234,16 @@
                                 <td class="">
                                     <input type="text" name="consultas_eletiva_total_excecao" id="consultas_eletiva_total_excecao" class="ml-2 border border-gray-600 rounded px-3 py-3">
                                 </td>
-                                <td class="">
-                                    <input type="text" name="consultas_eletiva_parcial_excecao" id="consultas_eletiva_parcial_excecao" class="ml-2 border border-gray-600 rounded px-3 py-3">
-                                </td>
+
                             </tr>
                             <tr class="bg-white dark:bg-gray-800">
                                 <th scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     Pronto Atendimento
                                 </th>
                                 <td class="">
-                                    <input type="text" name="pronto_atendimento" id="pronto_atendimento" class="ml-2 border border-gray-600 rounded px-3 py-3">
+                                    <input type="text" name="pronto_atendimento_excecao_total" id="pronto_atendimento_excecao_total" class="ml-2 border border-gray-600 rounded px-3 py-3">
                                 </td>
-                                <td class="">
-                                    <input type="text" name="pronto_atendimento" id="pronto_atendimento" class="ml-2 border border-gray-600 rounded px-3 py-3">
-                                </td>
+
                             </tr>
 
                             <tr class="bg-white dark:bg-gray-800">
@@ -265,6 +253,8 @@
                                 <td class="">
                                     <input type="text" name="faixa_01" id="faixa_01" class="ml-2 border border-gray-600 rounded px-3 py-3">
                                 </td>
+
+
 
                             </tr>
 
@@ -461,9 +451,7 @@
                                     <input type="text" name="cirurgia_parcial" id="cirurgia_parcial" class="ml-2 border border-gray-600 rounded px-3 py-3">
                                 </td>
                             </tr>
-
                             </tbody>
-
                         </table>
                     </div>
 
@@ -478,7 +466,6 @@
     @section('scripts')
         <script src="{{asset('js/jquery.mask.min.js')}}"></script>
         <script>
-
             $(document).ready(function(){
 
                 $.ajaxSetup({
@@ -493,7 +480,14 @@
 
                     // Se ambos os campos tiverem um valor, remove a classe 'ocultar' do 'observacoes'
                     if (planoSelecionado && cidadeSelecionada) {
-                        $('#observacoes').removeClass('ocultar');
+
+                        if(cidadeSelecionada != 3 && cidadeSelecionada != 4 && cidadeSelecionada != 5 && cidadeSelecionada != 6 && cidadeSelecionada != 7) {
+                            $('#observacoes').removeClass('ocultar');
+                            $('#observacoes_excecao').addClass('ocultar');
+                        } else {
+                            $('#observacoes_excecao').removeClass('ocultar');
+                            $('#observacoes').addClass('ocultar');
+                        }
 
                         $.ajax({
                            url:"{{route('coparticipacao.ja.existe')}}",
@@ -504,12 +498,14 @@
                            },
                            success:function(res) {
 
-                               if(res != "nada") {
+                               console.log(res);
 
-                                    $("#linha01").val(res.linha01)
-                                    $("#linha02").val(res.linha02)
-                                    $("#linha03").val(res.linha03)
-                                   //
+                               if(res != "nada" && cidadeSelecionada != 3 && cidadeSelecionada != 4 && cidadeSelecionada != 5 && cidadeSelecionada != 6 && cidadeSelecionada != 7) {
+
+                                   $("#linha01").val(res.linha01);
+                                   $("#linha02").val(res.linha02);
+                                   $("#linha03").val(res.linha03);
+
                                    $("#consultas_eletiva_total").val(res.consultas_eletivas_total);
                                    $("#consultas_eletiva_parcial").val(res.consultas_eletivas_parcial);
 
@@ -527,16 +523,35 @@
 
                                    $("#demais_terapias_total").val(res.demais_terapias_total);
                                    $("#demais_terapias_parcial").val(res.demais_terapias_parcial);
-
                                    $("#internacoes_total").val(res.internacoes_total);
                                    $("#internacoes_parcial").val(res.internacoes_parcial);
-
                                    $("#cirurgia_total").val(res.cirurgia_total);
                                    $("#cirurgia_parcial").val(res.cirurgia_parcial);
+                                } else if(res != "nada" && (cidadeSelecionada != 3 || cidadeSelecionada != 4 || cidadeSelecionada != 5 || cidadeSelecionada != 6 || cidadeSelecionada != 7)) {
+
+                                   $("#linha01_excecao").val(res.linha01);
+                                   $("#linha02_excecao").val(res.linha02);
+                                   $("#linha03_excecao").val(res.linha03);
+
+                                   $("#consultas_eletiva_total_excecao").val(res.consultas_eletivas_total);
+                                   $("#consultas_eletiva_parcial_excecao").val(res.consultas_eletivas_parcial);
+
+                                   $("#pronto_atendimento_excecao_total").val(res.pronto_atendimento);
+                                   $("#pronto_atendimento_excecao_parcial").val(0);
+
+                                   $("#faixa_01").val(res.faixa_1);
 
 
+                                   $("#faixa_2").val(res.faixa_2);
+                                   $("#faixa_02_parcial").val(0);
 
-                                }
+                                   $("#faixa_3").val(res.faixa_3);
+                                   $("#faixa_03_parcial").val(0);
+
+                                   $("#faixa_4").val(res.faixa_4);
+                                   $("#faixa_04_parcial").val(0);
+
+                               }
                            }
                         });
 
@@ -550,7 +565,64 @@
 
                 $('#plano_coparticipacao, #cidade_coparticipacao').on('change', checkSelects);
 
+
+                $(".salvar_coparticipacao_excecao").on('click',function(){
+
+                    let plano_coparticipacao = $("#plano_coparticipacao").val();
+                    let cidade_coparticipacao = $("#cidade_coparticipacao").val();
+                    let linha01 = $("#linha01_excecao").val();
+                    let linha02 = $("#linha02_excecao").val();
+                    let linha03 = $("#linha03_excecao").val();
+                    let consultas_eletiva_total_excecao = $("#consultas_eletiva_total_excecao").val();
+                    let pronto_atendimento_excecao_total = $("#pronto_atendimento_excecao_total").val();
+                    let faixa_01 = $("#faixa_01").val();
+                    let faixa_02 = $("#faixa_2").val();
+                    let faixa_03 = $("#faixa_3").val();
+                    let faixa_04 = $("#faixa_4").val();
+
+
+                    $.ajax({
+                        url:"{{route('cadastrar.excecao.coparticipacao.tabela')}}",
+                        method:"POST",
+                        data: {
+                            plano_coparticipacao,
+                            cidade_coparticipacao,
+                            linha01,
+                            linha02,
+                            linha03,
+                            consultas_eletiva_total_excecao,
+                            pronto_atendimento_excecao_total,
+                            faixa_01,
+                            faixa_02,
+                            faixa_03,
+                            faixa_04
+                        },
+                        success:function(res) {
+                            console.log(res);
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+                });
+
+
+
+
+
+
                 $(".salvar_coparticipacao").on('click',function(){
+
                     let plano_coparticipacao = $("#plano_coparticipacao").val();
                     let cidade_coparticipacao = $("#cidade_coparticipacao").val();
 
@@ -646,20 +718,21 @@
 
 
 
-                $('#plano_coparticipacao, #tabela_origem_coparticipacao').change(function () {
-                    //Verifica se ambos os selects têm valores selecionados
-                    let planoSelecionado = $('#plano_coparticipacao').val();
-                    let tabelaOrigemSelecionada = $('#tabela_origem_coparticipacao').val();
-                    // Se ambos os selects tiverem valores selecionados
-                    if (planoSelecionado !== '' && tabelaOrigemSelecionada !== '') {
-                        $("#container_form_coparticipacao").slideDown('slow').removeClass("ocultar");
-                        $("input[name='plano_id']").val(planoSelecionado);
-                        $("input[name='tabela_origens_id']").val(tabelaOrigemSelecionada);
-                        // Coloque aqui a lógica que você deseja executar quando ambos os selects estiverem preenchidos.
-                    } else {
-                        $("#container_form_coparticipacao").slideUp('slow').addClass("ocultar");
-                    }
-                });
+                // $('#plano_coparticipacao, #cidade_coparticipacao').change(function () {
+                //     //Verifica se ambos os selects têm valores selecionados
+                //     let planoSelecionado = $('#plano_coparticipacao').val();
+                //     let tabelaOrigemSelecionada = $('#cidade_coparticipacao').val();
+                //     // Se ambos os selects tiverem valores selecionados
+                //     if (planoSelecionado !== '' && tabelaOrigemSelecionada !== '') {
+                //
+                //         $("#container_form_coparticipacao").slideDown('slow').removeClass("ocultar");
+                //         $("input[name='plano_id']").val(planoSelecionado);
+                //         $("input[name='tabela_origens_id']").val(tabelaOrigemSelecionada);
+                //         // Coloque aqui a lógica que você deseja executar quando ambos os selects estiverem preenchidos.
+                //     } else {
+                //         $("#container_form_coparticipacao").slideUp('slow').addClass("ocultar");
+                //     }
+                // });
 
                 $(".list_abas li").on('click',function(){
                     $('.list_abas li')

@@ -7,6 +7,7 @@ use App\Models\Administradora;
 use App\Models\AdministradoraPlano;
 use App\Models\FaixaEtaria;
 use App\Models\Pdf;
+use App\Models\PdfExcecao;
 use App\Models\Plano;
 use App\Models\Tabela;
 use App\Models\TabelaOrigens;
@@ -168,6 +169,40 @@ class TabelaController extends Controller
         ]);
     }
 
+    public function cadastrarCoparticipacaoExcecao(Request $request)
+    {
+        PdfExcecao::updateOrCreate(
+            [
+                'plano_id' => $request->plano_coparticipacao,
+                'tabela_origens_id' => $request->cidade_coparticipacao,
+            ],
+            [
+                'linha01' => $request->linha01,
+                'linha02' => $request->linha02,
+                'linha03' => $request->linha03,
+
+                'consultas_eletivas_total' => $request->consultas_eletiva_total_excecao,
+                'pronto_atendimento' => $request->pronto_atendimento_excecao_total,
+
+                'faixa_1' => $request->faixa_01,
+                'faixa_2' => $request->faixa_02,
+                'faixa_3' => $request->faixa_03,
+                'faixa_4' => $request->faixa_04
+
+
+
+
+            ]
+        );
+
+    }
+
+
+
+
+
+
+
     public function cadastrarCoparticipacao(Request $request)
     {
         Pdf::updateOrCreate(
@@ -209,22 +244,38 @@ class TabelaController extends Controller
         $plano = $request->planoSelecionado;
         $cidade = $request->cidadeSelecionada;
 
-        // Primeiro verifica plano_id e tabela_origens_id
-        $pdf = Pdf::where('plano_id', $plano)
-            ->where('tabela_origens_id', $cidade);
 
-        if ($pdf->exists()) {
-            return $pdf->first();
+        if($cidade != 3 && $cidade != 4 && $cidade != 5 && $cidade != 6 && $cidade != 7) {
+
+            // Primeiro verifica plano_id e tabela_origens_id
+            $pdf = Pdf::where('plano_id', $plano)->where('tabela_origens_id', $cidade);
+            if ($pdf->exists()) {
+                return $pdf->first();
+            }
+            // Caso não encontre, busca apenas por plano_id
+            $pdf = Pdf::where('plano_id', $plano);
+            if ($pdf->exists()) {
+                return $pdf->first();
+            }
+            return "nada";
+
+        } else {
+
+            $pdf = PdfExcecao::where('plano_id', $plano)->where('tabela_origens_id', $cidade);
+            if ($pdf->exists()) {
+                return $pdf->first();
+            }
+            // Caso não encontre, busca apenas por plano_id
+            $pdf = Pdf::where('plano_id', $plano);
+            if ($pdf->exists()) {
+                return $pdf->first();
+            }
+            return "nada";
+
+
         }
 
-        // Caso não encontre, busca apenas por plano_id
-        $pdf = Pdf::where('plano_id', $plano);
 
-        if ($pdf->exists()) {
-            return $pdf->first();
-        }
-
-        return "nada";
 
 
     }

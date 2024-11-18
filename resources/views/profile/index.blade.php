@@ -78,9 +78,7 @@
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
     <script>
         $(function(){
-
-            $("#celular").mask("(00) 0 0000-0000")
-
+            $("#celular").mask("(00) 0 0000-0000");
 
             $(".estilo_btn_plus").on('click',function(){
                 $('#exampleModalLong').modal('show')
@@ -94,8 +92,6 @@
 
             $("body").on('click','.remover_user',function(){
                 let id = $(this).attr('id');
-
-                // Exibe a janela de confirmação do SweetAlert2
                 Swal.fire({
                     title: 'Tem certeza?',
                     text: "Esta ação não pode ser desfeita!",
@@ -107,7 +103,6 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Se confirmado, faz a requisição AJAX para deletar o usuário
                         $.ajax({
                             url: "{{ route('destroy.corretor') }}",
                             method: "POST",
@@ -136,13 +131,6 @@
                 });
             });
 
-
-
-
-
-
-
-
             $("body").on('click','.ver_info',function(e){
                e.preventDefault();
 
@@ -154,16 +142,20 @@
                 let nome = $(this).attr('data-nome')
                 let email = $(this).attr('data-email');
 
-                let removeButton = $("<button>")
-                    .addClass("bg-red-500 text-white p-2 rounded-full hover:bg-red-700 mt-2 remover_user")
-                    .html(`
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    `)
-                    .attr("id", id);
 
-                $("#deletar_imagem").append(removeButton);
+
+
+
+                // let removeButton = $("<button>")
+                //     .addClass("bg-red-500 text-white p-2 rounded-full hover:bg-red-700 mt-2 remover_user")
+                //     .html(`
+                //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                //             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                //         </svg>
+                //     `)
+                //     .attr("id", id);
+                //
+                $("#deletar_imagem").append("Ligar/Desligar");
 
                celular = celular != undefined ? celular : "";
                $("#name").val(nome);

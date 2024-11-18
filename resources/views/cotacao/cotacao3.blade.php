@@ -592,7 +592,7 @@
                             <td style="width: 30%; vertical-align: top;text-align:left;">
                                 <p class="section-title">Copart Total</p>
                                 <div class="section-content" style="text-align:left;">
-                                    <p>{{$pdf->consultas_eletivas ?? ''}}</p>
+                                    <p>{{$pdf->consultas_eletivas_total ?? ''}}</p>
                                     <p>{{$pdf->pronto_atendimento ?? ''}}</p>
                                     <p>{{$pdf->faixa_1 ?? ''}}</p>
                                     <p>{{$pdf->faixa_2 ?? ''}}</p>
