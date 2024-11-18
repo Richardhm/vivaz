@@ -146,9 +146,6 @@ function inicializarIndividual(corretora_id = null,refresh = null) {
                         let data_vigencia = rowData['data_vigencia'];
                         let data_boleto = rowData['data_boleto'];
                         let user_id = rowData['user_id'];
-
-
-
                         $(td).html(`<div class='text-center text-white'>
                                             <a href="#"
                                                 data-corretor="${corretor}"
@@ -223,7 +220,7 @@ function inicializarIndividual(corretora_id = null,refresh = null) {
             selectUsuarioIndividual.empty(); // Limpa o select
             selectUsuarioIndividual.append('<option value="">-- Todos os Corretores --</option>'); // Adiciona uma opção para todos
             corretores.each(function(d) {
-                selectUsuarioIndividual.append(`<option value="${d}">${d}</option>`);
+                selectUsuarioIndividual.append(`<option value="${d}" style="color:black;">${d}</option>`);
             });
 
             let selectAno = $('#mudar_ano_table');
@@ -315,7 +312,7 @@ function inicializarIndividual(corretora_id = null,refresh = null) {
             total_vidas = this.api().column(5,{search: 'applied'}).data().reduce(function (a, b) {return intVal(a) + intVal(b);},0);
             total_linhas = this.api().column(5,{search: 'applied'}).data().count();
             total_br = total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
-            $(".total_por_page").html(total_br)
+            $(".total_por_page").html(total_br);
             $(".total_por_vida").html(total_vidas);
             $(".total_por_orcamento").html(total_linhas);
         }

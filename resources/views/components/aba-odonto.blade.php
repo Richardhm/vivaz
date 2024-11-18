@@ -8,8 +8,23 @@
                     <a class="text-center text-white">Cadastrar</a>
                 </span>
             </div>
-            <select class="flex w-full py-2 text-lg bg-[rgba(254,254,254,0.18)] focus:outline-none text-white active:outline-none active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 text-center focus:bg-gray-800 w-full text-xs px-1 me-2 mb-1 text-sm font-medium text-black rounded-lg hover:border-transparent focus:border-transparent border-transparent" id="select_usuario_odonto">
-                <option value="todos" class="text-center">---Escolher Corretor---</option>
+
+
+
+
+
+
+
+            <select
+                class="
+                       w-full mt-1 rounded-lg mb-1 text-center text-sm bg-[rgba(254,254,254,0.18)]
+                       active:bg-[rgba(254,254,254,0.18)] hover:bg-gray-800 py-2 mr-1 focus:bg-gray-800 w-full text-xs
+                       px-1 mb-2 text-sm font-medium rounded-lg hover:border-transparent focus:border-transparent border-transparent
+                       "
+                style="background-color: rgba(253, 216, 53, 0.7); backdrop-filter: blur(10px);"
+                id="select_usuario_odonto"
+            >
+
             </select>
         </div>
         <!--FIM COLUNA DA ESQUERDA-->

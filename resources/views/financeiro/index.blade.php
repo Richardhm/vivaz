@@ -9,10 +9,6 @@
             var urlGeralIndividualPendentes = "{{ route('financeiro.individual.geralIndividualPendentes') }}";
             var urlGeralColetivoPendentes = "{{ route('financeiro.coletivo.em_geral') }}";
             var editarAdministradoraChange = "{{route('financeiro.administradora.change')}}"
-
-
-
-
             var urlGeralEmpresarialPendentes = "{{ route('contratos.listarEmpresarial.listarContratoEmpresaPendentes') }}";
             var listarOdonto = "{{ route('odonto.listar') }}";
 
@@ -34,7 +30,9 @@
             var changecorretor          = "{{route('financeiro.changeFinanceiro')}}";
             var changecorretorColetivo  = "{{route('financeiro.changeFinanceiroColetivo')}}";
             var financeiroCanceladoColetivo = "{{route('financeiro.contrato.cancelados')}}";
-            var excluirColetivo = "{{route('financeiro.excluir.cliente')}}";
+            var excluirColetivo         = "{{route('financeiro.excluir.cliente')}}";
+            var excluirEmpresarial      = "{{route('financeiro.excluir.empresarial')}}";
+            var cancelarEmpresarial      = "{{route('financeiro.cancelar.empresarial')}}";
             var mudarCampoIndividual = "{{route('financeiro.editar.campoIndividualmente')}}";
             var editarCampoColetivo = "{{route('financeiro.editar.campoColetvivo')}}";
             var table;
@@ -254,21 +252,6 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
-
-
-
-
-
-
-
-
-
-
-
-            $("body").on("change",'#select_corretoras_empresarial',function(){
-               let corretora_id = $(this).val();
-               alert(corretora_id);
             });
 
             $("body").on('keydown', '.next', function(e) {

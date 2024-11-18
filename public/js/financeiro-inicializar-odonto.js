@@ -4,7 +4,7 @@ function inicializarOdonto() {
         $('.listardadosodonto').DataTable().destroy();
     }
     tableodonto = $(".listardadosodonto").DataTable({
-        dom: '<"flex justify-between"<"#title_odonto">ftr><t><"flex justify-between"lp>',
+        dom: '<"flex justify-between"<"#title_odonto">Bftr><t><"flex justify-between"lp>',
         language: {
             "search": "Pesquisar",
             "paginate": {
@@ -23,6 +23,18 @@ function inicializarOdonto() {
             "lengthMenu": "Exibir _MENU_ por página",
             "zeroRecords": "Nenhum registro encontrado"
         },
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'vivaz',
+                text: 'Exportar',
+                className: 'btn-exportar', // Classe personalizada para estilo
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5,6] // Define as colunas a serem exportadas (ajuste conforme necessário)
+                },
+                filename: 'vivaz'
+            }
+        ],
         ajax: {
             "url":listarOdonto,
             "dataSrc": ""
@@ -43,6 +55,15 @@ function inicializarOdonto() {
         ],
         "columnDefs": [],
         "initComplete": function( settings, json ) {
+
+            $('.btn-exportar').css({
+                'background-color': '#4CAF50',
+                'color': '#FFF',
+                'border': 'none',
+                'padding': '8px 16px',
+                'border-radius': '4px'
+            });
+
             let uniqueUsers = [];
             json.forEach(row => {
                 if (!uniqueUsers.includes(row.usuario)) {
@@ -52,18 +73,9 @@ function inicializarOdonto() {
 
             // Construir opções como uma string e adicionar ao select
             let optionsHtml = '<option value="todos" class="text-center">---Escolher Corretor---</option>';
-
-
-
-
-
             uniqueUsers.forEach(user => {
-                optionsHtml += `<option value="${user}">${user}</option>`;
+                optionsHtml += `<option value="${user}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black text-lg">${user}</option>`;
             });
-
-            console.log(optionsHtml);
-
-
             $('#select_usuario_odonto').html(optionsHtml);
 
         },

@@ -2109,6 +2109,41 @@ class FinanceiroController extends Controller
     }
 
 
+    public function excluirEmpresarial(Request $request)
+    {
+        if($request->ajax()) {
+            $id_contrato_empresarial = $request->id;
+            $empresarial = ContratoEmpresarial::find($id_contrato_empresarial);
+            $status = true;
+
+            $comissao = Comissoes::where("contrato_empresarial_id",$empresarial->id)->first()->id;
+            if(!ComissoesCorretoresLancadas::where("comissoes_id",$comissao)->delete()) {
+                $status = false;
+            }
+            if(!Comissoes::where("contrato_empresarial_id",$empresarial->id)->delete()) {
+                $status = false;
+            }
+
+            if(!ContratoEmpresarial::find($id_contrato_empresarial)->delete()) {
+                $status = false;
+            }
+            return $status;
+        }
+    }
+
+    public function cancelarEmpresarial(Request $request)
+    {
+        $empresara = ContratoEmpresarial::find($request->id);
+        $empresara->financeiro_id = 12;
+        if($empresara->save()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 
 
     public function excluirCliente(Request $request)
@@ -2879,7 +2914,7 @@ class FinanceiroController extends Controller
 
     public function listarContratoEmpresaPendentes(Request $request)
     {
-        $corretora_id = auth()->user()->corretora_id;
+        $corretora_id = $request->corretora_id == null ? auth()->user()->corretora_id : $request->corretora_id;
         if ($request->ajax()) {
             $cacheKey = 'listarContratoEmpresaPendentes';
             $tempoDeExpiracao = 0;
@@ -2939,14 +2974,14 @@ class FinanceiroController extends Controller
                     })
                     ->groupBy('comissoes_corretores_lancadas.comissoes_id');
 
-                //if ($corretora_id != 0) {
+                if ($corretora_id != 0) {
                     $query->where('contrato_empresarial.corretora_id', $corretora_id);
-                //}
+                }
 
                 return $query->get();
             });
 
-            return response()->json($resultado);
+            return response()->json(['data' => $resultado]);
         }
     }
 

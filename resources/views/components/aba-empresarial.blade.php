@@ -14,13 +14,11 @@
                                 "
                 >
 
-                    <option value="1">Accert</option>
-                    <option value="2">Innove</option>
-                    <option value="0">Vivaz</option>
+                    <option value="1" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black text-lg">Accert</option>
+                    <option value="2" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black text-lg">Innove</option>
+                    <option value="0" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-black text-lg">Vivaz</option>
                 </select>
             @endif
-
-
 
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded" style="margin:1px 0;">
                 <ul style="list-style:none;margin:0;padding:5px 0;" id="cadastrar_empresarial">

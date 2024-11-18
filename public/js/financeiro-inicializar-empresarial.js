@@ -6,7 +6,7 @@ function inicializarEmpresarial(corretora_id = null) {
     }
 
     tableempresarial = $(".listarempresarial").DataTable({
-        dom: '<"flex justify-between"<"#title_empresarial">ftr><t><"flex justify-between"lp>',
+        dom: '<"flex justify-between"<"#title_empresarial">Bftr><t><"flex justify-between"lp>',
         language: {
             "search": "Pesquisar",
             "paginate": {
@@ -27,7 +27,9 @@ function inicializarEmpresarial(corretora_id = null) {
         },
         ajax: {
             "url":urlGeralEmpresarialPendentes,
-            "dataSrc": ""
+            data: function (d) {
+                d.corretora_id = corretora_id
+            }
         },
         "lengthMenu": [1000,2000,3000],
         "ordering": false,
@@ -50,6 +52,18 @@ function inicializarEmpresarial(corretora_id = null) {
             {data:"status",name:"status",width:"10%"},
             {data:"id",name:"id",width:"4%"},
             {data:"resposta",name:"resposta",width:"10%",visible:false}
+        ],
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'vivaz-empresarial',
+                text: 'Exportar',
+                className: 'btn-exportar', // Classe personalizada para estilo
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5,6] // Define as colunas a serem exportadas (ajuste conforme necessário)
+                },
+                filename: 'vivaz-empresarial'
+            }
         ],
         "columnDefs": [
             {
@@ -136,6 +150,13 @@ function inicializarEmpresarial(corretora_id = null) {
             },
         ],
         "initComplete": function( settings, json ) {
+            $('.btn-exportar').css({
+                'background-color': '#4CAF50',
+                'color': '#FFF',
+                'border': 'none',
+                'padding': '8px 16px',
+                'border-radius': '4px'
+            });
             //$('#title_empresarial').html("<h4 style='font-size:1em;margin-top:10px;'>Listagem(Completa)</h4>");
             let corretoresUnicos = new Set();
             this.api().column(2).data().each(function(v) {
@@ -193,10 +214,6 @@ function inicializarEmpresarial(corretora_id = null) {
             anosUnicos.forEach(function(ano) {
                 selectAno.append('<option value="' + ano + '">' + ano + '</option>');
             });
-
-
-
-
 
         },
         "drawCallback":function(settings) {

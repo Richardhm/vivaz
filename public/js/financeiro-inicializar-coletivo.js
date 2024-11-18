@@ -4,7 +4,7 @@ function inicializarColetivo(corretora_id = null) {
         $('.listardados').DataTable().destroy();
     }
     table = $(".listardados").DataTable({
-        dom: '<"d-flex justify-content-between"<"#title_individual">Bftr><t><"d-flex justify-content-between"lp>',
+        dom: '<"flex justify-between"<"#title_individual">Bftr><t><"flex justify-between"lp>',
         language: {
             "search": "Pesquisar",
             "paginate": {
@@ -57,6 +57,18 @@ function inicializarColetivo(corretora_id = null) {
             {data:"rua",name:"rua",visible:false},
             {data:"cep",name:"cep",visible:false},
         ],
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'vivaz-coletivo',
+                text: 'Exportar',
+                className: 'btn-exportar', // Classe personalizada para estilo
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5,6] // Define as colunas a serem exportadas (ajuste conforme necessário)
+                },
+                filename: 'vivaz-coletivo'
+            }
+        ],
         "columnDefs": [
             {
                 "targets": 10,
@@ -98,6 +110,21 @@ function inicializarColetivo(corretora_id = null) {
             },
         ],
         "initComplete": function( settings, json ) {
+
+            $('.btn-exportar').css({
+                'background-color': '#4CAF50',
+                'color': '#FFF',
+                'border': 'none',
+                'padding': '8px 16px',
+                'border-radius': '4px'
+            });
+
+
+
+
+
+
+
             $('#title_coletivo_por_adesao_table').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem(Completa)</h4>");
             let api = this.api();
             let dadosColuna9 = api.column(9,{search: 'applied'}).data();

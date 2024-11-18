@@ -95,8 +95,15 @@ $("body").on("change",'#select_corretoras',function(){
 $("body").on("change","#select_corretoras_coletivo",function(){
     let corretora_id = $(this).val();
     inicializarColetivo(corretora_id);
-
 });
+
+$("body").on("change",'#select_corretoras_empresarial',function(){
+    let corretora_id = $(this).val();
+    inicializarEmpresarial(corretora_id)
+});
+
+
+
 
 $("body").on('change','.editar_campo_individual',function(){
     let alvo = $(this).attr('id');

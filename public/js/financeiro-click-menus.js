@@ -304,6 +304,115 @@ $("body").on('click','#closeModalColetivo',function(){
     $('.content-modal-coletivo').html('');
 });
 
+$("body").on('click','.button_cancelar_empresarial',function(){
+    let id = $(this).data('id');
+
+    Swal.fire({
+        title: 'Você tem certeza?',
+        text: "Esta ação não pode ser desfeita!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: cancelarEmpresarial,
+                method: "POST",
+                data: {
+                    id
+                },
+                success: function(res) {
+
+                    if(res) {
+                        Swal.fire(
+                            'Cancelado!',
+                            'O cliente foi cancelado com sucesso.',
+                            'success'
+                        ).then(() => {
+                            window.location.reload(); // Atualiza a página após confirmar a mensagem de sucesso
+                        });
+                    }
+
+
+                    // Exibe mensagem de sucesso após a exclusão
+
+                },
+                error: function(err) {
+                    // Exibe mensagem de erro caso algo dê errado
+                    Swal.fire(
+                        'Erro!',
+                        'Ocorreu um erro ao excluir o cliente.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+});
+
+
+
+$("body").on('click','.button_excluir_empresarial',function (){
+    let id = $(this).data('id');
+    // Exibe o alerta de confirmação
+    Swal.fire({
+        title: 'Você tem certeza?',
+        text: "Esta ação não pode ser desfeita!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: excluirEmpresarial,
+                method: "POST",
+                data: {
+                    id
+                },
+                success: function(res) {
+
+                    if(res) {
+                        Swal.fire(
+                            'Excluído!',
+                            'O cliente foi excluído com sucesso.',
+                            'success'
+                        ).then(() => {
+                            window.location.reload(); // Atualiza a página após confirmar a mensagem de sucesso
+                        });
+                    }
+
+
+                    // Exibe mensagem de sucesso após a exclusão
+
+                },
+                error: function(err) {
+                    // Exibe mensagem de erro caso algo dê errado
+                    Swal.fire(
+                        'Erro!',
+                        'Ocorreu um erro ao excluir o cliente.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+
+
+
+
+
+
+
+});
+
+
+
 $("body").on('click', '.button_excluir', function() {
     let id = $(this).data('id');
 
