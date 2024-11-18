@@ -68,7 +68,7 @@ class ProfileController extends Controller
     public function listUser(Request $request)
     {
         //if($request->ajax()) {
-            $users = User::select('name','id','image','email','celular')
+            $users = User::select('name','id','image','email','celular','ativo')
                 ->where("corretora_id",auth()->user()->corretora_id)
                 ->whereNotNull('name')
                 ->where('name', '!=', '')

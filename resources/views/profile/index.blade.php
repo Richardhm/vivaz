@@ -8,10 +8,10 @@
                 <tr>
                     <th>Nome</th>
                     <th>Editar</th>
+                    <th>Ligar/Desligar</th>
                 </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
         </div>
@@ -24,7 +24,9 @@
 
             <div class="flex justify-between">
                 <div id="imagem_aqui"></div>
-                <div id="deletar_imagem"></div>
+                <div class="interruptor-container">
+                    <div id="interruptor" class="interruptor"></div>
+                </div>
             </div>
 
 
@@ -33,26 +35,26 @@
             <div class="flex w-full justify-between">
                 <label for="nome" class="flex w-[30%] flex-wrap">
                     <span class="flex w-full">Nome</span>
-                    <input type="text" id="name" name="name" class="w-full rounded-lg text-black">
+                    <input type="text" id="name" name="name" class="w-full rounded-lg text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white">
                 </label>
 
                 <label for="email" class="flex w-[30%] flex-wrap">
                     <span class="flex w-full">Email</span>
-                    <input type="text" id="email" name="email" class="w-full rounded-lg text-black">
+                    <input type="text" id="email" name="email" class="w-full rounded-lg text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white">
                 </label>
 
                 <label for="celular" class="flex w-[30%] flex-wrap">
                     <span class="flex w-full">Celular</span>
-                    <input type="text" id="celular" name="celular" class="w-full rounded-lg text-black">
+                    <input type="text" id="celular" name="celular" class="w-full rounded-lg text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white">
                 </label>
 
             </div>
             <div class="mt-3">
                 <label class="block text-lg text-white font-medium" for="large_size">Foto:</label>
-                <input class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="image" type="file">
+                <input class="block w-full text-lg text-gray-900 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="image" type="file">
             </div>
             <div class="w-full mt-2">
-                <button type="button" class="text-white bg-blue-400 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full salvar_user">Salvar</button>
+                <button type="button" class="text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full salvar_user">Salvar</button>
             </div>
         </div>
 
@@ -78,6 +80,18 @@
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
     <script>
         $(function(){
+
+
+            const interruptor = document.getElementById("interruptor");
+
+            // Adicionando evento de clique
+            interruptor.addEventListener("click", () => {
+                interruptor.classList.toggle("ligado");
+            });
+
+
+
+
             $("#celular").mask("(00) 0 0000-0000");
 
             $(".estilo_btn_plus").on('click',function(){
@@ -230,8 +244,8 @@
                     "responsive": true,
                     columns: [
                         {data:"name",name:"name"},
-                        {data:"id",name:"id"}
-
+                        {data:"id",name:"id"},
+                        { data: null, name: "toggle", orderable: false, searchable: false }
                     ],
                     "columnDefs": [
                         {
@@ -242,8 +256,6 @@
                                 let celular = rowData.celular ?? "";
                                 let imagem = rowData.image;
                                 let email = rowData.email;
-
-
                                 $(td).html(`<div class='text-center text-white'>
                                         <a href="#" class="text-white ver_info" data-email="${email}" data-id="${id}" data-nome="${nome}" data-celular="${celular}" data-imagem="${imagem}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
@@ -254,23 +266,33 @@
                                     </div>
                                 `);
                             }
+                        },
+                        {
+                            "targets": 2, // Índice da nova coluna
+                            "createdCell": function (td, cellData, rowData, row, col) {
+                                let id = rowData.id;
+                                let status = rowData.ativo == 0 ? '' : 'checked'; // Verifica o valor de 'ativo'
+
+                                // Criando o botão de Ligar/Desligar
+                                $(td).html(`
+                                    <label class="switch">
+                                        <input type="checkbox" class="toggle-switch" data-id="${id}" ${status}>
+                                        <span class="slider"></span>
+                                    </label>
+                                `);
+                            }
                         }
+
                     ],
                     "initComplete": function( settings, json ) {
                         $('.dataTables_filter input').addClass('texto-branco');
                         $('#title_individual').html("<h4 style='font-size:1em;margin-top:10px;margin-left:5px;'>Listagem</h4>");
 
                     },
-                    "drawCallback": function( settings ) {
-
-                    },
-                    footerCallback: function (row, data, start, end, display) {
-
-                    }
+                    "drawCallback": function( settings ) {},
+                    footerCallback: function (row, data, start, end, display) {}
                 });
-
             }
-
             inicializarTable();
 
 
