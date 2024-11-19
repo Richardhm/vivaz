@@ -65,6 +65,18 @@ class ProfileController extends Controller
         return view('profile.index');
     }
 
+    public function alterarUser(Request $request)
+    {
+        $user_id = $request->id;
+        $ativo = $request->ativo == 'true' ? 1 : 0;
+
+        $user = User::find($user_id);
+        $user->ativo = $ativo;
+        $user->save();
+    }
+
+
+
     public function listUser(Request $request)
     {
         //if($request->ajax()) {

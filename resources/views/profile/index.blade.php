@@ -295,7 +295,26 @@
             }
             inicializarTable();
 
+            $(document).on('change', '.toggle-switch', function () {
+                let userId = $(this).data('id');
+                let status = $(this).is(':checked');
 
+                $.ajax({
+                    url: "{{route('corretores.alterar')}}",
+                    method: 'POST',
+                    data: {
+                        id: userId,
+                        ativo: status,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    }
+                });
+
+
+
+            });
 
 
 

@@ -71,6 +71,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/list/corretores',[ProfileController::class,'listUser'])->name('corretores.list');
     Route::post("/store/corretores",[ProfileController::class,'storeUser'])->name('corretores.store');
     Route::post("/destroy/corretore",[ProfileController::class,'destroyUser'])->name('destroy.corretor');
+    Route::post('/alterar/corretor',[ProfileController::class,'alterarUser'])->name('corretores.alterar');
 
 
     /*******Corretores*********/
