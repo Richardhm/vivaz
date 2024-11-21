@@ -29,6 +29,64 @@
         .ajax_load_box_circle{border:16px solid #e3e3e3;border-top:16px solid #61DDBC;border-radius:50%;margin:auto;width:80px;height:80px;-webkit-animation:spin 1.2s linear infinite;-o-animation:spin 1.2s linear infinite;animation:spin 1.2s linear infinite}
         @-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}
         @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+
+        .select2-container .select2-selection {
+            background-color: rgba(254,254,254,0.18) !important;
+            backdrop-filter: blur(10px) !important;
+            background-color: rgba(254,254,254,1);
+            border: 2px solid white !important; /* Borda branca */
+            border-radius: 0.5rem; /* Arredondar os cantos, opcional */
+        }
+
+        .select2-container .select2-selection__arrow b {
+            border-color: white transparent transparent transparent !important;
+        }
+
+        .select2-container .select2-selection__rendered {
+            color: white !important; /* Cor do texto */
+        }
+
+
+        /* Estilo para o select */
+        select#quantidade_parcelas {
+            background-color: rgba(254, 254, 254, 0.18); /* Fundo semi-transparente */
+            backdrop-filter: blur(15px); /* Desfoque no fundo */
+            color: white; /* Cor do texto */
+            border: 2px solid white; /* Borda branca */
+            border-radius: 0.5rem; /* Bordas arredondadas */
+
+            font-size: 0.875rem; /* Tamanho da fonte */
+            width: 100%; /* Largura total */
+            appearance: none; /* Remove o estilo padrão */
+            -moz-appearance: none; /* Para Firefox */
+            -webkit-appearance: none; /* Para Safari e Chrome */
+            text-align: center; /* Texto centralizado */
+            position: relative; /* Necessário para o ícone */
+        }
+
+        /* Adicionar a seta branca usando pseudo-elementos */
+        select#quantidade_parcelas::after {
+            content: "▼"; /* Símbolo da seta */
+            font-size: 0.875rem; /* Tamanho da seta */
+            color: white; /* Cor da seta */
+            position: absolute; /* Posiciona a seta */
+            right: 1rem; /* Distância da seta para a borda direita */
+            top: 50%; /* Centraliza verticalmente */
+            transform: translateY(-50%); /* Ajuste fino para centralização */
+            pointer-events: none; /* Impede que a seta interfira na interação */
+            background-color:white;
+        }
+
+        /* Ajustar o padding para que a seta não sobreponha o texto */
+        select#quantidade_parcelas {
+            padding-right: 2rem; /* Espaço extra para a seta */
+        }
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -64,13 +122,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="modal fade hidden" id="mudarDataCriacao" tabindex="-1" role="dialog" aria-labelledby=cadastrar_pessoa_fisica_formulario_modal_coletivo"mudarDataCriacaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -157,25 +208,24 @@
         <input type="hidden" name="desconto_corretor" id="desconto_corretor">
         <input type="hidden" name="desconto_corretora" id="desconto_corretora">
 
-        <div class="flex flex-wrap gap-4 w-full">
+        <div class="flex justify-between flex-wrap w-full">
 
             <!-- Usuários -->
-            <div style="flex-basis:18%;" class="flex flex-col">
-                <label for="usuario_coletivo_switch" class="text-white text-sm">Usuários:</label>
-                <select name="usuario_coletivo_switch" required id="usuario_coletivo_switch" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Usuários --</option>
+            <div class="flex flex-col">
+                <label for="usuario_coletivo_switch" class="block mb-0.5 text-xs font-medium text-white">Corretor:</label>
+                <select name="usuario_coletivo_switch" required id="usuario_coletivo_switch" class="bg-gray-50 border text-center border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+                    <option value="">--</option>
                     @foreach($users as $u)
                         <option value="{{$u->id}}">{{$u->name}}</option>
                     @endforeach
                 </select>
             </div>
 
-
             <!-- Administradora -->
-            <div style="flex-basis:13%;" class="flex flex-col">
-                <label for="administradora_coletivo" class="text-white text-sm">Administradora:</label>
-                <select required id="administradora_coletivo" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Administradora --</option>
+            <div class="flex flex-col">
+                <label for="administradora_coletivo" class="block mb-0.5 text-xs font-medium text-white">Administradora:</label>
+                <select required id="administradora_coletivo" class="bg-gray-50 border text-center border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+                    <option value="">--</option>
                     @foreach($administradoras as $admin)
                         <option value="{{$admin->id}}" {{old('administradora') == $admin->id ? 'selected' : ''}}>{{$admin->nome}}</option>
                     @endforeach
@@ -184,10 +234,11 @@
             </div>
 
             <!-- Tabela Origem -->
-            <div class="flex flex-col" style="flex-basis:13%;">
-                <label for="tabela_origem_coletivo" class="text-white text-sm">Tabela Origem:</label>
-                <select required id="tabela_origem_coletivo" name="tabela_origem" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Tabela Origem --</option>
+            <div class="flex flex-col">
+                <label for="tabela_origem_coletivo" class="block mb-0.5 text-xs font-medium text-white">Tabela Origem:</label>
+                <select required id="tabela_origem_coletivo" name="tabela_origem"
+                        class="bg-gray-50 border text-center border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+                    <option value="">--</option>
                     @foreach($cidades as $cc)
                         <option value="{{$cc->id}}" {{old('cidade_id') == $cc->id ? 'selected' : ''}}>{{$cc->nome}}</option>
                     @endforeach
@@ -197,16 +248,16 @@
 
 
             <!-- Titular -->
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="nome_coletivo" class="text-white text-sm">Titular:</label>
-                <input type="text" id="nome_coletivo" name="nome_coletivo" required class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome">
+            <div class="flex flex-col">
+                <label for="nome_coletivo" class="block mb-0.5 text-xs font-medium text-white">Titular:</label>
+                <input type="text" id="nome_coletivo" name="nome_coletivo" required class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" placeholder="Nome">
                 <div class="errorcliente text-red-500"></div>
             </div>
 
             <!-- CPF -->
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="cpf_coletivo" class="text-white text-sm">CPF:</label>
-                <input type="text" name="cpf_coletivo" id="cpf_coletivo" required class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXX.XXXX.XXX-XX">
+            <div class="flex flex-col">
+                <label for="cpf_coletivo" class="block mb-0.5 text-xs font-medium text-white">CPF:</label>
+                <input type="text" name="cpf_coletivo" id="cpf_coletivo" required class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" placeholder="XXX.XXXX.XXX-XX">
                 <div class="errorcpf text-red-500"></div>
                 @if($errors->has('cpf'))
                     <p class="alert alert-danger text-red-500">{{$errors->first('cpf')}}</p>
@@ -214,23 +265,27 @@
             </div>
 
             <!-- Data Nascimento -->
-            <div class="flex flex-col" style="flex-basis:8%;">
-                <label for="data_nascimento_coletivo" class="text-white text-sm">Data Nascimento:</label>
-                <input type="date" name="data_nascimento_coletivo" value="{{old('data_nascimento_coletivo')}}" id="data_nascimento_coletivo" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <div class="flex flex-col">
+                <label for="data_nascimento_coletivo" class="block mb-0.5 text-xs font-medium text-white">Data Nascimento:</label>
+                <input type="date" name="data_nascimento_coletivo" value="{{old('data_nascimento_coletivo')}}" id="data_nascimento_coletivo"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2">
                 <div class="errordatanascimento text-red-500"></div>
             </div>
 
             <!-- Email -->
-            <div class="flex flex-col" style="flex-basis:10%;">
-                <label for="email_coletivo" class="text-white text-sm">Email:</label>
-                <input type="email" name="email_coletivo" id="email_coletivo" placeholder="Email" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <div class="flex flex-col">
+                <label for="email_coletivo" class="block mb-0.5 text-xs font-medium text-white">Email:</label>
+                <input type="email" name="email_coletivo" id="email_coletivo" placeholder="Email"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2">
                 <div class="erroremail text-red-500"></div>
             </div>
 
             <!-- Celular -->
-            <div class="flex flex-col" style="flex-basis:7%;">
-                <label for="celular" class="text-white text-sm">Celular:</label>
-                <input type="text" placeholder="Celular" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="celular" id="celular">
+            <div class="flex flex-col">
+                <label for="celular" class="block mb-0.5 text-xs font-medium text-white">Celular:</label>
+                <input type="text" placeholder="Celular"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2"
+                       name="celular" id="celular">
             </div>
 
 
@@ -240,46 +295,89 @@
         <!-- Segunda Linha -->
         <div class="flex justify-between w-full">
             <div class="flex flex-col" style="flex-basis:5%;">
-                <label for="cep" class="text-white w-full" style="font-size:0.78em;">CEP:</label>
-                <input type="text" name="cep_coletivo" id="cep_coletivo" value="{{old('cep_coletivo')}}" placeholder="CEP" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                <label for="cep" class="block mb-0.5 text-xs font-medium text-white">CEP:</label>
+                <input type="text" name="cep_coletivo" id="cep_coletivo" value="{{old('cep_coletivo')}}" placeholder="CEP"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" value="">
             </div>
 
             <div class="flex flex-col">
-                <span for="rua" class="text-white" style="font-size:0.78em;">Cidade:</span>
-                <input type="text" name="cidade_origem_coletivo" id="cidade_origem_coletivo" value="{{old('cidade_origem_coletivo')}}" placeholder="Cidade" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-            </div>
-
-            <div class="flex flex-col">
-                <label for="bairro" class="text-white" style="font-size:0.78em;">Bairro:</label>
-                <input type="text" name="bairro_coletivo" id="bairro_coletivo" value="{{old('bairro_coletivo')}}" placeholder="Bairro" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                <label for="rua" class="block mb-0.5 text-xs font-medium text-white">Cidade:</label>
+                <input type="text" name="cidade_origem_coletivo" id="cidade_origem_coletivo"
+                       value="{{old('cidade_origem_coletivo')}}" placeholder="Cidade"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" value="">
 
             </div>
 
             <div class="flex flex-col">
-                <label for="rua" class="text-white" style="font-size:0.78em;">Rua:</label>
-                <input type="text" name="rua_coletivo" id="rua_coletivo" value="{{old('rua_coletivo')}}" placeholder="Logradouro(Rua)" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                <label for="bairro" class="block mb-0.5 text-xs font-medium text-white">Bairro:</label>
+                <input type="text" name="bairro_coletivo" id="bairro_coletivo" value="{{old('bairro_coletivo')}}" placeholder="Bairro"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" value="">
 
             </div>
 
             <div class="flex flex-col">
-                <label for="bairro" class="text-white" style="font-size:0.78em;">Complemento:</label>
-                <input type="text" name="complemento_coletivo" id="complemento_coletivo" value="{{old('complemento_coletivo')}}" placeholder="Complemento(Opcional)" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                <label for="rua" class="block mb-0.5 text-xs font-medium text-white">Rua:</label>
+                <input type="text" name="rua_coletivo" id="rua_coletivo" value="{{old('rua_coletivo')}}" placeholder="Logradouro(Rua)"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" value="">
+
+            </div>
+
+            <div class="flex flex-col">
+                <label for="bairro" class="block mb-0.5 text-xs font-medium text-white">Complemento:</label>
+                <input type="text" name="complemento_coletivo" id="complemento_coletivo" value="{{old('complemento_coletivo')}}"
+                       placeholder="Complemento(Opcional)"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" value="">
 
             </div>
 
 
-            <div class="flex flex-col" style="flex-basis:3%;">
-                <label for="uf" class="text-white" style="font-size:0.78em;">UF:</label>
-                <input type="text" name="uf_coletivo" id="uf_coletivo" value="{{old('uf_coletivo')}}" placeholder="UF" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+            <div class="flex flex-col">
+                <label for="uf" class="block mb-0.5 text-xs font-medium text-white">UF:</label>
+                <input type="text" name="uf_coletivo" id="uf_coletivo" value="{{old('uf_coletivo')}}" placeholder="UF"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" value="">
             </div>
 
-            <div class="flex flex-col" style="flex-basis:8%;">
-                <label for="codigo_externo" class="text-white" style="font-size:0.78em;">Codigo Externo:</label>
-                <input type="text" name="codigo_externo_coletivo" required id="codigo_externo_coletivo" value="{{old('codigo_externo_coletivo')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD.">
+            <div class="flex flex-col">
+                <label for="codigo_externo" class="block mb-0.5 text-xs font-medium text-white">Codigo Externo:</label>
+                <input type="text" name="codigo_externo_coletivo" required id="codigo_externo_coletivo" value="{{old('codigo_externo_coletivo')}}"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" placeholder="COD.">
             </div>
 
-            <div x-data="{ coparticipacao: '{{ old('coparticipacao_coletivo') ? old('coparticipacao_coletivo') : '' }}' }" class="flex">
+
+
+            <!-- Data Cadastro (Plano) -->
+            <div class="flex flex-col">
+                <label for="data_cadastro_coletivo" class="block mb-0.5 text-xs font-medium text-white">Data Cadastro (Plano):</label>
+                <input type="date" name="data_cadastro_coletivo" required id="data_cadastro_coletivo" value="{{old('data_cadastro_coletivo')}}"
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2">
+            </div>
+
+            <div class="form-group">
+                <span for="desconto_operadora" class="block mb-0.5 text-xs font-medium text-white">Desconto Operadora:</span>
+                <input type="number" name="desconto_operadora" id="desconto_operadora" value=""
+                       class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" placeholder="Desconto Operadora">
+            </div>
+
+            <div class="form-group">
+                <span for="quantidade_parcelas" class="block mb-0.5 text-xs font-medium text-white">Qte Parcelas do desconto:</span>
+                <select name="quantidade_parcelas" id="quantidade_parcelas"
+                    class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-black backdrop-blur-[15px] text-xs border-white border-2">
+                    <option class="text-center" value="" style="color:white;">--</option>
+                    <option value="1" style="color:black;">1</option>
+                    <option value="2" style="color:black;">2</option>
+                    <option value="3" style="color:black;">3</option>
+                    <option value="4" style="color:black;">4</option>
+                    <option value="5" style="color:black;">5</option>
+                    <option value="6" style="color:black;">6</option>
+                </select>
+            </div>
+
+        </div>
+        <!-- Fim Segunda Linha -->
+
+        <div class="flex w-full">
+
+            <div x-data="{ coparticipacao: '{{ old('coparticipacao_coletivo') ? old('coparticipacao_coletivo') : '' }}' }" class="flex mr-3 ">
                 <div class="flex flex-col">
                     <span class="text-white text-xs mb-1">Coparticipação:</span>
                     <div class="flex space-x-2">
@@ -311,32 +409,21 @@
                 </div>
             </div>
 
-            <!-- Data Cadastro (Plano) -->
-            <div class="flex flex-col">
-                <label for="data_cadastro_coletivo" class="text-white" style="font-size:0.78em;">Data Cadastro (Plano):</label>
-                <input type="date" name="data_cadastro_coletivo" required id="data_cadastro_coletivo" value="{{old('data_cadastro_coletivo')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            </div>
 
-            <div class="form-group">
-                <span for="desconto_operadora" class="text-white" style="font-size:0.875em;">Desconto Operadora:</span>
-                <input type="number" name="desconto_operadora" id="desconto_operadora" value="" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Desconto Operadora">
-            </div>
-
-            <div class="form-group">
-                <span for="quantidade_parcelas" class="text-white" style="font-size:0.875em;">Qte Parcelas do desconto:</span>
-                <select name="quantidade_parcelas" id="quantidade_parcelas" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option class="text-center" value="">--Quantidade Parcelas--</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
-            </div>
 
         </div>
-        <!-- Fim Segunda Linha -->
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div class="flex flex-col">
 
@@ -360,6 +447,8 @@
 
             </div>
         </div>
+
+
         <!--Faixas Etarias--->
         <section>
             <div class="errorfaixas"></div>
@@ -372,7 +461,7 @@
                             <button type="button" class="flex items-center justify-center minus bg-red-600" id="faixa-0-18_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
-                            <input type="tel" data-change="change_faixa_0_18" name="faixas_etarias[1]" value="{{isset($colunas) && in_array(1,$colunas) ? $faixas[array_search(1, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-0-18_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;font-size:1.2em;max-height: 30px;width:40%;" value="" step="1" min="0" class="text-center" />
+                            <input type="tel" data-change="change_faixa_0_18" name="faixas_etarias[1]" value="{{isset($colunas) && in_array(1,$colunas) ? $faixas[array_search(1, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-0-18_coletivo" class="text-center font-weight-bold faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;font-size:1.2em;max-height: 30px;width:40%;color:white;" value="" step="1" min="0" class="text-center" />
                             <button type="button" class="flex items-center justify-center plus" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
                             </button>
@@ -388,7 +477,7 @@
                             <button type="button" class="flex items-center justify-center minus bg-red-600" id="faixa-19-23_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em">－</span>
                             </button>
-                            <input type="tel" data-change="change_faixa_19_23" name="faixas_etarias[2]" value="{{isset($colunas) && in_array(2,$colunas) ? $faixas[array_search(2, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-19-23_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
+                            <input type="tel" data-change="change_faixa_19_23" name="faixas_etarias[2]" value="{{isset($colunas) && in_array(2,$colunas) ? $faixas[array_search(2, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-19-23_coletivo" class="text-center font-weight-bold faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" class="text-center" />
                             <button type="button" class="flex items-center justify-center plus" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em">＋</span>
                             </button>
@@ -403,7 +492,7 @@
                             <button type="button" class="flex items-center justify-center minus bg-red-600" id="faixa-24-28_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em">－</span>
                             </button>
-                            <input type="tel" data-change="change_faixa_24_28" name="faixas_etarias[3]" value="{{isset($colunas) && in_array(3,$colunas) ? $faixas[array_search(3, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-24-28_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
+                            <input type="tel" data-change="change_faixa_24_28" name="faixas_etarias[3]" value="{{isset($colunas) && in_array(3,$colunas) ? $faixas[array_search(3, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-24-28_coletivo" class="text-center font-weight-bold faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" class="text-center" />
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em">＋</span>
                             </button>
@@ -418,7 +507,7 @@
                             <button type="button" class="minus align-center flex justify-center bg-red-600" id="faixa-29-33_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
-                            <input type="tel" data-change="change_faixa_29_33" name="faixas_etarias[4]" value="{{isset($colunas) && in_array(4,$colunas) ? $faixas[array_search(4, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-29-33_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
+                            <input type="tel" data-change="change_faixa_29_33" name="faixas_etarias[4]" value="{{isset($colunas) && in_array(4,$colunas) ? $faixas[array_search(4, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-29-33_coletivo" class="text-center font-weight-bold faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" class="text-center" />
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
                             </button>
@@ -433,7 +522,7 @@
                             <button type="button" class="minus align-center flex justify-center bg-red-600" id="faixa-34-38_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
-                            <input type="tel" name="faixas_etarias[5]" data-change="change_faixa_34_38" value="{{isset($colunas) && in_array(5,$colunas) ? $faixas[array_search(5, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-34-38_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
+                            <input type="tel" name="faixas_etarias[5]" data-change="change_faixa_34_38" value="{{isset($colunas) && in_array(5,$colunas) ? $faixas[array_search(5, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-34-38_coletivo" class="text-center font-weight-bold faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" />
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
                             </button>
@@ -448,7 +537,7 @@
                             <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-39-43_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
-                            <input type="tel" name="faixas_etarias[6]" data-change="change_faixa_39_43" value="{{isset($colunas) && in_array(6,$colunas) ? $faixas[array_search(6, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-39-43_coletivo" class="text-center font-weight-bold flex-fill w-25 faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" class="text-center" />
+                            <input type="tel" name="faixas_etarias[6]" data-change="change_faixa_39_43" value="{{isset($colunas) && in_array(6,$colunas) ? $faixas[array_search(6, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-39-43_coletivo" class="text-center font-weight-bold flex-fill w-25 faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" class="text-center" />
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
                             </button>
@@ -463,7 +552,7 @@
                             <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-44-48_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
-                            <input type="tel" name="faixas_etarias[7]" data-change="change_faixa_44_48" value="{{isset($colunas) && in_array(7,$colunas) ? $faixas[array_search(7, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-44-48_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
+                            <input type="tel" name="faixas_etarias[7]" data-change="change_faixa_44_48" value="{{isset($colunas) && in_array(7,$colunas) ? $faixas[array_search(7, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-44-48_coletivo" class="text-center font-weight-bold faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" />
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
                             </button>
@@ -478,7 +567,7 @@
                             <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-49-53_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
-                            <input type="tel" name="faixas_etarias[8]" data-change="change_faixa_49_53" value="{{isset($colunas) && in_array(8,$colunas) ? $faixas[array_search(8, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-49-53_coletivo" class="text-center font-weight-bold faixas_etarias" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
+                            <input type="tel" name="faixas_etarias[8]" data-change="change_faixa_49_53" value="{{isset($colunas) && in_array(8,$colunas) ? $faixas[array_search(8, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-49-53_coletivo" class="text-center font-weight-bold faixas_etarias bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" />
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
                             </button>
@@ -493,7 +582,7 @@
                             <button type="button" class="minus items-center flex justify-center bg-red-600" id="faixa-54-58_individual" style="border:none;background:#FF0000;width:30%;max-height: 30px;" aria-label="−" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
-                            <input type="tel" name="faixas_etarias[9]" data-change="change_faixa_54_58" value="{{isset($colunas) && in_array(9,$colunas) ? $faixas[array_search(9, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-54-58_coletivo"  class="text-center font-weight-bold faixas_etarias d-flex" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
+                            <input type="tel" name="faixas_etarias[9]" data-change="change_faixa_54_58" value="{{isset($colunas) && in_array(9,$colunas) ? $faixas[array_search(9, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-54-58_coletivo"  class="text-center font-weight-bold faixas_etarias d-flex bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white" value="" step="1" min="0" />
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
                             </button>
@@ -510,7 +599,7 @@
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">－</span>
                             </button>
 
-                            <input type="tel" data-change="change_faixa_59" name="faixas_etarias[10]" value="{{isset($colunas) && in_array(10,$colunas) ? $faixas[array_search(10, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-59_coletivo" class="text-center font-weight-bold faixas_etarias d-flex" style="border:none;width:40%;font-size:1.2em;max-height: 30px;" value="" step="1" min="0" />
+                            <input type="tel" data-change="change_faixa_59" name="faixas_etarias[10]" value="{{isset($colunas) && in_array(10,$colunas) ? $faixas[array_search(10, array_column($faixas, 'faixa_etaria_id'))]['faixa_quantidade'] : ''}}" id="faixa-input-59_coletivo" class="text-center font-weight-bold faixas_etarias d-flex bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px]" style="border:none;width:40%;font-size:1.2em;max-height: 30px;color:white;" value="" step="1" min="0" />
 
                             <button type="button" class="plus items-center flex justify-center" style="border:none;background:rgb(17,117,185);width:30%;max-height: 30px;" aria-label="+" tabindex="0">
                                 <span class="text-white font-weight-bold" style="font-size:1.5em;">＋</span>
@@ -538,9 +627,16 @@
     $(function(){
 
 
-        $('#usuario_coletivo_switch').select2();
-        $('#administradora_coletivo').select2();
-        $('#tabela_origem_coletivo').select2();
+        $('#usuario_coletivo_switch').select2({
+            width: '180px'
+        });
+
+        $('#administradora_coletivo').select2({
+            width: '120px'
+        });
+        $('#tabela_origem_coletivo').select2({
+            width: '180px'
+        });
 
 
 
