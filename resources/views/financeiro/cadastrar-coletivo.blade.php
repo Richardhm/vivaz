@@ -293,7 +293,7 @@
         </div>
 
         <!-- Segunda Linha -->
-        <div class="flex justify-between w-full">
+        <div class="flex justify-between w-full my-2">
             <div class="flex flex-col" style="flex-basis:5%;">
                 <label for="cep" class="block mb-0.5 text-xs font-medium text-white">CEP:</label>
                 <input type="text" name="cep_coletivo" id="cep_coletivo" value="{{old('cep_coletivo')}}" placeholder="CEP"
@@ -352,16 +352,23 @@
                        class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2">
             </div>
 
-            <div class="form-group">
+
+
+        </div>
+        <!-- Fim Segunda Linha -->
+
+        <div class="flex w-full">
+
+            <div class="form-group mr-3">
                 <span for="desconto_operadora" class="block mb-0.5 text-xs font-medium text-white">Desconto Operadora:</span>
                 <input type="number" name="desconto_operadora" id="desconto_operadora" value=""
                        class="w-full rounded-lg placeholder:text-white text-white p-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-xs border-white border-2" placeholder="Desconto Operadora">
             </div>
 
-            <div class="form-group">
+            <div class="form-group mr-3">
                 <span for="quantidade_parcelas" class="block mb-0.5 text-xs font-medium text-white">Qte Parcelas do desconto:</span>
                 <select name="quantidade_parcelas" id="quantidade_parcelas"
-                    class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-black backdrop-blur-[15px] text-xs border-white border-2">
+                        class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-black backdrop-blur-[15px] text-xs border-white border-2">
                     <option class="text-center" value="" style="color:white;">--</option>
                     <option value="1" style="color:black;">1</option>
                     <option value="2" style="color:black;">2</option>
@@ -372,10 +379,13 @@
                 </select>
             </div>
 
-        </div>
-        <!-- Fim Segunda Linha -->
 
-        <div class="flex w-full">
+
+
+
+
+
+
 
             <div x-data="{ coparticipacao: '{{ old('coparticipacao_coletivo') ? old('coparticipacao_coletivo') : '' }}' }" class="flex mr-3 ">
                 <div class="flex flex-col">
@@ -408,6 +418,8 @@
                     </div>
                 </div>
             </div>
+
+
 
 
 
