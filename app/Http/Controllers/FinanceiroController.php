@@ -1108,7 +1108,6 @@ class FinanceiroController extends Controller
 
     public function store(Request $request)
     {
-
         $corretora_id = User::find($request->usuario_coletivo_switch)->corretora_id;
         if($cod = $this->coletivoVerificarCodigoExterno($request->codigo_externo_coletivo) != 0) {
             return "ja_existe";
@@ -1134,10 +1133,16 @@ class FinanceiroController extends Controller
         $cliente->pessoa_fisica = 1;
         $cliente->pessoa_juridica = 0;
         $cliente->dependente = ($request->dependente_coletivo == "on" ? 1 : 0);
+        if($request->desconto_operadora != null && $request->quantidade_parcelas >= 1) {
+            $cliente->desconto_operadora = $request->desconto_operadora;
+            $cliente->quantidade_parcelas = $request->quantidade_parcelas;
+        }
+
+
+
+
         $cliente->save();
-
         if($cliente->dependente) {
-
             $dependente = new Dependente();
             $dependente->cliente_id = $cliente->id;
             $dependente->nome = $request->responsavel_financeiro_coletivo_cadastrar_nome;
@@ -1189,8 +1194,6 @@ class FinanceiroController extends Controller
         $alt = Cliente::where("id",$cliente->id)->first();
         $alt->quantidade_vidas = $totalVidas;
         $alt->save();
-
-
         $comissao = new Comissoes();
         $comissao->contrato_id = $contrato->id;
         // $comissao->cliente_id = $contrato->cliente_id;
@@ -1206,7 +1209,6 @@ class FinanceiroController extends Controller
         /* Comissao Corretor */
         $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
             ::where("plano_id",3)
-
             ->where("administradora_id",$request->administradora)
             ->where("user_id",$request->usuario_coletivo_switch)
             ->where("tabela_origens_id",$request->tabela_origem)
@@ -1218,8 +1220,9 @@ class FinanceiroController extends Controller
 
         $comissao_corretor_contagem = 0;
         $comissao_corretor_default = 0;
-
+        $valorComDesconto = 0;
         $ii=0;
+        $cd=0;
 
         if(count($comissoes_configuradas_corretor) >= 1) {
             foreach($comissoes_configuradas_corretor as $c) {
@@ -1251,6 +1254,7 @@ class FinanceiroController extends Controller
                 ->where("tabela_origens_id",2)
                 ->get();
             foreach($dados as $c) {
+                $cd++;
                 $comissaoVendedor = new ComissoesCorretoresLancadas();
                 $comissaoVendedor->comissoes_id = $comissao->id;
                 $comissaoVendedor->parcela = $c->parcela;
@@ -1272,7 +1276,14 @@ class FinanceiroController extends Controller
                     //$date->add(new \DateInterval("PT{$comissao_corretor_default}M"));
                     //$data_add = $date->format('Y-m-d H:i:s');
                 }
-                $comissaoVendedor->valor = ($valor * $c->valor) / 100;
+                if($request->quantidade_parcelas >= 1 && $request->desconto_operadora >= 0 && $cd <= $request->quantidade_parcelas) {
+                    //if($comissao_corretor_contagem <= $request->quantidade_parcelas) {
+                        $valorComDesconto = ($valor * (1 - $request->desconto_operadora / 100)) * $c->valor / 100;
+                    //}
+                } else {
+                    $valorComDesconto = ($valor * $c->valor) / 100;
+                }
+                $comissaoVendedor->valor = $valorComDesconto;
                 $comissaoVendedor->save();
                 $comissao_corretor_default++;
             }
@@ -2826,6 +2837,8 @@ class FinanceiroController extends Controller
             "desconto_corretor" => request()->desconto_corretor,
             "id" => request()->id,
             "fone" => request()->fone,
+            "quantidade_parcelas" => request()->quantidade_parcelas,
+            "operadora_valor" => request()->operadora_valor,
             "cliente_id" => $contratos->clientes->user->id,
             "dependente_nome" => $contratos->clientes->dependentes->nome ?? '',
             "dependente_cpf" => $contratos->clientes->dependentes->cpf ?? ''
@@ -2857,6 +2870,8 @@ class FinanceiroController extends Controller
                         'contratos.codigo_externo as orcamento',
                         'users.name as corretor',
                         'clientes.nome as cliente',
+                        'clientes.desconto_operadora as desconto_operadora',
+                        'clientes.quantidade_parcelas as quantidade_parcelas',
                         'clientes.cpf as cpf',
                         'clientes.quantidade_vidas as quantidade_vidas',
                         'contratos.valor_plano as valor_plano',

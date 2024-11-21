@@ -45,25 +45,14 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
 
     /***Tabela Full***/
     Route::get('/tabela_completa',[TabelaController::class,'index'])->name('tabela_completa.index');
-
     Route::get('/tabela',[TabelaController::class,'tabela_preco'])->name('tabela.config');
-
-
     Route::post('/corretora/select/planos/administradoras',[TabelaController::class,'planosAdministradoraSelect'])->name('planos.administradora.select');
-
-
     Route::post('/corretora/mudar/valor/tabela',[TabelaController::class,'mudarValorTabela'])->name('corretora.mudar.valor.tabela');
-
     Route::post("/tabela/verificar/valores",[TabelaController::class,'verificarValoresTabela'])->name("verificar.valores.tabela");
-
     Route::post("/tabela/cadastrar/valores",[TabelaController::class,'cadastrarValoresTabela'])->name("cadastrar.valores.tabela");
     Route::post("/coparticipacao/cadastrar/valores",[TabelaController::class,'cadastrarCoparticipacao'])->name("cadastrar.coparticipacao.tabela");
     Route::post("/coparticipacao/excecao/cadastrar/valores",[TabelaController::class,'cadastrarCoparticipacaoExcecao'])->name("cadastrar.excecao.coparticipacao.tabela");
     Route::post("/coparticipacao/existe/valores",[TabelaController::class,'coparticipacaoJaExiste'])->name("coparticipacao.ja.existe");
-
-
-
-
     /***Fim Tabela Full***/
 
     /*******Corretores*********/
@@ -72,11 +61,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::post("/store/corretores",[ProfileController::class,'storeUser'])->name('corretores.store');
     Route::post("/destroy/corretore",[ProfileController::class,'destroyUser'])->name('destroy.corretor');
     Route::post('/alterar/corretor',[ProfileController::class,'alterarUser'])->name('corretores.alterar');
-
-
     /*******Corretores*********/
-
-
 
     Route::get('/orcamento',[OrcamentoController::class,'index'])->name('orcamento');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -131,6 +116,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::post('/financeiro/sincronizar_baixas',[FinanceiroController::class,'sincronizarBaixas'])->name('financeiro.sincronizar.baixas');
     Route::post('/financeiro/sincronizar/coletivo',[FinanceiroController::class,'sincronizarDadosColetivo'])->name('financeiro.sincronizar.coletivo');
     Route::post('/contratos/empresarial/financeiro',[FinanceiroController::class,'storeEmpresarialFinanceiro'])->name('contratos.storeEmpresarial.financeiro');
+
     /************* Home *************/
     Route::get("/",[HomeController::class,'index'])->name("home.index");
     Route::get("/tabela_preco",[HomeController::class,'search'])->name('orcamento.search.home');
@@ -224,10 +210,8 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     });
 
     Route::post('/ranking/veriricar/corretor',[RankingController::class,'rankingVerificarCorretor'])->name('ranking.verificar.corretor');
-
     Route::post("/odonto/create",[FinanceiroController::class,'storeOdonto'])->name('odonto.create');
     Route::get("/odonto/listar",[FinanceiroController::class,'listarOdonto'])->name('odonto.listar');
-
     Route::post('/ranking/diario/atualizar',[RankingController::class,'atualizarRankingDiario'])->name('ranking.atualizar');
     Route::get('/gerente/coletivo/listar/{id}',[GerenteController::class,'coletivoAReceber'])->name('gerente.listagem.coletivo.areceber');
     Route::get('/gerente/empresarial/listar/{id}',[GerenteController::class,'empresarialAReceber'])->name('gerente.listagem.empresarial.areceber');

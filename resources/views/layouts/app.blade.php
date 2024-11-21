@@ -77,52 +77,56 @@
             /*.interruptor.ligado {background-color: #4caf50;}*/
             /*.interruptor.ligado::before {transform: translateX(30px);}*/
 
-            .switch {
-                position: relative;
-                display: inline-block;
-                width: 40px;
-                height: 20px;
-            }
+            .switch {position: relative;display: inline-block;width: 40px;height: 20px;}
+            .switch input {opacity: 0;width: 0;height: 0;}
+            .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;transition: .4s;border-radius: 20px;}
+            .slider:before {position: absolute;content: "";height: 16px;width: 16px;left: 2px;bottom: 2px;background-color: white;transition: .4s;border-radius: 50%;}
+            input:checked + .slider {background-color: #4caf50;}
+            input:checked + .slider:before {transform: translateX(20px);}
 
-            .switch input {
-                opacity: 0;
-                width: 0;
-                height: 0;
-            }
-
-            .slider {
-                position: absolute;
-                cursor: pointer;
+            #overlay {
+                position: fixed;
                 top: 0;
                 left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: #ccc;
-                transition: .4s;
-                border-radius: 20px;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(128, 128, 128, 0.7); /* Fundo cinza com opacidade */
+                display: flex; /* Ocultado por padrão */
+                justify-content: center;
+                align-items: center;
+                z-index: 9999; /* Garantir que fique acima de todos os outros elementos */
             }
 
-            .slider:before {
-                position: absolute;
-                content: "";
-                height: 16px;
-                width: 16px;
-                left: 2px;
-                bottom: 2px;
-                background-color: white;
-                transition: .4s;
-                border-radius: 50%;
+            /* Estilo do loader */
+            #loader {
+                text-align: center;
             }
 
-            input:checked + .slider {
-                background-color: #4caf50;
+            .dot {
+                display: inline-block;
+                width: 20px; /* Aumentar o tamanho dos pontos */
+                height: 20px; /* Aumentar o tamanho dos pontos */
+                margin: 0 8px; /* Espaço entre os pontos */
+                background-color: #000; /* Cor preta */
+                animation: bounce 1.5s infinite ease-in-out;
             }
 
-            input:checked + .slider:before {
-                transform: translateX(20px);
+            .dot:nth-child(2) {
+                animation-delay: 0.2s;
             }
 
+            .dot:nth-child(3) {
+                animation-delay: 0.4s;
+            }
 
+            @keyframes bounce {
+                0%, 80%, 100% {
+                    transform: scale(0);
+                }
+                40% {
+                    transform: scale(1);
+                }
+            }
 
 
 

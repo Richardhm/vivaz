@@ -261,10 +261,16 @@ $(document).on('click', '.open-modal', function(e) {
     let desconto_corretor = $(this).data("descontocorretor") ?? 0;
     let status = $(this).data('status');
     let financeiro = $(this).data('financeiro');
+    let quantidade_parcelas = $(this).data('parcelas');
+    let operadora_valor = $(this).data('operadora_valor');
+
+
     $.ajax({
         url:coletivoFinanceiroInicializar,
         method:"POST",
         data: {
+            quantidade_parcelas,
+            operadora_valor,
             status,
             cliente,
             cpf,

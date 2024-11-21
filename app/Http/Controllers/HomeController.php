@@ -18,7 +18,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-
         $mesAtualN = date('n');
         $mes_atual = date("m");
         $ano_atual = date("Y");
@@ -27,13 +26,13 @@ class HomeController extends Controller
         $semestreAtual = "";
         if ($semestre == 1) {
             // Primeiro semestre (de janeiro a junho)
-            $startDate = $ano_atual . "-01-01";
-            $endDate = $ano_atual . "-06-30";
+            $startDate  = $ano_atual . "-01-01";
+            $endDate    = $ano_atual . "-06-30";
             $semestreAtual = "1/".date("Y");
         } else {
             // Segundo semestre (de julho a dezembro)
-            $startDate = $ano_atual . "-07-01";
-            $endDate = $ano_atual . "-12-31";
+            $startDate  = $ano_atual . "-07-01";
+            $endDate    = $ano_atual . "-12-31";
             $semestreAtual = "2/".date("Y");
         }
 

@@ -237,50 +237,32 @@
 
         </div>
 
-
-
-
-
-
-
-
-
-
-
         <!-- Segunda Linha -->
-        <div class="flex flex-wrap gap-4 w-full">
-
-
-
-
-
+        <div class="flex justify-between w-full">
             <div class="flex flex-col" style="flex-basis:5%;">
-
                 <label for="cep" class="text-white w-full" style="font-size:0.78em;">CEP:</label>
                 <input type="text" name="cep_coletivo" id="cep_coletivo" value="{{old('cep_coletivo')}}" placeholder="CEP" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
-
             </div>
 
-            <div class="flex flex-col" style="flex-basis:10%;">
+            <div class="flex flex-col">
                 <span for="rua" class="text-white" style="font-size:0.78em;">Cidade:</span>
                 <input type="text" name="cidade_origem_coletivo" id="cidade_origem_coletivo" value="{{old('cidade_origem_coletivo')}}" placeholder="Cidade" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
 
             </div>
 
-            <div class="flex flex-col" style="flex-basis:10%;">
+            <div class="flex flex-col">
                 <label for="bairro" class="text-white" style="font-size:0.78em;">Bairro:</label>
                 <input type="text" name="bairro_coletivo" id="bairro_coletivo" value="{{old('bairro_coletivo')}}" placeholder="Bairro" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
 
             </div>
 
-            <div class="flex flex-col" style="flex-basis:10%;">
+            <div class="flex flex-col">
                 <label for="rua" class="text-white" style="font-size:0.78em;">Rua:</label>
                 <input type="text" name="rua_coletivo" id="rua_coletivo" value="{{old('rua_coletivo')}}" placeholder="Logradouro(Rua)" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
 
             </div>
 
-            <div class="flex flex-col" style="flex-basis:10%;">
+            <div class="flex flex-col">
                 <label for="bairro" class="text-white" style="font-size:0.78em;">Complemento:</label>
                 <input type="text" name="complemento_coletivo" id="complemento_coletivo" value="{{old('complemento_coletivo')}}" placeholder="Complemento(Opcional)" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
 
@@ -290,21 +272,14 @@
             <div class="flex flex-col" style="flex-basis:3%;">
                 <label for="uf" class="text-white" style="font-size:0.78em;">UF:</label>
                 <input type="text" name="uf_coletivo" id="uf_coletivo" value="{{old('uf_coletivo')}}" placeholder="UF" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-
             </div>
-
-
-
 
             <div class="flex flex-col" style="flex-basis:8%;">
-
                 <label for="codigo_externo" class="text-white" style="font-size:0.78em;">Codigo Externo:</label>
                 <input type="text" name="codigo_externo_coletivo" required id="codigo_externo_coletivo" value="{{old('codigo_externo_coletivo')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD.">
-
-
             </div>
 
-            <div x-data="{ coparticipacao: '{{ old('coparticipacao_coletivo') ? old('coparticipacao_coletivo') : '' }}' }" class="flex" style="flex-basis:10%;">
+            <div x-data="{ coparticipacao: '{{ old('coparticipacao_coletivo') ? old('coparticipacao_coletivo') : '' }}' }" class="flex">
                 <div class="flex flex-col">
                     <span class="text-white text-xs mb-1">Coparticipação:</span>
                     <div class="flex space-x-2">
@@ -320,12 +295,7 @@
                 </div>
             </div>
 
-
-
-
-
-
-            <div x-data="{ odonto: '{{ old('odonto_coletivo') ? old('odonto_coletivo') : '' }}' }" class="flex" style="flex-basis:10%;">
+            <div x-data="{ odonto: '{{ old('odonto_coletivo') ? old('odonto_coletivo') : '' }}' }" class="flex">
                 <div class="flex flex-col">
                     <span for="odonto" class="text-white" style="font-size:0.78em;">Odonto:</span>
                     <div class="flex space-x-2">
@@ -341,14 +311,29 @@
                 </div>
             </div>
 
-
             <!-- Data Cadastro (Plano) -->
-            <div class="flex flex-col" style="flex-basis:12%;">
+            <div class="flex flex-col">
                 <label for="data_cadastro_coletivo" class="text-white" style="font-size:0.78em;">Data Cadastro (Plano):</label>
                 <input type="date" name="data_cadastro_coletivo" required id="data_cadastro_coletivo" value="{{old('data_cadastro_coletivo')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
 
+            <div class="form-group">
+                <span for="desconto_operadora" class="text-white" style="font-size:0.875em;">Desconto Operadora:</span>
+                <input type="number" name="desconto_operadora" id="desconto_operadora" value="" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Desconto Operadora">
+            </div>
 
+            <div class="form-group">
+                <span for="quantidade_parcelas" class="text-white" style="font-size:0.875em;">Qte Parcelas do desconto:</span>
+                <select name="quantidade_parcelas" id="quantidade_parcelas" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option class="text-center" value="">--Quantidade Parcelas--</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
 
         </div>
         <!-- Fim Segunda Linha -->
@@ -946,28 +931,27 @@
                         let valor_difrenca = diferenca.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
                         $(".diferenca_entre_valores").text(valor_difrenca);
                         $("#modalDiferencaEntreValores").removeClass('hidden').addClass('flex');
-
-                        return false;  // Cancela o envio do formulário
-
+                        return false;
                     }
                     load.fadeIn(100).css("display", "flex");
                 },
                 success:function(res) {
                     load.fadeOut(300);
-                    if(res == "ja_existe") {
-                        $("#jaExisteCodigoExterno").removeClass('hidden').addClass('flex');
-                        return false;
-                    }
-                    if(res == "contratos") {
-                        $(location).prop('href','/contratos?ac=coletivo');
-                        return true;
-                    } else if(res == "financeiro") {
-                        $(location).prop('href','/financeiro?ac=coletivo');
-                        return true;
-                    }  else {
-                        $(location).prop('href','/contrato?ac=coletivo');
-                        return true;
-                    }
+                    console.log(res);
+                    // if(res == "ja_existe") {
+                    //     $("#jaExisteCodigoExterno").removeClass('hidden').addClass('flex');
+                    //     return false;
+                    // }
+                    // if(res == "contratos") {
+                    //     $(location).prop('href','/contratos?ac=coletivo');
+                    //     return true;
+                    // } else if(res == "financeiro") {
+                    //     $(location).prop('href','/financeiro?ac=coletivo');
+                    //     return true;
+                    // }  else {
+                    //     $(location).prop('href','/contrato?ac=coletivo');
+                    //     return true;
+                    // }
                 }
             });
             return false;

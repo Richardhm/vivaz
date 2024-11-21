@@ -506,8 +506,6 @@
 
                    <div id="select_div" class="absolute top-2 right-0 z-1000 hidden mr-2">
                        <select name="selecao_ano" id="selecao_ano" class="bg-white flex justify-between text-gray-800 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 px-4 py-2 appearance-none">
-                           <option value="">--Ano--</option>
-                           <option value="2023" {{$ano_atual == 2023 ? "selected" : ""}}>2023</option>
                            <option value="2024" {{$ano_atual == 2024 ? "selected" : ""}}>2024</option>
                        </select>
                    </div>

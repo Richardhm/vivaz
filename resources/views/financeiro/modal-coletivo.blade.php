@@ -18,6 +18,8 @@
             <!-- 1ª Linha (Corretor) -->
             <input type="hidden" id="id_cliente" value="{{$id}}">
 
+
+
             <div class="grid grid-cols-4 gap-4 mb-2">
                 <div>
                     <label for="administradora" class="block text-white text-sm flex justify-between">
@@ -355,8 +357,15 @@
                         </svg>
                     </td>
                 </tr>
+                @php
+                    $ii=0;
+                @endphp
+
                 @foreach($dados->comissao->comissoesLancadas as $kk => $cr)
-                    @php $fase = 0; @endphp
+                    @php
+
+                        $fase = 0;
+                    @endphp
                     @switch($cr->parcela)
                         @case(1)
                             @php
@@ -407,16 +416,38 @@
                             {{$title}}
                         </td>
                         <td style="font-size:0.875em;">
-                            {{$dados->codigo_externo}}
+                            {{$dados->quantidade_parcelas}}
                         </td>
                         <td style="font-size:0.875em;">
                             {{date('d/m/Y',strtotime($cr->data))}}
                         </td>
                         <td style="font-size:0.875em;">
                             @if($cr->parcela == 1)
-                                <span style="margin-left:10px;">{{number_format($dados->valor_adesao ,2,",",".")}}</span>
+{{--                                @if($quantidade_parcelas >= 1)--}}
+{{--                                    @php--}}
+{{--                                        $valor_total_adesao =  $dados->valor_plano;--}}
+{{--                                        $desconto_adesao = $operadora_valor;--}}
+{{--                                        $valorComDescontoAdesao = $valor_total_adesao - ($valor_total_adesao * $desconto_adesao / 100);--}}
+{{--                                    @endphp--}}
+{{--                                    <span style="margin-left:10px;">{{number_format($valorComDescontoAdesao,2,",",".")}}</span>--}}
+{{--                                @else--}}
+                                    <span style="margin-left:10px;">{{number_format($dados->valor_adesao ,2,",",".")}}</span>
+{{--                                @endif--}}
                             @else
-                                <span style="margin-left:10px;">{{number_format($dados->valor_plano,2,",",".")}}</span>
+                                <span style="margin-left:10px;">
+                                    @if($ii <= $quantidade_parcelas)
+                                        @php
+                                            $valor_total =  $dados->valor_plano;
+                                            $desconto = $operadora_valor;
+                                            $valorComDesconto = $valor_total - ($valor_total * $desconto / 100);
+                                        @endphp
+                                        <span style="margin-left:10px;">{{number_format($valorComDesconto,2,",",".")}}</span>
+                                    @else
+                                        <span style="margin-left:10px;">{{number_format($dados->valor_plano,2,",",".")}}</span>
+                                    @endif
+
+
+                                </span>
                             @endif
                         </td>
                         <td style="font-size:0.875em;" class="data_baixa">
@@ -431,11 +462,7 @@
                         <td class="acao_aqui">
                             @if($cr->status_financeiro == 0)
                                 <input type="date" data-id="{{$id}}" min="{{date('Y-m-d', strtotime('1900-01-01'))}}"
-                                       max="{{date('Y-m-d')}}"  class="bg-gray-100  text-gray-800 p-1 text-sm rounded-md next date-picker">
-
-
-
-
+                                       max="{{date('Y-m-d')}}"  class="bg-gray-100 text-gray-800 p-1 text-sm rounded-md next date-picker">
                             @else
                                 <button type="button" class="text-center text-white flex justify-center cursor-not-allowed bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800 w-11/12">
                                     <svg class="w-6 h-6 text-white dark:text-white text-center mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -450,6 +477,10 @@
                             </svg>
                         </td>
                     </tr>
+                    @php
+                        $ii++;
+
+                    @endphp
                 @endforeach
                 </tbody>
             </table>

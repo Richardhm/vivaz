@@ -1,5 +1,14 @@
 <x-app-layout>
 
+    <div id="overlay" class="ocultar">
+        <div id="loader">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
     <div class="mx-auto p-2" style="width:95%;">
 
         <div class="flex justify-between items-center">
@@ -497,9 +506,6 @@
                                cidadeSelecionada
                            },
                            success:function(res) {
-
-                               console.log(res);
-
                                if(res != "nada" && cidadeSelecionada != 3 && cidadeSelecionada != 4 && cidadeSelecionada != 5 && cidadeSelecionada != 6 && cidadeSelecionada != 7) {
 
                                    $("#linha01").val(res.linha01);
@@ -713,11 +719,6 @@
                 $('input[name*="valor_enfermaria"]').mask("#.##0,00", {reverse: true});
                 $('input[name*="valor_ambulatorial"]').mask("#.##0,00", {reverse: true});
 
-
-
-
-
-
                 // $('#plano_coparticipacao, #cidade_coparticipacao').change(function () {
                 //     //Verifica se ambos os selects têm valores selecionados
                 //     let planoSelecionado = $('#plano_coparticipacao').val();
@@ -742,11 +743,6 @@
                     $(this)
                         .addClass("ativo");
                     let id = $(this).attr('data-id');
-
-                    console.log(id);
-                    //$('.conteudo_abas main').addClass('ocultar');
-                    //$('#'+id).removeClass('ocultar');
-
 
 
                     if(id == "aba_coparticipacao") {
@@ -836,6 +832,7 @@
                         $('input[name*="valor_apartamento"]').prop('disabled',false);
                         $('input[name*="valor_enfermaria"]').prop('disabled',false);
                         $('input[name*="valor_ambulatorial"]').prop('disabled',false);
+                        $('#overlay').removeClass("ocultar");
 
                         let plano = $("#planos").val();
                         let cidade = $("#tabela_origem").val();
@@ -855,7 +852,7 @@
 
                             },
                             success:function(res) {
-
+                                $('#overlay').addClass('ocultar');
                                 if(res != "empty") {
 
                                     $('input[name="valor_apartamento[]"]').each(function(index) {
@@ -1064,7 +1061,7 @@
     @section('css')
         <style>
             .dsnone {display:none;}
-            .ocultar {display: none;}
+            .ocultar {display: none !important;}
             .ajax_load {display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;}
             .ajax_load_box{margin:auto;text-align:center;color:#fff;font-weight:var(700);text-shadow:1px 1px 1px rgba(0,0,0,.5)}
             .ajax_load_box_circle{border:16px solid #e3e3e3;border-top:16px solid #61DDBC;border-radius:50%;margin:auto;width:80px;height:80px;-webkit-animation:spin 1.2s linear infinite;-o-animation:spin 1.2s linear infinite;animation:spin 1.2s linear infinite}
