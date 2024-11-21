@@ -937,21 +937,20 @@
                 },
                 success:function(res) {
                     load.fadeOut(300);
-                    console.log(res);
-                    // if(res == "ja_existe") {
-                    //     $("#jaExisteCodigoExterno").removeClass('hidden').addClass('flex');
-                    //     return false;
-                    // }
-                    // if(res == "contratos") {
-                    //     $(location).prop('href','/contratos?ac=coletivo');
-                    //     return true;
-                    // } else if(res == "financeiro") {
-                    //     $(location).prop('href','/financeiro?ac=coletivo');
-                    //     return true;
-                    // }  else {
-                    //     $(location).prop('href','/contrato?ac=coletivo');
-                    //     return true;
-                    // }
+                    if(res == "ja_existe") {
+                        $("#jaExisteCodigoExterno").removeClass('hidden').addClass('flex');
+                        return false;
+                    }
+                    if(res == "contratos") {
+                        $(location).prop('href','/contratos?ac=coletivo');
+                        return true;
+                    } else if(res == "financeiro") {
+                        $(location).prop('href','/financeiro?ac=coletivo');
+                        return true;
+                    }  else {
+                        $(location).prop('href','/contrato?ac=coletivo');
+                        return true;
+                    }
                 }
             });
             return false;
