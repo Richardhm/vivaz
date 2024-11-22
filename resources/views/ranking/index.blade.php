@@ -981,8 +981,8 @@
                     $("#titulo_ranking").text("Ranking - Estrela");
                 } else if(corretora == "vivaz") {
                     $("#titulo_ranking").text("Ranking - Vivaz");
-                } else {
-
+                } else if(corretora == "concessi") {
+                    $("#titulo_ranking").text("Ranking - Concessionárias");
                 }
 
 
@@ -1028,7 +1028,7 @@
             switch (corretora) {
                 case 'accert': return 236;
                 case 'innove': return 236;
-                case 'diario': return 13;
+                case 'diario': return 10;
                 case 'semanal': return 65;
                 case 'estrela': return 150;
                 case 'concessi': return 3629;
