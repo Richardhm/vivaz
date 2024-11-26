@@ -29,12 +29,14 @@
             var empresarialDataBaixa    = "{{route('financeiro.baixa.data.empresarial')}}";
             var changecorretor          = "{{route('financeiro.changeFinanceiro')}}";
             var changecorretorColetivo  = "{{route('financeiro.changeFinanceiroColetivo')}}";
+            var changecorretorEmpresarial  = "{{route('financeiro.changeFinanceiroEmpresarial')}}";
             var financeiroCanceladoColetivo = "{{route('financeiro.contrato.cancelados')}}";
             var excluirColetivo         = "{{route('financeiro.excluir.cliente')}}";
             var excluirEmpresarial      = "{{route('financeiro.excluir.empresarial')}}";
             var cancelarEmpresarial      = "{{route('financeiro.cancelar.empresarial')}}";
             var mudarCampoIndividual = "{{route('financeiro.editar.campoIndividualmente')}}";
             var editarCampoColetivo = "{{route('financeiro.editar.campoColetvivo')}}";
+            var editarCampoEmpresarial = "{{route('financeiro.editar.campoEmpresarial')}}";
             var table;
             var table_individual;
             var parcelaSelecionada;
@@ -56,11 +58,11 @@
     <x-upload-atualizar></x-upload-atualizar>
 
         <!-- O container de loading com 3 pontinhos -->
-        <div id="loading-dots-change" class="hidden fixed inset-0 text-2xl flex items-center justify-center bg-opacity-50 bg-gray-800" style="z-index: 100000000000000000">
-            <div class="flex justify-center items-center space-x-1 text-2xl">
-                <div class="dot bg-black w-12 h-12 rounded-full animate-bounce text-2xl"></div>
-                <div class="dot bg-black w-12 h-12 rounded-full animate-bounce delay-200 text-2xl"></div>
-                <div class="dot bg-black w-12 h-12 rounded-full animate-bounce delay-400 text-2xl"></div>
+        <div id="loading-overlay" class="ocultar" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
+            <div class="dots-loading">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
         <div id="myModalIndividual" class="fixed inset-0 z-50 flex items-center justify-center hidden">

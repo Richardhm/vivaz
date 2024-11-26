@@ -137,7 +137,22 @@ $("body").on('change','.editar_campo_individual',function(){
     });
 });
 
+$("body").on('change','.mudar_empresarial',function(){
+    let alvo = $(this).attr('id');
+    let id = $("#empresarial_cliente_id").val();
+    let valor = $(this).val();
 
+    $.ajax({
+        url:editarCampoEmpresarial,
+        method:"POST",
+        data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id,
+        success:function(res) {
+            console.log(res);
+        }
+    });
+
+
+});
 
 
 
@@ -157,8 +172,7 @@ $("body").on('change','.mudar_coletivo',function(){
         method:"POST",
         data:"alvo="+alvo+"&valor="+valor+"&id_cliente="+id_cliente,
         success:function(res) {
-            console.log(res);
-            //table.ajax.reload();
+
         }
     });
 });
@@ -179,6 +193,46 @@ $("body").on("change","#change_administradora_coletivo",function(){
             //table.ajax.reload();
         }
     });
+});
+
+$("body").on('change','#mudar_corretor_empresarial',function(){
+    let user_id = $(this).val();
+    let cliente_id = $("#empresarial_cliente_id").val();
+    $("#loading-overlay").removeClass('ocultar');
+
+    $.ajax({
+        url: changecorretorEmpresarial,
+        method: "POST",
+        data: {
+            cliente_id,
+            user_id
+        },
+        success: function (res) {
+            $("#loading-overlay").addClass('ocultar');
+
+            // // Exibir mensagem de sucesso (SweetAlert)
+            Swal.fire({
+                icon: 'success',
+                title: 'Troca realizada com sucesso!',
+                text: 'O cliente foi transferido para o novo vendedor.',
+                confirmButtonText: 'OK'
+            });
+            inicializarEmpresarial(1)
+        },
+        error: function (err) {
+            // Esconder o loading (adicionar a classe hidden novamente)
+            $("#loading-overlay").addClass('ocultar');
+
+            // Exibir mensagem de erro (SweetAlert)
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao trocar vendedor',
+                text: 'Ocorreu um erro ao tentar transferir o cliente. Por favor, tente novamente.',
+                confirmButtonText: 'OK'
+            });
+        }
+});
+
 
 
 

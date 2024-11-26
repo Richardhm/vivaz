@@ -163,7 +163,7 @@
                             somFogos.onended = function() {
                                 fogosContainer.fadeOut(300);
                                 fogosBg.fadeOut(4000, function() {
-                                    $(this).addClass('ocultar').removeClass("block");
+                                    $(this).addClass('ocultar').removeClass("block").removeClass("aparecer");
                                 });
                                 popUp.fadeOut(4000);
                                 isAnimating = false; // Libera para a próxima animação
@@ -550,7 +550,7 @@
     <div style="width:400px;height:400px;border-radius:10px;color:white;display:flex;flex-direction:column;margin:5px auto;">
 
         <!-- Header: Compacto com menos altura -->
-        <div class="header" style="flex: 0 0 10%; display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+        <div class="header" style="flex: 0 0 10%; display: flex; align-items: center; justify-content: space-between; padding: 0 10px;background-color:red;">
             <img src="{{asset('medalha-primeiro.png')}}" style="width:100px;height:100px;" alt="">
             <p style="font-size:1.5em; display:flex; flex-direction:column; justify-content:center; color:#FFF; text-align:center; line-height: 1;">
                 <span style="font-size:2em; font-weight: bold;" class="quantidade_vidas"></span>
@@ -578,12 +578,12 @@
 
 
 <!-- Fundo preto para os fogos de artifício -->
-<div id="fogos-bg" class="ocultar"  style="position:fixed;inset: 0;z-index: 50;background-color:black;opacity: 50;">
-    <div style="width:400px;height:400px;border-radius:10px;color:white;display:flex;flex-direction:column;margin:5px auto;">
+<div id="fogos-bg" class="ocultar"  style="display:flex;background-color: black;z-index: 50;inset: 0;position: fixed;align-items: center;justify-content: center; --tw-bg-opacity: 0.8;">
+    <div style="border-radius:10px;color:white;display:flex;flex-direction:column;margin-bottom: 20px;">
 
         <!-- Header: Compacto com menos altura -->
         <div class="header" style="flex: 0 0 10%; display: flex; align-items: center; justify-content: space-between; padding: 0 10px;width:100%;">
-            <img src="{{asset('medalha-primeiro.png')}}" style="width:100px;height:100px;" alt="">
+                <img src="{{asset('medalha-primeiro.png')}}" style="width:100px;height:100px;" alt="">
             <p style="font-size:1.5em; display:flex; flex-direction:column; justify-content:center; color:white; text-align:center; line-height: 1;">
                 <span style="font-size:2em; font-weight: bold;" class="quantidade_vidas"></span>
                 <span style="font-weight: bold;">Vidas</span>
@@ -591,7 +591,7 @@
         </div>
 
         <!-- Corpo: Diminuir o tamanho da imagem para encaixar melhor -->
-        <div class="corpo" style="flex: 1; display: flex; justify-content: center; align-items: flex-start;">
+        <div class="corpo" style="display: flex; justify-content: center; align-items: flex-start;">
             <img src="" class="assumir_lider" style="width:550px;height:550px;border-radius:50%;box-sizing:border-box;">
         </div>
 
@@ -599,6 +599,7 @@
         <div class="footer footer_ranking" style="flex: 0 0 10%;display:flex;justify-content: center;align-items:center;font-size:1.5em;color:#FFF;font-weight:bold;">
             1º Lugar no Ranking
         </div>
+
 
     </div>
 </div>

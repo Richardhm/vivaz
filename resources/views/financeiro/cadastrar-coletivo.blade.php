@@ -418,24 +418,7 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
         <div class="flex flex-col">
 

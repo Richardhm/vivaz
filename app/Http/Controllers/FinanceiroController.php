@@ -187,15 +187,7 @@ class FinanceiroController extends Controller
     public function formCreateEmpresarial()
     {
 
-        $users = User
-            ::where("id","!=",1)
-            ->where("corretora_id",auth()->user()->corretora_id)
-            ->whereNotNull('name')
-            ->where('name', '!=', '')
-            ->get();
-
-        //dd($users);
-
+        $users = User::where("id","!=",1)->where('ativo',1)->where('corretora_id',auth()->user()->corretora_id)->get();
         $plano_empresarial = Plano::where("empresarial",1)->get();
         $tabela_origem = TabelaOrigens::all();
         return view('financeiro.cadastrar-empresa',[
@@ -204,11 +196,8 @@ class FinanceiroController extends Controller
             "origem_tabela" =>  $tabela_origem
         ]);
     }
-
     public function storeEmpresarialFinanceiro(Request $request)
     {
-
-
         $corretora_id = User::find($request->user_id)->corretora_id;
         $codigo_vendedor = User::find($request->user_id)->codigo_vendedor;
 
@@ -1755,6 +1744,106 @@ class FinanceiroController extends Controller
         //return $this->recalcularColetivo();
     }
 
+    public function editarCampoEmpresarial(Request $request)
+    {
+
+        $cliente = ContratoEmpresarial::find($request->id_cliente);
+
+        switch($request->alvo) {
+
+            case "data_boleto":
+                $cliente->data_boleto = $request->valor;
+                $cliente->save();
+            break;
+
+
+            case "plano_contrado":
+                $cliente->plano_contrado = $request->valor;
+                $cliente->save();
+            break;
+
+
+            case "mudar_tabela_origem_empresarial":
+                $cliente->tabela_origens_id = $request->valor;
+                $cliente->save();
+            break;
+
+            case "razao_social":
+                $cliente->razao_social = $request->valor;
+                $cliente->save();
+            break;
+
+            case "cnpj":
+                $cliente->cnpj = $request->valor;
+                $cliente->save();
+            break;
+
+            case "vidas":
+                $cliente->quantidade_vidas = $request->valor;
+                $cliente->save();
+            break;
+
+            case "telefone":
+                $cliente->telefone = $request->valor;
+                $cliente->save();
+            break;
+
+            case "celular":
+                $cliente->celular = $request->valor;
+                $cliente->save();
+            break;
+
+            case "email":
+                $cliente->email = $request->valor;
+                $cliente->save();
+            break;
+
+            case "responsavel":
+                $cliente->responsavel = $request->valor;
+                $cliente->save();
+            break;
+
+            case "cidade":
+                $cliente->cidade = $request->valor;
+                $cliente->save();
+            break;
+
+            case "uf":
+                $cliente->uf = $request->valor;
+                $cliente->save();
+            break;
+
+            case "codigo_corretora":
+                $cliente->codigo_corretora = $request->valor;
+                $cliente->save();
+            break;
+
+            case "codigo_saude":
+                $cliente->codigo_saude = $request->valor;
+                $cliente->save();
+            break;
+
+            case "codigo_odonto":
+                $cliente->codigo_odonto = $request->valor;
+                $cliente->save();
+            break;
+
+            case "senha_cliente":
+                $cliente->senha_cliente = $request->valor;
+                $cliente->save();
+            break;
+
+        }
+
+
+
+
+    }
+
+
+
+
+
     public function editarCampoColetivo(Request $request)
     {
         $contrato = Contrato::find($request->id_cliente);
@@ -1912,21 +2001,7 @@ class FinanceiroController extends Controller
 
             break;
 
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-
 
     }
 
@@ -2159,15 +2234,20 @@ class FinanceiroController extends Controller
 
     public function excluirCliente(Request $request)
     {
+
+
+
         if ($request->ajax()) {
             $id_contrato = $request->id;
             $contrato = Contrato::find($id_contrato);
             $cliente = Cliente::find($contrato->cliente_id);
+
             $comissao = Comissoes::where("contrato_id",$contrato->id)->first()->id;
             ComissoesCorretoresLancadas::where("comissoes_id",$comissao)->delete();
-            Comissoes::where("contrato_id",$contrato)->delete();
-            Contrato::where("cliente_id",$cliente)->delete();
+            Comissoes::where("contrato_id",$contrato->id)->delete();
+            Contrato::where("cliente_id",$cliente->id)->delete();
             Cliente::find($cliente->id)->delete();
+
 //            if ($id_cliente != null) {
 //                $d = Cliente::where("id", $id_cliente)->delete();
 //                if ($d) {
@@ -2469,6 +2549,11 @@ class FinanceiroController extends Controller
             ->first();
 
 
+        $planos = Plano::where("empresarial",1)->where("id","!=",6)->where("id","!=",10)->where("id","!=",11)->where("id","!=",4)->get();
+        $tabelas_origens = TabelaOrigens::all();
+
+        $corretores = User::where("corretora_id",auth()->user()->corretora_id)->where("ativo",1)->get();
+
         $vendedor = $request->input('vendedor');
         $plano = $request->input('plano');
         $origens = $request->input('origens');
@@ -2483,7 +2568,7 @@ class FinanceiroController extends Controller
         $responsavel = $request->input('responsavel');
         $cidade = $request->input('cidade');
         $uf = $request->input('uf');
-        $plano_contratado = $request->input('plano_contratado');
+        $plano_contrado = $request->input('plano_contratado');
 
         $codigo_corretora = $request->input('codigo_corretora');
         $codigo_saude = $request->input('codigo_saude');
@@ -2504,13 +2589,13 @@ class FinanceiroController extends Controller
         $codigo_externo = $request->input('codigo_externo');
 
         $texto_empresarial = "";
-        if ($plano_contratado == 1) {
+        if ($plano_contrado == 1) {
             $texto_empresarial = "C/ Copart + Odonto";
-        } else if ($plano_contratado == 2) {
+        } else if ($plano_contrado == 2) {
             $texto_empresarial = "C/ Copart Sem Odonto";
-        } else if ($plano_contratado == 3) {
+        } else if ($plano_contrado == 3) {
             $texto_empresarial = "Sem Copart + Odonto";
-        } else if ($plano_contratado == 4) {
+        } else if ($plano_contrado == 4) {
             $texto_empresarial = "Sem Copart Sem Odonto";
         } else {
             $texto_empresarial = "";
@@ -2522,19 +2607,22 @@ class FinanceiroController extends Controller
         return view('financeiro.modal-empresarial', compact(
             'dados',
             'vendedor',
+            'planos',
             'plano',
             'texto_empresarial',
             'origens',
             'razao_social',
+            'tabelas_origens',
             'cnpj',
             'vidas',
+            'corretores',
             'celular',
             'email',
             'responsavel',
             'cidade',
             'codigo_externo',
             'uf',
-            'plano_contratado',
+            'plano_contrado',
             'codigo_corretora',
             'codigo_saude',
             'codigo_odonto',
@@ -2550,6 +2638,77 @@ class FinanceiroController extends Controller
             'id'
         ));
     }
+
+    public function changeEmpresarial()
+    {
+        $contrato_id = request()->cliente_id;
+        $user_id = request()->user_id;
+        $corretora_id = User::find($user_id)->corretora_id;
+        $estagiario = User::where("id",$user_id)->first()->estagiario;
+        $contrato = ContratoEmpresarial::find($contrato_id);
+
+        $comissao = Comissoes::where("contrato_empresarial_id",$contrato_id)->first();
+
+        if($estagiario == 0) {
+
+
+            ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->update(["valor" => 0]);
+            $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
+                ::where("plano_id", $contrato->plano_id)
+                ->where("administradora_id", 4)
+                ->where("user_id", $user_id)
+                ->get();
+            $par = 0;
+            if (count($comissoes_configuradas_corretor) >= 1) {
+                foreach($comissoes_configuradas_corretor as $c) {
+                    $par++;
+                    $valor_comissao = $contrato->valor_plano;
+                    $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                    $comissaoVendedor->valor = ($valor_comissao * $c->valor) / 100;
+                    $comissaoVendedor->save();
+                }
+            } else {
+                $dados = ComissoesCorretoresDefault
+                    ::where("plano_id", $contrato->plano_id)
+                    ->where("administradora_id", 4)
+                    ->where("corretora_id",$contrato->corretora_id)
+                    ->get();
+                foreach ($dados as $c) {
+                    $par++;
+                    $valor_comissao_default = $contrato->valor_plano;
+                    $comissaoVendedor = ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->where("parcela",$par)->first();
+                    $comissaoVendedor->valor = ($valor_comissao_default * $c->valor) / 100;
+                    $comissaoVendedor->save();
+                }
+                //}
+//                /****FIm SE Comissoes Lancadas */
+            }
+
+            $contrato->user_id = $user_id;
+            $contrato->save();
+
+            $comissao->user_id = $user_id;
+            $comissao->save();
+
+        } else {
+
+            ClienteEstagiario::updateOrCreate(
+                [
+                    'cliente_id' => $contrato->id, // Condição de busca
+                ],
+                [
+                    'user_id' => $user_id,       // Dados para atualizar ou criar
+                    'data' => now(),
+                ]
+            );
+        }
+        return $corretora_id;
+
+
+
+
+    }
+
 
     public function changeColetivo()
     {
@@ -2613,30 +2772,8 @@ class FinanceiroController extends Controller
                     'data' => now(),
                 ]
             );
-
-
-
         }
-
-
         return $corretora_id;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -2783,13 +2920,6 @@ class FinanceiroController extends Controller
 
         return "Olaaaaaa";
     }
-
-
-
-
-
-
-
 
 
     public function modalColetivo()

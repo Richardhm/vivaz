@@ -106,6 +106,29 @@ $("body").on('click','.editar_coletivo',function(){
     }
 });
 
+$("body").on('click','.editar_empresarial_select',function(){
+
+    let input = $(this).closest("div").find("select");
+
+    if (input.prop('disabled')) {
+        input.prop('disabled', false); // Remove a propriedade readonly
+    } else {
+        input.prop('disabled', true); // Adiciona a propriedade readonly
+    }
+});
+
+
+
+$("body").on('click','.editar_empresarial',function(){
+
+    let input = $(this).closest("div").find("input");
+
+    if (input.prop('readonly')) {
+        input.prop('readonly', false); // Remove a propriedade readonly
+    } else {
+        input.prop('readonly', true); // Adiciona a propriedade readonly
+    }
+});
 
 
 

@@ -10,16 +10,11 @@
         </button>
     </div>
 
-
-
     <!-- Bloco da Esquerda (Formulário 60%) -->
     <div class="flex basis-[48%] pr-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] py-1 shadow-lg rounded-lg border mr-1">
         <form>
             <!-- 1ª Linha (Corretor) -->
             <input type="hidden" id="id_cliente" value="{{$id}}">
-
-
-
             <div class="grid grid-cols-4 gap-4 mb-2">
                 <div>
                     <label for="administradora" class="block text-white text-sm flex justify-between">
@@ -28,8 +23,6 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-
-
                     <select disabled name="change_administradora_coletivo" id="change_administradora_coletivo" style="color:black;" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
                         <option value="">--Escolher Administradora--</option>
                         @foreach($administradoras as $ad)

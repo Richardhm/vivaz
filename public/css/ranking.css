@@ -106,7 +106,7 @@
 #fogos-bg {
     z-index: 90; /* Fundo preto para os fogos */
     background: url('/fogos2.gif') center center no-repeat, rgba(0, 0, 0, 0.5);
-    background-size: cover;
+    background-size: contain;
     justify-content: center;
     align-items: center;
     position: fixed;

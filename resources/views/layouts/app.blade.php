@@ -129,6 +129,35 @@
             }
 
 
+            .dots-loading span {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                margin: 0 5px;
+                background-color: #fff;
+                border-radius: 50%;
+                animation: bouncegerente 1.2s infinite;
+            }
+            .dots-loading span:nth-child(1) {animation-delay: 0s;}
+            .dots-loading span:nth-child(2) {animation-delay: 0.2s;}
+            .dots-loading span:nth-child(3) {animation-delay: 0.4s;}
+
+            @keyframes bouncegerente {
+                0%, 80%, 100% {transform:scale(0);}
+                40% {transform:scale(1);}
+            }
+
+            .dataTables_wrapper .dataTables_processing {
+                position: absolute;
+                top: 15% !important;
+                background: #FFF;
+                border: 1px solid black;
+                border-radius: 3px;
+                font-weight: bold;
+                border-radius:10px;
+                color:black;
+            }
+
 
 
         </style>
@@ -329,12 +358,6 @@
                                 </a>
                             </li>
                         @endif
-
-
-
-
-
-
 
 
                     <li text-data="sair">

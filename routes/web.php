@@ -72,6 +72,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get("/financeiro/individual/em_geral/{mes?}",[FinanceiroController::class,'geralIndividualPendentes'])->name('financeiro.individual.geralIndividualPendentes');
     Route::post('/financeiro/change/individual',[FinanceiroController::class,'changeIndividual'])->name('financeiro.changeFinanceiro');
     Route::post('/financeiro/change/coletivo',[FinanceiroController::class,'changeColetivo'])->name('financeiro.changeFinanceiroColetivo');
+    Route::post('/financeiro/change/empresarial',[FinanceiroController::class,'changeEmpresarial'])->name('financeiro.changeFinanceiroEmpresarial');
     Route::post('/financeiro/administradora/change',[FinanceiroController::class,'changeAdministradora'])->name('financeiro.administradora.change');
 
 
@@ -102,6 +103,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::post('/financeiro/empresarial/baixaDaDataEmpresarial',[FinanceiroController::class,'baixaDaDataEmpresarial'])->name('financeiro.baixa.data.empresarial');
     Route::post('/financeiro/editarCampoIndividualmente',[FinanceiroController::class,'editarCampoIndividualmente'])->name('financeiro.editar.campoIndividualmente');
     Route::post('/financeiro/editarCampoColetivo',[FinanceiroController::class,'editarCampoColetivo'])->name('financeiro.editar.campoColetvivo');
+    Route::post('/financeiro/editarCampoEmpresarial',[FinanceiroController::class,'editarCampoEmpresarial'])->name('financeiro.editar.campoEmpresarial');
     Route::post('/financeiro/desfazer/coletivo',[FinanceiroController::class,'desfazerColetivo'])->name('desfazer.tarefa.coletivo');
     Route::post('/financeiro/sincronizar',[FinanceiroController::class,'sincronizarDados'])->name('financeiro.sincronizar');
     Route::get('/financeiro/detalhes/{id}',[FinanceiroController::class,'detalhesContrato'])->name('financeiro.detalhes.contrato');

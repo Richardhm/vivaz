@@ -32,230 +32,227 @@
         .ajax_load_box_circle{border:16px solid #e3e3e3;border-top:16px solid #61DDBC;border-radius:50%;margin:auto;width:80px;height:80px;-webkit-animation:spin 1.2s linear infinite;-o-animation:spin 1.2s linear infinite;animation:spin 1.2s linear infinite}
         @-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}
         @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+
+        .select2-container .select2-selection {
+            background-color: rgba(254,254,254,0.18) !important;
+            backdrop-filter: blur(10px) !important;
+            background-color: rgba(254,254,254,1);
+            border: 2px solid white !important; /* Borda branca */
+            border-radius: 0.5rem; /* Arredondar os cantos, opcional */
+        }
+
+        .select2-container .select2-selection__arrow b {
+            border-color: white transparent transparent transparent !important;
+        }
+
+        .select2-container .select2-selection__rendered {
+            color: white !important; /* Cor do texto */
+        }
+
+
+        /* Ajustar altura do campo Select2 */
+        .select2-container--default .select2-selection--single {
+            height: 40px; /* Ajusta a altura */
+            line-height: 40px; /* Centraliza o texto verticalmente */
+        }
+
+        /* Ajusta a altura do contêiner de seleção */
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            padding-top: 0; /* Remove padding interno */
+            padding-bottom: 0; /* Remove padding interno */
+        }
     </style>
 </head>
 <body>
+        <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] flex mx-auto mt-2 w-11/12 rounded-lg border-white border-2">
 
-
-
-
-        <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] flex mx-auto mt-2 w-11/12">
-
-            <form action="{{route('contratos.storeEmpresarial.financeiro')}}" method="post" class="px-1 mx-auto w-full " name="cadastrar_dados_empresarial" id="cadastrar_dados_empresarial">
+            <form action="{{route('contratos.storeEmpresarial.financeiro')}}" method="post" class="px-1 py-5 mx-auto w-full " name="cadastrar_dados_empresarial" id="cadastrar_dados_empresarial">
                 @csrf
-                <div class="flex flex-wrap gap-4 w-full">
+                <div class="flex justify-between gap-1 w-full">
                     <!-- Primeiro Linha -->
-                    <div class="flex">
-                        <div style="flex-basis:26%;margin-right:1%;">
-                            <div>
-                                <span for="user_id" class="text-white text-xs">Vendedor:</span>
-                                <select required name="user_id" id="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="" class="text-center">--Vendedor--</option>
-                                    @foreach($users as $u)
-                                        <option value="{{$u->id}}">{{$u->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div style="flex-basis:18%;margin-right:1%;">
-                            <div>
-                                <span for="plano_id" class="text-white text-xs">Plano:</span>
-                                <select required class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="plano_id" name="plano_id">
-                                    <option value="" class="text-center">--Plano--</option>
-                                    @foreach($planos_empresarial as $p)
-                                        <option value="{{$p->id}}">{{$p->nome}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div style="flex-basis:17%;margin-right:1%;">
-                            <div>
-                                <span for="tabela_origens_id" class="text-white text-xs">Origem Tabela:</span>
-                                <select  class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="tabela_origens_id" name="tabela_origens_id" required>
-                                    <option value="" class="text-center">--Origem Tabela--</option>
-                                    @foreach($origem_tabela as $o)
-                                        <option value="{{$o->id}}">{{$o->nome}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div style="flex-basis:25%;margin-right:1%;">
-                            <div>
-                                <span for="cnpj" class="text-white text-xs">CNPJ:</span>
-                                <input type="text" name="cnpj" id="cnpj" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="CNPJ" required>
-                            </div>
-                        </div>
-                        <div style="flex-basis:18%;margin-right:1%;">
-                            <div>
-                                <span for="codigo_corretora" class="text-white text-xs">Codigo Corretora:</span>
-                                <input type="text" name="codigo_corretora" value="{{old('codigo_corretora')}}" required id="codigo_corretora" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD. Corretora">
-                            </div>
-                        </div>
 
-                        <div style="flex-basis:21%;margin-right:1%;">
-                            <span for="razao_social" class="text-white text-xs">Razão Social:</span>
-                            <input type="text" name="razao_social" required id="razao_social" value="{{old('razao_social')}}" placeholder="Razão Social" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                        </div>
-                        <div style="flex-basis:12%;margin-right:1%;">
-                            <div>
-                                <span for="codigo_externo" class="text-white text-xs">Codigo Externo:</span>
-                                <input type="text" name="codigo_externo" value="{{old('codigo_externo')}}" required id="codigo_externo" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="COD. Externo">
-                            </div>
-                        </div>
 
-                        <div style="flex-basis:8%;">
-                            <span for="quantidade_vidas" class="text-white text-xs">Vidas:</span>
-                            <input type="number" name="quantidade_vidas" required id="quantidade_vidas" value="{{old('quantidade_vidas')}}" placeholder="QTE" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                        </div>
-
-                    </div>
-                    <!-- Fim Primeiro Linha -->
-                    <div style="flex-basis:17%;">
                         <div>
-                            <span for="responsavel" class="text-white text-xs">Responsável:</span>
-                            <input type="text" name="responsavel" id="responsavel" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Responsável" required>
+                            <span for="user_id" class="block mb-0.5 text-xs font-medium text-white">Corretor:</span>
+                            <select required name="user_id" id="user_id" class="w-full rounded-lg placeholder:text-white bg-[rgba(254,254,254,0.18)] text-black backdrop-blur-[15px] text-lg border-white border-2">
+                                <option value="" class="text-center">--</option>
+                                @foreach($users as $u)
+                                    <option value="{{$u->id}}">{{$u->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    </div>
+
+
+                        <div>
+                            <span for="plano_id" class="block mb-0.5 text-xs font-medium text-white">Plano:</span>
+                            <select required class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-black backdrop-blur-[15px] text-lg border-white border-2" id="plano_id" name="plano_id">
+                                <option value="" class="text-center">--</option>
+                                @foreach($planos_empresarial as $p)
+                                    <option value="{{$p->id}}">{{$p->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <span for="tabela_origens_id" class="block mb-0.5 text-xs font-medium text-white">Origem Tabela:</span>
+                            <select class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-black backdrop-blur-[15px] text-lg border-white border-2" name="tabela_origens_id" id="tabela_origens_id" required>
+                                <option value="" class="text-center">--</option>
+                                @foreach($origem_tabela as $o)
+                                    <option value="{{$o->id}}">{{$o->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div>
+                            <span for="cnpj" class="block mb-0.5 text-xs font-medium text-white">CNPJ:</span>
+                            <input type="text" name="cnpj" id="cnpj" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="CNPJ" required>
+                        </div>
+
+
+                        <div>
+                            <span for="codigo_corretora" class="block mb-0.5 text-xs font-medium text-white">Codigo Corretora:</span>
+                            <input type="text" name="codigo_corretora" value="{{old('codigo_corretora')}}" required id="codigo_corretora" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="COD. Corretora">
+                        </div>
+
+                        <div>
+                            <span for="razao_social" class="block mb-0.5 text-xs font-medium text-white">Razão Social:</span>
+                            <input type="text" name="razao_social" required id="razao_social" value="{{old('razao_social')}}" placeholder="Razão Social" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
+                        </div>
+
+                        <div>
+                            <span for="codigo_externo" class="block mb-0.5 text-xs font-medium text-white">Codigo Externo:</span>
+                            <input type="text" name="codigo_externo" value="{{old('codigo_externo')}}" required id="codigo_externo" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="COD. Externo">
+                        </div>
+
+                        <div>
+                            <span for="quantidade_vidas" class="block mb-0.5 text-xs font-medium text-white">Vidas:</span>
+                            <input type="number" name="quantidade_vidas" required id="quantidade_vidas" value="{{old('quantidade_vidas')}}" placeholder="QTE" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
+                        </div>
+
+                        <div>
+                            <span for="responsavel" class="block mb-0.5 text-xs font-medium text-white">Responsável:</span>
+                            <input type="text" name="responsavel" id="responsavel" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="Responsável" required>
+                        </div>
+
+
+
 
                 </div>
 
 
-                <div style="padding:0;margin:8px 0;">
+                <div class="flex justify-between w-full gap-1 my-2">
 
-                    <!-- Primeiro Linha -->
-                    <div class="flex">
 
-                        <div style="flex-basis:10%;margin-right:1%;">
-                            <div>
-                                <span for="telefone" class="text-white text-xs">Telefone:</span>
-                                <input type="text" name="telefone" id="telefone" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Telefone">
-                            </div>
+                        <div style="min-width: 180px;">
+                            <span for="celular" class="block mb-0.5 text-xs font-medium text-white">Celular:</span>
+                            <input type="text" name="celular" id="celular" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="Celular" required>
                         </div>
 
-                        <div style="flex-basis:10%;">
-                            <div>
-                                <span for="celular" class="text-white text-xs">Celular:</span>
-                                <input type="text" name="celular" id="celular" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Celular" required>
-                            </div>
+                        <div style="min-width: 180px;">
+                            <span for="email" class="block mb-0.5 text-xs font-medium text-white">Email:</span>
+                            <input type="text" name="email" id="email" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="Email" required>
                         </div>
 
-                        <div style="flex-basis:15%;margin:0% 1%;">
-                            <div>
-                                <span for="email" class="text-white text-xs">Email:</span>
-                                <input type="text" name="email" id="email" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" required>
-                            </div>
+                        <div style="min-width: 180px;">
+                            <span for="uf" class="block mb-0.5 text-xs font-medium text-white">UF:</span>
+                            <select id="uf" name="uf" class="w-full rounded-lg text-black selected:text-white placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2 select2-single" style="color:black;" required>
+                                <option value=""></option>
+                            </select>
                         </div>
 
 
-                        <div style="flex-basis:10%;margin-right: 1%;">
-                            <div>
-                                <span for="uf" class="text-white text-xs">UF:</span>
-                                <select id="uf" name="uf" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 select2-single" required>
-                                    <option value=""></option>
-                                </select>
-                            </div>
+
+                        <div style="width:200px;">
+                            <span for="cidade" class="block mb-0.5 text-xs font-medium text-white">Cidade:</span>
+                            <select id="cidade" name="cidade" class="w-full text-black rounded-lg placeholder:text-white p-1 text-black bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2 select2-single" style="color:black;" required></select>
                         </div>
 
-                        <div style="flex-basis:15%;margin-right:1%;">
-                            <div>
-                                <span for="cidade" class="text-white text-xs">Cidade:</span>
-                                <select id="cidade" name="cidade" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 select2-single" required></select>
-                            </div>
+
+
+                        <div>
+                            <span for="plano_contrado" class="block mb-0.5 text-xs font-medium text-white">Plano Contratado:</span>
+                            <select name="plano_contrado" id="plano_contrado" class="w-full text-black rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" required>
+                                <option class="text-center" value="">--</option>
+                                <option value="1">C/ Copart + Odonto</option>
+                                <option value="2">C/ Copart Sem Odonto</option>
+                                <option value="3">Sem Copart + Odonto</option>
+                                <option value="4">Sem Copart Sem Odonto</option>
+                            </select>
                         </div>
 
-                        <div style="flex-basis:15%;margin-right:1%;">
-                            <div>
-                                <span for="plano_contrado" class="text-white text-xs">Plano Contratado:</span>
-                                <select name="plano_contrado" id="plano_contrado" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                    <option class="text-center" value="">--Plano Contratado--</option>
-                                    <option value="1">C/ Copart + Odonto</option>
-                                    <option value="2">C/ Copart Sem Odonto</option>
-                                    <option value="3">Sem Copart + Odonto</option>
-                                    <option value="4">Sem Copart Sem Odonto</option>
-                                </select>
-                            </div>
+                        <div>
+                            <span for="created_at" class="block mb-0.5 text-xs font-medium text-white">Data Cadastrado:</span>
+                            <input type="date" required name="created_at" id="created_at" value="<?= date('Y-m-d'); ?>" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2">
                         </div>
 
-                        <div style="flex-basis:8%;margin-right:1%;">
-                            <div>
-                                <span for="created_at" class="text-white text-xs">Data Cadastrado:</span>
-                                <input type="date" required name="created_at" id="created_at" value="<?= date('Y-m-d'); ?>" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            </div>
+
+
+                        <div>
+                            <span for="data_boleto" class="block mb-0.5 text-xs font-medium text-white">Data 1º Boleto:</span>
+                            <input type="date" name="data_boleto" required id="data_boleto" value="{{old('data_boleto')}}" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="Data Boleto">
                         </div>
 
-                        <div style="flex-basis:6%;">
-                            <div class="form-group">
-                                <span for="data_boleto" class="text-white" style="font-size:0.875em;">Data 1º Boleto:</span>
-                                <input type="date" name="data_boleto" required id="data_boleto" value="{{old('data_boleto')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Data Boleto">
-                            </div>
+
+                        <div>
+                            <span for="valor_plano_saude" class="block mb-0.5 text-xs font-medium text-white">Valor Plano Saúde:</span>
+                            <input type="text" name="valor_plano_saude" required id="valor_plano_saude" value="{{old('valor_plano_saude')}}" placeholder="Valor Plano Saúde" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
                         </div>
 
+                    <div>
+                        <span for="valor_plano_odonto" class="block mb-0.5 text-xs font-medium text-white">Valor Plano Odonto:</span>
+                        <input type="text" name="valor_plano_odonto" required id="valor_plano_odonto" value="{{old('valor_plano_odonto')}}" placeholder="Valor Plano Odonto" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
                     </div>
 
-                    <!-- <div style="flex-basis:8%;">
-                        <div>
-                            <span for="created_at" class="text-white" style="font-size:0.875em;">Data de Cadastro:</span>
-                            <input type="date" name="created_at" id="created_at" value="">
-                        </div>
-                    </div> -->
 
-                    <!-- Fim Primeiro Linha -->
 
                 </div>
 
-                <div>
-                    <div class="flex" style="padding:0;margin:8px 0;">
+                <div class="flex justify-between gap-1 w-full">
 
-                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
-                            <span for="valor_plano_saude" class="text-white" style="font-size:0.875em;">Valor Plano Saúde:</span>
-                            <input type="text" name="valor_plano_saude" required id="valor_plano_saude" value="{{old('valor_plano_saude')}}" placeholder="Valor Plano Saúde" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+
+
+                        <div>
+                            <span for="taxa_adesao" class="block mb-0.5 text-xs font-medium text-white">Taxa Adesão:</span>
+                            <input type="text" name="taxa_adesao" required id="taxa_adesao" value="{{old('taxa_adesao')}}" placeholder="Taxa Adesão" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
-                            <span for="valor_plano_odonto" class="text-white" style="font-size:0.875em;">Valor Plano Odonto:</span>
-                            <input type="text" name="valor_plano_odonto" required id="valor_plano_odonto" value="{{old('valor_plano_odonto')}}" placeholder="Valor Plano Odonto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        <div>
+                            <span for="valor_boleto" class="block mb-0.5 text-xs font-medium text-white">Valor Boleto:</span>
+                            <input type="text" name="valor_boleto" required id="valor_boleto" value="{{old('valor_boleto')}}" placeholder="Valor Boleto" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
-                            <span for="taxa_adesao" class="text-white" style="font-size:0.875em;">Taxa Adesão:</span>
-                            <input type="text" name="taxa_adesao" required id="taxa_adesao" value="{{old('taxa_adesao')}}" placeholder="Taxa Adesão" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        <div>
+                            <span for="vencimento_boleto" class="block mb-0.5 text-xs font-medium text-white">Vencimento:</span>
+                            <input type="date" name="vencimento_boleto" required id="vencimento_boleto" value="{{old('vencimento_boleto')}}" placeholder="Vencimento Boleto" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:9%;margin-right:1%;">
-                            <span for="valor_boleto" class="text-white" style="font-size:0.875em;">Valor Boleto:</span>
-                            <input type="text" name="valor_boleto" required id="valor_boleto" value="{{old('valor_boleto')}}" placeholder="Valor Boleto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        <div>
+                            <span for="codigo_saude" class="block mb-0.5 text-xs font-medium text-white">Codigo Saude:</span>
+                            <input type="text" name="codigo_saude" id="codigo_saude" value="{{old('codigo_saude')}}" placeholder="Codigo Saude" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:6%;margin-right:1%;">
-                            <span for="vencimento_boleto" class="text-white" style="font-size:0.875em;">Vencimento:</span>
-                            <input type="date" name="vencimento_boleto" required id="vencimento_boleto" value="{{old('vencimento_boleto')}}" placeholder="Vencimento Boleto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                        <div>
+                            <span for="codigo_odonto" class="block mb-0.5 text-xs font-medium text-white">Codigo Odonto:</span>
+                            <input type="text" name="codigo_odonto" id="codigo_odonto" value="{{old('codigo_odonto')}}" placeholder="Codigo Odonto" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" value="">
                         </div>
 
-                        <div class="form-group" style="flex-basis:7%;margin-right:1%;">
-                            <span for="codigo_saude" class="text-white" style="font-size:0.875em;">Codigo Saude:</span>
-                            <input type="text" name="codigo_saude" id="codigo_saude" value="{{old('codigo_saude')}}" placeholder="Codigo Saude" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                        </div>
-
-                        <div class="form-group" style="flex-basis:7%;margin-right:1%;">
-                            <span for="codigo_odonto" class="text-white" style="font-size:0.875em;">Codigo Odonto:</span>
-                            <input type="text" name="codigo_odonto" id="codigo_odonto" value="{{old('codigo_odonto')}}" placeholder="Codigo Odonto" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                        </div>
-
-                        <div class="form-group" style="flex-basis:7%;margin-right:1%;">
-                            <span for="senha_cliente" class="text-white" style="font-size:0.875em;">Senha Cliente:</span>
-                            <input type="text" name="senha_cliente" id="senha_cliente" value="{{old('senha_cliente')}}" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Senha Cliente">
+                        <div>
+                            <span for="senha_cliente" class="block mb-0.5 text-xs font-medium text-white">Senha Cliente:</span>
+                            <input type="text" name="senha_cliente" id="senha_cliente" value="{{old('senha_cliente')}}" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="Senha Cliente">
                         </div>
 
 
-                        <div class="form-group" style="flex-basis:10%;margin-right:1%;">
-                            <span for="desconto_operadora" class="text-white" style="font-size:0.875em;">Desconto Operadora:</span>
-                            <input type="number" name="desconto_operadora" id="desconto_operadora" value="" class="block w-full p-1.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Desconto Operadora">
+                        <div>
+                            <span for="desconto_operadora" class="block mb-0.5 text-xs font-medium text-white">Desconto Operadora:</span>
+                            <input type="number" name="desconto_operadora" id="desconto_operadora" value="" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2" placeholder="Desconto Operadora">
                         </div>
 
-                        <div class="form-group" style="flex-basis:15%;">
-                            <span for="quantidade_parcelas" class="text-white" style="font-size:0.875em;">Qte Parcelas do desconto:</span>
-                            <select name="quantidade_parcelas" id="quantidade_parcelas" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option class="text-center" value="">--Quantidade Parcelas--</option>
+                        <div>
+                            <span for="quantidade_parcelas" class="block mb-0.5 text-xs font-medium text-white">Qte Parcelas do desconto:</span>
+                            <select name="quantidade_parcelas" id="quantidade_parcelas" class="w-full rounded-lg placeholder:text-white p-1 bg-[rgba(254,254,254,0.18)] text-white backdrop-blur-[15px] text-lg border-white border-2">
+                                <option class="text-center" value="">--</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -270,7 +267,7 @@
 
 
 
-                    </div>
+
                 </div>
                 <!-- Segunda Linha -->
 
@@ -279,7 +276,7 @@
 
 
                 <!-- Fim Segunda Linha -->
-                <input type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-full" value="Cadastrar">
+                <input type="submit" class="py-2 px-5 me-2 mt-4 text-lg font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-full" value="Salvar Contrato">
                 <!--Faixas Etarias--->
             </form>
 
@@ -308,6 +305,30 @@
 	<script src="{{asset('js/jquery.mask.min.js')}}"></script>
 	<script>
 		$(function(){
+
+
+            $('#user_id').select2({
+                width: '180px',
+                height: "40px",
+                padding: "25px"
+            });
+
+            $('#plano_id').select2({
+                width: '160px'
+            });
+
+            $('#tabela_origens_id').select2({
+                width: '140px'
+            });
+
+            $('#plano_contrado').select2({
+                width: '140px'
+            });
+
+
+
+
+
 
             $("#email").on('keyup',(e) => {
                 $('#email').val($('#email').val().toLowerCase());

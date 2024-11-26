@@ -128,14 +128,14 @@ function inicializarEmpresarial(corretora_id = null) {
 
 
                     $(td).html(`<div class='text-center text-white'>
-                                            <a href="#" data-vendedor="${corretor}" data-plano="${plano}" data-origens="${tabela_origens}"
+                                            <a href="#" data-id="${id}" data-vendedor="${corretor}" data-plano="${plano}" data-origens="${tabela_origens}"
                                               data-razao_social="${razao_social}" data-cnpj="${cnpj}" data-vidas="${vidas}" data-celular="${celular}"
                                               data-email="${email}" data-responsavel="${responsavel}" data-cidade="${cidade}"
                                               data-plano_contrado="${plano_contratado}" data-codigo_corretora="${codigo_corretora}"
                                               data-codigo_saude="${codigo_saude}" data-codigo_odonto="${codigo_odonto}" data-senha_cliente="${senha_cliente}"
                                               data-valor_saude="${valor_saude}" data-valor_odonto="${valor_odonto}" data-valor_total="${valor_total}"
                                               data-taxa_adesao="${taxa_adesao}" data-valor_boleto="${valor_boleto}" data-vencimento_boleto="${vencimento_boleto}"
-                                              data-boleto="${data_boleto}" data-uf="${uf}" data-id="${id}" data-codigo_externo="${codigo_externo}"
+                                              data-boleto="${data_boleto}" data-uf="${uf}" data-codigo_externo="${codigo_externo}"
                                               data-analise="${data_analise}"
                                               class="text-white open-modal-empresarial">
 
@@ -238,3 +238,6 @@ $('#tabela_empresarial').on('click', 'tbody tr', function () {
     tableempresarial.$('tr').removeClass('textoforte');
     $(this).closest('tr').addClass('textoforte');
 });
+
+
+

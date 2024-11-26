@@ -36,6 +36,14 @@
 
     </div>
 
+    <div id="loading-overlay" class="ocultar" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
+        <div class="dots-loading">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
 {{--    @if(auth()->user()->can('listar_todos'))--}}
 {{--        <div style="display:flex;justify-content: center;">--}}
 {{--            <button data-corretora="1" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;margin-right:5px;">Accert</button>--}}
@@ -57,10 +65,7 @@
 
            <main id="aba_comissao" class="aba_comissao_container justify-between">
                <section  style="display:flex; flex-wrap:wrap; width:28%;justify-content: space-between;">
-
-
                    <div style="display:flex;flex-basis:48%;flex-direction:column;">
-
                        <select name="mes_folha" id="mes_folha" class="form-control form-control-sm mb-1 w-full border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:text-gray-400 tamanho_de_25" {{$mes != null && !empty($mes) ? 'disabled' : ''}}>
                            <option value="" class="text-center">---</option>
                            <option value="01" {{$mes == '01' ? 'selected' : ''}}>Janeiro/2024</option>
@@ -2372,7 +2377,6 @@
 
 
             $("body").on('click','.user_destaque',function(){
-                console.log("Olaaaaa");
                 let id = $(this).attr("data-id");
                 let nome_corretor = $(this).text();
                 $("#escolher_vendedor").find("option:eq(0)").prop("selected", true);
@@ -2383,7 +2387,6 @@
                 $(this).closest("li").addClass('user_destaque_ativo');
                 $("#container_btns").addClass("flex flex-col");
                 $("#container_btns").html(`
-
                     <button class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 criar_estorno" data-id="${id}" style="font-size:0.8em;"  target="_blank">Estorno</button>
                     <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 criar_pdf_corretor" data-id="${id}" style="font-size:0.8em;"  target="_blank">PDF Corretor</button>
                     <button class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 criar_pdf" data-id="${id}" style="font-size:0.8em;"  target="_blank">PDF Corretora</button>
@@ -2590,7 +2593,6 @@
                            }
                        }
                     });
-
                     $("#salario_vendedor").val("0,00");
                     $("#comissao_vendedor").val("0,00");
                     $("#premiacao_vendedor").val("0,00");
@@ -2613,27 +2615,20 @@
                     //$(".premiacao_usuario").val("");
                     $("#valor_total_desconto").val("");
                     $("#total_campo").val("");
-
                     $("#total_campo_vendedor").val("");
                     $("#total_quantidade_coletivo").text("");
-
                     $("#valor_total_coletivo").text("0,00");
                     $("#valor_total_individual").text("0,00");
                     $("#valor_total_empresarial").text("0,00");
-
                     $("#total_quantidade_individual").text("0");
                     $("#total_quantidade_coletivo").text("0");
                     $("#total_quantidade_empresarial").text("0");
-
                     $("#total_quantidade_individual_total").text("0");
                     $("#total_quantidade_coletivo_total").text("0");
                     $("#total_quantidade_empresarial_total").text("0");
-
                     $("#valor_total_individual_total").text("0,00");
                     $("#valor_total_coletivo_total").text("0,00");
                     $("#valor_total_empresarial_total").text("0,00");
-
-
                     $('#errorMessage').text('');
                     $('#myModal').modal('hide');
                     $("#mes_folha").val("");
@@ -2983,15 +2978,17 @@
             });
 
             $("#escolher_vendedor").on('change',function(){
+                $("#loading-overlay").removeClass('ocultar');
                 let id_user_select = $(this).val();
+
+                let mes = $("#mes_folha option:selected").val();
+                let ano = $("#mes_folha option:selected").text().split("/")[1];
+
+
                 if(id_user_select != 00) {
 
                     let total = $("#total_campo_vendedor").val().trim();
                     let dados_user = $("#corretor_escolhido").val();
-                    let mes = $("#mes_folha option:selected").val();
-                    let ano = $("#mes_folha option:selected").text().split("/")[1];
-
-
 
 
                     let premiacao = $("#premiacao_vendedor").val();
@@ -3010,7 +3007,6 @@
                             "&total="+total+
                             "&salario="+salario,
                         success:function(res) {
-                            console.log(res);
                             $(".valor_individual_a_receber").text(res.valor_individual_a_receber);
                             $(".valor_coletivo_a_receber").text(res.valor_coletivo_a_receber);
                             $(".valor_empresarial_a_receber").text(res.valor_empresarial_a_receber);
@@ -3095,14 +3091,17 @@
                             $("#container_btns").removeClass("flex").removeClass('flex-col').addClass('hidden');
                             $("#list_user").css("height","235px");
 
+                        },
+                        complete: function () {
+                            // Esconder o overlay de loading
+                            $("#loading-overlay").addClass('ocultar');
                         }
                     });
                 } else {
                     let quantidadeOpcoes = $("#escolher_vendedor option[value!='00'][value!='']").length;
                     if(quantidadeOpcoes == 1) {
                         $("#escolher_vendedor option[value!='00'][value!='']").remove();
-                        let mes = $("#mes_folha option:selected").val();
-                        let ano = $("#mes_folha option:selected").text().split("/")[1];
+
                         $.ajax({
                             url:"{{route('gerente.pegar.todos.mes.corrente')}}",
                             method:"POST",
@@ -4793,7 +4792,7 @@
 
 
             $("body").on('click','.pagar_comissao_up',function(){
-
+                $("#loading-overlay").removeClass('ocultar');
                 let mes = $("#mes_folha option:selected").val();
                 let ano = $("#mes_folha").find('option:selected').text().split("/")[1];
                 let id = $(this).attr('id');
@@ -4804,10 +4803,8 @@
                 let qtd_coletivo = parseInt($("#total_quantidade_coletivo").text());
                 let qtd_empresarial = parseInt($("#total_quantidade_empresarial").text());
                 let plano = $(this).attr('data-plano');
-
                 let comissao_recebida = 0;
                 let comissao_pagando = $(this).closest('tr').find('.comissao_pagando').val().replace(/\./g,'').replace(',', '.').trim();
-
                 if(comissao_pagando == "") {
                     comissao_recebida = $(this).closest('tr').find('.comissao_recebida').text().replace("R$","").replace(/\./g,'').replace(',', '.').trim();
                 } else {
@@ -4817,35 +4814,26 @@
                     let valor_total_individual = parseFloat($("#valor_total_individual").text().replace("R$","").replace(/\./g,'').replace(',', '.').trim());
                     qtd_individual += 1;
                     $("#total_quantidade_individual").text(qtd_individual);
-
                     let valor_individual_a_receber = $(".valor_individual_a_receber").text();
                     valor_individual_a_receber -= 1;
                     $(".valor_individual_a_receber").text(valor_individual_a_receber);
-
                     let total_individual = valor_total_individual + parseFloat(comissao_recebida);
                     $("#valor_total_individual").text(total_individual.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace("R$",""));
                     desconto = parseFloat($(this).closest("tr").find("input[name='porcentagem_change']").val().replace(/\./g,'').replace(',', '.').trim());
-
                 } else if(plano == 3) {
-
                     let valor_total_coletivo = parseFloat($("#valor_total_coletivo").text().replace("R$","").replace(/\./g,'').replace(',', '.').trim());
                     qtd_coletivo += 1;
                     $("#total_quantidade_coletivo").text(qtd_coletivo);
-
                     let valor_coletivo_a_receber = $(".valor_coletivo_a_receber").text();
                     valor_coletivo_a_receber -= 1;
                     $(".valor_coletivo_a_receber").text(valor_coletivo_a_receber);
-
                     let total_coletivo = valor_total_coletivo + parseFloat(comissao_recebida);
                     $("#valor_total_coletivo").text(total_coletivo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace("R$",""));
                     desconto = parseFloat($(this).closest("tr").find("input[name='porcentagem_change']").val().replace(/\./g,'').replace(',', '.').trim());
                 } else {
-
                     let valor_empresarial_a_receber = $(".valor_empresarial_a_receber").text();
                     valor_empresarial_a_receber -= 1;
                     $(".valor_empresarial_a_receber").text(valor_empresarial_a_receber);
-
-
                     let valor_total_empresarial = parseFloat($("#valor_total_empresarial").text().replace("R$","").replace(/\./g,'').replace(',', '.').trim());
                     qtd_empresarial += 1;
                     $("#total_quantidade_empresarial").text(qtd_empresarial);
@@ -4891,24 +4879,16 @@
 
                 let premiacao_vendedor_campo = $("#premiacao_vendedor").val() != "" || $("#premiacao_vendedor").val() != 0 ? $("#premiacao_vendedor").val().replace(/\./g, "") : parseFloat(0);
                 let premiacao_vendedor_campo_convertido = premiacao_vendedor_campo != 0 ? parseFloat(premiacao_vendedor_campo.replace(",",".")) : 0;
-
                 let valor_total_desconto_vendedor = $("#valor_total_desconto_vendedor").val() != "" || $("#valor_total_desconto_vendedor").val() != 0 ? $("#valor_total_desconto_vendedor").val() : parseFloat(0);
                 let valor_total_desconto_vendedor_convertido = valor_total_desconto_vendedor != 0 ? parseFloat(valor_total_desconto_vendedor.replace(/\./g,'').replace(',', '.').trim()) : parseFloat(0);
-
                 let estorno_total = $("#valor_total_estorno_vendedor").val().trim() != "" || $("#valor_total_estorno_vendedor").val().trim() != 0 ? $("#valor_total_estorno_vendedor").val().trim().replace(/\./g, "") : parseFloat(0);
                 let estorno_total_convertido = estorno_total != 0 ? parseFloat(estorno_total.replace(",",".")) : 0;
-
                 let user_id = $("#corretor_escolhido").val();
-
                 let somar_ganhos = salario_vendedor_campo_convertido + comissao_vendedor_campo_convertido + premiacao_vendedor_campo_convertido;
                 somar_ganhos = parseFloat(somar_ganhos);
-
                 $("#total_campo_vendedor").val(somar_ganhos.toLocaleString('pt-BR',{minimumFractionDigits:2}));
-
                 let valor_total = $("#total_campo_vendedor").val().replace(/\./g,'').replace(',', '.').trim();
-
                 desconto = $(this).closest("tr").find("input[name='porcentagem_change']").val().replace(",",".");
-
                 let subtrair_desconto = parseFloat(valor_total) - valor_total_desconto_vendedor_convertido;
                 let subtrair_desconto_formatado = subtrair_desconto.toLocaleString('pt-BR',{minimumFractionDigits:2});
                 let subtrair_estorno = subtrair_desconto - estorno_total_convertido;
@@ -4944,7 +4924,11 @@
                         // $(".total_campo").val(res.total_mes);
 
 
-                    }
+                    },
+                    complete: function () {
+                        // Esconder o overlay de loading
+                        $("#loading-overlay").addClass('ocultar');
+                    },
                 });
 
 
@@ -5540,7 +5524,7 @@
             let meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 
             var listarcomissaomesdfirente = $(".listarcomissaomesdiferente").DataTable({
-                dom: '<"flex justify-between"<"#title_comissao_diferente"><"estilizar_search"f>><t><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
+                dom: '<"flex justify-between"<"#title_comissao_diferente"><"estilizar_search"f>><tr><"flex justify-between items-center"<"por_pagina"l><"estilizar_pagination"p>>',
                 language: {
                     "search": "Pesquisar",
                     "paginate": {
@@ -5566,6 +5550,7 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": false,
+                processing: true,
                 ajax: {
                     url:url_padrao,
                     dataSrc:""
@@ -6157,18 +6142,6 @@
 
             });
 
-
-
-
-
-
-
-
-
-
-
-
-
             $("body").on('click','.criar_pdf_corretor',function(){
                 $("#exampleModalTipoPlanos").removeClass('hidden').addClass('flex');
             });
@@ -6599,6 +6572,7 @@
         #corretor_em_destaque {margin-left:1%;background-color:#123449;width:600px;}
         .tamanho_de_25 {height: 40px;}
         .dsnone {display:none;}
+        .ocultar {display:none !important;}
         .aba_comissao_container,.aba_historico_container {display:flex;position:relative;justify-content: space-between;flex-basis:100%;}
         .dataTables_wrapper .dataTables_wrapper .dataTables_scrollBody table.dataTable {padding: 0;}
         #list_user,#list_user_historico {height:160px;overflow:auto;border-radius:5px;}
