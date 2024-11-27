@@ -2651,10 +2651,6 @@ class FinanceiroController extends Controller
         $contrato       = ContratoEmpresarial::find($cliente_id);
         switch($alvo) {
             case "valor_saude":
-
-                dd($valor_saude);
-
-
                 $contrato->valor_plano_saude = $valor_saude;
                 $contrato->valor_plano = $valor_saude + $valor_odonto;
                 $contrato->valor_total = $contrato->valor_plano + $taxa_adesao;

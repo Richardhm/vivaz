@@ -8,13 +8,46 @@
     <input type="hidden" id="desconto_individual" value="">
     <input type="hidden" id="desconto_coletivo" value="">
     <input type="hidden" id="desconto_empresarial" value="">
+
+    <div id="myModalIndividual" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] z-40"></div>
+        <!-- Conteúdo da Modal -->
+        <div class="relative w-11/12 rounded-lg shadow-3xl p-2 z-50">
+            <!-- Botão Fechar no Topo -->
+            <div id="modalLoaderIndividual" class="flex justify-center items-center h-64">
+                <div class="dot-flashing">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Borda Animada -->
+            <div class="relative p-1 rounded-lg animate-border overflow-hidden content-modal-individual hidden">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="hidden" id="dataBaixaModal" tabindex="-1" role="dialog" aria-labelledby="dataBaixaModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="dataBaixaModalLabel">Data Da Baixa?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -55,7 +88,7 @@
 
 
 
-    <section class="conteudo_abas" style="padding:5px;">
+    <section class="conteudo_abas" style="padding:5px;width:96%;margin:0 auto;">
 
             <ul class="list_abas" style="margin-top:1px;">
                 <li data-id="aba_comissao" class="menu-inativo ativo">Comissão</li>
@@ -473,7 +506,6 @@
                                         <th>Cliente</th>
                                         <th>Corretor</th>
                                         <th>Plano</th>
-
                                         <th>Ver</th>
                                     </tr>
                                     </thead>
@@ -506,16 +538,6 @@
                         </div>
                     </section>
 
-
-
-
-
-
-
-
-
-
-
                 </section>
            </main>
 
@@ -546,11 +568,6 @@
                             <option value="11">Novembro</option>
                             <option value="12">Dezembro</option>
                         </select>
-
-
-
-
-
 
 
                         <div style="border-top:1px solid white;margin-bottom:2px;"></div>
@@ -3422,7 +3439,7 @@
 
                             if(rowData.plano == 1) {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/financeiro/detalhes/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="#" data-id="${contrato_id}" target="_blank" class="text-white ver_individual">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -3432,7 +3449,7 @@
                             `);
                             } else if(rowData.plano == 3) {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white ver_coletivo">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -3531,6 +3548,32 @@
 
 
             });
+
+
+            $("body").on("click",".ver_individual",function(e){
+                e.preventDefault();
+                let id = $(this).attr("data-id");
+                $('#myModalIndividual').removeClass('hidden');
+                $.ajax({
+                   url:"{{route('gerente.modal.individual')}}",
+                   method:"POST",
+                   data: id,
+                   success:function(res) {
+                       //console.log(res);
+                       $('.content-modal-individual').removeClass('hidden');
+                       //$(".content-modal-individual").html(res);
+                   }
+                });
+                //
+                return false;
+            });
+
+
+
+
+
+
+
 
             function formatarMoeda(valor) {
                 return parseFloat(valor).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.');

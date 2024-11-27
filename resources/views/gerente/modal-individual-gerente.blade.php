@@ -19,7 +19,7 @@
 
             <div class="grid grid-cols-4 gap-4 mb-2">
 
-                <input type="hidden" id="id_cliente" value="{{$id}}">
+                <input type="hidden" id="id_cliente" value="">
 
                 <div>
                     <label for="administradora" class="block text-white text-sm flex justify-between">
@@ -40,14 +40,12 @@
 
                     </label>
                     <select disabled id="mudar_corretor_individual" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1">
-                        @foreach($users as $u)
-                            <option value="{{$u->id}}" {{$u->id == $user_id ? 'selected' : ''}}>{{$u->name}}</option>
-                        @endforeach
+
                     </select>
                 </div>
                 <div>
                     <label for="status" class="block text-white text-sm">Status</label>
-                    <input type="text" value="{{$status}}" id="status" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
+                    <input type="text" value="" id="status" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
                 </div>
             </div>
 
@@ -62,7 +60,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="cliente" value="{{$cliente}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="cliente" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="cpf" class="block text-white text-sm flex justify-between">
@@ -73,11 +71,11 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="cpf" value="{{$cpf}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="cpf" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="data_nascimento" class="block text-white text-sm">Data Nascimento</label>
-                    <input type="date" id="data_nascimento" value="{{$data_nascimento}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="date" id="data_nascimento" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
             </div>
 
@@ -90,7 +88,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="codigo_externo" value="{{$codigo_externo}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="codigo_externo" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="fone" class="block text-white text-sm flex justify-between">
@@ -99,7 +97,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="fone" value="{{$celular}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="fone" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div class="flex-1">
                     <label class="text-white flex justify-between" style="font-size:0.81em;">
@@ -108,7 +106,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="email" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" value="{{$email}}" readonly>
+                    <input type="text" id="email" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" value="" readonly>
                 </div>
 
                 <div class="flex-1">
@@ -118,7 +116,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="carteirinha" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" value="{{$carteirinha}}" readonly>
+                    <input type="text" id="carteirinha" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" value="" readonly>
                 </div>
 
             </div>
@@ -132,7 +130,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="cep" value="{{$cep}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="cep" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="cidade" class="block text-white text-sm flex justify-between">
@@ -141,7 +139,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="cidade" value="{{$cidade}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="cidade" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="uf" class="block text-white text-sm flex justify-between">
@@ -150,7 +148,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="uf" value="{{$uf}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="uf" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="bairro" class="block text-white text-sm flex justify-between">
@@ -159,7 +157,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="bairro" value="{{$bairro}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="bairro" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
             </div>
 
@@ -172,7 +170,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="rua" value="{{$rua}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="rua" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div class="col-span-2">
                     <label for="complemento" class="block text-white text-sm flex justify-between">
@@ -181,7 +179,7 @@
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                         </svg>
                     </label>
-                    <input type="text" id="complemento" value="{{$complemento}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="complemento" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="data_contrato" class="block text-white text-sm flex justify-between">
@@ -202,14 +200,14 @@
                         <span>Valor Contrato</span>
 
                     </label>
-                    <input type="text" id="valor_contrato" readonly value="{{number_format($valor_plano,2,",",".")}}" class="w-full bg-gray-100 text-gray-800 p-1 text-sm editar_campo_individual rounded-md">
+                    <input type="text" id="valor_contrato" readonly value="" class="w-full bg-gray-100 text-gray-800 p-1 text-sm editar_campo_individual rounded-md">
                 </div>
                 <div>
                     <label for="valor_adesao" class="block text-white text-sm flex justify-between">
                         <span>Valor Adesão</span>
 
                     </label>
-                    <input type="text" id="valor_adesao" readonly value="{{number_format($valor_adesao,2,",",".")}}" class="w-full bg-gray-100 text-gray-800 p-1 editar_campo_individual text-sm rounded-md">
+                    <input type="text" id="valor_adesao" readonly value="" class="w-full bg-gray-100 text-gray-800 p-1 editar_campo_individual text-sm rounded-md">
                 </div>
                 <div class="col-span-2">
                     <label for="nome_responsavel" class="block text-white text-sm flex justify-between">
@@ -271,41 +269,7 @@
                     $total_cliente = 0;
                     $total_comissao = 0;
                 @endphp
-                @foreach($dados->comissao->comissoesLancadas as $kk => $cr)
-                    @php
-                        if(!empty($cr->data_baixa)):
-                            $total_comissao += $cr->valor;
-                        else:
-                            $total_cliente += $cr->valor;
-                        endif;
-                    @endphp
-                    <tr class="border-t">
-                        <td class="text-sm py-2">
-                            @if($cr->parcela == 1)
-                                Adesão
-                            @else
-                                <span class="text-center">{{$cr->parcela}} º Parcela</span>
-                            @endif
-                        </td>
-                        <td class="text-center text-sm py-2">{{$dados->codigo_externo}}</td>
-                        <td class="text-sm py-2">{{date('d/m/Y', strtotime($cr->data))}}</td>
-                        <td class="text-sm py-2">
-                            @if($cr->valor_pago > 0)
-                                {{number_format($cr->valor_pago, 2, ",", ".") ?? 0}}
-                            @else
-                                <span class="ml-2">---</span>
-                            @endif
-                        </td>
-                        <td class="text-sm py-2">
-                            @if(empty($cr->data_baixa))
-                                <span class="ml-4">---</span>
-                            @else
-                                {{date('d/m/Y', strtotime($cr->data_baixa))}}
-                            @endif
-                        </td>
-                        <td class="text-sm py-2 text-center">{{$cr->quantidade_dias}}</td>
-                    </tr>
-                @endforeach
+
 
                 </tbody>
             </table>

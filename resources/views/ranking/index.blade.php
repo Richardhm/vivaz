@@ -15,9 +15,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-
-
-
     <script>
         let audioDesbloqueado = false;
         let liderAtual = @json($liderAtual);
@@ -191,9 +188,9 @@
     </script>
 
     <script type="module">
-        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-        //     verificarTrocaDeLider(event.novoRanking, event.venda);
-        // });
+        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+            verificarTrocaDeLider(event.novoRanking, event.venda);
+        });
     </script>
 
 

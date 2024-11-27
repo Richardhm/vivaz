@@ -170,11 +170,7 @@
             </div>
         </div>
 
-
-
-
         <div class="container_principal min-h-screen bg-gray-100">
-
             <div class="flex w-full bg-transparent justify-content-between fixed-header">
                 <div class="flex justify-between items-center w-full bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] py-1">
                     <div>
@@ -186,16 +182,19 @@
                             switch(\Illuminate\Support\Facades\Route::currentRouteName()) {
                                 case "financeiro.index":
                                     echo "<p class='text-white text-lg'>Financeiro</p>";
-                                    break;
+                                break;
                                 case "estrela.index":
                                     echo "<p class='text-white text-lg'>Programa Estrela</p>";
                                     break;
                                 case "orcamento":
                                     echo "<p class='text-white text-lg'>Orçamento</p>";
-                                    break;
+                                break;
                                 case "home.index":
                                     echo "<p class='text-white text-lg'>Dashboard</p>";
-                                    break;
+                                break;
+                                case "gerente.index":
+                                    echo "<p class='text-white text-lg'>Gerente</p>";
+                                break;
                             }
                         @endphp
                     </div>

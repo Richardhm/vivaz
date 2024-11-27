@@ -142,6 +142,11 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
 
     /******Gerente*****/
     Route::get('/gerente',[GerenteController::class,'index'])->name('gerente.index');
+
+    Route::post('/gerente/abrir/modal/individual',[GerenteController::class,'gerenteModalIndividual'])->name('gerente.modal.individual');
+
+
+
     Route::post('/gerente/pegartodos',[GerenteController::class,'pegarTodososDados'])->name('gerente.todos.valores.usuario');
     Route::get('/gerente/listagem',[GerenteController::class,'listagem'])->name('gerente.listagem.em_geral');
     Route::get('/gerente/concluidos',[GerenteController::class,'concluidos'])->name('gerente.listagem.concluidos');
