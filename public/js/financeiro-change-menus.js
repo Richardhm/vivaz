@@ -177,6 +177,40 @@ $("body").on('change','.mudar_coletivo',function(){
     });
 });
 
+$("body").on("change",".mudar_empresarial_valor",function(){
+
+   let valor_saude = $("#valor_saude").val().replace(",", ".");
+   let valor_odonto = $("#valor_odonto").val();
+   let total_plano = $("#total_plano").val();
+   let plano_adesao = $("#plano_adesao").val();
+   let taxa_adesao = $("#taxa_adesao").val();
+   let valor_boleto = $("#valor_boleto").val();
+   let cliente_id = $("#empresarial_cliente_id").val();
+   let alvo = $(this).attr("id");
+
+   $.ajax({
+       url:changeValoresCorretorEmpresarial,
+       method:"POST",
+       data: {
+           valor_saude,
+           valor_odonto,
+           total_plano,
+           plano_adesao,
+           taxa_adesao,
+           valor_boleto,
+           cliente_id,
+           alvo
+       },
+       success:function(res) {
+           console.log(res);
+       }
+   });
+});
+
+
+
+
+
 $("body").on("change","#change_administradora_coletivo",function(){
    let id = $(this).val();
    let id_cliente = $("#id_cliente").val();

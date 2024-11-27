@@ -1465,7 +1465,6 @@ class FinanceiroController extends Controller
 
     public function mudarEstadosColetivo(Request $request)
     {
-
         $id_cliente = $request->id_cliente;
         $id_contrato = $request->id_contrato;
         $contrato = Contrato::find($id_contrato);
@@ -2639,19 +2638,48 @@ class FinanceiroController extends Controller
         ));
     }
 
+    public function changeValoresEmpresarial()
+    {
+        $valor_saude    = str_replace(".", "", request()->valor_saude);
+        $valor_odonto   = (float) str_replace(".", "", request()->valor_odonto);
+        $total_plano    = (float) str_replace(".", "", request()->total_plano);
+        $plano_adesao   = (float) str_replace(".", "", request()->plano_adesao);
+        $taxa_adesao    = (float) str_replace(".", "", request()->taxa_adesao);
+        $valor_boleto   = (float) str_replace(".", "", request()->valor_boleto);
+        $cliente_id     = request()->cliente_id;
+        $alvo           = request()->alvo;
+        $contrato       = ContratoEmpresarial::find($cliente_id);
+        switch($alvo) {
+            case "valor_saude":
+
+                dd($valor_saude);
+
+
+                $contrato->valor_plano_saude = $valor_saude;
+                $contrato->valor_plano = $valor_saude + $valor_odonto;
+                $contrato->valor_total = $contrato->valor_plano + $taxa_adesao;
+                $contrato->save();
+
+            break;
+        }
+
+
+    }
+
+
+
+
+
     public function changeEmpresarial()
     {
-        $contrato_id = request()->cliente_id;
-        $user_id = request()->user_id;
-        $corretora_id = User::find($user_id)->corretora_id;
-        $estagiario = User::where("id",$user_id)->first()->estagiario;
-        $contrato = ContratoEmpresarial::find($contrato_id);
-
-        $comissao = Comissoes::where("contrato_empresarial_id",$contrato_id)->first();
+        $contrato_id    = request()->cliente_id;
+        $user_id        = request()->user_id;
+        $corretora_id   = User::find($user_id)->corretora_id;
+        $estagiario     = User::where("id",$user_id)->first()->estagiario;
+        $contrato       = ContratoEmpresarial::find($contrato_id);
+        $comissao       = Comissoes::where("contrato_empresarial_id",$contrato_id)->first();
 
         if($estagiario == 0) {
-
-
             ComissoesCorretoresLancadas::where("comissoes_id",$comissao->id)->update(["valor" => 0]);
             $comissoes_configuradas_corretor = ComissoesCorretoresConfiguracoes
                 ::where("plano_id", $contrato->plano_id)

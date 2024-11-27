@@ -72,7 +72,10 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get("/financeiro/individual/em_geral/{mes?}",[FinanceiroController::class,'geralIndividualPendentes'])->name('financeiro.individual.geralIndividualPendentes');
     Route::post('/financeiro/change/individual',[FinanceiroController::class,'changeIndividual'])->name('financeiro.changeFinanceiro');
     Route::post('/financeiro/change/coletivo',[FinanceiroController::class,'changeColetivo'])->name('financeiro.changeFinanceiroColetivo');
+
     Route::post('/financeiro/change/empresarial',[FinanceiroController::class,'changeEmpresarial'])->name('financeiro.changeFinanceiroEmpresarial');
+    Route::post('/financeiro/valores/change/empresarial',[FinanceiroController::class,'changeValoresEmpresarial'])->name('financeiro.changeValoresFinanceiroEmpresarial');
+
     Route::post('/financeiro/administradora/change',[FinanceiroController::class,'changeAdministradora'])->name('financeiro.administradora.change');
 
 

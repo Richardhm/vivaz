@@ -1129,18 +1129,13 @@
                     group.style.display = index === n ? 'block' : 'none';
                 });
             }
-
             function nextSlideGroup() {
                 currentGroup = (currentGroup + 1) % slideGroups.length;
                 showSlideGroup(currentGroup);
-            }
-
-            // Exibe o primeiro grupo de slides
+            }            // Exibe o primeiro grupo de slides
             showSlideGroup(currentGroup);
-
             // Tempo de exibição de cada grupo (mínimo de 15 segundos)
             let groupTime = Math.max(15, 15);
-
             setInterval(nextSlideGroup, groupTime * 1000);
         }
 

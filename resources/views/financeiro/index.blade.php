@@ -30,6 +30,9 @@
             var changecorretor          = "{{route('financeiro.changeFinanceiro')}}";
             var changecorretorColetivo  = "{{route('financeiro.changeFinanceiroColetivo')}}";
             var changecorretorEmpresarial  = "{{route('financeiro.changeFinanceiroEmpresarial')}}";
+
+            var changeValoresCorretorEmpresarial  = "{{route('financeiro.changeValoresFinanceiroEmpresarial')}}";
+
             var financeiroCanceladoColetivo = "{{route('financeiro.contrato.cancelados')}}";
             var excluirColetivo         = "{{route('financeiro.excluir.cliente')}}";
             var excluirEmpresarial      = "{{route('financeiro.excluir.empresarial')}}";
