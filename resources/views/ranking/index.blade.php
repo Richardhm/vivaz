@@ -162,9 +162,10 @@
 
                             somFogos.onended = function() {
                                 fogosContainer.fadeOut(300);
-                                fogosBg.fadeOut(4000, function() {
-                                    $(this).addClass('ocultar').removeClass("block").removeClass("aparecer");
-                                });
+                                fogosBg.addClass('ocultar').removeClass("aparecer");
+                                // fogosBg.fadeOut(4000, function() {
+                                //
+                                // });
                                 popUp.fadeOut(4000);
                                 isAnimating = false; // Libera para a próxima animação
                             };

@@ -179,7 +179,7 @@ $("body").on('change','.mudar_coletivo',function(){
 
 $("body").on("change",".mudar_empresarial_valor",function(){
 
-   let valor_saude = $("#valor_saude").val().replace(",", ".");
+   let valor_saude = $("#valor_saude").val();
    let valor_odonto = $("#valor_odonto").val();
    let total_plano = $("#total_plano").val();
    let plano_adesao = $("#plano_adesao").val();
