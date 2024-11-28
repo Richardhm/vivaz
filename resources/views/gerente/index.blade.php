@@ -9,7 +9,27 @@
     <input type="hidden" id="desconto_coletivo" value="">
     <input type="hidden" id="desconto_empresarial" value="">
 
-    <div id="myModalIndividual" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div id="myModalColetivo" class="fixed inset-0 z-50 flex justify-center items-start hidden">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] z-40"></div>
+        <!-- Conteúdo da Modal -->
+        <div class="relative w-11/12 rounded-lg shadow-3xl p-2 z-50">
+            <!-- Botão Fechar no Topo -->
+            <div id="modalLoader" class="flex justify-center items-center h-32">
+                <div class="dot-flashing">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Borda Animada -->
+            <div class="relative p-1 rounded-lg animate-border overflow-hidden content-modal-coletivo hidden">
+            </div>
+        </div>
+    </div>
+
+
+    <div id="myModalIndividual" class="fixed inset-0 z-50 flex justify-center hidden">
         <!-- Backdrop -->
         <div class="fixed inset-0 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] z-40"></div>
         <!-- Conteúdo da Modal -->
@@ -27,19 +47,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="hidden" id="dataBaixaModal" tabindex="-1" role="dialog" aria-labelledby="dataBaixaModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -84,6 +91,29 @@
 {{--            <button data-corretora="0" style="background-color:#123449;border:none;color:#FFF;padding:15px;border-radius:5px;">Vivaz</button>--}}
 {{--        </div>--}}
 {{--    @endif--}}
+
+
+    <div id="myModalEmpresarial" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] z-40"></div>
+        <!-- Conteúdo da Modal -->
+        <div class="relative w-11/12 rounded-lg shadow-3xl p-2 z-50">
+            <!-- Botão Fechar no Topo -->
+            <div id="modalLoaderEmpresa" class="flex justify-center items-center h-64">
+                <div class="dot-flashing">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Borda Animada -->
+            <div class="relative p-1 rounded-lg animate-border overflow-hidden content-modal-empresarial hidden">
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 
@@ -1154,6 +1184,27 @@
 
         $(function(){
 
+            $("body").on("click",'#closeModalIndividual',function(){
+               $("#myModalIndividual").addClass("hidden");
+            });
+
+            $("body").on("click","#closeModalColetivo",function(){
+                $("#myModalColetivo").addClass("hidden");
+            });
+
+            $("body").on("click", "#myModalIndividual", function (event) {
+                if(!$(event.target).closest(".content-modal-individual").length) {
+                    $("#myModalIndividual").addClass("hidden");
+                }
+            });
+
+            $("body").on("click", "#myModalColetivo", function (event) {
+                if(!$(event.target).closest(".content-modal-coletivo").length) {
+                    $("#myModalColetivo").addClass("hidden");
+                }
+            });
+
+
 
             $("#planos_tipo_coletivo").change(function() {
                 $("input[name='coletivo']").prop("checked", $(this).prop("checked"));
@@ -1174,7 +1225,7 @@
             var url_padrao = "{{asset('data.json')}}";
             $(".estorno_geral_historico_button").on('click',function(){
                 let mes = $("#mes_folha_historico option:selected").val();
-                console.log(mes);
+
                 if($("#tabela_principal_historico").is(":visible")) {
                     $("#tabela_principal_historico").slideUp(1000,function(){
                         $("#tabela_estorno_back_historico").slideDown('slow',function(){
@@ -3449,7 +3500,7 @@
                             `);
                             } else if(rowData.plano == 3) {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/financeiro/detalhes/coletivo/${contrato_id}" target="_blank" class="text-white ver_coletivo">
+                                    <a href="#" data-id="${contrato_id}" target="_blank" class="text-white ver_coletivo">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -3459,7 +3510,7 @@
                             `);
                             } else {
                                 $(td).html(`<div class='text-center text-white'>
-                                    <a href="/financeiro/detalhes/empresarial/${contrato_id}" target="_blank" class="text-white">
+                                    <a href="#" data-id="${contrato_id}" target="_blank" class="text-white ver_empresarial">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -3553,18 +3604,42 @@
             $("body").on("click",".ver_individual",function(e){
                 e.preventDefault();
                 let id = $(this).attr("data-id");
+
                 $('#myModalIndividual').removeClass('hidden');
                 $.ajax({
                    url:"{{route('gerente.modal.individual')}}",
                    method:"POST",
-                   data: id,
+                   data: {
+                       id
+                   },
                    success:function(res) {
-                       //console.log(res);
                        $('.content-modal-individual').removeClass('hidden');
-                       //$(".content-modal-individual").html(res);
+                       $(".content-modal-individual").html(res);
                    }
                 });
                 //
+                return false;
+            });
+
+            $("body").on("click",".ver_coletivo",function(e){
+               e.preventDefault();
+               let id = $(this).attr("data-id");
+               $('#myModalColetivo').removeClass('hidden');
+               $.ajax({
+                  url:"{{route('gerente.modal.coletivo')}}",
+                  method:"POST",
+                  data: {id},
+                  success:function(res) {
+                      $('.content-modal-coletivo').removeClass('hidden');
+                      $(".content-modal-coletivo").html(res);
+                  }
+               });
+               return false;
+            });
+
+            $("body").on("click",".ver_empresarial",function(e){
+                e.preventDefault();
+                $('#myModalEmpresarial').removeClass('hidden');
                 return false;
             });
 

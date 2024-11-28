@@ -125,6 +125,8 @@
 
         }
 
+        var usuarioInteragiu = false;
+
         function verificarTrocaDeLider(novoRanking, venda) {
             //if (isAnimating) return; // Impede execuções simultâneas da função
             // console.log("Verificar Lider Atual:", liderAtual);
@@ -188,9 +190,9 @@
     </script>
 
     <script type="module">
-        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-        //     verificarTrocaDeLider(event.novoRanking, event.venda);
-        // });
+        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+            verificarTrocaDeLider(event.novoRanking, event.venda);
+        });
     </script>
 
 

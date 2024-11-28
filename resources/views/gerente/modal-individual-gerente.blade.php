@@ -11,7 +11,6 @@
     </div>
 
 
-
     <!-- Bloco da Esquerda (Formulário 60%) -->
     <div class="flex basis-[48%] pr-1 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] py-1 shadow-lg rounded-lg border mr-1">
         <form>
@@ -24,9 +23,7 @@
                 <div>
                     <label for="administradora" class="block text-white text-sm flex justify-between">
                         <span>Administradora</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
 
                     </label>
                     <input type="text" id="administradora" value="Hapvida" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
@@ -34,14 +31,10 @@
                 <div class="col-span-2">
                     <label for="corretor" class="block text-white text-sm flex justify-between">
                         <span>Corretor</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual_select">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
 
                     </label>
-                    <select disabled id="mudar_corretor_individual" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1">
-
-                    </select>
+                    <input type="text" value="{{$contrato->cliente->user->name}}" id="corretor" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md" readonly>
                 </div>
                 <div>
                     <label for="status" class="block text-white text-sm">Status</label>
@@ -56,26 +49,21 @@
                         <span>
                             Cliente
                         </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
                     </label>
-                    <input type="text" id="cliente" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="cliente" value="{{$contrato->cliente->nome}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="cpf" class="block text-white text-sm flex justify-between">
                         <span>
                             CPF
                         </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
-                    <input type="text" id="cpf" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="cpf" value="{{$contrato->cliente->cpf}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="data_nascimento" class="block text-white text-sm">Data Nascimento</label>
-                    <input type="date" id="data_nascimento" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="date" id="data_nascimento" value="{{$contrato->cliente->data_nascimento}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
             </div>
 
@@ -84,27 +72,21 @@
                 <div>
                     <label for="codigo_externo" class="block text-white text-sm flex justify-between">
                         <span>Código Externo</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
-                    <input type="text" id="codigo_externo" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="codigo_externo" value="{{$contrato->cliente->codigo_externo}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="fone" class="block text-white text-sm flex justify-between">
                         <span>Celular</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
-                    <input type="text" id="fone" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
+                    <input type="text" id="fone" value="{{$contrato->cliente->celular}}" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div class="flex-1">
                     <label class="text-white flex justify-between" style="font-size:0.81em;">
                         <spa>Email</spa>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="email" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" value="" readonly>
                 </div>
@@ -112,11 +94,9 @@
                 <div class="flex-1">
                     <label class="text-white flex justify-between" style="font-size:0.81em;">
                         <span>Carteirinha:</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
-                    <input type="text" id="carteirinha" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" value="" readonly>
+                    <input type="text" id="carteirinha" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" value="{{$contrato->cliente->cateirinha}}" readonly>
                 </div>
 
             </div>
@@ -126,36 +106,28 @@
                 <div>
                     <label for="cep" class="block text-white text-sm flex justify-between">
                         <span>CEP</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="cep" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="cidade" class="block text-white text-sm flex justify-between">
                         <span>Cidade</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="cidade" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="uf" class="block text-white text-sm flex justify-between">
                         <span>UF</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="uf" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="bairro" class="block text-white text-sm flex justify-between">
                         <span>Bairro</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="bairro" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
@@ -166,29 +138,23 @@
                 <div class="col-span-2">
                     <label for="rua" class="block text-white text-sm flex justify-between">
                         <span>Rua</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="rua" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div class="col-span-2">
                     <label for="complemento" class="block text-white text-sm flex justify-between">
                         <span>Complemento</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="complemento" value="" class="w-full bg-gray-100 text-gray-800 p-1 rounded-md editar_campo_individual" readonly>
                 </div>
                 <div>
                     <label for="data_contrato" class="block text-white text-sm flex justify-between">
                         <span>Data Contrato</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
-                    <input type="date" id="data_contrato" class="w-full bg-gray-100 text-gray-800 p-1 text-sm editar_campo_individual rounded-md" readonly>
+                    <input type="text" id="data_contrato" value="{{ \Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y') }}" class="w-full bg-gray-100 text-gray-800 p-1 text-sm editar_campo_individual rounded-md" readonly>
                 </div>
             </div>
 
@@ -200,30 +166,25 @@
                         <span>Valor Contrato</span>
 
                     </label>
-                    <input type="text" id="valor_contrato" readonly value="" class="w-full bg-gray-100 text-gray-800 p-1 text-sm editar_campo_individual rounded-md">
+                    <input type="text" id="valor_contrato" readonly value="{{number_format($contrato->valor_plano,2,",",".")}}" class="w-full bg-gray-100 text-gray-800 p-1 text-sm editar_campo_individual rounded-md">
                 </div>
                 <div>
                     <label for="valor_adesao" class="block text-white text-sm flex justify-between">
                         <span>Valor Adesão</span>
-
                     </label>
-                    <input type="text" id="valor_adesao" readonly value="" class="w-full bg-gray-100 text-gray-800 p-1 editar_campo_individual text-sm rounded-md">
+                    <input type="text" id="valor_adesao" readonly value="{{number_format($contrato->valor_adesao,2,",",".")}}" class="w-full bg-gray-100 text-gray-800 p-1 editar_campo_individual text-sm rounded-md">
                 </div>
                 <div class="col-span-2">
                     <label for="nome_responsavel" class="block text-white text-sm flex justify-between">
                         <span>Nome Responsavel</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="nome_responsavel" readonly value="" class="w-full bg-gray-100 text-sm editar_campo_individual text-gray-800 p-1 rounded-md">
                 </div>
                 <div>
                     <label for="cpf_responsavel" class="block text-white text-sm flex justify-between">
                         <span>CPF Responsavel</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 editar_individual">
-                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                        </svg>
+
                     </label>
                     <input type="text" id="cpf_responsavel" readonly value="" class="w-full bg-gray-100 text-sm editar_campo_individual text-gray-800 p-1 rounded-md">
                 </div>
@@ -258,10 +219,6 @@
                     <th scope="col" class="px-1 py-2">
                         Baixa
                     </th>
-                    <th scope="col" class="px-1 py-2">
-                        Atrasado
-                    </th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -269,6 +226,45 @@
                     $total_cliente = 0;
                     $total_comissao = 0;
                 @endphp
+                @foreach($contrato->comissao->comissoesLancadas as $kk => $cr)
+                    @php
+                        if(!empty($cr->data_baixa)):
+                            $total_comissao += $cr->valor;
+                        else:
+                            $total_cliente += $cr->valor;
+                        endif;
+                    @endphp
+                    <tr class="border-t">
+                        <td class="text-sm py-2">
+                            @if($cr->parcela == 1)
+                                Adesão
+                            @else
+                                <span class="text-center">{{$cr->parcela}} º Parcela</span>
+                            @endif
+                        </td>
+                        <td class="text-center text-sm py-2">{{$contrato->cliente->codigo_externo}}</td>
+                        <td class="text-sm py-2">{{date('d/m/Y', strtotime($cr->data))}}</td>
+                        <td class="text-sm py-2">
+                            @if($cr->valor_pago > 0)
+                                {{number_format($cr->valor_pago, 2, ",", ".") ?? 0}}
+                            @else
+                                <span class="ml-2">---</span>
+                            @endif
+                        </td>
+                        <td class="text-sm py-2">
+                            @if(empty($cr->data_baixa))
+                                <span class="ml-4">---</span>
+                            @else
+                                {{date('d/m/Y', strtotime($cr->data_baixa))}}
+                            @endif
+                        </td>
+
+                    </tr>
+                @endforeach
+
+
+
+
 
 
                 </tbody>

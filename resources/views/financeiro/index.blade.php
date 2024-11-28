@@ -11,9 +11,7 @@
             var editarAdministradoraChange = "{{route('financeiro.administradora.change')}}"
             var urlGeralEmpresarialPendentes = "{{ route('contratos.listarEmpresarial.listarContratoEmpresaPendentes') }}";
             var listarOdonto = "{{ route('odonto.listar') }}";
-
             var financeiroSincroniza = "{{route('financeiro.sincronizar')}}";
-
             var atualizarIndividual = "{{route('financeiro.sincronizar.baixas.jaexiste')}}";
             var cancelarIndividual = "{{route('financeiro.sincronizar.cancelados')}}";
             var individualFinanceiroInicializar = "{{route('financeiro.modal.contrato.individual')}}";
@@ -51,7 +49,6 @@
                 @if(auth()->user()->corretora_id == 1)
                     <li data-id="aba_odonto">Odonto</li>
                 @endif
-
             </ul>
     </div>
     <x-upload-modal></x-upload-modal>

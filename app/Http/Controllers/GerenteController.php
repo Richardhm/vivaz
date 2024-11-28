@@ -4448,9 +4448,33 @@ class GerenteController extends Controller
 
     }
 
+
+    public function gerenteModalColetivo()
+    {
+        $contrato_id = request()->id;
+        $contrato = Contrato::with(['cliente','cliente.user','comissao','comissao.comissoesLancadas','administradora'])->find($contrato_id);
+
+        return view('gerente.modal-coletivo-gerente',[
+           'contrato' => $contrato
+        ]);
+
+
+    }
+
+
+
+
+
+
+
     public function gerenteModalIndividual()
     {
-        return view('financeiro.modal-individual-gerente');
+        $contrato_id = request()->id;
+        $contrato = Contrato::with(['cliente','cliente.user','comissao','comissao.comissoesLancadas'])->find($contrato_id);
+
+        return view('gerente.modal-individual-gerente',[
+            'contrato' => $contrato
+        ]);
     }
 
 
