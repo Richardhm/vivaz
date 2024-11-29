@@ -77,11 +77,11 @@
             //if (isAnimating) return; // Impede animações duplicadas
             // isAnimating = true;
 
-            desbloquearAudio();
-            if(audioDesbloqueado) {
-                somCarro.muted = false;
-                somFogos.muted = false;
-            }
+            // desbloquearAudio();
+            // if(audioDesbloqueado) {
+            //     somCarro.muted = false;
+            //     somFogos.muted = false;
+            // }
 
 
 
@@ -142,11 +142,11 @@
             // console.log("Verificar Lider Atual:", liderAtual);
             // console.log("Venda:", venda);
             //
-            desbloquearAudio();
-            if(audioDesbloqueado) {
-                somCarro.muted = false;
-                somFogos.muted = false;
-            }
+            // desbloquearAudio();
+            // if(audioDesbloqueado) {
+            //     somCarro.muted = false;
+            //     somFogos.muted = false;
+            // }
             //;
             if (novoRanking && novoRanking.length > 0) {
                 $('#rankingModal').removeClass('aparecer').addClass('ocultar');
@@ -963,7 +963,7 @@
         });
 
         function trocaDeAba() {
-            desbloquearAudio();
+            //desbloquearAudio();
             footerButtons.removeClass('active'); // Remove a classe 'active' de todos os botões
             footerButtons.eq(activeButtonIndex).addClass('active'); // Adiciona 'active' ao botão atual
 
