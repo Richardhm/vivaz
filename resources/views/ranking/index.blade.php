@@ -132,8 +132,8 @@
             // console.log("Verificar Lider Atual:", liderAtual);
             // console.log("Venda:", venda);
             //
-            // somCarro.muted = false;
-            // somFogos.muted = false;
+            //somCarro.muted = true;
+            //somFogos.muted = true;
 
             if (novoRanking && novoRanking.length > 0) {
 
@@ -190,9 +190,10 @@
     </script>
 
     <script type="module">
-        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-            verificarTrocaDeLider(event.novoRanking, event.venda);
-        });
+        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+        //     //desbloquearAudio()
+        //     verificarTrocaDeLider(event.novoRanking, event.venda);
+        // });
     </script>
 
 
@@ -963,6 +964,7 @@
         });
 
         function trocaDeAba() {
+            desbloquearAudio();
             footerButtons.removeClass('active'); // Remove a classe 'active' de todos os botões
             footerButtons.eq(activeButtonIndex).addClass('active'); // Adiciona 'active' ao botão atual
 
