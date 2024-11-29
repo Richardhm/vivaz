@@ -148,6 +148,7 @@
             //     somFogos.muted = false;
             // }
             //;
+
             if (novoRanking && novoRanking.length > 0) {
                 $('#rankingModal').removeClass('aparecer').addClass('ocultar');
                 const novoLider = novoRanking[0];
