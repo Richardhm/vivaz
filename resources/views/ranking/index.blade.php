@@ -57,20 +57,24 @@
 
 
         function desbloquearAudio() {
-            somCarro.muted = true;
-            somCarro.play().then(() => {
-                audioDesbloqueado = true;
-                console.log("Áudio desbloqueado.");
-            }).catch(error => {
-                console.error("Erro ao desbloquear áudio:", error);
-            });
-            somFogos.muted = true;
-            somFogos.play().then(() => {
-                audioDesbloqueado = true;
-                console.log("Áudio desbloqueado 2.");
-            }).catch(error => {
-                console.error("Erro ao desbloquear áudio:", error);
-            });
+
+            if(!audioDesbloqueado) {
+                somCarro.muted = true;
+                somCarro.play().then(() => {
+                    audioDesbloqueado = true;
+                    console.log("Áudio desbloqueado.");
+                }).catch(error => {
+                    console.error("Erro ao desbloquear áudio:", error);
+                });
+                somFogos.muted = true;
+                somFogos.play().then(() => {
+                    audioDesbloqueado = true;
+                    console.log("Áudio desbloqueado 2.");
+                }).catch(error => {
+                    console.error("Erro ao desbloquear áudio:", error);
+                });
+            }
+
         }
 
         function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
@@ -130,10 +134,24 @@
                     fogosBg.removeClass('aparecer').addClass('ocultar');
                 }, 20000); // 20 segundos
             }, 6000); // Iniciar os fogos após 6 segundos (tempo da venda)
-
-
-
         }
+
+        somCarro.onplay = function() {
+            console.log("Som do carro começou.");
+        };
+        somCarro.onerror = function(e) {
+            console.error("Erro ao carregar som do carro:", e);
+        };
+
+        somFogos.onplay = function() {
+            console.log("Som do fogos começou.");
+        };
+        somFogos.onerror = function(e) {
+            console.error("Erro ao carregar som do fogo:", e);
+        };
+
+
+
 
         var usuarioInteragiu = false;
 
@@ -142,14 +160,15 @@
             // console.log("Verificar Lider Atual:", liderAtual);
             // console.log("Venda:", venda);
             //
-            // desbloquearAudio();
-            // if(audioDesbloqueado) {
-            //     somCarro.muted = false;
-            //     somFogos.muted = false;
-            // }
+            desbloquearAudio();
+            if(audioDesbloqueado) {
+                console.log("OLaaaaaa");
+                somCarro.muted = false;
+                somFogos.muted = false;
+            }
             //;
 
-            if (novoRanking && novoRanking.length > 0) {
+            if(novoRanking && novoRanking.length > 0) {
                 $('#rankingModal').removeClass('aparecer').addClass('ocultar');
                 const novoLider = novoRanking[0];
                 if (novoLider.nome != liderAtual?.trim()) {
@@ -162,10 +181,13 @@
                     fogosBg.removeClass('ocultar').addClass('aparecer');
                     if(usuarioInteragiu) {
                         isAnimating = true;
+
+
                         somCarro.play();
                         somCarro.onended = function() {
                             popUp.fadeIn(300);
                             console.log("Som de carro finalizado.");
+
                             somFogos.play();
                             somFogos.onended = function() {
                                 fogosContainer.fadeOut(300);
@@ -190,10 +212,10 @@
     </script>
 
     <script type="module">
-        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-        //     //desbloquearAudio()
-        //     verificarTrocaDeLider(event.novoRanking, event.venda);
-        // });
+        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+            desbloquearAudio();
+            verificarTrocaDeLider(event.novoRanking, event.venda);
+        });
     </script>
 
 
@@ -945,9 +967,9 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (res) {
-                    if (res && res.ranking && res.ranking.length > 0) {
-                        verificarTrocaDeLider(res.ranking,res.venda);
-                    }
+                    // if (res && res.ranking && res.ranking.length > 0) {
+                    //     verificarTrocaDeLider(res.ranking,res.venda);
+                    // }
                 }
             });
         });
@@ -964,7 +986,7 @@
         });
 
         function trocaDeAba() {
-            //desbloquearAudio();
+            desbloquearAudio();
             footerButtons.removeClass('active'); // Remove a classe 'active' de todos os botões
             footerButtons.eq(activeButtonIndex).addClass('active'); // Adiciona 'active' ao botão atual
 
