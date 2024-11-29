@@ -77,6 +77,16 @@
             //if (isAnimating) return; // Impede animações duplicadas
             // isAnimating = true;
 
+            desbloquearAudio();
+            if(audioDesbloqueado) {
+                somCarro.muted = false;
+                somFogos.muted = false;
+            }
+
+
+
+
+
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
             // Elementos que irão aparecer
             const fundoPreto = $("#fundo-preto");
@@ -132,13 +142,14 @@
             // console.log("Verificar Lider Atual:", liderAtual);
             // console.log("Venda:", venda);
             //
-            //somCarro.muted = true;
-            //somFogos.muted = true;
-
+            desbloquearAudio();
+            if(audioDesbloqueado) {
+                somCarro.muted = false;
+                somFogos.muted = false;
+            }
+            //;
             if (novoRanking && novoRanking.length > 0) {
-
                 $('#rankingModal').removeClass('aparecer').addClass('ocultar');
-
                 const novoLider = novoRanking[0];
                 if (novoLider.nome != liderAtual?.trim()) {
                     liderAtual = novoLider.nome.trim();
@@ -147,53 +158,41 @@
                     let popUp = $("#popup-primeiro");
                     let fogosBg = $("#fogos-bg");
                     let fogosContainer = $("#fogos-container");
-
                     fogosBg.removeClass('ocultar').addClass('aparecer');
-                    //fogosBg.fadeIn();
-
-                    if (abaEstaVisivel() && usuarioInteragiu) {
+                    if(usuarioInteragiu) {
                         isAnimating = true;
                         somCarro.play();
                         somCarro.onended = function() {
                             popUp.fadeIn(300);
                             console.log("Som de carro finalizado.");
                             somFogos.play();
-
                             somFogos.onended = function() {
                                 fogosContainer.fadeOut(300);
                                 fogosBg.addClass('ocultar').removeClass("aparecer");
-                                // fogosBg.fadeOut(4000, function() {
-                                //
-                                // });
                                 popUp.fadeOut(4000);
-                                isAnimating = false; // Libera para a próxima animação
+                                isAnimating = false;
                             };
                         };
                     }
-
                 } else {
                     //console.log("Apenas Mais 1 venda");
                     // console.log("Venda feita pelo líder atual, sem troca de líder.");
-                    animacaoVenda(venda.nome, venda.image, venda.total);
+                    animacaoVenda(venda.nome,venda.image,venda.total);
                 }
             }
         }
-
         document.addEventListener('click', () => usuarioInteragiu = true);
         document.addEventListener('keydown', () => usuarioInteragiu = true);
-
         function abaEstaVisivel() {
             return document.visibilityState === 'visible';
         }
-
-
     </script>
 
     <script type="module">
-        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-        //     //desbloquearAudio()
-        //     verificarTrocaDeLider(event.novoRanking, event.venda);
-        // });
+        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+            //desbloquearAudio()
+            verificarTrocaDeLider(event.novoRanking, event.venda);
+        });
     </script>
 
 
@@ -945,9 +944,9 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (res) {
-                    if (res && res.ranking && res.ranking.length > 0) {
-                        verificarTrocaDeLider(res.ranking,res.venda);
-                    }
+                    // if (res && res.ranking && res.ranking.length > 0) {
+                    //     verificarTrocaDeLider(res.ranking,res.venda);
+                    // }
                 }
             });
         });
