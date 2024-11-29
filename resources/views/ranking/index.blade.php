@@ -190,10 +190,10 @@
     </script>
 
     <script type="module">
-        // Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
-        //     //desbloquearAudio()
-        //     verificarTrocaDeLider(event.novoRanking, event.venda);
-        // });
+        Echo.channel('ranking-channel').listen('.ranking.updated', (event) => {
+            //desbloquearAudio()
+            verificarTrocaDeLider(event.novoRanking, event.venda);
+        });
     </script>
 
 

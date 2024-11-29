@@ -57,7 +57,7 @@ class RankingController extends Controller
             ->whereRaw("DATE(ranking_diario.data) = CURDATE()")
             ->first();
 
-        //broadcast(new RankingUpdated($ranking, $user));
+        broadcast(new RankingUpdated($ranking, $user));
 
         return response()->json([
             'ranking' => $ranking,
