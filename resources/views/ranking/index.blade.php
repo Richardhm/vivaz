@@ -222,7 +222,7 @@
             left: 0;
             width: 100vw; /* Garante que ocupa toda a largura */
             height: 100vh; /* Garante que ocupa toda a altura */
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -230,37 +230,72 @@
             visibility: visible; /* Inicialmente visível */
             opacity: 1;
             transition: visibility 0s, opacity 0.3s ease-in-out;
+            filter: blur(0.8px); /* Efeito de desfoque */
         }
 
+        /* Efeito de transição para ocultar a modal */
         .modal-desbloqueio.ocultar {
             visibility: hidden;
             opacity: 0;
+            filter: none; /* Retira o blur quando estiver ocultando */
         }
 
-
+        /* Conteúdo da Modal */
         .modal-content-desbloqueio {
-            background: #fff;
-            padding: 20px;
+            background: rgba(254, 254, 254, 0.18); /* Fundo mais escuro com transparência */
+            padding: 80px;
             border-radius: 10px;
             text-align: center;
             max-width: 90%; /* Evita que a modal seja muito grande */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            filter: blur(0); /* Remove o desfoque do conteúdo */
+            animation: fadeIn 0.5s ease-in-out; /* Animação de aparição */
         }
 
-
-
+        /* Animação para o botão */
         button#btn-desbloquear-audio {
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 35px 70px;
+            font-size: 42px; /* Aumenta o tamanho do texto */
             color: #fff;
             background: #007bff;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            transition: all 0.3s ease; /* Efeito de transição para o botão */
+            animation: pointerAnimation 2s infinite; /* Animação da mãozinha */
         }
 
+        /* Animação de hover do botão */
         button#btn-desbloquear-audio:hover {
             background: #0056b3;
+            transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
+        }
+
+        /* Animação de "mãozinha" no botão */
+        @keyframes pointerAnimation {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Estilo do botão quando ele estiver pressionado */
+        button#btn-desbloquear-audio:active {
+            background: #004085;
+        }
+
+        /* Estilo de transição suave */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 
@@ -277,9 +312,9 @@
 
 <div id="modal-desbloqueio" class="modal-desbloqueio">
     <div class="modal-content-desbloqueio">
-        <h2>Bem-vindo ao Ranking</h2>
-        <p>Pressione o botão para liberar os sons e acessar o ranking!</p>
-        <button id="btn-desbloquear-audio">Liberar</button>
+        <h2 class="text-white font-bold text-2xl">Bem-vindo ao Ranking</h2>
+        <p class="text-white my-4 text-2xl">Pressione o botão para liberar o acesso ao ranking!</p>
+        <button class="text-white" id="btn-desbloquear-audio">Liberar</button>
     </div>
 </div>
 
