@@ -213,6 +213,58 @@
         var ranking = "{{ route('ranking.atualizar') }}";
 
     </script>
+
+
+    <style>
+        .modal-desbloqueio {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw; /* Garante que ocupa toda a largura */
+            height: 100vh; /* Garante que ocupa toda a altura */
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            visibility: visible; /* Inicialmente visível */
+            opacity: 1;
+            transition: visibility 0s, opacity 0.3s ease-in-out;
+        }
+
+        .modal-desbloqueio.ocultar {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+
+        .modal-content-desbloqueio {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 90%; /* Evita que a modal seja muito grande */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        button#btn-desbloquear-audio {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button#btn-desbloquear-audio:hover {
+            background: #0056b3;
+        }
+    </style>
+
+
 </head>
 <body>
 <div id="overlay"></div>
