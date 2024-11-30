@@ -789,9 +789,8 @@
         };
 
         const modal = $("#modal-desbloqueio");
-        const btnDesbloquear = $("#btn-desbloquear-audio");
 
-        btnDesbloquear.addEventListener("click", function () {
+        $("#btn-desbloquear-audio").on("click",function(){
             somCarro.play().then(() => {
                 somCarro.pause();
                 somCarro.currentTime = 0;
@@ -807,10 +806,7 @@
             }).catch(err => console.error("Erro ao desbloquear somCarro:", err));
         });
 
-        modal.style.display = "flex";
-
-
-
+        modal.css({"display":"flex"});
 
 
         function calcularPorcentagemEtotal() {
