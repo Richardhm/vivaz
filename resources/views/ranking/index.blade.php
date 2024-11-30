@@ -160,12 +160,12 @@
             // console.log("Verificar Lider Atual:", liderAtual);
             // console.log("Venda:", venda);
             //
-            desbloquearAudio();
-            if(audioDesbloqueado) {
-                console.log("OLaaaaaa");
-                somCarro.muted = false;
-                somFogos.muted = false;
-            }
+            // desbloquearAudio();
+            // if(audioDesbloqueado) {
+            //     console.log("OLaaaaaa");
+            //     somCarro.muted = false;
+            //     somFogos.muted = false;
+            // }
             //;
 
             if(novoRanking && novoRanking.length > 0) {
