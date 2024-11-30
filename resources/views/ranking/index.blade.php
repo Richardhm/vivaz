@@ -156,18 +156,6 @@
         var usuarioInteragiu = false;
 
         function verificarTrocaDeLider(novoRanking, venda) {
-            //if (isAnimating) return; // Impede execuções simultâneas da função
-            // console.log("Verificar Lider Atual:", liderAtual);
-            // console.log("Venda:", venda);
-            //
-            // desbloquearAudio();
-            // if(audioDesbloqueado) {
-            //     console.log("OLaaaaaa");
-            //     somCarro.muted = false;
-            //     somFogos.muted = false;
-            // }
-            //;
-
             if(novoRanking && novoRanking.length > 0) {
                 $('#rankingModal').removeClass('aparecer').addClass('ocultar');
                 const novoLider = novoRanking[0];
@@ -234,6 +222,17 @@
     <span style="font-size:1.3em;">.</span>
 </div>
 <x-modal-ranking :vendasDiarias="$vendasDiarias"></x-modal-ranking>
+
+<div id="modal-desbloqueio" class="modal-desbloqueio">
+    <div class="modal-content-desbloqueio">
+        <h2>Bem-vindo ao Ranking</h2>
+        <p>Pressione o botão para liberar os sons e acessar o ranking!</p>
+        <button id="btn-desbloquear-audio">Liberar</button>
+    </div>
+</div>
+
+
+
 <!-- Modal -->
 <div id="planilhaModal" class="modal">
     <div class="modal-content">
@@ -596,12 +595,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
 <!-- Fundo preto para os fogos de artifício -->
 <div id="fogos-bg" class="ocultar"  style="display:flex;background-color: black;z-index: 50;inset: 0;position: fixed;align-items: center;justify-content: center; --tw-bg-opacity: 0.8;">
     <div style="border-radius:10px;color:white;display:flex;flex-direction:column;margin-bottom: 20px;">
@@ -794,6 +787,30 @@
                 salvarConcecionario();
             }
         };
+
+        const modal = document.getElementById("modal-desbloqueio");
+        const btnDesbloquear = document.getElementById("btn-desbloquear-audio");
+
+        btnDesbloquear.addEventListener("click", function () {
+            somCarro.play().then(() => {
+                somCarro.pause();
+                somCarro.currentTime = 0;
+
+                somFogos.play().then(() => {
+                    somFogos.pause();
+                    somFogos.currentTime = 0;
+
+                    // Remove a modal após desbloqueio
+                    modal.style.display = "none";
+                    console.log("Áudio desbloqueado com sucesso!");
+                }).catch(err => console.error("Erro ao desbloquear somFogos:", err));
+            }).catch(err => console.error("Erro ao desbloquear somCarro:", err));
+        });
+
+
+
+
+
         function calcularPorcentagemEtotal() {
             let metaIndividual = parseFloat(document.getElementById('meta_individual').value) || 0;
             let vidasIndividual = parseFloat(document.getElementById('vidas_individual').value) || 0;

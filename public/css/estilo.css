@@ -376,3 +376,40 @@ input[type="text"], input[type="number"] {
         opacity: 1;
     }
 }
+
+
+
+/* Estilos básicos para a modal */
+.modal-desbloqueio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content-desbloqueio {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+button#btn-desbloquear-audio {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-desbloqueio > button:hover {
+    background: #0056b3;
+}
