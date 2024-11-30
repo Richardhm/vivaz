@@ -987,6 +987,7 @@
 
         function trocaDeAba() {
             desbloquearAudio();
+            document.body.dispatchEvent(new Event('click'));
             footerButtons.removeClass('active'); // Remove a classe 'active' de todos os botões
             footerButtons.eq(activeButtonIndex).addClass('active'); // Adiciona 'active' ao botão atual
 
@@ -1015,7 +1016,7 @@
                 $(".carrossel-container").addClass("ocultar");
                 $("#principal").addClass("d-flex flex-column flex-grow").removeClass('ocultar');
                 $("#footer-aqui").removeClass("ocultar");
-
+                document.body.dispatchEvent(new Event('click'));
                 $.ajax({
                     url: '{{ route('ranking.filtragem') }}',
                     type: 'GET',
