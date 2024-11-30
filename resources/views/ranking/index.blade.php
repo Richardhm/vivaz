@@ -788,8 +788,8 @@
             }
         };
 
-        const modal = document.getElementById("modal-desbloqueio");
-        const btnDesbloquear = document.getElementById("btn-desbloquear-audio");
+        const modal = $("#modal-desbloqueio");
+        const btnDesbloquear = $("#btn-desbloquear-audio");
 
         btnDesbloquear.addEventListener("click", function () {
             somCarro.play().then(() => {
@@ -806,6 +806,8 @@
                 }).catch(err => console.error("Erro ao desbloquear somFogos:", err));
             }).catch(err => console.error("Erro ao desbloquear somCarro:", err));
         });
+
+        modal.style.display = "flex";
 
 
 
