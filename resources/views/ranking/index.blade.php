@@ -227,7 +227,7 @@
     <div class="modal-content-desbloqueio">
         <h2>Bem-vindo ao Ranking</h2>
         <p>Pressione o botão para liberar os sons e acessar o ranking!</p>
-        <button id="btn-desbloquear-audio">Liberarrrrrrr</button>
+        <button id="btn-desbloquear-audio">Liberar</button>
     </div>
 </div>
 

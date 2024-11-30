@@ -390,7 +390,16 @@ input[type="text"], input[type="number"] {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    visibility: visible; /* Inicialmente visível */
+    opacity: 1;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
 }
+
+.modal-desbloqueio.ocultar {
+    visibility: hidden;
+    opacity: 0;
+}
+
 
 .modal-content-desbloqueio {
     background: #fff;
@@ -400,6 +409,8 @@ input[type="text"], input[type="number"] {
     max-width: 90%; /* Evita que a modal seja muito grande */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+
 
 button#btn-desbloquear-audio {
     padding: 10px 20px;
@@ -411,6 +422,6 @@ button#btn-desbloquear-audio {
     cursor: pointer;
 }
 
-.modal-desbloqueio > button:hover {
+button#btn-desbloquear-audio:hover {
     background: #0056b3;
 }
