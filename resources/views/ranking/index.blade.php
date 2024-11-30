@@ -180,15 +180,17 @@
                     let fogosContainer = $("#fogos-container");
                     fogosBg.removeClass('ocultar').addClass('aparecer');
                     if(usuarioInteragiu) {
+                        console.log("Entreiiiiiiiiiiiiiiiiiiiiiiii eu tenteiiiiiiiiiiiii");
                         isAnimating = true;
 
-
+                        somCarro.muted = false;
                         somCarro.play();
                         somCarro.onended = function() {
                             popUp.fadeIn(300);
                             console.log("Som de carro finalizado.");
 
                             somFogos.play();
+                            somFogos.muted = false;
                             somFogos.onended = function() {
                                 fogosContainer.fadeOut(300);
                                 fogosBg.addClass('ocultar').removeClass("aparecer");
