@@ -843,6 +843,7 @@
         const modal = $("#modal-desbloqueio");
 
         $("#btn-desbloquear-audio").on("click",function(){
+            $("#modal-desbloqueio").fadeOut('fast');
             somCarro.play().then(() => {
                 somCarro.pause();
                 somCarro.currentTime = 0;
