@@ -222,7 +222,7 @@
             left: 0;
             width: 100vw; /* Garante que ocupa toda a largura */
             height: 100vh; /* Garante que ocupa toda a altura */
-            background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro */
+            background: rgba(0, 0, 0, 0.93); /* Fundo mais escuro */
             display: flex;
             justify-content: center;
             align-items: center;
