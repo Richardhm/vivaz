@@ -342,7 +342,7 @@
         <div style="width:30%;display:flex;align-items: center;align-content: center;justify-content: space-between;">
             <div style="display:flex;">
                 <img src="{{asset('trofeu.png')}}" alt="Trofeu" style="width:25px;">
-                <h5 class="my-auto font-italic" style="font-style: italic;">Ranking de Vendas</h5>
+                <h5 class="my-auto font-italic" style="font-style: italic;">Ranking de Vendass</h5>
             </div>
             <div>
                 <span class="bg-white py-1 px-4 rounded" style="font-weight: bold;font-size: 1.2em;color:#335B99;" id="mes_ano">Goiania - Novembro/2024</span>
