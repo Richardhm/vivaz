@@ -183,14 +183,14 @@
                         console.log("Entreiiiiiiiiiiiiiiiiiiiiiiii eu tenteiiiiiiiiiiiii");
                         isAnimating = true;
 
-                        somCarro.muted = false;
+                        const somCarro = new Audio('carro_ultrapassagem.mp3');
                         somCarro.play();
                         somCarro.onended = function() {
                             popUp.fadeIn(300);
                             console.log("Som de carro finalizado.");
-
+                            const somFogos = new Audio('fogos.mp3');
                             somFogos.play();
-                            somFogos.muted = false;
+                            //somFogos.muted = false;
                             somFogos.onended = function() {
                                 fogosContainer.fadeOut(300);
                                 fogosBg.addClass('ocultar').removeClass("aparecer");
