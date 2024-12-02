@@ -66,6 +66,28 @@ class RankingController extends Controller
 
     }
 
+    public function editarHistorico(Request $request)
+    {
+
+
+
+        $dados = $request->validate([
+            'id' => 'required|integer',
+            'vidas_individual' => 'nullable|integer',
+            'vidas_coletivo' => 'nullable|integer',
+            'vidas_empresarial' => 'nullable|integer',
+        ]);
+
+
+
+
+        DB::table('ranking_diario')->where('id', $dados['id'])->update($dados);
+        return response()->json(['success' => true, 'message' => 'Histórico atualizado com sucesso.']);
+    }
+
+
+
+
     public function historico(Request $request)
     {
 
@@ -96,12 +118,13 @@ class RankingController extends Controller
 
         $dados = DB::table('ranking_diario')
             ->join('corretoras', 'ranking_diario.corretora_id', '=', 'corretoras.id')
+
             ->select('ranking_diario.*', 'corretoras.nome as nome_corretora')
             ->where('ranking_diario.data', '=', $dataAtual)
             ->orderBy('ranking_diario.data', 'desc')
             ->get();
 
-        return response()->json(['dados' => $dados, 'data_atual' => $dataAtual,'avancar' => $avancar]);
+        return response()->json(['dados' => $dados, 'data_atual' => $dataAtual]);
     }
 
 

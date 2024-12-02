@@ -225,6 +225,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get("/odonto/listar",[FinanceiroController::class,'listarOdonto'])->name('odonto.listar');
 
     Route::post('/ranking/historico', [RankingController::class, 'historico'])->name('ranking.historico');
+    Route::post('/ranking/historico/editar', [RankingController::class, 'editarHistorico'])->name('ranking.historico.editar');
 
     Route::post('/ranking/diario/atualizar',[RankingController::class,'atualizarRankingDiario'])->name('ranking.atualizar');
     Route::get('/gerente/coletivo/listar/{id}',[GerenteController::class,'coletivoAReceber'])->name('gerente.listagem.coletivo.areceber');

@@ -192,6 +192,103 @@
 
     </script>
 
+    <style>
+        .modal-desbloqueio {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw; /* Garante que ocupa toda a largura */
+            height: 100vh; /* Garante que ocupa toda a altura */
+            background: rgba(0, 0, 0, 0.93); /* Fundo mais escuro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            visibility: visible; /* Inicialmente visível */
+            opacity: 1;
+            transition: visibility 0s, opacity 0.3s ease-in-out;
+            filter: blur(0.8px); /* Efeito de desfoque */
+        }
+
+        /* Efeito de transição para ocultar a modal */
+        .modal-desbloqueio.ocultar {
+            visibility: hidden;
+            opacity: 0;
+            filter: none; /* Retira o blur quando estiver ocultando */
+        }
+
+        /* Conteúdo da Modal */
+        .modal-content-desbloqueio {
+            background: rgba(254, 254, 254, 0.18); /* Fundo mais escuro com transparência */
+            padding: 80px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 90%; /* Evita que a modal seja muito grande */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            filter: blur(0); /* Remove o desfoque do conteúdo */
+            animation: fadeIn 0.5s ease-in-out; /* Animação de aparição */
+        }
+
+        /* Animação para o botão */
+        button#btn-desbloquear-audio {
+            padding: 35px 70px;
+            font-size: 42px; /* Aumenta o tamanho do texto */
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Efeito de transição para o botão */
+            animation: pointerAnimation 2s infinite; /* Animação da mãozinha */
+        }
+
+        /* Animação de hover do botão */
+        button#btn-desbloquear-audio:hover {
+            background: #0056b3;
+            transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
+        }
+
+        /* Animação de "mãozinha" no botão */
+        @keyframes pointerAnimation {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Estilo do botão quando ele estiver pressionado */
+        button#btn-desbloquear-audio:active {
+            background: #004085;
+        }
+
+        /* Estilo de transição suave */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
 
 
 
@@ -206,13 +303,13 @@
 </div>
 <x-modal-ranking :vendasDiarias="$vendasDiarias"></x-modal-ranking>
 
-{{--<div id="modal-desbloqueio" class="modal-desbloqueio">--}}
-{{--    <div class="modal-content-desbloqueio">--}}
-{{--        <h2 class="text-white font-bold text-2xl">Bem-vindo ao Ranking</h2>--}}
-{{--        <p class="text-white my-4 text-2xl">Pressione o botão para liberar o acesso ao ranking!</p>--}}
-{{--        <button class="text-white" id="btn-desbloquear-audio">Liberar</button>--}}
-{{--    </div>--}}
-{{--</div>--}}
+<div id="modal-desbloqueio" class="modal-desbloqueio">
+    <div class="modal-content-desbloqueio">
+        <h2 class="text-white font-bold text-2xl">Bem-vindo ao Ranking</h2>
+        <p class="text-white my-4 text-2xl">Pressione o botão para liberar o acesso ao ranking!</p>
+        <button class="text-white" id="btn-desbloquear-audio">Liberar</button>
+    </div>
+</div>
 
 
 
@@ -661,7 +758,7 @@
         <thead>
         <tr>
             <th>Data</th>
-            <th>Corretora</th>
+            <th>Corretor</th>
             <th>Vidas Individual</th>
             <th>Vidas Coletivo</th>
             <th>Vidas Empresarial</th>
@@ -813,14 +910,37 @@
             }
         });
 
+        function editarHistorico(id) {
+            $.ajax({
+               url:"{{route('ranking.historico.editar')}}",
+               method:"POST",
+               data: {
+                   id
+               },
+               success:function(res) {
+                   console.log(res);
+               }
+            });
+        }
+
+        document.querySelectorAll(".editable").forEach(cell => {
+            cell.addEventListener("blur", function () {
+                const row = this.closest("tr");
+                const id = row.getAttribute("data-id");
+                const field = this.getAttribute("data-field");
+                const value = this.textContent.trim();
+
+                // Enviar os dados atualizados para o backend
+                console.log(id,field,value);
+                //updateTableValue(id, field, value);
+            });
+        });
+
+
+
+
+
         function carregarHistorico(data = null, retroceder = false, avancar = false) {
-
-            console.log("data ",data);
-            console.log("retroceder ",retroceder);
-            console.log("avancar ",avancar);
-
-
-
             $.ajax({
                 url: "{{route('ranking.historico')}}",
                 method: "POST",
@@ -854,10 +974,10 @@
                         tbody.append(`
                             <tr>
                                 <td>${dataFormatada}</td>
-                                <td>${item.nome_corretora}</td>
-                                <td>${item.vidas_individual}</td>
-                                <td>${item.vidas_coletivo}</td>
-                                <td>${item.vidas_empresarial}</td>
+                                <td>${item.nome}</td>
+                                <td contenteditable="true" class="editable" data-field="vidas_individual">${item.vidas_individual}</td>
+                                <td contenteditable="true" class="editable" data-field="vidas_individual">${item.vidas_coletivo}</td>
+                                <td contenteditable="true" class="editable" data-field="vidas_empresarial">${item.vidas_empresarial}</td>
                                 <td>
                                     <button class="editarHistorico" data-id="${item.id}" style="background-color:#ffc107; border:none; color:white; padding:5px 10px; border-radius:5px;">Editar</button>
                                 </td>
@@ -871,6 +991,7 @@
 
                     $(".editarHistorico").on("click", function () {
                         let id = $(this).data("id");
+
                         editarHistorico(id);
                     });
                 }
