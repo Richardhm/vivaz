@@ -206,13 +206,13 @@
 </div>
 <x-modal-ranking :vendasDiarias="$vendasDiarias"></x-modal-ranking>
 
-<div id="modal-desbloqueio" class="modal-desbloqueio">
-    <div class="modal-content-desbloqueio">
-        <h2 class="text-white font-bold text-2xl">Bem-vindo ao Ranking</h2>
-        <p class="text-white my-4 text-2xl">Pressione o botão para liberar o acesso ao ranking!</p>
-        <button class="text-white" id="btn-desbloquear-audio">Liberar</button>
-    </div>
-</div>
+{{--<div id="modal-desbloqueio" class="modal-desbloqueio">--}}
+{{--    <div class="modal-content-desbloqueio">--}}
+{{--        <h2 class="text-white font-bold text-2xl">Bem-vindo ao Ranking</h2>--}}
+{{--        <p class="text-white my-4 text-2xl">Pressione o botão para liberar o acesso ao ranking!</p>--}}
+{{--        <button class="text-white" id="btn-desbloquear-audio">Liberar</button>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 
 
