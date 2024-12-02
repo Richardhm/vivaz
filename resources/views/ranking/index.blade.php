@@ -78,19 +78,6 @@
         }
 
         function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
-            //if (isAnimating) return; // Impede animações duplicadas
-            // isAnimating = true;
-
-            // desbloquearAudio();
-            // if(audioDesbloqueado) {
-            //     somCarro.muted = false;
-            //     somFogos.muted = false;
-            // }
-
-
-
-
-
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
             // Elementos que irão aparecer
             const fundoPreto = $("#fundo-preto");
@@ -149,10 +136,6 @@
         somFogos.onerror = function(e) {
             console.error("Erro ao carregar som do fogo:", e);
         };
-
-
-
-
         var usuarioInteragiu = false;
 
         function verificarTrocaDeLider(novoRanking, venda) {
@@ -168,14 +151,11 @@
                     let fogosContainer = $("#fogos-container");
                     fogosBg.removeClass('ocultar').addClass('aparecer');
                     if(usuarioInteragiu) {
-                        console.log("Entreiiiiiiiiiiiiiiiiiiiiiiii eu tenteiiiiiiiiiiiii");
                         isAnimating = true;
-
                         const somCarro = new Audio('carro_ultrapassagem.mp3');
                         somCarro.play();
                         somCarro.onended = function() {
                             popUp.fadeIn(300);
-                            console.log("Som de carro finalizado.");
                             const somFogos = new Audio('fogos.mp3');
                             somFogos.play();
                             //somFogos.muted = false;
@@ -188,8 +168,6 @@
                         };
                     }
                 } else {
-                    //console.log("Apenas Mais 1 venda");
-                    // console.log("Venda feita pelo líder atual, sem troca de líder.");
                     animacaoVenda(venda.nome,venda.image,venda.total);
                 }
             }
@@ -215,89 +193,7 @@
     </script>
 
 
-    <style>
-        .modal-desbloqueio {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw; /* Garante que ocupa toda a largura */
-            height: 100vh; /* Garante que ocupa toda a altura */
-            background: rgba(0, 0, 0, 0.93); /* Fundo mais escuro */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            visibility: visible; /* Inicialmente visível */
-            opacity: 1;
-            transition: visibility 0s, opacity 0.3s ease-in-out;
-            filter: blur(0.8px); /* Efeito de desfoque */
-        }
 
-        /* Efeito de transição para ocultar a modal */
-        .modal-desbloqueio.ocultar {
-            visibility: hidden;
-            opacity: 0;
-            filter: none; /* Retira o blur quando estiver ocultando */
-        }
-
-        /* Conteúdo da Modal */
-        .modal-content-desbloqueio {
-            background: rgba(254, 254, 254, 0.18); /* Fundo mais escuro com transparência */
-            padding: 80px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 90%; /* Evita que a modal seja muito grande */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            filter: blur(0); /* Remove o desfoque do conteúdo */
-            animation: fadeIn 0.5s ease-in-out; /* Animação de aparição */
-        }
-
-        /* Animação para o botão */
-        button#btn-desbloquear-audio {
-            padding: 35px 70px;
-            font-size: 42px; /* Aumenta o tamanho do texto */
-            color: #fff;
-            background: #007bff;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease; /* Efeito de transição para o botão */
-            animation: pointerAnimation 2s infinite; /* Animação da mãozinha */
-        }
-
-        /* Animação de hover do botão */
-        button#btn-desbloquear-audio:hover {
-            background: #0056b3;
-            transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
-        }
-
-        /* Animação de "mãozinha" no botão */
-        @keyframes pointerAnimation {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        /* Estilo do botão quando ele estiver pressionado */
-        button#btn-desbloquear-audio:active {
-            background: #004085;
-        }
-
-        /* Estilo de transição suave */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 
 
 </head>
@@ -447,8 +343,9 @@
             </div>
 
 {{--            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" onclick="enviarMensagem()">Teste</button>--}}
-            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" id="modal_concessionarias">Concessionarias</button>
-            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;margin:0 15px 0 5px;display:flex;align-items:center;align-self: center;" id="modal_ranking_diario">Ranking</button>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" id="modal_historico">Historico</button>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;margin:0 10px;display:flex;align-items:center;align-self: center;" id="modal_concessionarias">Concessionarias</button>
+            <button style="border:none;background-color:#0dcaf0;color:#FFF;border-radius:5%;font-size:1em;padding:7px;display:flex;align-items:center;align-self: center;" id="modal_ranking_diario">Ranking</button>
             <div class="d-flex flex-column text-center" style="font-size: 1.5em;">
                 <span id="aqui_data">09/08/2024</span>
                 <span id="aqui_hora">12:40</span>
@@ -748,9 +645,246 @@
         <img src="{{asset('hapvida-notreDame.png')}}" alt="Hapvida Logo" class="img-fluid my-auto" style="max-width: 200px;">
     </div>
 </footer>
+
+<div id="modalHistorico" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background-color:white; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.2); padding:20px; z-index:1000; width:60%;">
+    <div class="flex justify-end">
+        <button style="margin-top:20px; background-color:#dc3545; color:white; border:none; padding:10px 20px; border-radius:5px;" id="fecharModal">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
+
+
+    <h3 id="tituloData" class="text-2xl font-bold text-center py-2">Histórico de Vendas Diárias - <span id="dataAtual"></span></h3>
+    <table id="tabelaHistorico" style="width:100%; border-collapse:collapse; margin-top:10px;">
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Corretora</th>
+            <th>Vidas Individual</th>
+            <th>Vidas Coletivo</th>
+            <th>Vidas Empresarial</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Linhas preenchidas via AJAX -->
+        </tbody>
+        <tfoot class="bg-blue-400">
+            <tr>
+                <th colspan="2" style="padding: 10px;">Total</th>
+                <th id="totalVidasIndividual" style="padding: 10px;">0</th>
+                <th id="totalVidasColetivo" style="padding: 10px;">0</th>
+                <th id="totalVidasEmpresarial" style="padding: 10px;">0</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="flex justify-between">
+        <button id="btnBack" style="background-color:#6c757d; color:white; border:none; padding:10px 15px; border-radius:5px; margin-bottom:10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z" />
+            </svg>
+
+        </button>
+        <button id="btnNext" style="background-color:#6c757d; color:white; border:none; padding:10px 15px; border-radius:5px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
+            </svg>
+
+        </button>
+    </div>
+
+</div>
+<div id="overlayHistorico" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:999;"></div>
+
+
+
 <script>
 
     $(document).ready(function() {
+
+        const hoje = new Date();
+
+
+        const ano = hoje.getFullYear();
+        const mes = (hoje.getMonth() + 1).toString().padStart(2, '0'); // Adiciona zero à esquerda
+        const dia = hoje.getDate().toString().padStart(2, '0'); // Adiciona zero à esquerda
+
+
+        const dataHoje = `${ano}-${mes}-${dia}`;
+        function atualizarEstadoBotoes(dataAtual) {
+            // Desabilita o botão "Next" se a dataAtual for igual à dataHoje
+            if (dataAtual === dataHoje) {
+                $("#btnNext").prop("disabled", true).css("background-color", "#d6d6d6");
+            } else {
+                $("#btnNext").prop("disabled", false).css("background-color", "#6c757d");
+            }
+
+            // // Desabilita o botão "Back" se a dataAtual for igual à menorData
+            // if (dataAtual === menorData) {
+            //     $("#btnBack").prop("disabled", true).css("background-color", "#d6d6d6");
+            // } else {
+            //     $("#btnBack").prop("disabled", false).css("background-color", "#6c757d");
+            // }
+        }
+
+
+
+
+        function formatarData(dataISO) {
+            const diasSemana = [
+                "Domingo",
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado",
+            ];
+
+            const meses = [
+                "janeiro",
+                "fevereiro",
+                "março",
+                "abril",
+                "maio",
+                "junho",
+                "julho",
+                "agosto",
+                "setembro",
+                "outubro",
+                "novembro",
+                "dezembro",
+            ];
+
+            // Converte a string ISO em data ajustada para o fuso horário local
+            const partes = dataISO.split('-'); // Divide o formato "YYYY-MM-DD"
+            const data = new Date(partes[0], partes[1] - 1, partes[2]); // Cria a data como local
+
+            const dia = data.getDate();
+            const mes = meses[data.getMonth()];
+            const ano = data.getFullYear();
+            const diaSemana = diasSemana[data.getDay()];
+
+            return `${dia.toString().padStart(2, '0')}/${(data.getMonth() + 1)
+                .toString()
+                .padStart(2, '0')}/${ano} (${diaSemana}) - ${dia}º dia do mês de ${mes}`;
+        }
+
+
+
+
+
+
+
+
+        let dataAtual = null; // Armazena a data sendo exibida atualmente
+
+        $("#modal_historico").on("click", function () {
+            carregarHistorico();
+            $("#overlayHistorico").css("display", "block");
+            $("#modalHistorico").css("display", "block");
+        });
+
+        $("#fecharModal, #overlayHistorico").on("click", function () {
+            $("#overlayHistorico").css("display", "none");
+            $("#modalHistorico").css("display", "none");
+        });
+
+
+
+        // $("#fecharModal, #overlay").on("click", function () {
+        //     $("#modalHistorico").hide();
+        //     $("#overlay").hide();
+        // });
+
+        $("#btnBack").on("click", function () {
+            if (dataAtual) {
+                carregarHistorico(dataAtual, true,false); // Busca o histórico do dia anterior
+            }
+        });
+
+        $("#btnNext").on("click", function () {
+            if (dataAtual) {
+
+                carregarHistorico(dataAtual, false, true); // Avança para o próximo dia
+            }
+        });
+
+        function carregarHistorico(data = null, retroceder = false, avancar = false) {
+
+            console.log("data ",data);
+            console.log("retroceder ",retroceder);
+            console.log("avancar ",avancar);
+
+
+
+            $.ajax({
+                url: "{{route('ranking.historico')}}",
+                method: "POST",
+                data: { data: data, retroceder: retroceder,avancar:avancar }, // Envia a data atual e o comando de retrocesso
+                success: function (response) {
+                    console.log(response);
+                    if (response.data_atual) {
+                        dataAtual = response.data_atual; // Atualiza a data atual exibida
+                        const dataFormatada = formatarData(dataAtual); // Formata a data
+                        $("#dataAtual").text(dataFormatada); // Exibe no título
+                        atualizarEstadoBotoes(dataAtual);
+                    }
+
+                    let tbody = $("#tabelaHistorico tbody");
+                    tbody.empty();
+
+                    let totalVidasIndividual = 0;
+                    let totalVidasColetivo = 0;
+                    let totalVidasEmpresarial = 0;
+
+
+
+                    response.dados.forEach(item => {
+                        const dataFormatada = formatarDataTabela(item.data);
+
+                        totalVidasIndividual += item.vidas_individual;
+                        totalVidasColetivo += item.vidas_coletivo;
+                        totalVidasEmpresarial += item.vidas_empresarial;
+
+
+                        tbody.append(`
+                            <tr>
+                                <td>${dataFormatada}</td>
+                                <td>${item.nome_corretora}</td>
+                                <td>${item.vidas_individual}</td>
+                                <td>${item.vidas_coletivo}</td>
+                                <td>${item.vidas_empresarial}</td>
+                                <td>
+                                    <button class="editarHistorico" data-id="${item.id}" style="background-color:#ffc107; border:none; color:white; padding:5px 10px; border-radius:5px;">Editar</button>
+                                </td>
+                            </tr>
+                        `);
+                    });
+
+                    $("#totalVidasIndividual").text(totalVidasIndividual);
+                    $("#totalVidasColetivo").text(totalVidasColetivo);
+                    $("#totalVidasEmpresarial").text(totalVidasEmpresarial);
+
+                    $(".editarHistorico").on("click", function () {
+                        let id = $(this).data("id");
+                        editarHistorico(id);
+                    });
+                }
+            });
+        }
+
+
+        function formatarDataTabela(dataISO) {
+            const partes = dataISO.split('-'); // Divide o formato "YYYY-MM-DD"
+            return `${partes[2]}/${partes[1]}/${partes[0]}`; // Retorna no formato "DD/MM/YYYY"
+        }
+
+
+
 
         $.ajaxSetup({
             headers: {
@@ -831,6 +965,7 @@
         document.getElementById('modal_concessionarias').onclick = function() {
             document.getElementById('planilhaModal').style.display = 'block';
         };
+
         function salvarConcecionario() {
             let concessionariasData = [];
             $('tbody tr').each(function () {

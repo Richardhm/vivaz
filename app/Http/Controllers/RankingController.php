@@ -66,6 +66,44 @@ class RankingController extends Controller
 
     }
 
+    public function historico(Request $request)
+    {
+
+        $dataAtual = $request->input('data');
+        $retroceder = $request->input('retroceder');
+        $avancar = $request->input('avancar');
+
+
+        if (!$dataAtual) {
+            // Pega a data mais recente no banco
+            $dataAtual = DB::table('ranking_diario')->max('data');
+        } elseif ($retroceder == 'true') {
+            // Retrocede para a data anterior
+            $dataAtual = DB::table('ranking_diario')
+                ->where('data', '<', $dataAtual)
+                ->max('data');
+        } elseif ($avancar == 'true') {
+
+            // Avança para a data seguinte
+            $dataAtual = DB::table('ranking_diario')
+                ->where('data', '>', $dataAtual)
+                ->min('data');
+        }
+
+        if (!$dataAtual) {
+            return response()->json(['dados' => [], 'data_atual' => null]);
+        }
+
+        $dados = DB::table('ranking_diario')
+            ->join('corretoras', 'ranking_diario.corretora_id', '=', 'corretoras.id')
+            ->select('ranking_diario.*', 'corretoras.nome as nome_corretora')
+            ->where('ranking_diario.data', '=', $dataAtual)
+            ->orderBy('ranking_diario.data', 'desc')
+            ->get();
+
+        return response()->json(['dados' => $dados, 'data_atual' => $dataAtual,'avancar' => $avancar]);
+    }
+
 
     public function filtragem(Request $request)
     {
