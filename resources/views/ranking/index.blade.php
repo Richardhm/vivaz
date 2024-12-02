@@ -7,22 +7,20 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/estilo.css')}}">
+    <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
     <style>
         .stage {width: 95%;flex-grow: 1;background-image: url('{{ asset('podium2.png') }}');background-size: cover;background-repeat: no-repeat;background-position: center;display: flex;justify-content: space-around;align-items: flex-end;margin: 0 auto;}
     </style>
     <script src="{{asset('assets/jquery.min.js')}}"></script>
+    <script src="{{asset('js/toastr.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/ranking.css')}}">
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     <script>
         let audioDesbloqueado = false;
         let liderAtual = @json($liderAtual);
         let somCarro = new Audio('carro_ultrapassagem.mp3');
         let somFogos = new Audio('fogos.mp3');
         let isAnimating = false; // Controle para evitar animações simultâneas
-
-
         function gerarConfetes() {
             const confettiContainer = document.getElementById('confetti-container');
             const colors = ['#ff0', '#f00', '#0f0', '#00f', '#ff69b4', '#ff8c00', '#1e90ff', '#32cd32'];
@@ -911,33 +909,22 @@
         });
 
         function editarHistorico(id) {
-            $.ajax({
-               url:"{{route('ranking.historico.editar')}}",
-               method:"POST",
-               data: {
-                   id
-               },
-               success:function(res) {
-                   console.log(res);
-               }
+            console.log("Olaaaaa ",id);
+            const btn = $(this);
+            const row = btn.closest("tr"); // Linha correspondente
+            const isEditing = btn.data("editing") === true; // Verifica se já está em modo de edição
+
+            row.find(".editable").each(function () {
+                const field = $(this).data("field"); // Campo (ex: vidas_individual)
+                const value = $(this).text().trim(); // Valor editado
+                updatedData[field] = value; // Adiciona ao objeto
+
+                console.log(`Campo: ${field}, Valor: ${value}`); // Log para depuração
             });
+
         }
 
-        document.querySelectorAll(".editable").forEach(cell => {
-            cell.addEventListener("blur", function () {
-                const row = this.closest("tr");
-                const id = row.getAttribute("data-id");
-                const field = this.getAttribute("data-field");
-                const value = this.textContent.trim();
-
-                // Enviar os dados atualizados para o backend
-                console.log(id,field,value);
-                //updateTableValue(id, field, value);
-            });
-        });
-
-
-
+        console.log("Oaaaaaa",$(".editarHistorico").length); // Deve retornar o número de botões na tabela
 
 
         function carregarHistorico(data = null, retroceder = false, avancar = false) {
@@ -976,7 +963,7 @@
                                 <td>${dataFormatada}</td>
                                 <td>${item.nome}</td>
                                 <td contenteditable="true" class="editable" data-field="vidas_individual">${item.vidas_individual}</td>
-                                <td contenteditable="true" class="editable" data-field="vidas_individual">${item.vidas_coletivo}</td>
+                                <td contenteditable="true" class="editable" data-field="vidas_coletivo">${item.vidas_coletivo}</td>
                                 <td contenteditable="true" class="editable" data-field="vidas_empresarial">${item.vidas_empresarial}</td>
                                 <td>
                                     <button class="editarHistorico" data-id="${item.id}" style="background-color:#ffc107; border:none; color:white; padding:5px 10px; border-radius:5px;">Editar</button>
@@ -989,14 +976,75 @@
                     $("#totalVidasColetivo").text(totalVidasColetivo);
                     $("#totalVidasEmpresarial").text(totalVidasEmpresarial);
 
-                    $(".editarHistorico").on("click", function () {
-                        let id = $(this).data("id");
+                    $("#tabelaHistorico").on("click", ".editarHistorico", function () {
+                            const btn = $(this); // Botão clicado
+                            const row = btn.closest("tr"); // Linha correspondente
+                            const isEditing = btn.data("editing") === true; // Verifica o estado de edição
 
-                        editarHistorico(id);
+                            let individual = row.find('[data-field="vidas_individual"]').text().trim();
+                            let coletivo = row.find('[data-field="vidas_coletivo"]').text().trim();
+                            let empresarial = row.find('[data-field="vidas_empresarial"]').text().trim();
+                            let id = btn.attr("data-id");
+                            let updatedData = {individual,coletivo,empresarial,id};
+                            $.ajax({
+                                url: "{{route('ranking.historico.editar')}}", // Substituir pela rota correta
+                                method: "POST",
+                                data: updatedData,
+                                success: function (response) {
+                                    toastr.options = {
+                                        "closeButton": true,
+                                        "debug": false,
+                                        "newestOnTop": false,
+                                        "progressBar": true,
+                                        "positionClass": "toast-top-right", // Posição da mensagem
+                                        "preventDuplicates": true,
+                                        "onclick": null,
+                                        "showDuration": "300",
+                                        "hideDuration": "1000",
+                                        "timeOut": "5000", // Tempo de exibição
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    };
+                                    toastr.success("Histórico atualizado com sucesso!");
+                                    recalcularTotais()
+
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("Erro ao atualizar:", error);
+                                }
+                            });
+
                     });
                 }
             });
         }
+
+        function recalcularTotais() {
+            let totalVidasIndividual = 0;
+            let totalVidasColetivo = 0;
+            let totalVidasEmpresarial = 0;
+
+            // Percorrer todas as linhas da tabela e somar os valores
+            $("#tabelaHistorico tbody tr").each(function () {
+                const individual = parseInt($(this).find('[data-field="vidas_individual"]').text().trim()) || 0;
+                const coletivo = parseInt($(this).find('[data-field="vidas_coletivo"]').text().trim()) || 0;
+                const empresarial = parseInt($(this).find('[data-field="vidas_empresarial"]').text().trim()) || 0;
+
+                totalVidasIndividual += individual;
+                totalVidasColetivo += coletivo;
+                totalVidasEmpresarial += empresarial;
+            });
+
+            // Atualizar os totais na interface
+            $("#totalVidasIndividual").text(totalVidasIndividual);
+            $("#totalVidasColetivo").text(totalVidasColetivo);
+            $("#totalVidasEmpresarial").text(totalVidasEmpresarial);
+        }
+
+
 
 
         function formatarDataTabela(dataISO) {

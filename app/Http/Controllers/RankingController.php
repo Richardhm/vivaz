@@ -68,20 +68,12 @@ class RankingController extends Controller
 
     public function editarHistorico(Request $request)
     {
-
-
-
-        $dados = $request->validate([
-            'id' => 'required|integer',
-            'vidas_individual' => 'nullable|integer',
-            'vidas_coletivo' => 'nullable|integer',
-            'vidas_empresarial' => 'nullable|integer',
-        ]);
-
-
-
-
-        DB::table('ranking_diario')->where('id', $dados['id'])->update($dados);
+        $alt = RankingDiario::find($request->id);
+        $data = $alt->data;
+        $alt->vidas_individual = $request->individual;
+        $alt->vidas_coletivo = $request->coletivo;
+        $alt->vidas_empresarial = $request->empresarial;
+        $alt->save();
         return response()->json(['success' => true, 'message' => 'Histórico atualizado com sucesso.']);
     }
 
