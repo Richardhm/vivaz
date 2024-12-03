@@ -946,7 +946,7 @@
 
     // Função para criar explosões
     function createExplosion(x, y) {
-        const numParticles = 60; // Aumentar o número de partículas
+        const numParticles = 15; // Aumentar o número de partículas
         for (let i = 0; i < numParticles; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -960,7 +960,7 @@
 
             // Direção aleatória da partícula
             const angle = Math.random() * 2 * Math.PI;
-            const distance = Math.random() * 250; // Explosão maior
+            const distance = Math.random() * 100; // Explosão maior
             particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
             particle.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
             sky.appendChild(particle);
