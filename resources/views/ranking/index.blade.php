@@ -1420,125 +1420,8 @@
             $('#fogosModal').addClass('aparecer').removeClass('ocultar');
         }
 
-        // Variável global para armazenar o líder atual
 
 
-        function exibirPopUpComFogos(nome, imagem) {
-            let popUp = $("#popup-primeiro");
-            // let carroContainer = $("#carro-container");
-            // let carroBg = $("#carro-bg");
-            // let nomeContainer = $("#nome-primeiro");
-            // let imagemContainer = $("#imagem-primeiro");
-            // Exibe o pop-up e a animação dos fogos
-            //$("#rankingModal").removeClass("aparecer").addClass("ocultar");
-            $("#popup-primeiro").removeClass("ocultar").addClass("aparecer");
-
-            // abrirFogosModal(); // Função para abrir a modal dos fogos de artifício
-            // nomeContainer.html(nome);
-            // imagemContainer.attr('src', imagem);
-            // // Toca o som dos fogos
-            // const somFogos = new Audio('fogos.mp3');
-            // somFogos.play().catch(error => console.error('Erro ao reproduzir som de fogos:', error));
-            // Fechar os fogos após 54 segundos
-            // setTimeout(function () {
-            //     popUp.addClass("ocultar").removeClass('aparecer'); // Oculta o pop-up dos fogos
-            //     somFogos.pause(); // Para o som dos fogos
-            //     // Agora, iniciar a animação do carro com som de ultrapassagem
-            //     //exibirCarroComSom(nome);
-            // }, 54000); // Após 54 segundos
-        }
-
-
-        // function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
-        //     $('#rankingModal').removeClass('aparecer').addClass('ocultar');
-        //     const fundoPreto = $("#fundo-preto");
-        //     const imagem = $("#imagem-corretor");
-        //     const vidas = $("#quantidade-vidas");
-        //
-        //     // Definir as informações do corretor e quantidade de vidas
-        //     vidas.text(quantidadeVidas + " Vidas");
-        //     imagem.attr("src", imagemCorretor);
-        //
-        //     // Mostrar o fundo preto com a imagem do corretor e a quantidade de vidas
-        //     fundoPreto.removeClass('ocultar').addClass('aparecer');
-        //
-        //     // Iniciar os confetes
-        //     gerarConfetes();
-        //
-        //     // Função para repetir o áudio de venda até completar 21 segundos
-        //     const somVenda = new Audio('/som_venda.mp3');
-        //
-        //     // Função para tocar o áudio repetidamente até 21 segundos
-        //     let tempoTotal = 0;
-        //     function repetirSom() {
-        //         if (tempoTotal < 21000) {  // 21 segundos = 21000 milissegundos
-        //             somVenda.play();
-        //             somVenda.onended = function() {
-        //                 tempoTotal += somVenda.duration * 1000;  // Adiciona a duração do áudio em milissegundos
-        //                 repetirSom();  // Chama novamente a função para repetir o áudio
-        //             };
-        //         }
-        //     }
-        //
-        //     // Iniciar a reprodução do áudio pela primeira vez
-        //     repetirSom();
-        //
-        //     // Definir um timeout para garantir que o fundo preto suma após 21 segundos
-        //     setTimeout(function() {
-        //         fundoPreto.removeClass('aparecer').addClass('ocultar');
-        //     }, 21000); // 21 segundos = 21000 milissegundos
-        // }
-
-
-
-
-        // function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
-        //     $('#rankingModal').removeClass('aparecer').addClass('ocultar');
-        //     // Elementos que irão aparecer
-        //     const fundoPreto = $("#fundo-preto");
-        //     const imagem = $("#imagem-corretor");
-        //     const vidas = $("#quantidade-vidas");
-        //     const imagem2 = $(".assumir_lider");
-        //     // Definir as informações do corretor e quantidade de vidas
-        //     vidas.text(quantidadeVidas + " Vidas");
-        //     imagem.attr("src", imagemCorretor);
-        //     imagem2.attr("src", imagemCorretor);
-        //
-        //     // Mostrar o fundo preto com a imagem do corretor e a quantidade de vidas
-        //     fundoPreto.removeClass('ocultar').addClass('aparecer');
-        //
-        //     // Iniciar o som da venda (áudio de 6 segundos)
-        //     const somVenda = new Audio('/som_venda.mp3');
-        //     somVenda.play();
-        //
-        //     // Quando o áudio terminar, ocultar a animação
-        //     somVenda.onended = function() {
-        //         fundoPreto.removeClass('aparecer').addClass('ocultar');
-        //     };
-        //     gerarConfetes();
-        //     // Definir um timeout para garantir que o fundo preto suma após 6 segundos (ou caso o áudio não termine corretamente)
-        //     setTimeout(function() {
-        //         fundoPreto.removeClass('aparecer').addClass('ocultar');
-        //     }, 6000); // 6 segundos = 6000 milissegundos
-        //
-        //
-        //     let fogosBg = $("#fogos-bg");
-        //     let fogosContainer = $("#fogos-container");
-        //     fogosBg.removeClass('ocultar').addClass('flex');
-        //
-        //     const somFogos = new Audio('fogos.mp3');
-        //     somFogos.play();
-        //     setTimeout(function() {
-        //         somFogos.pause();
-        //         somFogos.currentTime = 0;
-        //         fogosContainer.fadeOut(300);
-        //         fogosBg.fadeOut(300);
-        //         popUp.fadeOut(300);
-        //
-        //     }, 20000); // Ajuste o tempo de acordo com a duração da animação dos fogos
-        //
-        //
-        // }
 
         // Função para verificar a troca de liderança
         $("body").on('change','#user_id',function(){
@@ -1570,9 +1453,7 @@
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (res) {
-                    // if (res && res.ranking && res.ranking.length > 0) {
-                    //     verificarTrocaDeLider(res.ranking,res.venda);
-                    // }
+
                 }
             });
         });
