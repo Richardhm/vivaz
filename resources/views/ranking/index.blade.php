@@ -77,6 +77,7 @@
 
         function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
+
             // Elementos que irão aparecer
             const fundoPreto = $("#fundo-preto");
             const imagem     = $("#imagem-corretor");
@@ -87,9 +88,11 @@
             vidas.text(quantidadeVidas + " Vidas");
             imagem.attr("src", imagemCorretor);
             imagem2.attr("src", imagemCorretor);
+
             // Mostrar o fundo preto com a imagem do corretor e a quantidade de vidas
             fundoPreto.removeClass('ocultar').addClass('aparecer');
             // Iniciar o som da venda (áudio de 6 segundos)
+
             const somVenda = new Audio('/som_venda.mp3');
             somVenda.play();
             // Quando o áudio terminar, ocultar a animação
@@ -104,10 +107,13 @@
             }, 6000);
             // Começar a animação dos fogos e o som após 6 segundos
             setTimeout(function() {
-                let fogosBg = $("#fundo-preto-fogos");
-                fogosBg.find("#quantidade-vidas-fogos").text(quantidadeVidas + " Vidas");
-                $("#imagem-corretor-fogos").attr('src',imagemCorretor);
-                let fogosContainer = $("#fogos-container");
+                let fogosBg = $("#fundo-preto-fogos-sky");
+                fogosBg.find("#quantidade-vidas-fogos-sky").text(quantidadeVidas + " Vidas");
+                $("#imagem-corretor-fogos-sky").attr('src',imagemCorretor);
+                //let fogosContainer = $(".sky");
+                setInterval(() => {
+                    for (let i = 0; i < 3; i++) createRocketVenda(); // Criar vários foguetes ao mesmo tempo
+                }, 1000);
                 fogosBg.removeClass('ocultar').addClass('aparecer');
                 const somFogos = new Audio('fogos.mp3');
                 somFogos.play();
@@ -115,7 +121,8 @@
                 setTimeout(function() {
                     somFogos.pause();
                     somFogos.currentTime = 0;
-                    fogosContainer.fadeOut(300);
+                    //sky.fadeOut(4000);
+                    //fundoPreto.fadeOut(300);
                     fogosBg.removeClass('aparecer').addClass('ocultar');
                 }, 20000); // 20 segundos
             }, 6000); // Iniciar os fogos após 6 segundos (tempo da venda)
@@ -127,7 +134,6 @@
         somCarro.onerror = function(e) {
             console.error("Erro ao carregar som do carro:", e);
         };
-
         somFogos.onplay = function() {
             console.log("Som do fogos começou.");
         };
@@ -135,7 +141,7 @@
             console.error("Erro ao carregar som do fogo:", e);
         };
         var usuarioInteragiu = false;
-
+        var rocketInterval = null;
         function verificarTrocaDeLider(novoRanking, venda) {
             if(novoRanking && novoRanking.length > 0) {
                 $('#rankingModal').removeClass('aparecer').addClass('ocultar');
@@ -144,23 +150,30 @@
                     liderAtual = novoLider.nome.trim();
                     $(".assumir_lider").attr("src", venda.image);
                     $(".quantidade_vidas").text(venda.total);
-                    let popUp = $("#popup-primeiro");
+                    //let popUp = $("#popup-primeiro");
+                    let sky = $(".sky");
                     let fogosBg = $("#fogos-bg");
                     let fogosContainer = $("#fogos-container");
-                    fogosBg.removeClass('ocultar').addClass('aparecer');
+                    sky.removeClass('ocultar').addClass('aparecer');
                     if(usuarioInteragiu) {
                         isAnimating = true;
                         const somCarro = new Audio('carro_ultrapassagem.mp3');
                         somCarro.play();
+                        rocketInterval = setInterval(() => {
+                            for (let i = 0; i < 3; i++) createRocket(); // Criar vários foguetes ao mesmo tempo
+                        }, 1000);
                         somCarro.onended = function() {
-                            popUp.fadeIn(300);
+                            sky.fadeIn(300);
                             const somFogos = new Audio('fogos.mp3');
                             somFogos.play();
                             //somFogos.muted = false;
                             somFogos.onended = function() {
-                                fogosContainer.fadeOut(300);
-                                fogosBg.addClass('ocultar').removeClass("aparecer");
-                                popUp.fadeOut(4000);
+                                //fogosContainer.fadeOut(300);
+                                //fogosBg.addClass('ocultar').removeClass("aparecer");
+                                sky.fadeOut(4000);
+                                clearInterval(rocketInterval);
+                                // Limpar foguetes e partículas
+                                document.querySelectorAll('.rocket, .particle').forEach(el => el.remove());
                                 isAnimating = false;
                             };
                         };
@@ -272,27 +285,31 @@
                 transform: translateY(0);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </style>
-
-
-
-
 </head>
 <body>
+
+<div class="sky ocultar" style="display:flex;background-color: black;z-index: 50;inset: 0;position: fixed;align-items: center;justify-content: center; --tw-bg-opacity: 0.8;">
+    <div style="border-radius:10px;color:white;display:flex;flex-direction:column;margin-bottom: 20px;">
+        <!-- Header: Compacto com menos altura -->
+        <div class="header" style="flex: 0 0 10%; display: flex; align-items: center; justify-content: space-between; padding: 0 10px;width:100%;">
+            <img src="{{asset('medalha-primeiro.png')}}" style="width:100px;height:100px;" alt="">
+            <p style="font-size:1.5em; display:flex; flex-direction:column; justify-content:center; color:white; text-align:center; line-height: 1;">
+                <span style="font-size:2em; font-weight: bold;" class="quantidade_vidas"></span>
+                <span style="font-weight: bold;">Vidas</span>
+            </p>
+        </div>
+        <!-- Corpo: Diminuir o tamanho da imagem para encaixar melhor -->
+        <div class="corpo" style="display: flex; justify-content: center; align-items: flex-start;">
+            <img src="" class="assumir_lider" style="width:550px;height:550px;border-radius:50%;box-sizing:border-box;">
+        </div>
+        <!-- Footer: Mais compacto com menos altura -->
+        <div class="footer footer_ranking" style="flex: 0 0 10%;display:flex;justify-content: center;align-items:center;font-size:1.5em;color:#FFF;font-weight:bold;">
+            1º Lugar no Ranking
+        </div>
+    </div>
+</div>
+
 <div id="overlay"></div>
 <div id="loading">
     <span style="font-size:1.3em;">.</span>
@@ -697,7 +714,6 @@
             1º Lugar no Ranking
         </div>
 
-
     </div>
 </div>
 
@@ -708,6 +724,12 @@
     </div>
 </div>
 
+<div id="fundo-preto-fogos-sky" class="ocultar sky-venda" style="display:flex;background-color: black;z-index: 50;inset: 0;position: fixed;align-items: center;justify-content: center; --tw-bg-opacity: 0.8;">
+    <div class="text-center">
+        <p id="quantidade-vidas-fogos-sky" style="font-size: 2.5em; color: white; font-weight: bold;"></p>
+        <img id="imagem-corretor-fogos-sky" src="" alt="Corretor" style="width: 550px; height: 550px; border-radius: 50%; margin-top: 20px;">
+    </div>
+</div>
 
 <div id="fundo-preto" class="ocultar" style="display:flex;background-color: black;z-index: 50;inset: 0;position: fixed;align-items: center;justify-content: center; --tw-bg-opacity: 0.8;">
     <div class="text-center">
@@ -723,7 +745,7 @@
 </div>
 
 <!-- Fundo preto para a animação do carro -->
-<div id="carro-bg" class="ocultar" style="background-color:black;inset:0;position:fixed;opacity: 0.9;"></div>
+<div id="carro-bg" class="ocultar" style="background-color:black;inset:0;position:fixed;opacity:0.9;"></div>
 
 <footer id="footer-aqui">
     <div class="footer-buttons d-flex justify-content-between">
@@ -749,7 +771,6 @@
             </svg>
         </button>
     </div>
-
 
     <h3 id="tituloData" class="text-2xl font-bold text-center py-2">Histórico de Vendas Diárias - <span id="dataAtual"></span></h3>
     <table id="tabelaHistorico" style="width:100%; border-collapse:collapse; margin-top:10px;">
@@ -781,18 +802,189 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                 <path d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z" />
             </svg>
-
         </button>
         <button id="btnNext" style="background-color:#6c757d; color:white; border:none; padding:10px 15px; border-radius:5px;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                 <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
             </svg>
-
         </button>
     </div>
 
 </div>
 <div id="overlayHistorico" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:999;"></div>
+
+<script>
+    const sky = document.querySelector('.sky');
+    const sky_venda = document.querySelector('.sky-venda');
+
+    function createRocketVenda() {
+        const rocket = document.createElement('div');
+        rocket.className = 'rocket';
+
+        // Determinar a posição inicial dos foguetes (bordas da tela)
+        const edge = Math.floor(Math.random() * 4); // 0 = inferior, 1 = superior, 2 = esquerda, 3 = direita
+        let originX, originY, destinationX, destinationY;
+
+        if (edge === 0) {
+            // Inferior
+            originX = Math.random() * window.innerWidth;
+            originY = window.innerHeight;
+            destinationX = Math.random() * window.innerWidth - originX;
+            destinationY = -Math.random() * window.innerHeight;
+        } else if (edge === 1) {
+            // Superior
+            originX = Math.random() * window.innerWidth;
+            originY = 0;
+            destinationX = Math.random() * window.innerWidth - originX;
+            destinationY = Math.random() * window.innerHeight;
+        } else if (edge === 2) {
+            // Esquerda
+            originX = 0;
+            originY = Math.random() * window.innerHeight;
+            destinationX = Math.random() * window.innerWidth;
+            destinationY = Math.random() * window.innerHeight - originY;
+        } else {
+            // Direita
+            originX = window.innerWidth;
+            originY = Math.random() * window.innerHeight;
+            destinationX = -Math.random() * window.innerWidth;
+            destinationY = Math.random() * window.innerHeight - originY;
+        }
+
+        rocket.style.left = `${originX}px`;
+        rocket.style.top = `${originY}px`;
+        rocket.style.setProperty('--dx', `${destinationX}px`);
+        rocket.style.setProperty('--dy', `${destinationY}px`);
+
+        sky_venda.appendChild(rocket);
+
+        // Após o lançamento, criar a explosão
+        rocket.addEventListener('animationend', () => {
+            createExplosionVenda(
+                rocket.getBoundingClientRect().left + 7, // Centro do foguete
+                rocket.getBoundingClientRect().top + 7
+            );
+            rocket.remove();
+        });
+    }
+
+    // Função para criar foguetes
+    function createRocket() {
+        const rocket = document.createElement('div');
+        rocket.className = 'rocket';
+
+        // Determinar a posição inicial dos foguetes (bordas da tela)
+        const edge = Math.floor(Math.random() * 4); // 0 = inferior, 1 = superior, 2 = esquerda, 3 = direita
+        let originX, originY, destinationX, destinationY;
+
+        if (edge === 0) {
+            // Inferior
+            originX = Math.random() * window.innerWidth;
+            originY = window.innerHeight;
+            destinationX = Math.random() * window.innerWidth - originX;
+            destinationY = -Math.random() * window.innerHeight;
+        } else if (edge === 1) {
+            // Superior
+            originX = Math.random() * window.innerWidth;
+            originY = 0;
+            destinationX = Math.random() * window.innerWidth - originX;
+            destinationY = Math.random() * window.innerHeight;
+        } else if (edge === 2) {
+            // Esquerda
+            originX = 0;
+            originY = Math.random() * window.innerHeight;
+            destinationX = Math.random() * window.innerWidth;
+            destinationY = Math.random() * window.innerHeight - originY;
+        } else {
+            // Direita
+            originX = window.innerWidth;
+            originY = Math.random() * window.innerHeight;
+            destinationX = -Math.random() * window.innerWidth;
+            destinationY = Math.random() * window.innerHeight - originY;
+        }
+
+        rocket.style.left = `${originX}px`;
+        rocket.style.top = `${originY}px`;
+        rocket.style.setProperty('--dx', `${destinationX}px`);
+        rocket.style.setProperty('--dy', `${destinationY}px`);
+
+        sky.appendChild(rocket);
+
+        // Após o lançamento, criar a explosão
+        rocket.addEventListener('animationend', () => {
+            createExplosion(
+                rocket.getBoundingClientRect().left + 7, // Centro do foguete
+                rocket.getBoundingClientRect().top + 7
+            );
+            rocket.remove();
+        });
+    }
+
+    function createExplosionVenda(x, y) {
+        const numParticles = 60; // Aumentar o número de partículas
+        for (let i = 0; i < numParticles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            // Cor aleatória
+            particle.style.background = randomColor();
+            // Posição inicial da explosão
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+
+            // Direção aleatória da partícula
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = Math.random() * 250; // Explosão maior
+            particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
+            particle.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
+
+            sky_venda.appendChild(particle);
+
+            // Remover partícula após a explosão
+            particle.addEventListener('animationend', () => particle.remove());
+        }
+    }
+
+    // Função para criar explosões
+    function createExplosion(x, y) {
+        const numParticles = 60; // Aumentar o número de partículas
+        for (let i = 0; i < numParticles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            // Cor aleatória
+            particle.style.background = randomColor();
+
+            // Posição inicial da explosão
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+
+            // Direção aleatória da partícula
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = Math.random() * 250; // Explosão maior
+            particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
+            particle.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
+            sky.appendChild(particle);
+
+            // Remover partícula após a explosão
+            particle.addEventListener('animationend', () => particle.remove());
+        }
+    }
+
+    // Função para gerar uma cor aleatória
+    function randomColor() {
+        return `hsl(${Math.random() * 360}, 100%, 70%)`;
+    }
+
+    // Gerar foguetes periodicamente
+
+</script>
+
+
+
+
+
+
+
 
 
 
