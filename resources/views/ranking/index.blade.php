@@ -74,7 +74,7 @@
             }
 
         }
-
+        let rocketIntervalVenda = null;
         function animacaoVenda(corretor, imagemCorretor, quantidadeVidas) {
             $('#rankingModal').removeClass('aparecer').addClass('ocultar');
 
@@ -111,9 +111,9 @@
                 fogosBg.find("#quantidade-vidas-fogos-sky").text(quantidadeVidas + " Vidas");
                 $("#imagem-corretor-fogos-sky").attr('src',imagemCorretor);
                 //let fogosContainer = $(".sky");
-                setInterval(() => {
+                rocketIntervalVenda = setInterval(() => {
                     for (let i = 0; i < 3; i++) createRocketVenda(); // Criar vários foguetes ao mesmo tempo
-                }, 1000);
+                }, 2000);
                 fogosBg.removeClass('ocultar').addClass('aparecer');
                 const somFogos = new Audio('fogos.mp3');
                 somFogos.play();
@@ -121,6 +121,8 @@
                 setTimeout(function() {
                     somFogos.pause();
                     somFogos.currentTime = 0;
+                    clearInterval(rocketIntervalVenda);
+                    document.querySelectorAll('.rocket, .particle').forEach(el => el.remove());
                     //sky.fadeOut(4000);
                     //fundoPreto.fadeOut(300);
                     fogosBg.removeClass('aparecer').addClass('ocultar');
@@ -161,7 +163,7 @@
                         somCarro.play();
                         rocketInterval = setInterval(() => {
                             for (let i = 0; i < 3; i++) createRocket(); // Criar vários foguetes ao mesmo tempo
-                        }, 1000);
+                        }, 2000);
                         somCarro.onended = function() {
                             sky.fadeIn(300);
                             const somFogos = new Audio('fogos.mp3');
