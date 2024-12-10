@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Comissoes::class);
     }
 
+    public function comissoesConfig()
+    {
+        return $this->hasMany(ComissoesCorretoresConfiguracoes::class);
+    }
+
 
 
 }

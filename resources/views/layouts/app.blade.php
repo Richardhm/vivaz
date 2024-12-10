@@ -280,14 +280,13 @@
                             <svg class="w-6 h-6 text-gray-800 text-white hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
                             </svg>
-
                             <span>estrela</span>
                         </a>
                     </li>
 
 
 
-{{--                    @if(auth()->user()->can('ranking'))--}}
+                        {{--                    @if(auth()->user()->can('ranking'))--}}
 {{--                    <li text-data="vendedores" class="hover:text-black">--}}
 {{--                        <a href="#" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">--}}
 {{--                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">--}}
@@ -358,7 +357,7 @@
 
                         @if(auth()->user()->can('configuracoes'))
                             <li text-data="Conf. Comissões">
-                                <a href="{{route('corretores.listar')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                                <a href="{{route('comissoes.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                         <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 0 1-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004ZM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 0 1-.921.42Z" />
@@ -370,7 +369,14 @@
                             </li>
                         @endif
 
-
+                        <li text-data="Editar Perfil" class="hover:text-black">
+                            <a href="{{route('perfil.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                                </svg>
+                                <span>Perfil</span>
+                            </a>
+                        </li>
 
                         <li text-data="sair">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
@@ -384,6 +390,7 @@
                             <span>Sair</span>
                         </a>
                     </li>
+
                 </ul>
             </div>
 

@@ -83,8 +83,6 @@
                    return false;
                })
 
-
-
                /*****************verificar se cidade e minus estão preenchidos para aparecer administradoras*******/
                function checkFields() {
                    var hasValue = false;

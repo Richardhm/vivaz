@@ -160,6 +160,8 @@ class Comissoes extends Model
         return $this->belongsTo(User::class);
     }
 
+
+
     public function contrato()
     {
         return $this->belongsTo(Contrato::class);

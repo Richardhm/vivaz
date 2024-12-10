@@ -8,7 +8,7 @@ use App\Http\Controllers\FinanceiroController;
 use App\Http\Controllers\ImagemController;
 use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\TabelaController;
-
+use App\Http\Controllers\ComissoesController;
 
 
 use App\Http\Controllers\EstrelaController;
@@ -179,46 +179,6 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/gerente/listagem/empresarial/recebidas/{id}',[GerenteController::class,'recebidoEmpresarial'])->name('gerente.listagem.empresarial.recebidas');
     Route::get('/gerente/listagem/comissao_mes_diferente/{id}',[GerenteController::class,'comissaoMesDiferente'])->name('gerente.listagem.comissao_mes_diferente');
     Route::post('/financeiro/corretora/change',[FinanceiroController::class,'financeiroCorretoraChange'])->name('change.corretora.select');
-    Route::get("/teste",function(){
-        $hoje = \Carbon\Carbon::today();
-        $corretores = \App\Models\User::where("corretora_id",1)->where('ativo',1)->get();
-        foreach ($corretores as $corretor) {
-            // Verifica se há um registro para o corretor na data atual
-            $registro = \App\Models\RankingDiario
-                ::where('corretora_id', auth()->user()->corretora_id)
-                ->whereDate('data',$hoje)
-                ->where("nome","like","%{$corretor->name}%")
-                ->count();
-
-            // Se não houver registro, cria um novo com valores zerados
-            if ($registro == 0) {
-                \App\Models\RankingDiario::create([
-                    'nome' => $corretor->name,
-                    'corretora_id' => auth()->user()->corretora_id,
-                    'vidas_individual' => 0,
-                    'vidas_coletivo' => 0,
-                    'vidas_empresarial' => 0,
-                    'user_id' => $corretor->id,
-                    'data' => $hoje,
-                ]);
-            }
-        }
-
-        $vendasDiarias = \App\Models\RankingDiario::whereDate('data', $hoje)
-            ->get()
-            ->sortByDesc(function($venda) {
-                return $venda->vidas_individual + $venda->vidas_coletivo + $venda->vidas_empresarial;
-            });
-
-        $primeiroColocado = $vendasDiarias->first();
-
-
-        // Após garantir que todos os registros estão criados, carrega o ranking
-        //$vendasDiarias = \App\Models\RankingDiario::whereDate('data', $hoje)->get();
-
-
-       return view("teste",compact("corretores","vendasDiarias","primeiroColocado"));
-    });
 
     Route::post('/ranking/veriricar/corretor',[RankingController::class,'rankingVerificarCorretor'])->name('ranking.verificar.corretor');
     Route::post("/odonto/create",[FinanceiroController::class,'storeOdonto'])->name('odonto.create');
@@ -260,6 +220,26 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/gerente/excel/exportar/{mes}',[GerenteController::class,'exportarContratoExcel'])->name('gerente.excel.exportar');
     Route::get('/gerente/estorno/individual/{id}',[GerenteController::class,'estornoIndividual'])->name('gerente.estorno.individual');
     /******Fim Gerente*****/
+
+    /*****Comissoes*******/
+    Route::get('/comissoes',[ComissoesController::class,'index'])->name('comissoes.index');
+    Route::put('/comissoes/{plano_id}',[ComissoesController::class,'update'])->name('comissoes.update');
+    Route::post('/comissoes/post',[ComissoesController::class,'postComissoes'])->name('comissoes.post');
+    Route::post('/comissoes/update',[ComissoesController::class,'updateComissao'])->name('comissoes.update');
+    Route::post('/comissoes/parceiros',[ComissoesController::class,'buscarComissoesParceiros'])->name('comissoes.parceiros');
+    Route::post('/comissoes/atualizar', [ComissoesController::class, 'atualizarComissao'])->name('comissoes.atualizar');
+
+
+    /*****Fim Comissoes*******/
+    Route::get('/perfil',[ProfileController::class,'perfil'])->name('perfil.index');
+    Route::put('/perfil/alterar', [ProfileController::class, 'alterar'])->name('profile.alterar');
+    /*****Profile************/
+
+
+
+
+
+    /*****Profile************/
 
 
 });

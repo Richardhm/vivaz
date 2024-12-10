@@ -952,10 +952,8 @@
         for (let i = 0; i < numParticles; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
-
             // Cor aleatória
             particle.style.background = randomColor();
-
             // Posição inicial da explosão
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
@@ -966,7 +964,6 @@
             particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
             particle.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
             sky.appendChild(particle);
-
             // Remover partícula após a explosão
             particle.addEventListener('animationend', () => particle.remove());
         }
@@ -976,31 +973,14 @@
     function randomColor() {
         return `hsl(${Math.random() * 360}, 100%, 70%)`;
     }
-
     // Gerar foguetes periodicamente
-
 </script>
-
-
-
-
-
-
-
-
-
-
 <script>
-
     $(document).ready(function() {
-
         const hoje = new Date();
-
-
         const ano = hoje.getFullYear();
         const mes = (hoje.getMonth() + 1).toString().padStart(2, '0'); // Adiciona zero à esquerda
         const dia = hoje.getDate().toString().padStart(2, '0'); // Adiciona zero à esquerda
-
 
         const dataHoje = `${ano}-${mes}-${dia}`;
         function atualizarEstadoBotoes(dataAtual) {
@@ -1062,15 +1042,7 @@
                 .padStart(2, '0')}/${ano} (${diaSemana}) - ${dia}º dia do mês de ${mes}`;
         }
 
-
-
-
-
-
-
-
         let dataAtual = null; // Armazena a data sendo exibida atualmente
-
         $("#modal_historico").on("click", function () {
             carregarHistorico();
             $("#overlayHistorico").css("display", "block");
@@ -1081,8 +1053,6 @@
             $("#overlayHistorico").css("display", "none");
             $("#modalHistorico").css("display", "none");
         });
-
-
 
         // $("#fecharModal, #overlay").on("click", function () {
         //     $("#modalHistorico").hide();
@@ -1097,7 +1067,6 @@
 
         $("#btnNext").on("click", function () {
             if (dataAtual) {
-
                 carregarHistorico(dataAtual, false, true); // Avança para o próximo dia
             }
         });

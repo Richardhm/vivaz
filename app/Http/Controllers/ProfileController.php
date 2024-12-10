@@ -163,6 +163,54 @@ class ProfileController extends Controller
 
     }
 
+    public function perfil(Request $request)
+    {
+        return view('profile.atualizar');
+    }
+
+    public function alterar(Request $request)
+    {
+
+        $user = auth()->user();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'celular' => 'required|string|max:20',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+
+        // Atualizar a imagem, se enviada
+        if ($request->hasFile('image')) {
+            // Remove a imagem antiga, se existir
+            if ($user->image && file_exists(public_path($user->image))) {
+                unlink(public_path($user->image));
+            }
+
+            // Salva a nova imagem e atualiza o caminho no banco de dados
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = 'users/' . $imageName;
+
+            $image->move(public_path('users'), $imageName);
+
+            $user->image = $imagePath;
+        }
+
+        // Atualizar os campos de texto
+        $user->name = $request->input('name');
+        $user->celular = $request->input('celular');
+
+        // Atualizar a senha, se fornecida
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
+    }
+
 
 
 
