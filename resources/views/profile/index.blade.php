@@ -53,6 +53,13 @@
                 <label class="block text-lg text-white font-medium" for="large_size">Foto:</label>
                 <input class="block w-full text-lg text-gray-900 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="image" type="file">
             </div>
+
+            <div>
+                <input type="checkbox" name="clt" id="clt">CLT?
+            </div>
+
+
+
             <div class="w-full mt-2">
                 <button type="button" class="text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full salvar_user">Salvar</button>
             </div>

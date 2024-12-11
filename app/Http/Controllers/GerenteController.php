@@ -6914,9 +6914,9 @@ AS desconto,
             $logo = 'data:image/png;base64,'.base64_encode(file_get_contents(public_path("storage/".$img_logo)));
         }
 
-        $ids = explode("|",$request->ids);
+        //$ids = explode("|",$request->ids);
 
-        DB::table("comissoes_corretores_lancadas")->whereIn('id', $ids)->update(['finalizado' => 1]);
+        //DB::table("comissoes_corretores_lancadas")->whereIn('id', $ids)->update(['finalizado' => 1]);
 
         $individual = DB::select("
         SELECT
