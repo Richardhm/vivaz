@@ -36,7 +36,7 @@
             <div class="flex justify-between my-1">
                 <span class="bg-[rgba(254,254,254,0.18)] hover:cursor-pointer backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%] modal_upload">Upload</span>
                 <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%] btn-atualizar">Atualizar</span>
-                <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%]">Cancelados</span>
+                <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] text-white text-xs py-2 text-center rounded w-[30%] btn-cancelados">Cancelados</span>
             </div>
 
             {{--                    <a href="{{route('financeiro.formCreate')}}" class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[80px] text-white text-lg mb-1 py-1 rounded w-full text-center text-sm">Cadastrar</a>--}}
@@ -105,7 +105,7 @@
 
             <div class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded p-2 mb-1">
                 <ul id="cancelado_corretor">
-                    <li class="flex justify-between individual" style="height:30px;line-height: 30px;">
+                    <li class="flex justify-between individual" id="cancelado_individual" style="height:30px;line-height: 30px;">
                         <span class="text-sm">Cancelados</span>
                         <span class="bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] rounded bg-transparent text-sm text-right w-[30%] text-white pr-1 individual_quantidade_cancelado">0</span>
                     </li>

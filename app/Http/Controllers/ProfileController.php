@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -62,7 +63,7 @@ class ProfileController extends Controller
 
     public function listar()
     {
-        return view('profile.index');
+       return view('profile.index');
     }
 
     public function alterarUser(Request $request)
@@ -75,17 +76,81 @@ class ProfileController extends Controller
         $user->save();
     }
 
+    public function alterarUserCLT(Request $request)
+    {
+        $id = $request->id;
+        $user = User::find($id);
+
+        if($user->corretora_id == 1 && $request->ativo == 1) {
+            DB::table('comissoes_corretores_configuracoes')->where('user_id', $id)->delete();
+            $user->clt = 1;
+            $user->save();
+        } elseif($user->corretora_id == 1 && $request->ativo == 0) {
+
+            $configs = DB::table('comissoes_corretores_configuracoes')->where('user_id', 198)->get();
+            foreach ($configs as $config) {
+                DB::table('comissoes_corretores_configuracoes')->insert([
+                    'plano_id' => $config->plano_id,
+                    'user_id' => $id, // Atualiza para o novo user_id
+                    'administradora_id' => $config->administradora_id,
+                    'tabela_origens_id' => $config->tabela_origens_id,
+                    'valor' => $config->valor,
+                    'parcela' => $config->parcela,
+                ]);
+            }
+            $user->clt = 0;
+            $user->save();
+        } elseif($user->corretora_id == 2 && $request->ativo == 1) {
+            DB::table('comissoes_corretores_configuracoes')->where('user_id', $id)->delete();
+            $user->clt = 1;
+            $user->save();
+        } elseif($user->corretora_id == 2 && $request->ativo == 0) {
+
+            foreach ([1, 5] as $plano_id) {
+                for ($parcela = 1; $parcela <= 6; $parcela++) {
+                    DB::table('comissoes_corretores_configuracoes')->insert([
+                        'plano_id' => $plano_id,
+                        'user_id' => $id,
+                        'administradora_id' => 4,
+                        'tabela_origens_id' => 2,
+                        'valor' => $parcela === 1 ? 100 : 0,
+                        'parcela' => $parcela,
+                    ]);
+                }
+            }
+
+            // Inserções para planos coletivos
+            foreach ([1, 2, 3] as $administradora_id) {
+                for ($parcela = 1; $parcela <= 7; $parcela++) {
+                    DB::table('comissoes_corretores_configuracoes')->insert([
+                        'plano_id' => 3,
+                        'user_id' => $id,
+                        'administradora_id' => $administradora_id,
+                        'tabela_origens_id' => 2,
+                        'valor' => $parcela === 1 ? 100 : 0,
+                        'parcela' => $parcela,
+                    ]);
+                }
+            }
+
+            $user->clt = 0;
+            $user->save();
+        }
+    }
+
 
 
     public function listUser(Request $request)
     {
         //if($request->ajax()) {
-            $users = User::select('name','id','image','email','celular','ativo')
-                ->where("corretora_id",auth()->user()->corretora_id)
-                ->whereNotNull('name')
-                ->where('name', '!=', '')
-                ->orderBy("id","desc")
-                ->get();
+        $users = User::select('name', 'id', 'image', 'email', 'celular', 'ativo', 'clt')
+            ->where("corretora_id", auth()->user()->corretora_id)
+            ->whereNotNull('name')
+            ->where('name', '!=', '')
+            ->orderByDesc('ativo') // Ordena ativo=1 antes de ativo=0
+            //->orderBy('name') // Ordenação secundária por nome
+            ->get();
+
             return response()->json($users);
         //}
 
@@ -96,10 +161,7 @@ class ProfileController extends Controller
         $request->validate([
             'id' => 'required|integer|exists:users,id'  // Substitua "users" pelo nome correto da tabela
         ]);
-
-        // Encontra o usuário pelo ID
         $user = User::find($request->id); // Substitua "User" pelo modelo correto, se necessário
-
         if ($user) {
             if ($user->image) {
                 $imagePath = public_path($user->image);
@@ -107,15 +169,9 @@ class ProfileController extends Controller
                     unlink($imagePath);
                 }
             }
-
             $user->delete();
-
             return true;
-
-
         }
-
-        // Retorna uma resposta de erro se o usuário não for encontrado
         return response()->json(['message' => 'Usuário não encontrado.'], 404);
     }
 

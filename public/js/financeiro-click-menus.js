@@ -25,6 +25,15 @@ $('button[data-corretora]').on('click', function() {
     }
 });
 
+$(".btn-cancelados").on('click',function(){
+    $('#uploadCancelados').addClass('show');
+});
+
+$('#uploadCancelados .close').on('click', function() {
+    $('#uploadCancelados').removeClass('show');
+});
+
+
 $('.modal_upload').on('click', function() {
     $('#uploadModal').addClass('show');
 });
@@ -34,8 +43,7 @@ $('#uploadModal .close, #uploadModal').on('click', function() {
 });
 
 $("body").on('click','.vincular_estagiario',function(){
-    console.log("Olaaaaaaaaaaaaaa");
-    $('#myModalVincularEstagiario').removeClass('hidden').addClass('flex');
+   $('#myModalVincularEstagiario').removeClass('hidden').addClass('flex');
 });
 
 $(document).on('click', function(event) {
@@ -148,10 +156,6 @@ $('body').on('click','#btnVincular',function(){
    })
 
 });
-
-
-
-
 
 
 

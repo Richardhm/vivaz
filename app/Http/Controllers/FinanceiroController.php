@@ -682,15 +682,7 @@ class FinanceiroController extends Controller
         } else {
             return null;
         }
-
     }
-
-
-
-
-
-
-
 
     public function sincronizarBaixasJaExiste(Request $request)
     {
@@ -2543,6 +2535,33 @@ class FinanceiroController extends Controller
         }
     }
 
+    public function modalEmpresarialGerente(Request $request)
+    {
+        $id = $request->id;
+        $dados = ContratoEmpresarial
+            ::where("id", $id)
+            ->select("*")
+            ->selectRaw("(select name from users where users.id = contrato_empresarial.user_id) as vendedor")
+            ->selectRaw("(select nome from planos where planos.id = contrato_empresarial.plano_id) as plano")
+            ->selectRaw("(select nome from tabela_origens where tabela_origens.id = contrato_empresarial.tabela_origens_id) as tabela_origem")
+            ->with(
+                [
+                    "financeiro",
+                    "comissao",
+                    "comissao.comissoesLancadas",
+                    'comissao.comissaoAtualFinanceiro',
+                    'comissao.comissaoAtualLast'
+                ]
+            )
+            ->first();
+
+        return view('financeiro.modal-empresarial-gerente',[
+           'dados' => $dados
+        ]);
+    }
+
+
+
     public function modalEmpresarial(Request $request)
     {
         $id = $request->id;
@@ -3189,12 +3208,11 @@ class FinanceiroController extends Controller
             $cidade = "";
             foreach ($reader->getSheetIterator() as $sheet) {
                 foreach ($sheet->getRowIterator() as $rowNumber => $row) {
-                    if($rowNumber > 1) {
+                    if($rowNumber >= 1) {
                         $cells = $row->getCells();
                         $cart = $cells[1]->getValue();
                         $status = $cells[4]->getValue();
                         $nome = $cells[3]->getValue();
-
                         if($status == "CANCELADO") {
                             $carteirinha = Cliente
                                 ::select('clientes.*')

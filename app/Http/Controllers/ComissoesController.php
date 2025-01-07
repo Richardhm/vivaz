@@ -17,7 +17,12 @@ class ComissoesController extends Controller
         $comissoes = "";
 
         $parceiros = User::where('corretora_id', auth()->user()->corretora_id)
-            ->whereHas('comissoesConfig')
+            ->where(function ($query) {
+                $query->whereHas('comissoesConfig') // Verifica se o usuário está relacionado em comissoesConfig
+                ->orWhere('clt', 0)          // Ou se a coluna clt é igual a 1
+                ->where("estagiario",0)
+                ->where("ativo",1);
+            })
             ->get();
 
         // Mapeamento das administradoras
@@ -53,7 +58,6 @@ class ComissoesController extends Controller
     public function buscarComissoesParceiros(Request $request)
     {
         $user_id = $request->input('user_id');
-
         $comissoes = \DB::table('comissoes_corretores_configuracoes')
             ->join('planos', 'comissoes_corretores_configuracoes.plano_id', '=', 'planos.id')
             ->leftJoin('administradoras', 'comissoes_corretores_configuracoes.administradora_id', '=', 'administradoras.id')
@@ -70,7 +74,6 @@ class ComissoesController extends Controller
                 }
                 return $item->plano_nome;
             });
-
         return response()->json($comissoes);
     }
 
@@ -98,15 +101,6 @@ class ComissoesController extends Controller
         }
     }
 
-
-
-
-
-
-
-
-
-
     public function update(Request $request, $planoId)
     {
         $comissoes = $request->input('comissoes');
@@ -121,16 +115,12 @@ class ComissoesController extends Controller
     {
         $comissaoId = $request->input('comissao_id');
         $novoValor = $request->input('valor');
-
         $comissao = ComissoesCorretoresDefault::find($comissaoId);
-
         if ($comissao) {
             $comissao->valor = $novoValor;
             $comissao->save();
-
             return response()->json(['success' => true, 'message' => 'Valor atualizado com sucesso!']);
         }
-
         return response()->json(['success' => false, 'message' => 'Comissão não encontrada.'], 404);
     }
 
@@ -138,16 +128,9 @@ class ComissoesController extends Controller
     public function postComissoes(Request $request)
     {
         $planoId = $request->input('plano_id');
-
         // Mapeamento das administradoras
-        $administradoras = [
-            1 => 'AllCare',
-            2 => 'Qualicorp',
-            3 => 'Alter',
-        ];
-
+        $administradoras = [1=>'AllCare',2 => 'Qualicorp',3 => 'Alter'];
         $comissoesPorAdministradora = [];
-
         if ($planoId == 3) {
             $comissoes = ComissoesCorretoresDefault::where('plano_id', $planoId)
                 ->where("corretora_id",auth()->user()->corretora_id)

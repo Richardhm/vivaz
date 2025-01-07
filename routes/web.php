@@ -9,7 +9,7 @@ use App\Http\Controllers\ImagemController;
 use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\TabelaController;
 use App\Http\Controllers\ComissoesController;
-
+use \App\Http\Controllers\ClienteController;
 
 use App\Http\Controllers\EstrelaController;
 use App\Http\Controllers\RankingController;
@@ -61,6 +61,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::post("/store/corretores",[ProfileController::class,'storeUser'])->name('corretores.store');
     Route::post("/destroy/corretore",[ProfileController::class,'destroyUser'])->name('destroy.corretor');
     Route::post('/alterar/corretor',[ProfileController::class,'alterarUser'])->name('corretores.alterar');
+    Route::post('/alterar/user/corretor',[ProfileController::class,'alterarUserCLT'])->name('corretores.user.alterar');
     /*******Corretores*********/
 
     Route::get('/orcamento',[OrcamentoController::class,'index'])->name('orcamento');
@@ -95,7 +96,10 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/financeiro/detalhes/coletivo/{id}',[FinanceiroController::class,'detalhesContratoColetivo'])->name('financeiro.detalhes.contrato.coletivo');
     Route::post('/financeiro/modal/individual',[FinanceiroController::class,'modalIndividual'])->name('financeiro.modal.contrato.individual');
     Route::post('/financeiro/modal/coletivo',[FinanceiroController::class,'modalColetivo'])->name('financeiro.modal.contrato.coletivo');
+
     Route::post('/financeiro/modal/empresarial',[FinanceiroController::class,'modalEmpresarial'])->name('financeiro.modal.contrato.empresarial');
+    Route::post('/financeiro/gerente/modal/empresarial',[FinanceiroController::class,'modalEmpresarialGerente'])->name('financeiro.gerente.modal.contrato.empresarial');
+
     Route::post('/financeiro/excluir',[FinanceiroController::class,'excluirCliente'])->name('financeiro.excluir.cliente');
     Route::post('/financeiro/empresarial/excluir',[FinanceiroController::class,'excluirEmpresarial'])->name('financeiro.excluir.empresarial');
     Route::post('/financeiro/cancelar/empresarial',[FinanceiroController::class,'cancelarEmpresarial'])->name('financeiro.cancelar.empresarial');
@@ -116,6 +120,9 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/financeiro/zerar/tabela',[FinanceiroController::class,'zerarTabelaFinanceiro'])->name('financeiro.zerar.financeiro');
     Route::get('/financeiro/coletivo/em_geral',[FinanceiroController::class,'coletivoEmGeral'])->name('financeiro.coletivo.em_geral');
     Route::get('/contratos/empendentes/empresarial',[FinanceiroController::class,'listarContratoEmpresaPendentes'])->name('contratos.listarEmpresarial.listarContratoEmpresaPendentes');
+
+
+
     Route::post('/financeiro/sincronizar/cancelados',[FinanceiroController::class,'sincronizarCancelados'])->name('financeiro.sincronizar.cancelados');
     Route::post('/financeiro/atualizar_dados',[FinanceiroController::class,'atualizarDados'])->name('financeiro.atualizar.dados');
     Route::post('/financeiro/sincronizar_baixas',[FinanceiroController::class,'sincronizarBaixas'])->name('financeiro.sincronizar.baixas');
@@ -138,16 +145,13 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::post("/dashboard/tabela/ranking/mes",[HomeController::class,'dashboardTabelaRankingmes'])->name("dashboard.tabela.ranking.mes");
     Route::post("/dashboard/ranking/ano",[HomeController::class,'dashboardRankingano'])->name("dashboard.ranking.ano");
     Route::post("/dashboard/grafico/ano",[HomeController::class,'dashboardGraficoAno'])->name("grafico.mudar.ano");
+    Route::post('/financeiro/sincronizar/cancelados',[FinanceiroController::class,'sincronizarCancelados'])->name('financeiro.sincronizar.cancelados');
     /******Fim Home*****/
 
     /******Gerente*****/
     Route::get('/gerente',[GerenteController::class,'index'])->name('gerente.index');
-
     Route::post('/gerente/abrir/modal/individual',[GerenteController::class,'gerenteModalIndividual'])->name('gerente.modal.individual');
     Route::post('/gerente/abrir/modal/coletivo',[GerenteController::class,'gerenteModalColetivo'])->name('gerente.modal.coletivo');
-
-
-
     Route::post('/gerente/pegartodos',[GerenteController::class,'pegarTodososDados'])->name('gerente.todos.valores.usuario');
     Route::get('/gerente/listagem',[GerenteController::class,'listagem'])->name('gerente.listagem.em_geral');
     Route::get('/gerente/concluidos',[GerenteController::class,'concluidos'])->name('gerente.listagem.concluidos');
@@ -233,13 +237,13 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     /*****Fim Comissoes*******/
     Route::get('/perfil',[ProfileController::class,'perfil'])->name('perfil.index');
     Route::put('/perfil/alterar', [ProfileController::class, 'alterar'])->name('profile.alterar');
-    /*****Profile************/
 
-
-
-
-
-    /*****Profile************/
+    /*****Meus Clientes************/
+    Route::get('/clientes',[ClienteController::class,'index'])->name('clientes.index');
+    Route::get('/clientes/listar',[ClienteController::class,'listar'])->name('clientes.listar');
+    Route::get('/clientes/coletivo/listar',[ClienteController::class,'listarColetivo'])->name('clientes.coletivo.listar');
+    Route::get('/clientes/empresarial/listar',[ClienteController::class,'listarEmpresarial'])->name('clientes.empresarial.listar');
+    /*****Meus Clientes************/
 
 
 });

@@ -7,8 +7,9 @@
                 <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Editar</th>
-                    <th>Ligar/Desligar</th>
+                    <th style="text-align: center;"  class="text-center">Ligar/Desligar</th>
+                    <th style="text-align: center;">CLT/Parceiro</th>
+                    <th style="text-align: center;">Editar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,12 +54,6 @@
                 <label class="block text-lg text-white font-medium" for="large_size">Foto:</label>
                 <input class="block w-full text-lg text-gray-900 bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="image" type="file">
             </div>
-
-            <div>
-                <input type="checkbox" name="clt" id="clt">CLT?
-            </div>
-
-
 
             <div class="w-full mt-2">
                 <button type="button" class="text-white bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full salvar_user">Salvar</button>
@@ -251,20 +246,21 @@
                     "responsive": true,
                     columns: [
                         {data:"name",name:"name"},
-                        {data:"id",name:"id"},
-                        { data: null, name: "toggle", orderable: false, searchable: false }
+                        { data: null, name: "toggle", orderable: false, searchable: false },
+                        { data: null, name: "toggle_clt", orderable: false, searchable: false },
+                        {data:"id",name:"id"}
                     ],
                     "columnDefs": [
                         {
-                            "targets": 1,
+                            "targets": 3,
                             "createdCell": function (td, cellData, rowData, row, col) {
                                 let id = cellData;
                                 let nome = rowData.name;
                                 let celular = rowData.celular ?? "";
                                 let imagem = rowData.image;
                                 let email = rowData.email;
-                                $(td).html(`<div class='text-center text-white'>
-                                        <a href="#" class="text-white ver_info" data-email="${email}" data-id="${id}" data-nome="${nome}" data-celular="${celular}" data-imagem="${imagem}">
+                                $(td).html(`<div class='text-right text-white flex justify-center' style="text-align:right;">
+                                        <a href="#" class="text-white ver_info text-right" style="text-align:right;" data-email="${email}" data-id="${id}" data-nome="${nome}" data-celular="${celular}" data-imagem="${imagem}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 div_info">
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -275,10 +271,10 @@
                             }
                         },
                         {
-                            "targets": 2, // Índice da nova coluna
+                            "targets": 1, // Índice da nova coluna
                             "createdCell": function (td, cellData, rowData, row, col) {
                                 let id = rowData.id;
-                                let status = rowData.ativo == 0 ? '' : 'checked'; // Verifica o valor de 'ativo'
+                                let status = rowData.ativo == 1 ? 'checked' : ''; // Verifica o valor de 'ativo'
 
                                 // Criando o botão de Ligar/Desligar
                                 $(td).html(`
@@ -286,6 +282,26 @@
                                         <input type="checkbox" class="toggle-switch" data-id="${id}" ${status}>
                                         <span class="slider"></span>
                                     </label>
+                                `);
+                            }
+                        },
+                        {
+                            "targets": 2, // Índice da nova coluna CLT
+                            "createdCell": function (td, cellData, rowData, row, col) {
+                                let id = rowData.id;
+                                let isClt = rowData.clt == 1 ? 'checked' : ''; // Verifica se o CLT é 1
+                                let isParceiro = rowData.clt == 0 ? 'checked' : ''; // Verifica se o CLT é 0
+
+                                // Adiciona os botões radio para CLT e Parceiro
+                                $(td).html(`
+                                    <div class="flex justify-around items-center">
+                                        <label class="radio-label">
+                                            <input type="radio" name="clt_${id}" class="radio-clt" data-id="${id}" value="1" ${isClt}> CLT
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="clt_${id}" class="radio-parceiro" data-id="${id}" value="0" ${isParceiro}> Parceiro
+                                        </label>
+                                    </div>
                                 `);
                             }
                         }
@@ -301,6 +317,25 @@
                 });
             }
             inicializarTable();
+
+            $(document).on('change', '.radio-clt, .radio-parceiro', function () {
+                let userId = $(this).data('id');
+                let status = $(this).val();
+
+                $.ajax({
+                   url:"{{route('corretores.user.alterar')}}",
+                   method:"POST",
+                   data: {
+                       id: userId,
+                       ativo: status
+                   },
+                   success:function(res) {
+                       console.log(res);
+                   }
+                });
+
+            });
+
 
             $(document).on('change', '.toggle-switch', function () {
                 let userId = $(this).data('id');
@@ -318,9 +353,6 @@
                         console.log(res);
                     }
                 });
-
-
-
             });
 
 
@@ -394,6 +426,10 @@
         .estilo_btn_plus:hover {background-color:rgba(255,255,255,0.8);box-shadow:rgba(0,0,0,1) 0.1em 0.2em 5px;}
         .estilo_btn_plus:hover i {color: #000 !important;}
         .texto-branco {color: #fff;}
+
+
+
+
 
     </style>
 @stop

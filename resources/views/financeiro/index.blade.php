@@ -6,6 +6,7 @@
 
         <!-- Modal -->
         <script>
+
             var urlGeralIndividualPendentes = "{{ route('financeiro.individual.geralIndividualPendentes') }}";
             var urlGeralColetivoPendentes = "{{ route('financeiro.coletivo.em_geral') }}";
             var editarAdministradoraChange = "{{route('financeiro.administradora.change')}}"
@@ -53,6 +54,35 @@
     </div>
     <x-upload-modal></x-upload-modal>
     <x-upload-atualizar></x-upload-atualizar>
+
+        <div id="uploadCancelados" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadCanceladosLabel">Cancelados</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="POST" name="formulario_cancelados" id="formulario_cancelados" enctype="multipart/form-data">
+                            <input type="hidden" name="_token" value="i524MANFIfAQJZREDJDrXQnmGwbTztwzbKviczIP">                        <div class="d-flex">
+                                <div style="flex-basis:90%;margin-right:2%;">
+                                    <label for="arquivo_cancelados">Arquivo:</label>
+                                    <input type="file" name="arquivo_cancelados" id="arquivo_cancelados" class="form-control form-control-sm">
+                                </div>
+                                <div class="btn btn-danger d-flex align-self-end div_icone_arquivo_upload" style="flex-basis:5%;">
+                                    <i class="fas fa-window-close fa-lg"></i>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
         <!-- O container de loading com 3 pontinhos -->
         <div id="loading-overlay" class="ocultar" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
@@ -156,13 +186,12 @@
         </div>
 
         <section class="conteudo_abas mt-2" style="width:95%;margin:0 auto;">
-        <x-aba-individual></x-aba-individual>
-        <x-aba-coletivo></x-aba-coletivo>
-        <x-aba-empresarial></x-aba-empresarial>
-        @if(auth()->user()->corretora_id == 1)
-            <x-aba-odonto></x-aba-odonto>
-        @endif
-
+            <x-aba-individual></x-aba-individual>
+            <x-aba-coletivo></x-aba-coletivo>
+            <x-aba-empresarial></x-aba-empresarial>
+            @if(auth()->user()->corretora_id == 1)
+                <x-aba-odonto></x-aba-odonto>
+            @endif
         </section>
 
     <script>

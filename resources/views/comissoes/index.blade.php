@@ -64,27 +64,9 @@
                         </div>
                     </div>
                 </div>
-
-
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
-
-
-
     @section('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function () {

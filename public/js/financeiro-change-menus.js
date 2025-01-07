@@ -155,6 +155,38 @@ $("body").on('change','.mudar_empresarial',function(){
 });
 
 
+$("#arquivo_cancelados").on('change',function(){
+    let files = $('#arquivo_cancelados')[0].files;
+    let load = $(".ajax_load");
+    // let file = $(this).val();
+    let fd = new FormData();
+    fd.append('file',files[0]);
+    // fd.append('file',e.target.files[0]);
+    $.ajax({
+        url:cancelarIndividual,
+        method:"POST",
+        data:fd,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            load.fadeIn(200).css("display", "flex");
+            $('#uploadCancelados').removeClass('show');
+            //$('#uploadModal').modal('hide');
+        },
+        success:function(res) {
+            if(res == "sucesso") {
+                window.location.reload();
+            }
+
+        }
+    });
+
+
+
+});
+
+
+
 
 $("body").on('change','.mudar_coletivo',function(){
     let alvo = $(this).attr('id');
@@ -214,16 +246,12 @@ $("body").on("change",".mudar_empresarial_valor",function(){
 $("body").on("change","#change_administradora_coletivo",function(){
    let id = $(this).val();
    let id_cliente = $("#id_cliente").val();
-
-   console.log("id ",id);
-   console.log("id_cliente ",id_cliente);
-
     $.ajax({
         url:editarAdministradoraChange,
         method:"POST",
         data:"administradora_id="+id+"&id_cliente="+id_cliente,
         success:function(res) {
-            console.log(res);
+
             //table.ajax.reload();
         }
     });

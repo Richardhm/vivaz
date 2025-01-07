@@ -15,7 +15,6 @@
                             <label for="arquivo">Arquivo:</label>
                             <input type="file" name="arquivo_upload" id="arquivo_upload" class="form-control form-control-sm">
                         </div>
-
                     </div>
                 </form>
             </div>

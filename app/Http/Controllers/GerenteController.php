@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\MudarStatusParaNaoPagoJob;
+use App\Models\Comissoes;
 use App\Models\Contrato;
 
 use App\Models\Odonto;
@@ -29,6 +31,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Barryvdh\DomPDF\Facade\Pdf as PDFFile;
+use App\Jobs\ProcessarPagamentoJob;
 
 class GerenteController extends Controller
 {
@@ -1244,9 +1247,6 @@ class GerenteController extends Controller
             ->whereMonth("data",$mes)
             ->whereYear("data",$ano)
             ->first();
-
-
-
 
         $users_select = DB::table('valores_corretores_lancados')
             ->selectRaw("(SELECT NAME FROM users WHERE users.id = valores_corretores_lancados.user_id) AS name,user_id as id")
@@ -4393,10 +4393,6 @@ class GerenteController extends Controller
             $total = $comissao - $desconto;
         }
 
-
-        $this->recalcularValoresMesAno($id,$mes,$ano);
-
-
         $users = DB::select("
             select name as user,users.id as user_id,valor_total as total from
             valores_corretores_lancados
@@ -4870,43 +4866,10 @@ class GerenteController extends Controller
 
     public function mudarStatusParaNaoPago(Request $request)
     {
-
-        $ca = ComissoesCorretoresLancadas::where("id",$request->id)->first();
-        $ca->status_apto_pagar = 0;
-        $ca->status_comissao = 0;
-        $ca->finalizado = 0;
-        $ca->data_baixa_finalizado  = null;
-        $ca->data_antecipacao = null;
-        $ca->save();
-
-        $va = ValoresCorretoresLancados::where("user_id",$request->user_id)->whereMonth("data",$request->mes)->first();
-        if($va) {
-            $va->valor_total = str_replace([".",","],["","."], $request->total);
-            $va->valor_desconto = str_replace([".",","],["","."], $request->desconto);
-            $va->valor_premiacao = str_replace([".",","],["","."], $request->premiacao);
-            $va->valor_comissao = str_replace([".",","],["","."],$request->comissao);
-            $va->valor_salario = str_replace([".",","],["","."],$request->salario);
-            $va->save();
-        }
-
-        if($va->valor_total == 0) {
-            $user_name = User::find($request->user_id)->name;
-            $del = ValoresCorretoresLancados::where("user_id",$request->user_id)->whereMonth("data",$request->mes);
-            $del->delete();
-            return [
-                "resposta" => "deletar",
-                "user_id" => $request->user_id,
-                "name" => $user_name
-            ];
-
-
-
-        }
-
-        return [
-            "resposta" => "sucesso"
-        ];
+        MudarStatusParaNaoPagoJob::dispatch($request->all());
+        return response()->json(["resposta" => "sucesso"]);
     }
+
 
 //    private function recalcularValoresMesAno($user_id,$mes, $ano)
 //    {
@@ -4956,8 +4919,6 @@ class GerenteController extends Controller
     {
         // Data base para referência
         $data_comissao = date("$ano-$mes-01");
-
-
         // Buscar todos os user_ids relacionados, exceto o atual
         $corretores = ComissoesCorretoresLancadas::whereMonth('data_baixa_finalizado', $mes)
             ->whereYear('data_baixa_finalizado', $ano)
@@ -5037,51 +4998,24 @@ class GerenteController extends Controller
 
     public function aptarPagamento(Request $request)
     {
-        $id = $request->id;
-        $user_id = $request->user_id;
-        $mes = $request->mes;
-        $ano = $request->ano;
-        $data_comissao = date($ano."-".$mes."-01");
-        $co = ComissoesCorretoresLancadas::where("id",$id)->first();
-        $co->status_apto_pagar = 1;
-        $co->status_comissao = 1;
-        $co->finalizado = 1;
-        //$co->desconto = $request->desconto;
-        $co->data_baixa_finalizado = $data_comissao;
-        $co->save();
+        // Dados a serem enviados para o Job
+        $dados = [
+            'id' => $request->id,
+            'user_id' => $request->user_id,
+            'mes' => $request->mes,
+            'ano' => $request->ano,
+            'comissao' => str_replace([".",","],["","."], $request->comissao),
+            'salario' => str_replace([".",","],["","."], $request->salario),
+            'premiacao' => str_replace([".",","],["","."], $request->premiacao),
+            'total' => str_replace([".",","],["","."], $request->total),
+            'desconto' => $request->desconto,
+            'estorno' => str_replace([".",","],["","."], $request->estorno),
+        ];
 
-        $va = ValoresCorretoresLancados::where("user_id",$user_id)->where("corretora_id",auth()->user()->corretora_id)->whereMonth('data',$request->mes)->whereYear('data',$request->ano);
-        if($va->count() == 0) {
+        // Despacha o Job
+        ProcessarPagamentoJob::dispatch($dados);
 
-            $va = new ValoresCorretoresLancados();
-            $va->user_id = $user_id;
-            $va->valor_comissao = str_replace([".",","],["","."], $request->comissao);
-            $va->valor_salario = str_replace([".",","],["","."], $request->salario);
-            $va->valor_premiacao = str_replace([".",","],["","."], $request->premiacao);
-            $va->valor_total = str_replace([".",","],["","."], $request->total);
-            $va->valor_desconto = $request->desconto;
-            $va->data = $data_comissao;
-            $va->valor_estorno = str_replace([".",","],["","."], $request->estorno);
-            $va->corretora_id = auth()->user()->corretora_id;
-            $va->save();
-            $id_folha_mes=FolhaMes::whereMonth("mes",$mes)->where("corretora_id",auth()->user()->corretora_id)->whereYear("mes",$ano)->first()->id;
-            $folha = new FolhaPagamento();
-            $folha->folha_mes_id = $id_folha_mes;
-            $folha->valores_corretores_lancados_id = $va->id;
-            $folha->save();
-        } else {
-            $alt = $va->first();
-            $alt->valor_comissao = str_replace([".",","],["","."], $request->comissao);
-            $alt->valor_salario = str_replace([".",","],["","."], $request->salario);
-            $alt->valor_premiacao = str_replace([".",","],["","."], $request->premiacao);
-            $alt->valor_total = str_replace([".",","],["","."], $request->total);
-            $alt->valor_desconto = $request->desconto;
-            $alt->valor_estorno = str_replace([".",","],["","."], $request->estorno);
-            $alt->save();
-        }
-
-        return $request->all();
-
+        //return response()->json(['message' => 'Pagamento processado com sucesso.']);
     }
 
     public function comissaoListagemConfirmadasMesEspecifico(Request $request)
@@ -5328,7 +5262,7 @@ and comissoes_corretores_lancadas.data_baixa_estorno IS NULL
         $plano = $request->plano;
         if($plano != 0) {
             $dados = DB::select("
-SELECT
+    SELECT
     (SELECT nome FROM administradoras WHERE administradoras.id = comissoes.administradora_id) AS administradora,
     (select name from users where users.id = comissoes.user_id) as corretor,
     DATE_FORMAT(contratos.created_at,'%d/%m/%Y') as created_at,
@@ -6674,8 +6608,22 @@ AS desconto,
     public function aplicarDescontoCorretor(Request $request)
     {
         $id = $request->id;
-        $desconto = $request->desconto;
+        $desconto = str_replace([".",","],["","."],$request->porcentagem);
         $ca = ComissoesCorretoresLancadas::where("id",$id)->first();
+        $comissao_id = $ca->comissoes_id;
+        $comissao = Comissoes::where("id",$comissao_id)->first();
+        if($comissao->empresarial == 0) {
+            $contrato = Contrato::find($comissao->contrato_id);
+            $contrato->desconto_corretor = $desconto;
+            $contrato->save();
+        } else {
+            $contrato_empresarial = ContratoEmpresarial::find($comissao->contrato_empresarial_id);
+            $contrato_empresarial->desconto_corretor = $desconto;
+            $contrato_empresarial->save();
+        }
+
+
+
         $ca->desconto = $desconto;
         $ca->save();
         return true;

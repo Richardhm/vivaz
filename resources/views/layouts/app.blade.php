@@ -23,6 +23,7 @@
         <script src="{{asset('js/toastr.min.js')}}"></script>
         <link rel="stylesheet" href="{{asset('assets/datatables.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
+        <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="{{asset('js/select2.min.js')}}"></script>
@@ -77,7 +78,7 @@
             /*.interruptor.ligado {background-color: #4caf50;}*/
             /*.interruptor.ligado::before {transform: translateX(30px);}*/
 
-            .switch {position: relative;display: inline-block;width: 40px;height: 20px;}
+            .switch {position: relative;display: flex;width: 40px;height: 20px;margin:0 auto;justify-content: center;}
             .switch input {opacity: 0;width: 0;height: 0;}
             .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;transition: .4s;border-radius: 20px;}
             .slider:before {position: absolute;content: "";height: 16px;width: 16px;left: 2px;bottom: 2px;background-color: white;transition: .4s;border-radius: 50%;}
@@ -156,6 +157,43 @@
                 font-weight: bold;
                 border-radius:10px;
                 color:black;
+            }
+
+            .radio-clt:checked + label::before,
+            .radio-parceiro:checked + label::before {
+                background-color: #4caf50; /* Verde para checked */
+                border-color: #4caf50;
+            }
+
+            /* Estilizar o input radio */
+            .radio-label input[type="radio"] {
+                appearance: none; /* Remove o estilo padrão */
+                margin-right: 5px;
+                width: 24px;
+                height: 24px;
+                border: 2px solid #ccc;
+                border-radius: 50%;
+                display: inline-block;
+                position: relative;
+                cursor: pointer;
+            }
+
+            .radio-label input[type="radio"]:checked {
+                border-color: #4caf50;
+                background-color: #4caf50;
+            }
+
+            .radio-label input[type="radio"]:checked::after {
+                content: '';
+                display: block;
+                width: 8px;
+                height: 8px;
+                background-color: #4caf50;
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
 
 
@@ -368,6 +406,16 @@
                                 </a>
                             </li>
                         @endif
+
+                        <li text-data="Meus Clientes" class="hover:text-black">
+                            <a href="{{route('clientes.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                    <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+                                </svg>
+                                <span>Meus Clientes</span>
+                            </a>
+                        </li>
+
 
                         <li text-data="Editar Perfil" class="hover:text-black">
                             <a href="{{route('perfil.index')}}" class="flex items-center justify-center flex-col align-middle content-center hover:text-black">

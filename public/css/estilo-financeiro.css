@@ -105,7 +105,8 @@ input[readonly] {
 }
 
 
-#uploadModal {
+#uploadModal,
+#uploadCancelados {
     position: fixed;
     top: 0;
     left: 0;
@@ -121,7 +122,8 @@ input[readonly] {
     transition: opacity 0.3s ease;
 }
 
-#uploadModal .modal-dialog {
+#uploadModal .modal-dialog,
+#uploadCancelados .modal-dialog {
     width: 80%;
     padding: 50px;
     margin: auto;
@@ -130,40 +132,54 @@ input[readonly] {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-#uploadModal .modal-content {
+#uploadModal .modal-content,
+#uploadCancelados .modal-content
+{
     padding: 20px;
     background-color: #f9f9f9; /* Fundo leve para o conteúdo */
     border-radius: 8px; /* Canto arredondado para o conteúdo */
 }
-#uploadModal .modal-header {
+
+#uploadModal .modal-header,
+#uploadCancelados .modal-header
+{
     padding-bottom: 15px;
     border-bottom: 1px solid #ddd; /* Linha sutil abaixo do cabeçalho */
     display:flex;
     justify-content: space-between;
 }
 
-#uploadModal .modal-title {
+#uploadModal .modal-title,
+#uploadCancelados .modal-title
+{
     font-size: 1.5rem;
     color: #333; /* Cor do título */
 }
 
-#uploadModal .close {
+#uploadModal .close,
+#uploadCancelados .close
+{
     color: black; /* Cor do botão de fechar */
     font-size: 2em;
-
 }
 
-#uploadModal .close:hover {
+#uploadModal .close:hover,
+#uploadCancelados .close:hover
+{
     color: #000; /* Cor ao passar o mouse sobre o botão de fechar */
     opacity: 1;
 }
 
-#uploadModal label {
+#uploadModal label,
+#uploadCancelados label
+{
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-#uploadModal input[type="file"] {
+#uploadModal input[type="file"],
+#uploadCancelados input[type="file"]
+{
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -171,7 +187,9 @@ input[readonly] {
     box-sizing: border-box; /* Garante que o padding não ultrapasse a largura */
 }
 
-#uploadModal .btn-danger {
+#uploadModal .btn-danger,
+#uploadCancelados .btn-danger
+{
     background-color: #e3342f;
     border: none;
     border-radius: 4px;
@@ -179,18 +197,22 @@ input[readonly] {
     cursor: pointer;
 }
 
-#uploadModal .btn-danger:hover {
+#uploadModal .btn-danger:hover,
+#uploadCancelados .btn-danger:hover
+{
     background-color: #cc1f1a;
 }
 
-
-
-#uploadModal.show {
+#uploadModal.show,
+#uploadCancelados.show
+{
     display: flex;
     opacity: 1;
 }
 
-#uploadModal {
+#uploadModal,
+#uploadCancelados
+{
     background-color: rgba(0, 0, 0, 0.4); /* Fundo mais leve */
 }
 
