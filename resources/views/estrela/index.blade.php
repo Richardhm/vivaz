@@ -114,22 +114,22 @@
                                     <div class="text-white rounded-md w-full text-left">{{$r->usuario}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="text-white rounded-md w-full">{{$r->julho}}</div>
+                                    <div class="text-white rounded-md w-full">{{$semestre == 1 ? $r->janeiro : $r->julho}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="text-white rounded-md w-full">{{$r->agosto}}</div>
+                                    <div class="text-white rounded-md w-full">{{$semestre == 1 ? $r->fevereiro : $r->agosto}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="text-white rounded-md w-full">{{$r->setembro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$semestre == 1 ? $r->marco : $r->setembro}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="text-white rounded-md w-full">{{$r->outubro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$semestre == 1 ? $r->abril : $r->outubro}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="text-white rounded-md w-full">{{$r->novembro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$semestre == 1 ? $r->maio : $r->novembro}}</div>
                                 </td>
                                 <td class="p-0" style="width:5.6%; text-align: center;">
-                                    <div class="text-white rounded-md w-full">{{$r->dezembro}}</div>
+                                    <div class="text-white rounded-md w-full">{{$semestre == 1 ? $r->junho : $r->dezembro}}</div>
                                 </td>
                                 <td style="width:5.6%">
                                     <div style="color:#FFF;border-radius:8px;width:90%;padding:3px;">

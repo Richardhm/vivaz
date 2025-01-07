@@ -13,9 +13,13 @@ class EstrelaController extends Controller
         $mes_atual = date("m");
         $ano_atual = date("Y");
 
+
+
         $semestre = ($mesAtualN < 7) ? 1 : 2;
         $semestreAtual = "";
         if ($semestre == 1) {
+
+
             $mesAtualN = date('n');
             $ano_atual = date("Y");
 
@@ -23,6 +27,10 @@ class EstrelaController extends Controller
             $startDate = ($semestre == 1) ? "$ano_atual-01-01" : "$ano_atual-07-01";
             $endDate = ($semestre == 1) ? "$ano_atual-06-30" : "$ano_atual-12-31";
             $semestreAtual = "$semestre/$ano_atual";
+
+
+
+
 
             $ranking_semestre = DB::select("
         SELECT
@@ -59,6 +67,7 @@ class EstrelaController extends Controller
 
 
         } else {
+
             // Segundo semestre (de julho a dezembro)
             $startDate = $ano_atual . "-07-01";
             $endDate = $ano_atual . "-12-31";
