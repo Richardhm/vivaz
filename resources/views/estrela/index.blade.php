@@ -55,32 +55,38 @@
                         </th>
                         <th style="width:5.6%">
                             <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
-                                JUL<br />25 Vidas
+                                {{$semestre == 1 ? "JAN" : "JUL"}}
+                                <br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
                             <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
-                                AGO<br />25 Vidas
+                                {{$semestre == 1 ? "FEV" : "AGO"}}
+                                <br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
                             <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
-                                SET<br />25 Vidas
+                                {{$semestre == 1 ? "MAR" : "SET"}}
+                                <br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
                             <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
-                                OUT<br />25 Vidas
+                                {{$semestre == 1 ? "ABR" : "OUT"}}
+                                <br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
                             <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
-                                NOV<br />25 Vidas
+                                {{$semestre == 1 ? "MAI" : "NOV"}}
+                                <br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">
                              <div class="rounded-md w-full text-white text-center p-1 backdrop-blur-[15px] bg-[rgba(254,254,254,0.18)]">
-                                DEZ<br />25 Vidas
+                                {{$semestre == 1 ? "JUN" : "DEZ"}}
+                                <br />25 Vidas
                             </div>
                         </th>
                         <th style="width:5.6%">

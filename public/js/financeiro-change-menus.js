@@ -574,16 +574,25 @@ function realizarContagem()
 function filtrarTabela(selectAno, selectMes) {
     let anoSelecionado = selectAno.val();
     let mesSelecionado = selectMes.val();
+
+
+
+
     // Reseta a filtragem
     $.fn.dataTable.ext.search.length = 0;
     // Adiciona filtro baseado no ano e/ou mês selecionados
     $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
         let dataColuna = data[0]; // Coluna 0, onde está a data
         let dataParts = dataColuna.split('/'); // Separa a data no formato dd/mm/yyyy
+
         let mesData = dataParts[1];
         let anoData = dataParts[2];
+
+
+
         // Verifica se há correspondência com o ano e/ou mês selecionados
         if (anoSelecionado && mesSelecionado) {
+            console.log("Olaaaaa");
             return anoData === anoSelecionado && mesData === mesSelecionado.padStart(2, '0');
         } else if (anoSelecionado) {
             return anoData === anoSelecionado;
@@ -598,22 +607,24 @@ function filtrarTabela(selectAno, selectMes) {
 }
 
 
-$("#mudar_mes_table").on('change',function(){
-
-    let selectAno = $('#mudar_ano_table');  // Supondo que você tenha um seletor de ano também
-    let selectMes = $(this);  // O select de mês que foi alterado
-
-    filtrarTabela(selectAno, selectMes);
-
-    //atualizarParcelas();
-    // if (parcelaSelecionada) {  // Verifica se há uma parcela selecionada
-    //     updateFiltragemParcela(parcelaSelecionada);  // Reaplica a filtragem com base na parcela já selecionada
-    // }
-
-    table_individual.draw();  // Atualiza a tabela com o novo mês
-    realizarContagem();       // Rea
-
-});
+// $("#mudar_mes_table").on('change',function(){
+//
+//     let selectAno = $('#mudar_ano_table');  // Supondo que você tenha um seletor de ano também
+//     let selectMes = $('#mudar_mes_table');  // O select de mês que foi alterado
+//
+//
+//
+//     filtrarTabela(selectAno, selectMes);
+//
+//     //atualizarParcelas();
+//     // if (parcelaSelecionada) {  // Verifica se há uma parcela selecionada
+//     //     updateFiltragemParcela(parcelaSelecionada);  // Reaplica a filtragem com base na parcela já selecionada
+//     // }
+//
+//     table_individual.draw();  // Atualiza a tabela com o novo mês
+//     realizarContagem();       // Rea
+//
+// });
 
 // table_individual.on('draw.dt', function() {
 //     //console.log("Olaaaaa");
@@ -622,78 +633,126 @@ $("#mudar_mes_table").on('change',function(){
 
 
 
-$('#mudar_ano_table').on('change', function() {
-    let anoSelecionado = $(this).val();
-    // Filtrar as linhas da tabela com base no ano selecionado
-    table_individual.column(0).search(anoSelecionado).draw();
-    // Obter as datas filtradas da coluna 0
-    let datasFiltradas = table_individual.column(0, { search: 'applied' }).data().toArray();
-    // Obter os meses das datas filtradas
-    let mesesPorAno = datasFiltradas.map(function(value) {
-        // Converter o formato da data para "YYYY-MM-DD"
-        let partesData = value.split('/');
-        let dataFormatada = partesData[2] + '-' + partesData[1] + '-' + partesData[0];
-        // Obter o mês (1-12) da data formatada
-        return new Date(dataFormatada).getMonth() + 1;
-    });
-    // Filtrar apenas os meses únicos
-    mesesPorAno = [...new Set(mesesPorAno)];
-    let mesesOrdenados = Array.from(mesesPorAno).sort(function(a, b) {
-        return a - b;
-    });
-    // // Preencher o select de meses
-    let selectMes = $('#mudar_mes_table');
-    selectMes.empty(); // Limpar opções existentes
-    selectMes.append('<option value="" selected class="text-white text-center">- Mês -</option>'); // Opção padrão
-    let nomesMeses = {
-        '1': "Janeiro",
-        '2': "Fevereiro",
-        '3': "Março",
-        '4': "Abril",
-        '5': "Maio",
-        '6': "Junho",
-        '7': "Julho",
-        '8': "Agosto",
-        '9': "Setembro",
-        '10': "Outubro",
-        '11': "Novembro",
-        '12': "Dezembro"
-    };
-    mesesOrdenados.forEach(function(mes) {
-        //console.log(mes);
-        selectMes.append('<option value="' + (mes) + '">' + nomesMeses[mes] + '</option>');
-    });
+// $('#mudar_ano_table').on('change', function() {
+//     let anoSelecionado = $(this).val();
+//     // Filtrar as linhas da tabela com base no ano selecionado
+//     table_individual.column(0).search(anoSelecionado).draw();
+//     // Obter as datas filtradas da coluna 0
+//     let datasFiltradas = table_individual.column(0, { search: 'applied' }).data().toArray();
+//     // Obter os meses das datas filtradas
+//     let mesesPorAno = datasFiltradas.map(function(value) {
+//         // Converter o formato da data para "YYYY-MM-DD"
+//         let partesData = value.split('/');
+//         let dataFormatada = partesData[2] + '-' + partesData[1] + '-' + partesData[0];
+//         // Obter o mês (1-12) da data formatada
+//         return new Date(dataFormatada).getMonth() + 1;
+//     });
+//     // Filtrar apenas os meses únicos
+//     mesesPorAno = [...new Set(mesesPorAno)];
+//     let mesesOrdenados = Array.from(mesesPorAno).sort(function(a, b) {
+//         return a - b;
+//     });
+//     // // Preencher o select de meses
+//     let selectMes = $('#mudar_mes_table');
+//     selectMes.empty(); // Limpar opções existentes
+//     selectMes.append('<option value="" selected class="text-white text-center">- Mês -</option>'); // Opção padrão
+//     let nomesMeses = {
+//         '1': "Janeiro",
+//         '2': "Fevereiro",
+//         '3': "Março",
+//         '4': "Abril",
+//         '5': "Maio",
+//         '6': "Junho",
+//         '7': "Julho",
+//         '8': "Agosto",
+//         '9': "Setembro",
+//         '10': "Outubro",
+//         '11': "Novembro",
+//         '12': "Dezembro"
+//     };
+//     mesesOrdenados.forEach(function(mes) {
+//         //console.log(mes);
+//         selectMes.append('<option value="' + (mes) + '">' + nomesMeses[mes] + '</option>');
+//     });
+//
+// });
 
+$('#mudar_ano_table, #mudar_mes_table').on('change', function() {
+    let anoSelecionado = $('#mudar_ano_table').val();
+    let mesSelecionado = $('#mudar_mes_table').val();
+
+    // Construir a expressão regular para combinar o ano e o mês
+    let filtro = '';
+    if (anoSelecionado && !mesSelecionado) {
+        filtro = `/${anoSelecionado}$`; // Filtro para o ano completo no final
+    }
+    if (mesSelecionado && !anoSelecionado) {
+        let mesFormatado = mesSelecionado.padStart(2, '0'); // Garantir formato "MM"
+        filtro = `/${mesFormatado}/`; // Filtro para o mês completo
+    }
+    if (anoSelecionado && mesSelecionado) {
+        let mesFormatado = mesSelecionado.padStart(2, '0'); // Garantir formato "MM"
+        filtro = `/${mesFormatado}/${anoSelecionado}$`; // Filtro para mês e ano combinados
+    }
+
+    // Se ambos os selects forem "nada", limpar o filtro
+    if (!anoSelecionado && !mesSelecionado) {
+        filtro = ''; // Nenhum filtro
+    }
+
+    // Aplicar o filtro na coluna 0
+    table_individual.column(0).search(filtro, true, false).draw();
+
+    // Atualizar os meses disponíveis apenas se o ano for alterado
+    if (this.id === 'mudar_ano_table') {
+        let datasFiltradas = table_individual.column(0).data().toArray();
+
+        if (anoSelecionado) {
+            datasFiltradas = datasFiltradas.filter(value => value.endsWith(`/${anoSelecionado}`));
+        }
+
+        // Obter os meses únicos das datas filtradas
+        let mesesPorAno = datasFiltradas.map(function(value) {
+            let partesData = value.split('/');
+            return parseInt(partesData[1], 10); // Extrair o mês
+        });
+        mesesPorAno = [...new Set(mesesPorAno)]; // Remover duplicatas
+        let mesesOrdenados = mesesPorAno.sort(function(a, b) {
+            return a - b;
+        });
+
+        // Atualizar o select de meses
+        let selectMes = $('#mudar_mes_table');
+        selectMes.empty();
+        selectMes.append('<option value="" selected class="text-white text-center">- Mês -</option>'); // Opção padrão
+        let nomesMeses = {
+            1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril", 5: "Maio", 6: "Junho",
+            7: "Julho", 8: "Agosto", 9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro"
+        };
+        mesesOrdenados.forEach(function(mes) {
+            selectMes.append('<option value="' + mes + '">' + nomesMeses[mes] + '</option>');
+        });
+
+        // Resetar o mês selecionado se o novo ano não corresponder
+        if (!mesesOrdenados.includes(parseInt(mesSelecionado))) {
+            $('#mudar_mes_table').val('');
+        }
+    }
 });
-
-
-
-
-
-
-
-
 
 $("#mudar_planos_empresarial").on('change',function(){
     let plano = $(this).val();
-
     let user_id = $("#mudar_user_empresarial").val();
     let mes = $("#mudar_mes_table_empresarial").val();
     mes = mes == "00" ? null : mes;
     user_id = user_id == "todos" ? null : user_id;
-
     $("ul#listar_empresarial li.empresarial").removeClass('textoforte-list').removeClass('destaque_content');
     $("#atrasado_corretor_empresarial").removeClass('textoforte-list').removeClass('destaque_content_radius');
     $("#finalizado_corretor_empresarial").removeClass('textoforte-list').removeClass('destaque_content_radius');
     $("#aguardando_cancelado_empresarial").removeClass('textoforte-list').removeClass('destaque_content_radius');
     $("#content_list_empresarial_begin").addClass('destaque_content_radius');
-
     if(plano != "todos") {
-
-
         tableempresarial.column(7).search(plano).draw();
-
-
         if(mes) {
             let ano = $("#mudar_ano_table_empresarial").val() != null ? $("#mudar_ano_table_empresarial").val() : new Date().getFullYear();
             let mesAno = mes + '/' + ano;

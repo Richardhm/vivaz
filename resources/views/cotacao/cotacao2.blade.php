@@ -22,16 +22,16 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
 
     <tr>
         <td rowspan="2" style="vertical-align:middle;text-align:center;font-size:0.7em;border-right:1px solid #ccc;border-bottom:1px solid #ccc;color:#FFF;">Faixa Etária</td>
-        <td colspan="3" style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;border-right:1px solid #ccc;color:#FFF;" class="">Com Copar</td>
-        <td colspan="3" style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;color:#FFF;" class="">Sem Copar</td>
+        <td colspan="2" style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;border-right:1px solid #ccc;color:#FFF;" class="">Com Copar</td>
+        <td colspan="2" style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;color:#FFF;" class="">Sem Copar</td>
     </tr>
     <tr>
         <td style="text-align:center;font-size:0.7em;border-right:1px solid #ccc;border-bottom:1px solid #ccc;color:#FFF;" class="">APART</td>
         <td style="text-align:center;font-size:0.7em;border-right:1px solid #ccc;border-bottom:1px solid #ccc;color:#FFF;" class="">ENFER</td>
-        <td style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;border-right:1px solid #ccc;color:#FFF;" class="">AMBUL</td>
+
         <td style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;border-right:1px solid #ccc;color:#FFF;" class="">APART</td>
         <td style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;color:#FFF;border-right:1px solid #ccc;" class="">ENFER</td>
-        <td style="text-align:center;font-size:0.7em;border-bottom:1px solid #ccc;color:#FFF;" class="">AMBUL</td>
+
     </tr>
     </thead>
     <tbody>
@@ -94,12 +94,7 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
                         $totalEnfermaria_com_copar += $valores['2_com_copar'];
                     @endphp
                 </td>
-                <td class="text-white" style="font-size: 0.7em;text-align: right;margin-right: 2px">
-                    <span class="mr-2">0</span>
-                    @php
-                        $totalAmbulatorial_com_copar += 0;
-                    @endphp
-                </td>
+
                 <td class="text-white" style="font-size: 0.7em;text-align: right;margin-right: 2px">
                     <span class="mr-2">{{ number_format($valores['1_sem_copar'], 2, ",", ".") }}</span>
                     @php
@@ -112,12 +107,7 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
                         $totalEnfermaria_sem_copar += $valores['2_sem_copar'];
                     @endphp
                 </td>
-                <td class="text-white" style="font-size: 0.7em;text-align: right;margin-right: 2px">
-                    <span class="mr-2">0</span>
-                    @php
-                        $totalAmbulatorial_sem_copar += 0;
-                    @endphp
-                </td>
+
             </tr>
         @endfor
     @endforeach
@@ -135,18 +125,14 @@ focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 bg-gray-500 bg-opacity
             <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermaria_com_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
-                <span class="mr-2">0</span>
-            </td>
+
             <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalApartamento_sem_copar, 2, ",", ".") }}</span>
             </td>
             <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
                 <span class="mr-2">{{ number_format($totalEnfermaria_sem_copar, 2, ",", ".") }}</span>
             </td>
-            <td class="text-white py-0.5" style="font-size: 0.7em;text-align:right;margin-right: 2px;">
-                <span class="mr-2">0</span>
-            </td>
+
         </tr>
         </tfoot>
 
@@ -183,8 +169,8 @@ focus:ring-4 focus:ring-gray-200 bg-red-400">
 
     <tr>
         <td rowspan="2" style="vertical-align:middle;text-align:center;font-size:0.7em;border-right:1px solid #FFF;border-bottom:1px solid #FFF;color:#FFF;">Faixa Etária</td>
-        <td colspan="3" style="text-align:center;font-size:0.7em;border-bottom:1px solid #FFF;border-right:1px solid #FFF;color:#FFF;" class="">Com Copar</td>
-        <td colspan="3" style="text-align:center;font-size:0.7em;border-bottom:1px solid #FFF;color:#FFF;" class="">Sem Copar</td>
+        <td colspan="2" style="text-align:center;font-size:0.7em;border-bottom:1px solid #FFF;border-right:1px solid #FFF;color:#FFF;" class="">Com Copar</td>
+        <td colspan="2" style="text-align:center;font-size:0.7em;border-bottom:1px solid #FFF;color:#FFF;" class="">Sem Copar</td>
     </tr>
     <tr>
         <td style="text-align:center;font-size:0.7em;border-right:1px solid #FFF;border-bottom:1px solid #FFF;color:#FFF;" class="">APART</td>

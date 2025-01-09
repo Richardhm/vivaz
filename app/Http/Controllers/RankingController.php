@@ -545,12 +545,12 @@ class RankingController extends Controller
                 SELECT
                     users.name AS corretor,
                     users.image AS imagem,
-                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 7, clientes.quantidade_vidas, 0)),0) AS julho,
-                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 8, clientes.quantidade_vidas, 0)),0) AS agosto,
-                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 9, clientes.quantidade_vidas, 0)),0) AS setembro,
-                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 10, clientes.quantidade_vidas, 0)),0) AS outubro,
-                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 11, clientes.quantidade_vidas, 0)),0) AS novembro,
-                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 12, clientes.quantidade_vidas, 0)),0) AS dezembro,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 7, clientes.quantidade_vidas, 0)),0) AS janeiro,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 8, clientes.quantidade_vidas, 0)),0) AS fevereiro,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 9, clientes.quantidade_vidas, 0)),0) AS marco,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 10, clientes.quantidade_vidas, 0)),0) AS abril,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 11, clientes.quantidade_vidas, 0)),0) AS maio,
+                    COALESCE(SUM(IF(MONTH(contratos.created_at) = 12, clientes.quantidade_vidas, 0)),0) AS junho,
                     COALESCE(SUM(clientes.quantidade_vidas), 0) AS quantidade_vidas,
                     COALESCE(SUM(contratos.valor_adesao), 0) AS valor,
             CASE
@@ -569,7 +569,7 @@ class RankingController extends Controller
         INNER JOIN users ON users.id = comissoes.user_id
         INNER JOIN contratos ON contratos.id = comissoes.contrato_id
         INNER JOIN clientes ON clientes.id = contratos.cliente_id
-        WHERE contratos.created_at BETWEEN '2024-07-01' AND '2024-12-31' AND contratos.plano_id = 1 AND users.ativo != 2
+        WHERE contratos.created_at BETWEEN '2025-01-01' AND '2025-06-30' AND contratos.plano_id = 1 AND users.ativo != 2
         GROUP BY comissoes.user_id, users.name, users.image
         ORDER BY quantidade_vidas DESC
             ");

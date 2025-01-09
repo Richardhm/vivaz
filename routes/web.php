@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Comissoes;
+use App\Models\Contrato;
+
 use App\Http\Controllers\ProfileController;
 use App\Models\RankingDiario;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +22,10 @@ use App\Http\Middleware\RedirectForMobile;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
 
+
+
+
+
  Route::get('send-notification',function(){
      $message['status'] = request()->query('status','success');
      $message['body'] = 'Messagem padrão notificação..........';
@@ -30,6 +37,56 @@ use App\Http\Middleware\RedirectIfAuthenticated;
      return "Notificação Enviada..";
 
  });
+
+
+  Route::get("/reposicionar",function(){
+         $comissoes = \Illuminate\Support\Facades\DB::select("
+               select
+                   *
+               from comissoes_corretores_lancadas where
+               comissoes_id IN(select id from comissoes where contrato_id IN(select id from contratos where plano_id = 1))
+               and status_financeiro = 1
+         ");
+         foreach($comissoes as $cc) {
+
+             switch ($cc->parcela) {
+                 case 2:
+                     $contrato_id = Comissoes::where("id", $cc->comissoes_id)->first()->contrato_id;
+                     Contrato::where("id", $contrato_id)->update(["financeiro_id" => 6]);
+                 break;
+
+                 case 3:
+                     $contrato_id = Comissoes::where("id", $cc->comissoes_id)->first()->contrato_id;
+                     Contrato::where("id", $contrato_id)->update(["financeiro_id" => 7]);
+                     break;
+
+                 case 4:
+                     $contrato_id = Comissoes::where("id", $cc->comissoes_id)->first()->contrato_id;
+                     Contrato::where("id", $contrato_id)->update(["financeiro_id" => 8]);
+                     break;
+
+                 case 5:
+                     $contrato_id = Comissoes::where("id", $cc->comissoes_id)->first()->contrato_id;
+                     Contrato::where("id", $contrato_id)->update(["financeiro_id" => 9]);
+                     break;
+
+                 case 6:
+                     $contrato_id = Comissoes::where("id", $cc->comissoes_id)->first()->contrato_id;
+                     Contrato::where("id", $contrato_id)->update(["financeiro_id" => 11]);
+                     break;
+
+                 default:
+                     $contrato_id = Comissoes::where("id", $cc->comissoes_id)->first()->contrato_id;
+                     Contrato::where("id", $contrato_id)->update(["financeiro_id" => 5]);
+                     break;
+             }
+         }
+     });
+
+
+
+
+
 
 
 //Route::get('/', function () {
@@ -73,14 +130,9 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get("/financeiro/individual/em_geral/{mes?}",[FinanceiroController::class,'geralIndividualPendentes'])->name('financeiro.individual.geralIndividualPendentes');
     Route::post('/financeiro/change/individual',[FinanceiroController::class,'changeIndividual'])->name('financeiro.changeFinanceiro');
     Route::post('/financeiro/change/coletivo',[FinanceiroController::class,'changeColetivo'])->name('financeiro.changeFinanceiroColetivo');
-
     Route::post('/financeiro/change/empresarial',[FinanceiroController::class,'changeEmpresarial'])->name('financeiro.changeFinanceiroEmpresarial');
     Route::post('/financeiro/valores/change/empresarial',[FinanceiroController::class,'changeValoresEmpresarial'])->name('financeiro.changeValoresFinanceiroEmpresarial');
-
     Route::post('/financeiro/administradora/change',[FinanceiroController::class,'changeAdministradora'])->name('financeiro.administradora.change');
-
-
-
     Route::post('/contratos/montarPlanosIndividual',[FinanceiroController::class,'montarPlanosIndividual'])->name('contratos.montarPlanosIndividual');
     Route::post('/contratos/individual',[FinanceiroController::class,'storeIndividual'])->name('individual.store');
     Route::get("/estrela",[EstrelaController::class,'index'])->name('estrela.index');
@@ -96,14 +148,11 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/financeiro/detalhes/coletivo/{id}',[FinanceiroController::class,'detalhesContratoColetivo'])->name('financeiro.detalhes.contrato.coletivo');
     Route::post('/financeiro/modal/individual',[FinanceiroController::class,'modalIndividual'])->name('financeiro.modal.contrato.individual');
     Route::post('/financeiro/modal/coletivo',[FinanceiroController::class,'modalColetivo'])->name('financeiro.modal.contrato.coletivo');
-
     Route::post('/financeiro/modal/empresarial',[FinanceiroController::class,'modalEmpresarial'])->name('financeiro.modal.contrato.empresarial');
     Route::post('/financeiro/gerente/modal/empresarial',[FinanceiroController::class,'modalEmpresarialGerente'])->name('financeiro.gerente.modal.contrato.empresarial');
-
     Route::post('/financeiro/excluir',[FinanceiroController::class,'excluirCliente'])->name('financeiro.excluir.cliente');
     Route::post('/financeiro/empresarial/excluir',[FinanceiroController::class,'excluirEmpresarial'])->name('financeiro.excluir.empresarial');
     Route::post('/financeiro/cancelar/empresarial',[FinanceiroController::class,'cancelarEmpresarial'])->name('financeiro.cancelar.empresarial');
-
     Route::post('/financeiro/mudarEstadosColetivo',[FinanceiroController::class,'mudarEstadosColetivo'])->name('financeiro.mudarStatusColetivo');
     Route::post('/financeiro/cancelados',[FinanceiroController::class,'cancelarContrato'])->name('financeiro.contrato.cancelados');
     Route::post('/financeiro/baixaDaData',[FinanceiroController::class,'baixaDaData'])->name('financeiro.baixa.data');
@@ -120,9 +169,6 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get('/financeiro/zerar/tabela',[FinanceiroController::class,'zerarTabelaFinanceiro'])->name('financeiro.zerar.financeiro');
     Route::get('/financeiro/coletivo/em_geral',[FinanceiroController::class,'coletivoEmGeral'])->name('financeiro.coletivo.em_geral');
     Route::get('/contratos/empendentes/empresarial',[FinanceiroController::class,'listarContratoEmpresaPendentes'])->name('contratos.listarEmpresarial.listarContratoEmpresaPendentes');
-
-
-
     Route::post('/financeiro/sincronizar/cancelados',[FinanceiroController::class,'sincronizarCancelados'])->name('financeiro.sincronizar.cancelados');
     Route::post('/financeiro/atualizar_dados',[FinanceiroController::class,'atualizarDados'])->name('financeiro.atualizar.dados');
     Route::post('/financeiro/sincronizar_baixas',[FinanceiroController::class,'sincronizarBaixas'])->name('financeiro.sincronizar.baixas');
@@ -133,6 +179,10 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get("/",[HomeController::class,'index'])->name("home.index");
     Route::get("/tabela_preco",[HomeController::class,'search'])->name('orcamento.search.home');
     Route::post("/tabela_preco",[HomeController::class,'tabelaPrecoResposta'])->name('tabela.preco.resposta');
+    Route::post('/mudar/grafico/ano',[HomeController::class,'mudarGraficoAno'])->name('mudar.grafico.ano');
+    Route::post("/dashboard/mes",[HomeController::class,'dashboardMes'])->name("dashboard.mes");
+
+
     Route::post("/tabela_preco/cidade/resposta",[HomeController::class,'tabelaPrecoRespostaCidade'])->name('tabela.preco.resposta.cidade');
     Route::get("/consultar",[HomeController::class,'consultar'])->name('home.administrador.consultar');
     Route::post("/consultar",[HomeController::class,'consultarCarteirnha'])->name('consultar.carteirinha');

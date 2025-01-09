@@ -2925,12 +2925,14 @@ class FinanceiroController extends Controller
 
     public function modalIndividual()
     {
+
         $id = request()->id;
         $contratos = Contrato
             ::where("id",$id)
             ->with(['administradora','financeiro','cidade','comissao','acomodacao','plano','comissao.comissaoAtualFinanceiro','comissao.comissoesLancadas','clientes','clientes.user','clientes.dependentes'])
             ->orderBy("id","desc")
             ->first();
+
         $users = User::where("corretora_id",auth()->user()->corretora_id)->where('ativo',1)->get();
 
         return view('financeiro.modal-individual',[
@@ -2943,7 +2945,7 @@ class FinanceiroController extends Controller
             "rua" => request()->rua,
             "cpf" => request()->cpf,
             "data_criacao" => request()->data_criacao,
-            "data_nascimento" => request()->data_nascimento,
+            "data_nascimento" => $contratos->clientes->data_nascimento,
             "email" => request()->email,
             "celular" => request()->celular,
             "codigo_externo" => request()->codigo_externo,

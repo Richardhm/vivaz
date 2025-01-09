@@ -328,8 +328,6 @@
     </div>
 </div>
 
-
-
 <!-- Modal -->
 <div id="planilhaModal" class="modal">
     <div class="modal-content">
@@ -1207,16 +1205,10 @@
             $("#totalVidasEmpresarial").text(totalVidasEmpresarial);
         }
 
-
-
-
         function formatarDataTabela(dataISO) {
             const partes = dataISO.split('-'); // Divide o formato "YYYY-MM-DD"
             return `${partes[2]}/${partes[1]}/${partes[0]}`; // Retorna no formato "DD/MM/YYYY"
         }
-
-
-
 
         $.ajaxSetup({
             headers: {

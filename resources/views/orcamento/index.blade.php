@@ -5,18 +5,14 @@
         <x-planos :planos="$planos" class="sm:mx-5"></x-planos>
         <div class="p-1 rounded mt-2 hidden bg-[rgba(254,254,254,0.18)] backdrop-blur-[15px] border w-full lg:w-[30%] sm:mx-5" id="resultado"></div>
     </div>
-
-
-
     @section('scripts')
        <script>
-
            $(document).ready(function(){
                function scrollToBottom() {
                    if (window.innerWidth <= 768) { // Aplica apenas para mobile
                        $('html, body').animate({
                            scrollTop: $(document).height() // Define o scroll para o final do documento
-                       },1500, 'swing'); // Tempo da animação (1 segundo)
+                       },1500,'swing'); // Tempo da animação (1 segundo)
                    }
                }
 

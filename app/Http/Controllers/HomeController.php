@@ -16,6 +16,423 @@ use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
+    public function dashboardMes(Request $request)
+    {
+        $mesAnoSelecionado = $request->mes_ano;
+
+        // Extrai o mês e o ano do valor selecionado
+        $mesAnoArray = explode("/", $mesAnoSelecionado);
+        $mes = $mesAnoArray[0];
+        $ano = $mesAnoArray[1];
+
+        $startDate = date("Y-m-d", strtotime("first day of $ano-$mes"));
+        $endDate = date("Y-m-d", strtotime("last day of $ano-$mes"));
+
+        $total_coletivo_quantidade_vidas = Cliente::select("*")
+            ->join('contratos', 'contratos.cliente_id', '=', 'clientes.id')
+            ->where("contratos.plano_id", 3)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereMonth("contratos.created_at", $mes)
+            ->sum('quantidade_vidas');
+
+        $total_individual = Contrato
+            ::where("plano_id",1)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereMonth("contratos.created_at", $mes)
+            ->sum('valor_adesao');
+
+        $total_coletivo = Contrato::where("plano_id",3)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereMonth("contratos.created_at", $mes)
+            ->sum('valor_adesao');
+
+        $total_ss = ContratoEmpresarial::where('plano_id',5)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('valor_plano');//SS
+
+        $total_sindipao = ContratoEmpresarial::where('plano_id',6)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('valor_plano');//Sindipão
+
+        $total_sindimaco = ContratoEmpresarial::where('plano_id',9)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('valor_plano');//Sindimaco
+        $total_sincofarma = ContratoEmpresarial::where('plano_id',13)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('valor_plano');//Sincofarma
+
+        $valor_adesao_col_ind = Contrato::
+        whereMonth("created_at",$mes)
+            ->whereYear("created_at",$ano)
+            ->sum('valor_adesao');
+
+        $valor_plano_empresar = ContratoEmpresarial::
+        whereMonth("created_at",$mes)
+            ->whereYear("created_at",$ano)
+            ->sum('valor_plano');
+        $total_valor = $valor_adesao_col_ind + $valor_plano_empresar;
+
+        $total_individual_quantidade_vidas = Cliente::select("*")
+            ->join('contratos', 'contratos.cliente_id', '=', 'clientes.id')
+            ->where("contratos.plano_id", 1)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereMonth("contratos.created_at", $mes)
+            ->sum('quantidade_vidas');
+
+        $total_super_simples_quantidade_vidas = ContratoEmpresarial::where("plano_id",5)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('quantidade_vidas');
+
+        $total_sindipao_quantidade_vidas = ContratoEmpresarial::where("plano_id",6)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('quantidade_vidas');
+
+        $total_sindimaco_quantidade_vidas = ContratoEmpresarial::where("plano_id",9)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('quantidade_vidas');
+
+        $total_sincofarma_quantidade_vidas = ContratoEmpresarial::where("plano_id",13)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereMonth("contrato_empresarial.created_at", $mes)
+            ->sum('quantidade_vidas');
+
+        $quantidade_vidas_mes = $total_coletivo_quantidade_vidas + $total_individual_quantidade_vidas + $total_super_simples_quantidade_vidas
+            + $total_sindipao_quantidade_vidas + $total_sindimaco_quantidade_vidas + $total_sincofarma_quantidade_vidas;
+
+        return [
+            "total_coletivo_quantidade_vidas" => $total_coletivo_quantidade_vidas,
+            "total_individual_quantidade_vidas" => $total_individual_quantidade_vidas,
+            "total_super_simples_quantidade_vidas" => $total_super_simples_quantidade_vidas,
+            "total_sindipao_quantidade_vidas" => $total_sindipao_quantidade_vidas,
+            "total_sindimaco_quantidade_vidas" => $total_sindimaco_quantidade_vidas,
+            "total_sincofarma_quantidade_vidas" => $total_sincofarma_quantidade_vidas,
+            "quantidade_vidas_mes" => $quantidade_vidas_mes,
+
+            "total_individual" => number_format($total_individual,2,",","."),
+            "total_coletivo" => number_format($total_coletivo,2,",","."),
+            "total_ss" => number_format($total_ss,2,",","."),
+            "total_sindipao" => number_format($total_sindipao,2,",","."),
+            "total_sindimaco" => number_format($total_sindimaco,2,",","."),
+            "total_sincofarma" => number_format($total_sincofarma,2,",","."),
+            "total_valor" => number_format($total_valor,2,",",".")
+        ];
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function mudarGraficoAno(Request $request)
+    {
+        $ano = $request->ano;
+        if($ano != null) {
+
+            $total_coletivo_quantidade_vidas_janeiro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",01)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_fevereiro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",02)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_marco = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",03)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_abril = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",04)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_maio = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",05)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_junho = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",06)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_julho = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",'07')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_agosto = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",'08')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_setembro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",'09')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_outubro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",10)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_novembro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",11)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_coletivo_quantidade_vidas_dezembro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",3)
+                ->whereMonth("contratos.created_at",12)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_janeiro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",01)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_fevereiro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",02)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_marco = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",03)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+
+            $total_individual_quantidade_vidas_abril = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",04)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_maio = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",05)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_junho = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",06)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_julho = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",07)
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_agosto = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",'08')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_setembro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",'09')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_outubro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",'10')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_novembro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",'11')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $total_individual_quantidade_vidas_dezembro = Cliente::select("*")
+                ->join('contratos','contratos.cliente_id','=','clientes.id')
+                ->where("contratos.plano_id",1)
+                ->whereMonth("contratos.created_at",'12')
+                ->whereYear("contratos.created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialJaneiro = ContratoEmpresarial
+                ::whereMonth("created_at",01)
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialFevereiro = ContratoEmpresarial
+                ::whereMonth("created_at",02)
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialMarco = ContratoEmpresarial
+                ::whereMonth("created_at",03)
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialAbril = ContratoEmpresarial
+                ::whereMonth("created_at",04)
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialMaio = ContratoEmpresarial
+                ::whereMonth("created_at",05)
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialJunho = ContratoEmpresarial
+                ::whereMonth("created_at",06)
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialJulho = ContratoEmpresarial
+                ::whereMonth("created_at",07)
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialAgosto = ContratoEmpresarial
+                ::whereMonth("created_at",'08')
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialSetembro = ContratoEmpresarial
+                ::whereMonth("created_at",'09')
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialOutubro = ContratoEmpresarial
+                ::whereMonth("created_at",'10')
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialNovembro = ContratoEmpresarial
+                ::whereMonth("created_at",'11')
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+            $totalContratoEmpresarialDezembro = ContratoEmpresarial
+                ::whereMonth("created_at",'12')
+                ->whereYear("created_at",$ano)
+                ->sum('quantidade_vidas');
+
+
+            return [
+
+                "total_coletivo_quantidade_vidas_janeiro" => $total_coletivo_quantidade_vidas_janeiro,
+                "total_coletivo_quantidade_vidas_fevereiro" => $total_coletivo_quantidade_vidas_fevereiro,
+                "total_coletivo_quantidade_vidas_marco" => $total_coletivo_quantidade_vidas_marco,
+                "total_coletivo_quantidade_vidas_abril" => $total_coletivo_quantidade_vidas_abril,
+                "total_coletivo_quantidade_vidas_maio" => $total_coletivo_quantidade_vidas_maio,
+                "total_coletivo_quantidade_vidas_junho" => $total_coletivo_quantidade_vidas_junho,
+                "total_coletivo_quantidade_vidas_julho" => $total_coletivo_quantidade_vidas_julho,
+                "total_coletivo_quantidade_vidas_agosto" => $total_coletivo_quantidade_vidas_agosto,
+                "total_coletivo_quantidade_vidas_setembro" => $total_coletivo_quantidade_vidas_setembro,
+                "total_coletivo_quantidade_vidas_outubro" => $total_coletivo_quantidade_vidas_outubro,
+                "total_coletivo_quantidade_vidas_novembro" => $total_coletivo_quantidade_vidas_novembro,
+                "total_coletivo_quantidade_vidas_dezembro" => $total_coletivo_quantidade_vidas_dezembro,
+
+                "total_individual_quantidade_vidas_janeiro" => $total_individual_quantidade_vidas_janeiro,
+                "total_individual_quantidade_vidas_fevereiro" => $total_individual_quantidade_vidas_fevereiro,
+                "total_individual_quantidade_vidas_marco" => $total_individual_quantidade_vidas_marco,
+                "total_individual_quantidade_vidas_abril" => $total_individual_quantidade_vidas_abril,
+                "total_individual_quantidade_vidas_maio" => $total_individual_quantidade_vidas_maio,
+                "total_individual_quantidade_vidas_junho" => $total_individual_quantidade_vidas_junho,
+                "total_individual_quantidade_vidas_julho" => $total_individual_quantidade_vidas_julho,
+                "total_individual_quantidade_vidas_agosto" => $total_individual_quantidade_vidas_agosto,
+                "total_individual_quantidade_vidas_setembro" => $total_individual_quantidade_vidas_setembro,
+                "total_individual_quantidade_vidas_outubro" => $total_individual_quantidade_vidas_outubro,
+                "total_individual_quantidade_vidas_novembro" => $total_individual_quantidade_vidas_novembro,
+                "total_individual_quantidade_vidas_dezembro" => $total_individual_quantidade_vidas_dezembro,
+
+                "totalContratoEmpresarialJaneiro" => $totalContratoEmpresarialJaneiro,
+                "totalContratoEmpresarialFevereiro" => $totalContratoEmpresarialFevereiro,
+                "totalContratoEmpresarialMarco" => $totalContratoEmpresarialMarco,
+                "totalContratoEmpresarialAbril" => $totalContratoEmpresarialAbril,
+                "totalContratoEmpresarialMaio" => $totalContratoEmpresarialMaio,
+                "totalContratoEmpresarialJunho" => $totalContratoEmpresarialJunho,
+                "totalContratoEmpresarialJulho" => $totalContratoEmpresarialJulho,
+                "totalContratoEmpresarialAgosto" => $totalContratoEmpresarialAgosto,
+                "totalContratoEmpresarialSetembro" => $totalContratoEmpresarialSetembro,
+                "totalContratoEmpresarialOutubro" => $totalContratoEmpresarialOutubro,
+                "totalContratoEmpresarialNovembro" => $totalContratoEmpresarialNovembro,
+                "totalContratoEmpresarialDezembro" => $totalContratoEmpresarialDezembro
+
+
+            ];
+
+
+
+
+
+
+
+
+
+        }
+    }
+
+
+
+
+
+
     public function index()
     {
         $mesAtualN = date('n');
@@ -144,7 +561,7 @@ class HomeController extends Controller
             from comissoes
 
             inner join users on users.id = comissoes.user_id
-            where ranking = 1
+
             group by user_id order by quantidade desc
             "
         );

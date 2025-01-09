@@ -507,6 +507,7 @@
                    <div id="select_div" class="absolute top-2 right-0 z-1000 hidden mr-2">
                        <select name="selecao_ano" id="selecao_ano" class="bg-white flex justify-between text-gray-800 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 px-4 py-2 appearance-none">
                            <option value="2024" {{$ano_atual == 2024 ? "selected" : ""}}>2024</option>
+                           <option value="2025" {{$ano_atual == 2025 ? "selected" : ""}}>2025</option>
                        </select>
                    </div>
 
@@ -839,49 +840,49 @@
                    <div id="piechart" style="width: 100%; height: 595px;background-color: transparent;"></div>
                </div>
            </div>
-           <input type="hidden" id="janeiro_individual" value="{{$total_individual_quantidade_vidas_janeiro}}">
-           <input type="hidden" id="fevereiro_individual" value="{{$total_individual_quantidade_vidas_fevereiro}}">
-           <input type="hidden" id="marco_individual" value="{{$total_individual_quantidade_vidas_marco}}">
-           <input type="hidden" id="abril_individual" value="{{$total_individual_quantidade_vidas_abril}}">
-           <input type="hidden" id="maio_individual" value="{{$total_individual_quantidade_vidas_maio}}">
-           <input type="hidden" id="junho_individual" value="{{$total_individual_quantidade_vidas_junho}}">
-           <input type="hidden" id="julho_individual" value="{{$total_individual_quantidade_vidas_julho}}">
-           <input type="hidden" id="agosto_individual" value="{{$total_individual_quantidade_vidas_agosto}}">
-           <input type="hidden" id="setembro_individual" value="{{$total_individual_quantidade_vidas_setembro}}">
-           <input type="hidden" id="outubro_individual" value="{{$total_individual_quantidade_vidas_outubro}}">
-           <input type="hidden" id="novembro_individual" value="{{$total_individual_quantidade_vidas_novembro}}">
-           <input type="hidden" id="dezembro_individual" value="{{$total_individual_quantidade_vidas_dezembro}}">
-           <input type="hidden" id="janeiro_coletivo" value="{{$total_coletivo_quantidade_vidas_janeiro}}">
-           <input type="hidden" id="fevereiro_coletivo" value="{{$total_coletivo_quantidade_vidas_fevereiro}}">
-           <input type="hidden" id="marco_coletivo" value="{{$total_coletivo_quantidade_vidas_marco}}">
-           <input type="hidden" id="abril_coletivo" value="{{$total_coletivo_quantidade_vidas_abril}}">
-           <input type="hidden" id="maio_coletivo" value="{{$total_coletivo_quantidade_vidas_maio}}">
-           <input type="hidden" id="junho_coletivo" value="{{$total_coletivo_quantidade_vidas_junho}}">
-           <input type="hidden" id="julho_coletivo" value="{{$total_coletivo_quantidade_vidas_julho}}">
-           <input type="hidden" id="agosto_coletivo" value="{{$total_coletivo_quantidade_vidas_agosto}}">
-           <input type="hidden" id="setembro_coletivo" value="{{$total_coletivo_quantidade_vidas_setembro}}">
-           <input type="hidden" id="outubro_coletivo" value="{{$total_coletivo_quantidade_vidas_outubro}}">
-           <input type="hidden" id="novembro_coletivo" value="{{$total_coletivo_quantidade_vidas_novembro}}">
-           <input type="hidden" id="dezembro_coletivo" value="{{$total_coletivo_quantidade_vidas_dezembro}}">
-           <input type="hidden" id="janeiro_empresarial" value="{{$totalContratoEmpresarialJaneiro}}">
-           <input type="hidden" id="fevereiro_empresarial" value="{{$totalContratoEmpresarialFevereiro}}">
-           <input type="hidden" id="marco_empresarial" value="{{$totalContratoEmpresarialMarco}}">
-           <input type="hidden" id="abril_empresarial" value="{{$totalContratoEmpresarialAbril}}">
-           <input type="hidden" id="maio_empresarial" value="{{$totalContratoEmpresarialMaio}}">
-           <input type="hidden" id="junho_empresarial" value="{{$totalContratoEmpresarialJunho}}">
-           <input type="hidden" id="julho_empresarial" value="{{$totalContratoEmpresarialJulho}}">
-           <input type="hidden" id="agosto_empresarial" value="{{$totalContratoEmpresarialAgosto}}">
-           <input type="hidden" id="setembro_empresarial" value="{{$totalContratoEmpresarialSetembro}}">
-           <input type="hidden" id="outubro_empresarial" value="{{$totalContratoEmpresarialOutubro}}">
-           <input type="hidden" id="novembro_empresarial" value="{{$totalContratoEmpresarialNovembro}}">
-           <input type="hidden" id="dezembro_empresarial" value="{{$totalContratoEmpresarialDezembro}}">
-           <input type="hidden" id="total_individual_grafico" value="{{$total_individual_quantidade_vidas}}">
-           <input type="hidden" id="total_coletivo_grafico" value="{{$total_coletivo_quantidade_vidas}}">
-           <input type="hidden" id="total_super_simples_grafico" value="{{$total_super_simples_quantidade_vidas}}">
-           <input type="hidden" id="total_pme_grafico" value="0">
-           <input type="hidden" id="total_sindipao_grafico" value="{{$total_sindipao_quantidade_vidas}}">
-           <input type="hidden" id="total_sincofarma_grafico" value="{{$total_sindimaco_quantidade_vidas}}">
-           <input type="hidden" id="total_sindimaco_grafico" value="{{$total_sincofarma_quantidade_vidas}}">
+           <input type="text" id="janeiro_individual" value="{{$total_individual_quantidade_vidas_janeiro}}">
+           <input type="text" id="fevereiro_individual" value="{{$total_individual_quantidade_vidas_fevereiro}}">
+           <input type="text" id="marco_individual" value="{{$total_individual_quantidade_vidas_marco}}">
+           <input type="text" id="abril_individual" value="{{$total_individual_quantidade_vidas_abril}}">
+           <input type="text" id="maio_individual" value="{{$total_individual_quantidade_vidas_maio}}">
+           <input type="text" id="junho_individual" value="{{$total_individual_quantidade_vidas_junho}}">
+           <input type="text" id="julho_individual" value="{{$total_individual_quantidade_vidas_julho}}">
+           <input type="text" id="agosto_individual" value="{{$total_individual_quantidade_vidas_agosto}}">
+           <input type="text" id="setembro_individual" value="{{$total_individual_quantidade_vidas_setembro}}">
+           <input type="text" id="outubro_individual" value="{{$total_individual_quantidade_vidas_outubro}}">
+           <input type="text" id="novembro_individual" value="{{$total_individual_quantidade_vidas_novembro}}">
+           <input type="text" id="dezembro_individual" value="{{$total_individual_quantidade_vidas_dezembro}}">
+           <input type="text" id="janeiro_coletivo" value="{{$total_coletivo_quantidade_vidas_janeiro}}">
+           <input type="text" id="fevereiro_coletivo" value="{{$total_coletivo_quantidade_vidas_fevereiro}}">
+           <input type="text" id="marco_coletivo" value="{{$total_coletivo_quantidade_vidas_marco}}">
+           <input type="text" id="abril_coletivo" value="{{$total_coletivo_quantidade_vidas_abril}}">
+           <input type="text" id="maio_coletivo" value="{{$total_coletivo_quantidade_vidas_maio}}">
+           <input type="text" id="junho_coletivo" value="{{$total_coletivo_quantidade_vidas_junho}}">
+           <input type="text" id="julho_coletivo" value="{{$total_coletivo_quantidade_vidas_julho}}">
+           <input type="text" id="agosto_coletivo" value="{{$total_coletivo_quantidade_vidas_agosto}}">
+           <input type="text" id="setembro_coletivo" value="{{$total_coletivo_quantidade_vidas_setembro}}">
+           <input type="text" id="outubro_coletivo" value="{{$total_coletivo_quantidade_vidas_outubro}}">
+           <input type="text" id="novembro_coletivo" value="{{$total_coletivo_quantidade_vidas_novembro}}">
+           <input type="text" id="dezembro_coletivo" value="{{$total_coletivo_quantidade_vidas_dezembro}}">
+           <input type="text" id="janeiro_empresarial" value="{{$totalContratoEmpresarialJaneiro}}">
+           <input type="text" id="fevereiro_empresarial" value="{{$totalContratoEmpresarialFevereiro}}">
+           <input type="text" id="marco_empresarial" value="{{$totalContratoEmpresarialMarco}}">
+           <input type="text" id="abril_empresarial" value="{{$totalContratoEmpresarialAbril}}">
+           <input type="text" id="maio_empresarial" value="{{$totalContratoEmpresarialMaio}}">
+           <input type="text" id="junho_empresarial" value="{{$totalContratoEmpresarialJunho}}">
+           <input type="text" id="julho_empresarial" value="{{$totalContratoEmpresarialJulho}}">
+           <input type="text" id="agosto_empresarial" value="{{$totalContratoEmpresarialAgosto}}">
+           <input type="text" id="setembro_empresarial" value="{{$totalContratoEmpresarialSetembro}}">
+           <input type="text" id="outubro_empresarial" value="{{$totalContratoEmpresarialOutubro}}">
+           <input type="text" id="novembro_empresarial" value="{{$totalContratoEmpresarialNovembro}}">
+           <input type="text" id="dezembro_empresarial" value="{{$totalContratoEmpresarialDezembro}}">
+           <input type="text" id="total_individual_grafico" value="{{$total_individual_quantidade_vidas}}">
+           <input type="text" id="total_coletivo_grafico" value="{{$total_coletivo_quantidade_vidas}}">
+           <input type="text" id="total_super_simples_grafico" value="{{$total_super_simples_quantidade_vidas}}">
+           <input type="text" id="total_pme_grafico" value="0">
+           <input type="text" id="total_sindipao_grafico" value="{{$total_sindipao_quantidade_vidas}}">
+           <input type="text" id="total_sincofarma_grafico" value="{{$total_sindimaco_quantidade_vidas}}">
+           <input type="text" id="total_sindimaco_grafico" value="{{$total_sincofarma_quantidade_vidas}}">
        </div>
     </section>
 
@@ -889,6 +890,108 @@
            <script type="text/javascript" src="{{asset('js/loader.js')}}"></script>
            <script>
                $(document).ready(function(){
+
+                   $.ajaxSetup({
+                       headers: {
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                       }
+                   });
+
+                   $(".escolher_mes").on('change',function(){
+                       let mes_ano = $(this).val();
+                       $.ajax({
+                           url:"{{route('dashboard.mes')}}",
+                           method:"POST",
+                           data: {
+                               mes_ano
+                           },
+                           success:function(res) {
+
+                               $(".total_coletivo_quantidade_vidas_mes").text(res.total_coletivo_quantidade_vidas);
+                               $(".total_individual_quantidade_vidas_mes").text(res.total_individual_quantidade_vidas);
+                               $(".total_super_simples_quantidade_vidas_mes").text(res.total_super_simples_quantidade_vidas);
+                               $(".total_sindipao_quantidade_vidas_mes").text(res.total_sindipao_quantidade_vidas);
+                               $(".total_sindimaco_quantidade_vidas_mes").text(res.total_sindimaco_quantidade_vidas);
+                               $(".total_sincofarma_quantidade_vidas_mes").text(res.total_sincofarma_quantidade_vidas);
+                               $(".quantidade_vidas_mes").text(res.quantidade_vidas_mes);
+
+
+                               $(".total_coletivo_mes").text(res.total_coletivo);
+                               $(".total_individual_mes").text(res.total_individual);
+                               $(".total_super_simples_mes").text(res.total_ss);
+                               $(".total_sindipao_mes").text(res.total_sindipao);
+                               $(".total_sindimaco_mes").text(res.total_sindimaco);
+                               $(".total_sincofarma_mes").text(res.total_sincofarma);
+                               $(".total_valor_mes").text(res.total_valor);
+
+                               $("body").find("#escolher_mes").select2({
+                                   width: '99%'
+                               });
+
+                           }
+
+                       });
+                   });
+
+
+
+                   $("body").on('change','#selecao_ano',function(){
+                       let ano = $(this).val();
+                       $.ajax({
+                           url:"{{route('mudar.grafico.ano')}}",
+                           method:"POST",
+                           data: {
+                               ano
+                           },
+                           success:function(res) {
+                               $("#janeiro_individual").val(res.total_individual_quantidade_vidas_janeiro);
+                               $("#fevereiro_individual").val(res.total_individual_quantidade_vidas_fevereiro);
+                               $("#marco_individual").val(res.total_individual_quantidade_vidas_marco);
+                               $("#abril_individual").val(res.total_individual_quantidade_vidas_abril);
+                               $("#maio_individual").val(res.total_individual_quantidade_vidas_maio);
+                               $("#junho_individual").val(res.total_individual_quantidade_vidas_junho);
+                               $("#julho_individual").val(res.total_individual_quantidade_vidas_julho);
+                               $("#agosto_individual").val(res.total_individual_quantidade_vidas_agosto);
+                               $("#setembro_individual").val(res.total_individual_quantidade_vidas_setembro);
+                               $("#outubro_individual").val(res.total_individual_quantidade_vidas_outubro);
+                               $("#novembro_individual").val(res.total_individual_quantidade_vidas_novembro);
+                               $("#dezembro_individual").val(res.total_individual_quantidade_vidas_dezembro);
+
+                               $("#janeiro_coletivo").val(res.total_coletivo_quantidade_vidas_janeiro);
+                               $("#fevereiro_coletivo").val(res.total_coletivo_quantidade_vidas_fevereiro);
+                               $("#marco_coletivo").val(res.total_coletivo_quantidade_vidas_marco);
+                               $("#abril_coletivo").val(res.total_coletivo_quantidade_vidas_abril);
+                               $("#maio_coletivo").val(res.total_coletivo_quantidade_vidas_maio);
+                               $("#junho_coletivo").val(res.total_coletivo_quantidade_vidas_junho);
+                               $("#julho_coletivo").val(res.total_coletivo_quantidade_vidas_julho);
+                               $("#agosto_coletivo").val(res.total_coletivo_quantidade_vidas_agosto);
+                               $("#setembro_coletivo").val(res.total_coletivo_quantidade_vidas_setembro);
+                               $("#outubro_coletivo").val(res.total_coletivo_quantidade_vidas_outubro);
+                               $("#novembro_coletivo").val(res.total_coletivo_quantidade_vidas_novembro);
+                               $("#dezembro_coletivo").val(res.total_coletivo_quantidade_vidas_dezembro);
+
+                               $("#janeiro_empresarial").val(res.totalContratoEmpresarialJaneiro);
+                               $("#fevereiro_empresarial").val(res.totalContratoEmpresarialFevereiro);
+                               $("#marco_empresarial").val(res.totalContratoEmpresarialMarco);
+                               $("#abril_empresarial").val(res.totalContratoEmpresarialAbril);
+                               $("#maio_empresarial").val(res.totalContratoEmpresarialMaio);
+                               $("#junho_empresarial").val(res.totalContratoEmpresarialJunho);
+                               $("#julho_empresarial").val(res.totalContratoEmpresarialJulho);
+                               $("#agosto_empresarial").val(res.totalContratoEmpresarialAgosto);
+                               $("#setembro_empresarial").val(res.totalContratoEmpresarialSetembro);
+                               $("#outubro_empresarial").val(res.totalContratoEmpresarialOutubro);
+                               $("#novembro_empresarial").val(res.totalContratoEmpresarialNovembro);
+                               $("#dezembro_empresarial").val(res.totalContratoEmpresarialDezembro);
+                               setInterval(drawChart(),1000);
+                           }
+                       });
+                   });
+
+
+
+
+
+
                    google.charts.load('current', {'packages':['corechart']});
                    google.charts.setOnLoadCallback(drawChart);
                    function drawChart() {
