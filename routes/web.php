@@ -180,7 +180,7 @@ Route::middleware(['auth',RedirectIfAuthenticated::class,RedirectForMobile::clas
     Route::get("/tabela_preco",[HomeController::class,'search'])->name('orcamento.search.home');
     Route::post("/tabela_preco",[HomeController::class,'tabelaPrecoResposta'])->name('tabela.preco.resposta');
     Route::post('/mudar/grafico/ano',[HomeController::class,'mudarGraficoAno'])->name('mudar.grafico.ano');
-    Route::post("/dashboard/mes",[HomeController::class,'dashboardMes'])->name("dashboard.mes");
+
 
 
     Route::post("/tabela_preco/cidade/resposta",[HomeController::class,'tabelaPrecoRespostaCidade'])->name('tabela.preco.resposta.cidade');

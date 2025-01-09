@@ -464,6 +464,64 @@
                         </table>
                     </div>
 
+                    <div class="flex flex-wrap">
+
+                        <h2 class="w-full flex">Carências De Saúde:</h2>
+                        <div class="flex w-[55%] flex-wrap">
+                            <div class="w-full">
+                                <input type="text">
+                                <span class="text-sm">Urgência, Emergência E Acidentes Pessoais</span>
+                            </div>
+
+                            <div class="w-full">
+                                <input type="text">
+                                <span class="text-sm">Consultas Médicas, Exames Médicos Simples</span>
+
+                            </div>
+
+                            <div class="w-full">
+                                <input type="text">
+                                <span class="text-sm">Exames Cardiologicos, Exames De Imagem, Oftalmológicos, Otorrino Simples, Raio X, Ultrassonografia</span>
+
+                            </div>
+
+                            <div class="w-full">
+                                <input type="text">
+                                <span class="text-sm">
+                                    Cirurgias, Internaçõesz Exames De Alto Custo, Tratamento Psicológico, Terapia Ocupacional, Fisioterapia
+                                </span>
+
+                            </div>
+                        </div>
+
+
+                       <div class="flex w-[45%] flex-wrap">
+
+                           <div class="w-full">
+                               <input type="text">
+                               <span class="text-sm">Parto</span>
+                           </div>
+
+                           <div class="w-full">
+                               <input type="text">
+                               <span class="text-sm">Doenças E Lesões Pré-Existentes</span>
+                           </div>
+
+                       </div>
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
                     <button class="salvar_coparticipacao text-white w-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Salvar</button>
 
 

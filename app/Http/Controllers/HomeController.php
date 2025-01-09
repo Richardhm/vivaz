@@ -123,10 +123,541 @@ class HomeController extends Controller
             "total_sincofarma" => number_format($total_sincofarma,2,",","."),
             "total_valor" => number_format($total_valor,2,",",".")
         ];
+    }
+
+
+
+    public function dashboardRankingSemestral(Request $request)
+    {
+        $semestreSelecionado = $request->valor;
+        $semestre = explode("/",$semestreSelecionado);
+        $ano = $semestre[1];
+        if ($semestre[0] == 1) {
+            // Primeiro semestre (de janeiro a junho)
+            $startDate = $ano . "-01-01";
+            $endDate = $ano . "-06-30";
+        } else {
+            // Segundo semestre (de julho a dezembro)
+            $startDate = $ano . "-07-01";
+            $endDate = $ano . "-12-31";
+        }
+        $ranking = DB::select(
+            "
+            select
+            users.name as usuario,
+            users.image AS imagem,
+            (
+                       (select if(sum(quantidade_vidas)>0,sum(quantidade_vidas),0) from clientes
+							  INNER JOIN contratos ON contratos.cliente_id = clientes.id
+
+							  where clientes.user_id = comissoes.user_id AND
+							  contratos.created_at BETWEEN '$startDate' AND '$endDate')
+                       +
+                       (select if(sum(quantidade_vidas)>0,sum(quantidade_vidas),0) from contrato_empresarial
+
+							  where contrato_empresarial.user_id = comissoes.user_id AND
+							  contrato_empresarial.created_at BETWEEN '$startDate' AND '$endDate')
+            ) as quantidade,
+            (
+                       (select if(sum(valor_adesao)>0,sum(valor_adesao),0) from clientes
+							  INNER JOIN contratos ON contratos.cliente_id = clientes.id
+
+							  where clientes.user_id = comissoes.user_id AND
+							  contratos.created_at BETWEEN '$startDate' AND '$endDate')
+                       +
+                       (select if(sum(valor_plano)>0,sum(valor_plano),0) from contrato_empresarial
+
+							  where contrato_empresarial.user_id = comissoes.user_id AND
+							  contrato_empresarial.created_at BETWEEN '$startDate' AND '$endDate')
+            ) as valor
+            from comissoes
+
+            inner join users on users.id = comissoes.user_id
+
+            group by user_id order by quantidade desc
+            "
+        );
+        $semestre_a = "$semestre[0]/$ano";
+        return view('home.tabela-semestral',[
+            "ranking" => $ranking,
+            "semestre_as" => $semestre_a
+
+        ]);
+
+    }
+
+    public function dashboardRankingano(Request $request)
+    {
+        $ano = $request->valor;
+        $ranking = DB::select(
+            "
+            select
+            users.name as usuario,
+            users.image AS imagem,
+            (
+                       (select if(sum(quantidade_vidas)>0,sum(quantidade_vidas),0) from clientes
+							  INNER JOIN contratos ON contratos.cliente_id = clientes.id
+							  where clientes.user_id = comissoes.user_id AND
+							  YEAR(contratos.created_at) = '$ano')
+                       +
+                       (select if(sum(quantidade_vidas)>0,sum(quantidade_vidas),0) from contrato_empresarial
+							  where contrato_empresarial.user_id = comissoes.user_id AND
+							  YEAR(contrato_empresarial.created_at) = '$ano')
+            ) as quantidade,
+            (
+                       (select if(sum(valor_adesao)>0,sum(valor_adesao),0) from clientes
+							  INNER JOIN contratos ON contratos.cliente_id = clientes.id
+
+							  where clientes.user_id = comissoes.user_id AND
+							  YEAR(contratos.created_at) = '$ano')
+                       +
+                       (select if(sum(valor_plano)>0,sum(valor_plano),0) from contrato_empresarial
+
+							  where contrato_empresarial.user_id = comissoes.user_id AND
+							  YEAR(contrato_empresarial.created_at) = '$ano')
+            ) as valor
+            from comissoes
+            inner join users on users.id = comissoes.user_id
+
+            group by user_id order by quantidade desc
+            "
+        );
+        return view('home.tabela-ano',[
+            "ranking" => $ranking,
+            "ano" => $ano
+        ]);
+    }
+
+    public function dashboardTabelaRankingmes(Request $request)
+    {
+        $mes_atual = explode("/",$request->valor)[0];
+        $ano_atual = explode("/",$request->valor)[1];
+        $dados = DB::select(
+            "
+            SELECT
+                u.name AS user_name,
+                SUM(CASE WHEN co.empresarial = 0 AND co.plano_id = 1 AND MONTH(c.created_at) = $mes_atual AND YEAR(c.created_at) = $ano_atual THEN cl.quantidade_vidas ELSE 0 END) AS individual,
+                SUM(CASE WHEN co.empresarial = 0 AND co.plano_id = 3 AND MONTH(c.created_at) = $mes_atual AND YEAR(c.created_at) = $ano_atual THEN cl.quantidade_vidas ELSE 0 END) AS coletivo,
+                SUM(CASE WHEN co.empresarial = 1 AND co.plano_id = 4 AND MONTH(ce.created_at) = $mes_atual AND YEAR(ce.created_at) = $ano_atual THEN ce.quantidade_vidas ELSE 0 END) AS pme,
+                SUM(CASE WHEN co.empresarial = 1 AND co.plano_id = 5 AND MONTH(ce.created_at) = $mes_atual AND YEAR(ce.created_at) = $ano_atual THEN ce.quantidade_vidas ELSE 0 END) AS super_simples,
+                SUM(CASE WHEN co.empresarial = 1 AND co.plano_id = 6 AND MONTH(ce.created_at) = $mes_atual AND YEAR(ce.created_at) = $ano_atual THEN ce.quantidade_vidas ELSE 0 END) AS sindipao,
+                SUM(CASE WHEN co.empresarial = 1 AND co.plano_id = 9 AND MONTH(ce.created_at) = $mes_atual AND YEAR(ce.created_at) = $ano_atual THEN ce.quantidade_vidas ELSE 0 END) AS sindimaco,
+                SUM(CASE WHEN co.empresarial = 1 AND co.plano_id = 13 AND MONTH(ce.created_at) = $mes_atual AND YEAR(ce.created_at) = $ano_atual THEN ce.quantidade_vidas ELSE 0 END) AS sincofarma,
+                SUM(COALESCE(
+                    CASE WHEN co.empresarial = 0 AND co.plano_id IN (1, 3) AND MONTH(c.created_at) = $mes_atual AND YEAR(c.created_at) = $ano_atual THEN cl.quantidade_vidas
+                         WHEN co.empresarial = 1 AND co.plano_id IN (4, 5, 6, 9, 13) AND MONTH(ce.created_at) = $mes_atual AND YEAR(ce.created_at) = $ano_atual THEN ce.quantidade_vidas
+                         ELSE 0
+                    END, 0
+                )) AS total
+            FROM
+                comissoes AS co
+            LEFT JOIN
+                contratos AS c ON c.id = co.contrato_id
+            LEFT JOIN
+                clientes AS cl ON cl.id = c.cliente_id
+            LEFT JOIN
+                contrato_empresarial AS ce ON ce.id = co.contrato_empresarial_id
+            LEFT JOIN
+                users AS u ON u.id = co.user_id
+            WHERE
+                u.ativo = 1
+            GROUP BY
+                u.id
+            ORDER BY
+                total DESC;
+            ");
+
+        $total_coletivo_quantidade_vidas = Cliente::select("*")
+            ->join('contratos','contratos.cliente_id','=','clientes.id')
+            ->where("contratos.plano_id",3)
+            ->whereMonth("contratos.created_at",$mes_atual)->whereYear("contratos.created_at",$ano_atual)
+            ->sum('quantidade_vidas');
+
+        $total_individual_quantidade_vidas = Cliente::select("*")
+            ->join('contratos','contratos.cliente_id','=','clientes.id')
+            ->where("contratos.plano_id",1)
+            ->whereMonth("contratos.created_at",$mes_atual)->whereYear("contratos.created_at",$ano_atual)
+            ->sum('quantidade_vidas');
+
+        $total_super_simples_quantidade_vidas = ContratoEmpresarial::where("plano_id",5)
+            ->whereMonth("created_at",$mes_atual)->whereYear("created_at",$ano_atual)
+            ->sum('quantidade_vidas');
+
+        $total_sindipao_quantidade_vidas = ContratoEmpresarial::where("plano_id",6)
+            ->whereMonth("created_at",$mes_atual)->whereYear("created_at",$ano_atual)
+            ->sum('quantidade_vidas');
+
+        $total_sindimaco_quantidade_vidas = ContratoEmpresarial::where("plano_id",9)
+            ->whereMonth("created_at",$mes_atual)->whereYear("created_at",$ano_atual)
+            ->sum('quantidade_vidas');
+
+        $total_sincofarma_quantidade_vidas = ContratoEmpresarial::where("plano_id",13)
+            ->whereMonth("created_at",$mes_atual)->whereYear("created_at",$ano_atual)
+            ->sum('quantidade_vidas');
+
+
+        return [
+            "page" => view('home.tabela-geral',[
+                "dados" => $dados
+            ])->render(),
+            "total_coletivo_quantidade_vidas" => $total_coletivo_quantidade_vidas,
+            "total_individual_quantidade_vidas" => $total_individual_quantidade_vidas,
+            "total_super_simples_quantidade_vidas" => $total_super_simples_quantidade_vidas,
+            "total_sindipao_quantidade_vidas" => $total_sindipao_quantidade_vidas,
+            "total_sindimaco_quantidade_vidas" => $total_sindimaco_quantidade_vidas,
+            "total_sincofarma_quantidade_vidas" => $total_sincofarma_quantidade_vidas
+        ];
+
+    }
+
+
+
+
+
+
+
+    public function dashboardRankingmes(Request $request)
+    {
+        $dados = $request->valor;
+        $mes = explode("/",$dados)[0];
+        $ano = explode("/",$dados)[1];
+
+        $ranking = DB::select(
+            "
+            select
+            users.name as usuario,
+            users.image AS imagem,
+            (
+                       (select if(sum(quantidade_vidas)>0,sum(quantidade_vidas),0) from clientes
+							  INNER JOIN contratos ON contratos.cliente_id = clientes.id
+
+							  where clientes.user_id = comissoes.user_id AND
+							  MONTH(contratos.created_at) = '$mes' AND YEAR(contratos.created_at) = '$ano')
+                       +
+                       (select if(sum(quantidade_vidas)>0,sum(quantidade_vidas),0) from contrato_empresarial
+
+							  where contrato_empresarial.user_id = comissoes.user_id AND
+							  MONTH(contrato_empresarial.created_at) = '$mes' AND YEAR(contrato_empresarial.created_at) = '$ano')
+            ) as quantidade,
+            (
+                       (select if(sum(valor_adesao)>0,sum(valor_adesao),0) from clientes
+							  INNER JOIN contratos ON contratos.cliente_id = clientes.id
+
+							  where clientes.user_id = comissoes.user_id AND
+							  MONTH(contratos.created_at) = '$mes' AND YEAR(contratos.created_at) = '$ano')
+                       +
+                       (select if(sum(valor_plano)>0,sum(valor_plano),0) from contrato_empresarial
+
+							  where contrato_empresarial.user_id = comissoes.user_id AND
+							  MONTH(contrato_empresarial.created_at) = '$mes' AND YEAR(contrato_empresarial.created_at) = '$ano')
+            ) as valor
+            from comissoes
+
+            inner join users on users.id = comissoes.user_id
+
+            group by user_id order by quantidade desc
+            "
+        );
+
+        $mesesSelect = DB::select(
+            "
+                SELECT *
+                    FROM (
+                        SELECT
+                            DATE_FORMAT(created_at, '%m/%Y') AS month_date,
+                            CONCAT(
+                                CASE
+                                    WHEN MONTH(created_at) = 1 THEN 'Janeiro'
+                                    WHEN MONTH(created_at) = 2 THEN 'Fevereiro'
+                                    WHEN MONTH(created_at) = 3 THEN 'Março'
+                                    WHEN MONTH(created_at) = 4 THEN 'Abril'
+                                    WHEN MONTH(created_at) = 5 THEN 'Maio'
+                                    WHEN MONTH(created_at) = 6 THEN 'Junho'
+                                    WHEN MONTH(created_at) = 7 THEN 'Julho'
+                                    WHEN MONTH(created_at) = 8 THEN 'Agosto'
+                                    WHEN MONTH(created_at) = 9 THEN 'Setembro'
+                                    WHEN MONTH(created_at) = 10 THEN 'Outubro'
+                                    WHEN MONTH(created_at) = 11 THEN 'Novembro'
+                                    WHEN MONTH(created_at) = 12 THEN 'Dezembro'
+                                END,
+                                '/',
+                                YEAR(created_at)
+                            ) AS month_name_and_year,
+                            YEAR(created_at) AS year,
+                            MONTH(created_at) AS month
+                        FROM contratos
+                        WHERE created_at IS NOT NULL
+                        GROUP BY YEAR(created_at), MONTH(created_at)
+                    ) AS subquery
+                    ORDER BY year DESC, month DESC;
+          ");
+
+        return view('home.tabela-mes',[
+            "ranking" => $ranking,
+            "mes" => $mes,
+            "ano" => $ano,
+            "data_atual" => $mes."/".$ano,
+            "mesesSelect" => $mesesSelect
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function dashboardAno(Request $request)
+    {
+        $ano = $request->ano;
+        $total_coletivo_quantidade_vidas = Cliente::select("*")
+            ->join('contratos', 'contratos.cliente_id', '=', 'clientes.id')
+            ->where("contratos.plano_id", 3)
+            ->whereYear("contratos.created_at", $ano)
+            ->sum('quantidade_vidas');
+
+        $total_individual = Contrato
+            ::where("plano_id",1)
+            ->whereYear("contratos.created_at", $ano)
+
+            ->sum('valor_adesao');
+
+        $total_coletivo = Contrato::where("plano_id",3)
+            ->whereYear("contratos.created_at", $ano)
+
+            ->sum('valor_adesao');
+
+        $total_ss = ContratoEmpresarial::where('plano_id',5)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('valor_plano');//SS
+
+        $total_sindipao = ContratoEmpresarial::where('plano_id',6)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('valor_plano');//Sindipão
+
+        $total_sindimaco = ContratoEmpresarial::where('plano_id',9)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('valor_plano');//Sindimaco
+        $total_sincofarma = ContratoEmpresarial::where('plano_id',13)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('valor_plano');//Sincofarma
+
+        $valor_adesao_col_ind = Contrato::
+
+        whereYear("created_at",$ano)
+            ->sum('valor_adesao');
+
+        $valor_plano_empresar = ContratoEmpresarial::
+
+        whereYear("created_at",$ano)
+            ->sum('valor_plano');
+        $total_valor = $valor_adesao_col_ind + $valor_plano_empresar;
+
+
+
+
+
+
+        $total_individual_quantidade_vidas = Cliente::select("*")
+            ->join('contratos', 'contratos.cliente_id', '=', 'clientes.id')
+            ->where("contratos.plano_id", 1)
+            ->whereYear("contratos.created_at", $ano)
+
+            ->sum('quantidade_vidas');
+
+
+
+
+
+
+        $total_super_simples_quantidade_vidas = ContratoEmpresarial::where("plano_id",5)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('quantidade_vidas');
+
+
+        $total_sindipao_quantidade_vidas = ContratoEmpresarial::where("plano_id",6)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('quantidade_vidas');
+
+        $total_sindimaco_quantidade_vidas = ContratoEmpresarial::where("plano_id",9)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('quantidade_vidas');
+
+        $total_sincofarma_quantidade_vidas = ContratoEmpresarial::where("plano_id",13)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+
+            ->sum('quantidade_vidas');
+
+        $quantidade_vidas_mes = $total_coletivo_quantidade_vidas + $total_individual_quantidade_vidas + $total_super_simples_quantidade_vidas
+            + $total_sindipao_quantidade_vidas + $total_sindimaco_quantidade_vidas + $total_sincofarma_quantidade_vidas;
+
+
+
+
+
+        return [
+            "total_coletivo_quantidade_vidas" => $total_coletivo_quantidade_vidas,
+            "total_individual_quantidade_vidas" => $total_individual_quantidade_vidas,
+            "total_super_simples_quantidade_vidas" => $total_super_simples_quantidade_vidas,
+            "total_sindipao_quantidade_vidas" => $total_sindipao_quantidade_vidas,
+            "total_sindimaco_quantidade_vidas" => $total_sindimaco_quantidade_vidas,
+            "total_sincofarma_quantidade_vidas" => $total_sincofarma_quantidade_vidas,
+            "quantidade_vidas_ano" => $quantidade_vidas_mes,
+
+            "total_individual" => number_format($total_individual,2,",","."),
+            "total_coletivo" => number_format($total_coletivo,2,",","."),
+            "total_ss" => number_format($total_ss,2,",","."),
+            "total_sindipao" => number_format($total_sindipao,2,",","."),
+            "total_sindimaco" => number_format($total_sindimaco,2,",","."),
+            "total_sincofarma" => number_format($total_sincofarma,2,",","."),
+            "total_valor" => number_format($total_valor,2,",",".")
+        ];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function dashboardSemestre(Request $request)
+    {
+        $semestreSelecionado = $request->semestre;
+        $semestreArray = explode("/", $semestreSelecionado);
+        $semestre = $semestreArray[0];
+        $ano = $semestreArray[1];
+
+        $startDate = "";
+        $endDate = "";
+
+        if ($semestre == 1) {
+            // Primeiro semestre (de janeiro a junho)
+            $startDate = $ano . "-01-01";
+            $endDate = $ano . "-06-30";
+        } else {
+            // Segundo semestre (de julho a dezembro)
+            $startDate = $ano . "-07-01";
+            $endDate = $ano . "-12-31";
+        }
+
+        $total_coletivo_quantidade_vidas = Cliente::select("*")
+            ->join('contratos', 'contratos.cliente_id', '=', 'clientes.id')
+            ->where("contratos.plano_id", 3)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereBetween("contratos.created_at", [$startDate, $endDate])
+            ->sum('quantidade_vidas');
+
+        $total_individual_quantidade_vidas = Cliente::select("*")
+            ->join('contratos','contratos.cliente_id','=','clientes.id')
+            ->where("contratos.plano_id",1)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereBetween("contratos.created_at", [$startDate, $endDate])
+            ->sum('quantidade_vidas');
+
+
+        $total_super_simples_quantidade_vidas = ContratoEmpresarial::where("plano_id",5)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('quantidade_vidas');
+
+
+        $total_sindipao_quantidade_vidas = ContratoEmpresarial::where("plano_id",6)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('quantidade_vidas');
+
+        $total_sindimaco_quantidade_vidas = ContratoEmpresarial::where("plano_id",9)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('quantidade_vidas');
+
+        $total_sincofarma_quantidade_vidas = ContratoEmpresarial::where("plano_id",13)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('quantidade_vidas');
+
+
+        $total_semestre_vidas = $total_coletivo_quantidade_vidas +
+            $total_individual_quantidade_vidas +
+            $total_super_simples_quantidade_vidas +
+            $total_sindipao_quantidade_vidas +
+            $total_sindimaco_quantidade_vidas +
+            $total_sincofarma_quantidade_vidas;
+
+        $total_individual = Contrato::where("plano_id",1)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereBetween("contratos.created_at", [$startDate, $endDate])
+            ->sum('valor_adesao');
+        $total_coletivo = Contrato::where("plano_id",3)
+            ->whereYear("contratos.created_at", $ano)
+            ->whereBetween("contratos.created_at", [$startDate, $endDate])
+            ->sum('valor_adesao');
+
+        $total_ss = ContratoEmpresarial::where('plano_id',5)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('valor_plano');//SS
+
+        $total_sindipao = ContratoEmpresarial::where('plano_id',6)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('valor_plano');//Sindipão
+
+        $total_sindimaco = ContratoEmpresarial::where('plano_id',9)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('valor_plano');//Sindimaco
+
+        $total_sincofarma = ContratoEmpresarial::where('plano_id',13)
+            ->whereYear("contrato_empresarial.created_at", $ano)
+            ->whereBetween("contrato_empresarial.created_at", [$startDate, $endDate])
+            ->sum('valor_plano');//Sincofarma
+
+
+
+
+
+        return [
+            "total_coletivo_quantidade_vidas" => $total_coletivo_quantidade_vidas,
+            "total_individual_quantidade_vidas" => $total_individual_quantidade_vidas,
+            "total_super_simples_quantidade_vidas" => $total_super_simples_quantidade_vidas,
+            "total_sindipao_quantidade_vidas" => $total_sindipao_quantidade_vidas,
+            "total_sindimaco_quantidade_vidas" => $total_sindimaco_quantidade_vidas,
+            "total_sincofarma_quantidade_vidas" => $total_sincofarma_quantidade_vidas,
+            "total_semestre" => $total_semestre_vidas,
+
+            "total_individual" => number_format($total_individual,2,",","."),
+            "total_coletivo" => number_format($total_coletivo,2,",","."),
+            "total_ss" => number_format($total_ss,2,",","."),
+            "total_sindipao" => number_format($total_sindipao,2,",","."),
+            "total_sindimaco" => number_format($total_sindimaco,2,",","."),
+            "total_sincofarma" => number_format($total_sincofarma,2,",",".")
+        ];
+
 
 
 
     }
+
 
 
 
@@ -485,7 +1016,7 @@ class HomeController extends Controller
             from comissoes
 
             inner join users on users.id = comissoes.user_id
-            where ranking = 1
+
             group by user_id order by quantidade desc
             "
         );
@@ -519,7 +1050,7 @@ class HomeController extends Controller
             ) as valor
             from comissoes
             inner join users on users.id = comissoes.user_id
-            where ranking = 1
+
             group by user_id order by quantidade desc
             "
         );
