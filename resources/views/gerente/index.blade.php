@@ -4861,8 +4861,12 @@
 
                 let id = $(this).attr('data-id');
                 let valor = $(this).val();
+
                 let valor_plano = $(this).closest("tr").children("td:nth-child(6)").text();
                 let self = $(this);
+                if(valor == 0) {
+                    self.closest("tr").find(".porcentagem_change").val(0);
+                }
                 $.ajax({
                     url:"{{route('gerente.mudar.valor.pago')}}",
                     method:"POST",
