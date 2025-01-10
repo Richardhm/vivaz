@@ -7804,6 +7804,14 @@ comissoes_corretores_lancadas.data_baixa AS data_baixa,
             $id = $request->id;
 
             $alt = ComissoesCorretoresLancadas::where("id",$request->default_corretor)->first();
+            if($porcentagem == 0) {
+                $contrato = Contrato::find(Comissoes::find($alt->comissoes_id)->contrato_id);
+                $contrato->desconto_corretor = 0;
+                $contrato->save();
+            }
+
+
+
             $alt->valor = $resultado;
             $alt->porcentagem_paga = $request->valor;
 

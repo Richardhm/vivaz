@@ -4891,11 +4891,9 @@
                 let default_corretor = $(this).attr('data-id');
                 let self = $(this);
 
-                console.log("id ",id);
-                console.log("valor ",valor);
-                console.log("valor_plano ",valor_plano);
-                console.log("default_corretor ",default_corretor);
-
+                if(valor == 0) {
+                    self.closest('tr').find('.porcentagem_change').val(0);
+                }
 
 
                 $.ajax({
