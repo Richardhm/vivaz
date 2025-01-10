@@ -7854,6 +7854,13 @@ comissoes_corretores_lancadas.data_baixa AS data_baixa,
         $valor_plano =  str_replace(["R$ ",".",","],["","","."],$request->valor_plano);
         $porcentagem = round(($valor / $valor_plano) * 100,2);
         $alt = ComissoesCorretoresLancadas::where("id",$id)->first();
+
+        $contrato = Contrato::find(Comissoes::find($alt->comissoes_id)->contrato_id);
+        if($valor == 0) {
+            $contrato->desconto_corretor = 0;
+            $contrato->save();
+        }
+
         $alt->valor = $valor;
         $alt->porcentagem_paga = $porcentagem;
         $alt->save();
